@@ -10,4 +10,5 @@ SUBDIRS = src
 OTHER_FILES += \
     .gitignore \
     beautify.sh \
+    LICENSE \
     astyle.opt
