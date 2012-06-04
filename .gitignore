@@ -1,0 +1,8 @@
+Inverita
+Inverita.pro.user
+mocs/
+objs/
+doc/
+Makefile
+qrc_resources.cpp
+

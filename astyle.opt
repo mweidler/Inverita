@@ -1,0 +1,266 @@
+# Artistic style source code formatter options
+# Taken from the help output of version 2.02.1
+#
+#
+# Bracket Style Options:
+# ---------------------------------------------------------------------------
+#    --style=allman
+#    --style=ansi
+#    --style=bsd
+#    --style=break
+#    Allman style formatting/indenting.
+#    Broken brackets.
+#
+#    --style=java
+#    --style=attach
+#    Java style formatting/indenting.
+#    Attached brackets.
+#
+#    --style=kr
+#    --style=k&r
+#    --style=k/r
+#    Kernighan & Ritchie style formatting/indenting.
+#    Linux brackets.
+#
+#    --style=stroustrup
+#    Stroustrup style formatting/indenting.
+#    Stroustrup brackets.
+#
+#    --style=whitesmith
+#    Whitesmith style formatting/indenting.
+#    Broken, indented brackets.
+#    Indented class blocks and switch blocks.
+#
+#    --style=banner
+#    Banner style formatting/indenting.
+#    Attached, indented brackets.
+#    Indented class blocks and switch blocks.
+#
+#    --style=gnu
+#    GNU style formatting/indenting.
+#    Broken brackets, indented blocks.
+#
+    --style=linux
+#    Linux style formatting/indenting.
+#    Linux brackets, minimum conditional indent is one-half indent.
+#
+#    --style=horstmann
+#    Horstmann style formatting/indenting.
+#    Run-in brackets, indented switches.
+#
+#    --style=1tbs
+#    --style=otbs
+#    One True Brace Style formatting/indenting.
+#    Linux brackets, add brackets to all conditionals.
+#
+#    --style=pico
+#    Pico style formatting/indenting.
+#    Run-in opening brackets and attached closing brackets.
+#    Uses keep one line blocks and keep one line statements.
+#
+#    --style=lisp
+#    Lisp style formatting/indenting.
+#    Attached opening brackets and attached closing brackets.
+#    Uses keep one line statements.
+#
+#
+# Tab Options:
+# ---------------------------------------------------------------------------
+#    default indent option
+#    If no indentation option is set,
+#    the default option of 4 spaces will be used.
+#
+    --indent=spaces=4
+#    Indent using # spaces per indent. Not specifying #
+#    will result in a default of 4 spaces per indent.
+#
+#    --indent=tab
+#    Indent using tab characters, assuming that each
+#    tab is # spaces long. Not specifying # will result
+#    in a default assumption of 4 spaces per tab.
+#
+#    --indent=force-tab=#
+#    Indent using tab characters, assuming that each
+#    tab is # spaces long. Force tabs to be used in areas
+#    Astyle would prefer to use spaces.
+#
+#
+# Indentation options:
+# ---------------------------------------------------------------------------
+#    --indent-classes
+#    Indent 'class' blocks, so that the inner 'public:',
+#    'protected:' and 'private: headers are indented in
+#    relation to the class block.
+#
+    --indent-switches
+#    Indent 'switch' blocks, so that the inner 'case XXX:'
+#    headers are indented in relation to the switch block.
+#
+    --indent-cases
+#    Indent case blocks from the 'case XXX:' headers.
+#    Case statements not enclosed in blocks are NOT indented.
+#
+#    --indent-namespaces
+#    Indent the contents of namespace blocks.
+#
+#    --indent-labels
+#    Indent labels so that they appear one indent less than
+#    the current indentation level, rather than being
+#    flushed completely to the left (which is the default).
+#
+    --indent-preprocessor
+#    Indent multi-line #define statements.
+#
+    --indent-col1-comments
+#    Indent line comments that start in column one.
+#
+#    --min-conditional-indent=#
+#    Indent a minimal # spaces in a continuous conditional
+#    belonging to a conditional header.
+#    The valid values are:
+#    0 - no minimal indent.
+#    1 - indent at least one additional indent.
+#    2 - indent at least two additional indents.
+#    3 - indent at least one-half an additional indent.
+#    The default value is 2, two additional indents.
+#
+#    --max-instatement-indent=#
+#    Indent a maximal # spaces in a continuous statement,
+#    relative to the previous line.
+#    The valid values are 40 thru 120.
+#    The default value is 40.
+#
+#
+# Padding options:
+# ---------------------------------------------------------------------------
+#    --break-blocks
+#    Insert empty lines around unrelated blocks, labels, classes, ...
+#
+#    --break-blocks=all
+#    Like --break-blocks, except also insert empty lines
+#    around closing headers (e.g. 'else', 'catch', ...).
+#
+    --pad-oper
+#    Insert space paddings around operators.
+#
+#    --pad-paren
+#    Insert space padding around parenthesis on both the outside
+#    and the inside.
+#
+#    --pad-paren-out
+#    Insert space padding around parenthesis on the outside only.
+#
+#    --pad-paren-in
+#    Insert space padding around parenthesis on the inside only.
+#
+    --pad-header
+#    Insert space padding after paren headers (e.g. 'if', 'for'...).
+#
+    --unpad-paren
+#    Remove unnecessary space padding around parenthesis.  This
+#    can be used in combination with the 'pad' options above.
+#
+#    --delete-empty-lines
+#    Delete empty lines within a function or method.
+#    It will NOT delete lines added by the break-blocks options.
+#
+#    --fill-empty-lines
+#    Fill empty lines with the white space of their
+#    previous lines.
+#
+#
+# Formatting options:
+# ---------------------------------------------------------------------------
+#    --break-closing-brackets
+#    Break brackets before closing headers (e.g. 'else', 'catch', ...).
+#    Use with --brackets=attach, --brackets=linux, --brackets=stroustrup.
+#
+#    --break-elseifs
+#    Break 'else if()' statements into two different lines.
+#
+    --add-brackets
+#    Add brackets to unbracketed one line conditional statements.
+#
+#    --add-one-line-brackets
+#    Add one line brackets to unbracketed one line conditional
+#    statements.
+#
+#    --keep-one-line-blocks
+#    Don't break blocks residing completely on one line.
+#
+#    --keep-one-line-statements
+#    Don't break lines containing multiple statements into
+#    multiple single-statement lines.
+#
+#    --convert-tabs
+#    Convert tabs to the appropriate number of spaces.
+#
+#    --align-pointer=type
+#    --align-pointer=middle
+    --align-pointer=name
+#    Attach a pointer or reference operator (* or &) to either
+#    the operator type (left), middle, or operator name (right).
+#    To align the reference separately use --align-reference.
+#
+#    --align-reference=none
+#    --align-reference=type
+#    --align-reference=middle
+    --align-reference=name
+#    Attach a reference operator (&) to either
+#    the operator type (left), middle, or operator name (right).
+#    If not set, follow pointer alignment.
+#
+#    --mode=c
+#    Indent a C or C++ source file (this is the default).
+#
+#    --mode=java
+#    Indent a Java source file.
+#
+#    --mode=cs
+#    Indent a C# source file.
+#
+#
+# Other options:
+# ---------------------------------------------------------------------------
+#    --suffix=####
+#    Append the suffix #### instead of '.orig' to original filename.
+#
+    --suffix=none
+#    Do not retain a backup of the original file.
+#
+#    --recursive
+#    Process subdirectories recursively.
+#
+#    --exclude=####
+#    Specify a file or directory #### to be excluded from processing.
+#
+#    ignore-exclude-errors
+#    Allow processing to continue if there are errors in the exclude=###
+#    options. It will display the unmatched excludes.
+#
+#    ignore-exclude-errors-x
+#    Allow processing to continue if there are errors in the exclude=###
+#    options. It will NOT display the unmatched excludes.
+#
+#    --errors-to-stdout
+#    Print errors and help information to standard-output rather than
+#    to standard-error.
+#
+#    --preserve-date
+#    The date and time modified will not be changed in the formatted file.
+#
+#    --verbose
+#    Verbose mode. Extra informational messages will be displayed.
+#
+#    --formatted
+#    Formatted display mode. Display only the files that have been formatted.
+#
+#    --quiet
+#    Quiet mode. Suppress all output except error messages.
+#
+#    --lineend=windows
+#    --lineend=linux
+#    --lineend=macold
+#    Force use of the specified line end style. Valid options
+#    are windows (CRLF), linux (LF), and macold (CR).
+#-
