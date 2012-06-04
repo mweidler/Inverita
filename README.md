@@ -1,7 +1,7 @@
 INVERITA Personal Backup Software
 =================================
 
-1. LICENCSE
+1. LICENSE
 -----------
 
 Copyright (C) 2012  Marc Weidler <marc.weidler@web.de>,
