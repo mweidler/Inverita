@@ -36,14 +36,14 @@
 #include <QLabel>
 #include <QTimer>
 
-#include "AlvaraEngine.h"
+#include "WorkerEngine.h"
 
 class ProgressDialogUI : public QDialog
 {
     Q_OBJECT
 
 public:
-    ProgressDialogUI(AlvaraEngine *model, QWidget *parent = 0);
+    ProgressDialogUI(WorkerEngine *model, QWidget *parent = 0);
     ~ProgressDialogUI();
 
 public slots:
@@ -57,7 +57,7 @@ protected:
     void closeEvent(QCloseEvent *event);
 
 private:
-    AlvaraEngine   *m_model;
+    WorkerEngine   *m_model;
     QList<QLabel *> m_labelList;
     QProgressBar   *m_progressBar;
     QLabel         *m_labelRemaining;

@@ -66,7 +66,7 @@ int BackupEngine::remainingSeconds()
 void BackupEngine::select(const QString &backupPath)
 {
     m_backupRootPath = backupPath;
-    qDebug() << "Alvara backup selected: " << m_backupRootPath;
+    qDebug() << "Backup selected: " << m_backupRootPath;
 }
 
 
@@ -84,7 +84,7 @@ void BackupEngine::start()
 
     try {
         m_config.reset();
-        m_config.Load(m_backupRootPath + "/alvara.conf");
+        m_config.Load(m_backupRootPath + "/inverita.conf");
 
         m_currentTask = 0;
         scanDirectories();
@@ -108,7 +108,7 @@ void BackupEngine::start()
 
 
 // abort() can not be called via event loop (connect), because
-// the alvara thread blocks its event queue.
+// the worker thread blocks its event queue.
 void BackupEngine::abort()
 {
     qDebug() << "BackupEngine: abort requested";

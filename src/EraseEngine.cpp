@@ -91,7 +91,7 @@ void EraseEngine::start()
 }
 
 // abort() can not be called via event loop (connect), because
-// the alvara thread blocks its event queue.
+// the thread blocks its event queue.
 void EraseEngine::abort()
 {
     qDebug() << "EraseEngine: abort requested";

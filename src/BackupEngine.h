@@ -37,9 +37,9 @@
 #include "Configuration.h"
 #include "CopyTraverser.h"
 #include "ScanTraverser.h"
-#include "AlvaraEngine.h"
+#include "WorkerEngine.h"
 
-class BackupEngine : public AlvaraEngine
+class BackupEngine : public WorkerEngine
 {
     Q_OBJECT
 

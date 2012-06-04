@@ -33,7 +33,7 @@
 #include <QHBoxLayout>
 
 #include "ControlUI.h"
-#include "AlvaraEngine.h"
+
 
 /*******************************************************************************
 * Create a new BackupSelectorUI component with GUI elements

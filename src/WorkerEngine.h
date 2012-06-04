@@ -1,5 +1,5 @@
 /*
- * AlvaraEngine.cpp
+ * WorkerEngine.h
  *
  * Copyright (c) 2012, Marc Weidler <marc.weidler@web.de>
  * Ulrichstr. 12/1, 71672 Marbach, Germany
@@ -28,45 +28,49 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef HEADER_WORKERENGINE_INC
+#define HEADER_WORKERENGINE_INC
 
-#include "AlvaraEngine.h"
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
+#include "ApplicationException.h"
 
-AlvaraEngine::AlvaraEngine()
+class WorkerEngine : public QObject
 {
-    reset();
-}
+    Q_OBJECT
 
-void AlvaraEngine::reset()
-{
-    m_currentTask = 0;
-    m_abort = false;
-    m_descriptions.clear();
-}
+public:
+    WorkerEngine();
 
-int AlvaraEngine::taskCount()
-{
-    return m_descriptions.count();
-}
+    void    reset();
+    int     taskCount();
+    QString taskDescription(int task);
+    int     currentTask();
+    QString failureHint();
 
-QString AlvaraEngine::taskDescription(int task)
-{
-    return m_descriptions[task];
-}
+    virtual qreal completion() = 0;
+    virtual int   remainingSeconds() = 0;
 
-int AlvaraEngine::currentTask()
-{
-    return m_currentTask;
-}
+public slots:
+    virtual void start() = 0;
+    virtual void abort() = 0;
 
-QString AlvaraEngine::failureHint()
-{
-    return m_failureHint;
-}
+signals:
+    void started();
+    void finished();
+    void aborted();
+    void failed();
 
-void AlvaraEngine::buildFailureHint(ApplicationException &e)
-{
-    m_failureHint =
-        tr("Causer: ") + e.causer() + "\n" +
-        tr("Error: ") + e.errorMessage() + "\n";
-}
+protected:
+    void buildFailureHint(ApplicationException &e);
+
+protected:
+    int         m_currentTask;
+    QStringList m_descriptions;
+    bool        m_abort;
+    QString     m_failureHint;
+};
+
+#endif

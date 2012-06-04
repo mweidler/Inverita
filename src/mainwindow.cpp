@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(widget);
 
     m_backupListModel = new BackupListModel(parent);
-    m_backupListModel->Load("alvara");
+    m_backupListModel->Load("inverita");
     m_backupSelectorUI = new BackupSelectorUI(m_backupListModel, this);
 
     m_historyList = new BackupHistoryList(parent);
@@ -70,7 +70,7 @@ MainWindow::MainWindow(QWidget *parent)
     createActions();
     createMenus();
 
-    // The Alvara engine should run in its own tread to not
+    // The Worker engine should run in its own tread to not
     // block the main event queue.
     m_backupEngine = new BackupEngine();
     m_backupThread = new QThread;
@@ -177,7 +177,7 @@ void MainWindow::cancelBackupProgress()
     std::cerr << "CancelBackupProgress called\n";
 
     // abort() can not be called via event loop (connect), because
-    // the alvara thread blocks its event queue.
+    // the worker thread blocks its event queue.
     m_backupEngine->abort();
 }
 
@@ -186,7 +186,7 @@ void MainWindow::cancelEraseProgress()
     std::cerr << "CancelEraseProgress called\n";
 
     // abort() can not be called via event loop (connect), because
-    // the alvara thread blocks its event queue.
+    // the worker thread blocks its event queue.
     m_eraseEngine->abort();
 }
 

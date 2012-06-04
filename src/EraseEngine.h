@@ -34,11 +34,11 @@
 #include <QString>
 #include <QStringList>
 
-#include "AlvaraEngine.h"
+#include "WorkerEngine.h"
 #include "EraseTraverser.h"
 #include "SnapshotMetaInfo.h"
 
-class EraseEngine : public AlvaraEngine
+class EraseEngine : public WorkerEngine
 {
     Q_OBJECT
 

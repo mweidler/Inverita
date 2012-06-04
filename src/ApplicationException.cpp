@@ -1,5 +1,5 @@
 /*
- * AlvaraException.cpp
+ * ApplicationException.cpp
  *
  * Copyright (c) 2012, Marc Weidler <marc.weidler@web.de>
  * Ulrichstr. 12/1, 71672 Marbach, Germany

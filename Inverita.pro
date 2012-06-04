@@ -11,4 +11,5 @@ OTHER_FILES += \
     .gitignore \
     beautify.sh \
     LICENSE \
+    README \
     astyle.opt

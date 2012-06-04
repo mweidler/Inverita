@@ -25,7 +25,6 @@ SOURCES += main.cpp\
     ConfigurationListUI.cpp \
     ControlUI.cpp \
     ProgressDialogUI.cpp \
-    AlvaraEngine.cpp \
     Utilities.cpp \
     BackupEngine.cpp \
     EraseEngine.cpp \
@@ -37,7 +36,8 @@ SOURCES += main.cpp\
     AboutDialog.cpp \
     sha1.c \
     SignatureMap.cpp \
-    ApplicationException.cpp
+    ApplicationException.cpp \
+    WorkerEngine.cpp
 
 HEADERS  += mainwindow.h \
     BackupSelectorUI.h \
@@ -49,7 +49,6 @@ HEADERS  += mainwindow.h \
     ConfigurationListUI.h \
     ControlUI.h \
     ProgressDialogUI.h \
-    AlvaraEngine.h \
     Utilities.h \
     BackupEngine.h \
     EraseEngine.h \
@@ -61,5 +60,6 @@ HEADERS  += mainwindow.h \
     AboutDialog.h \
     sha1.h \
     SignatureMap.h \
-    ApplicationException.h
+    ApplicationException.h \
+    WorkerEngine.h
 

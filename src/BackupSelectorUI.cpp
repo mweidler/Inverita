@@ -110,7 +110,7 @@ void BackupSelectorUI::onSelect()
     QFileDialog filedialog(this);
     filedialog.setWindowTitle(tr("Select an existing backup configuration..."));
     filedialog.setFileMode(QFileDialog::ExistingFile);
-    filedialog.setNameFilter("alvara.conf");
+    filedialog.setNameFilter("inverita.conf");
     if (filedialog.exec() == QDialog::Rejected) {
         return;
     }
@@ -148,7 +148,7 @@ void BackupSelectorUI::onNew()
     }
 
     QString dirname = filedialog.selectedFiles()[0];
-    QString filename = dirname + "/" + "alvara.conf";
+    QString filename = dirname + "/" + "inverita.conf";
 
     Configuration config;
     ConfigurationUI configUI(config, this);
@@ -177,7 +177,7 @@ void BackupSelectorUI::onNew()
 void BackupSelectorUI::onConfigure()
 {
     QString dirname = m_choice->currentText();
-    QString filename = dirname + "/" + "alvara.conf";
+    QString filename = dirname + "/" + "inverita.conf";
 
     Configuration config;
     config.Load(filename);

@@ -35,7 +35,7 @@
 
 #include "ProgressDialogUI.h"
 
-ProgressDialogUI::ProgressDialogUI(AlvaraEngine *model, QWidget *parent) : QDialog(parent)
+ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, QWidget *parent) : QDialog(parent)
 {
     m_model = model;
 
