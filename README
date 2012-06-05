@@ -1,7 +1,29 @@
 INVERITA Personal Backup Software
 =================================
 
-1. LICENSE
+
+1. SUMMARY
+----------
+
+INVERITA Personal Backup tool for Unix/Linux (in the following called INVERITA)
+is a software for data backup on various media.
+
+The main features are:
+  * Backup data in snapshots
+  * Nice and user-friendly user interface
+  * Hard-link technologie for each backup snapshot to minimize the needed media space.
+  * Integrity validation of backups
+
+
+2. REQUIREMENTS
+---------------
+
+INVERITA is developed and optimized for Unix/Linux operating systems.
+It needs a file system on backup medium, that supports hard-links and meta information (user, permissions, dates). Recommended is ext4.
+It will not work in FAT/VFAT file systems.
+
+
+3. LICENSE
 -----------
 
 Copyright (C) 2012  Marc Weidler <marc.weidler@web.de>,
@@ -20,11 +42,4 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-
-2. SUMMARY
-----------
-
-INVERITA Personal Backup tool for Unix/Linux (in the following called INVERITA)
-is a software.
 
