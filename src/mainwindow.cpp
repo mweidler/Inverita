@@ -76,12 +76,19 @@ MainWindow::MainWindow(QWidget *parent)
     m_eraseEngine->moveToThread(m_eraseThread);
     m_eraseThread->start();
 
+    m_validateEngine = new ValidateEngine();
+    m_validateThread = new QThread;
+    m_validateEngine->moveToThread(m_validateThread);
+    m_validateThread->start();
+
     m_progressBackupDialog = new ProgressDialogUI(m_backupEngine, this);
     m_progressEraseDialog = new ProgressDialogUI(m_eraseEngine, this);
+    m_progressValidateDialog = new ProgressDialogUI(m_validateEngine, this);
 
     connect(m_backupSelectorUI, SIGNAL(backupSelected()), this, SLOT(onBackupSelected()));
     connect(m_backupHistoryUI, SIGNAL(reload()), this, SLOT(onBackupSelected()));
     connect(m_backupHistoryUI, SIGNAL(deleteBackup()), this, SLOT(onDeleteBackup()));
+    connect(m_backupHistoryUI, SIGNAL(validateBackup()), this, SLOT(onValidateBackup()));
 
     connect(m_controlUI, SIGNAL(backupStarted()), m_backupEngine, SLOT(start()));
     connect(m_progressBackupDialog, SIGNAL(aborted()), this, SLOT(cancelBackupProgress()));
@@ -94,6 +101,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_eraseEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
     connect(m_eraseEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
     connect(m_eraseEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
+
+    connect(this, SIGNAL(validateBackup()), m_validateEngine, SLOT(start()));
+    connect(m_progressValidateDialog, SIGNAL(aborted()), this, SLOT(cancelValidateProgress()));
+    connect(m_validateEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
+    connect(m_validateEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
+    connect(m_validateEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
 
     statusBar()->showMessage(tr("Welcome."));
 
@@ -184,6 +197,15 @@ void MainWindow::cancelEraseProgress()
     m_eraseEngine->abort();
 }
 
+void MainWindow::cancelValidateProgress()
+{
+    std::cerr << "CancelValidateProgress called\n";
+
+    // abort() can not be called via event loop (connect), because
+    // the worker thread blocks its event queue.
+    m_validateEngine->abort();
+}
+
 void MainWindow::onDeleteBackup()
 {
     int index = m_backupSelectorUI->currentSelection();
@@ -194,6 +216,18 @@ void MainWindow::onDeleteBackup()
     m_eraseEngine->select(origin + "/" + name);
     emit deleteBackup();
 }
+
+void MainWindow::onValidateBackup()
+{
+    int index = m_backupSelectorUI->currentSelection();
+    QString origin = m_backupListModel->backupList().at(index).origin;
+
+    index = m_backupHistoryUI->currentSelection();
+    QString name = m_historyList->at(index).name;
+    m_validateEngine->select(origin + "/" + name);
+    emit validateBackup();
+}
+
 
 /*! Create or update a symbolic link "latest" pointing to the
  *  latest backup

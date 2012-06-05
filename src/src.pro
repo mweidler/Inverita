@@ -37,7 +37,9 @@ SOURCES += main.cpp\
     sha1.c \
     SignatureMap.cpp \
     ApplicationException.cpp \
-    WorkerEngine.cpp
+    WorkerEngine.cpp \
+    ValidateTraverser.cpp \
+    ValidateEngine.cpp
 
 HEADERS  += mainwindow.h \
     BackupSelectorUI.h \
@@ -61,5 +63,7 @@ HEADERS  += mainwindow.h \
     sha1.h \
     SignatureMap.h \
     ApplicationException.h \
-    WorkerEngine.h
+    WorkerEngine.h \
+    ValidateTraverser.h \
+    ValidateEngine.h
 

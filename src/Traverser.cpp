@@ -64,6 +64,14 @@ void  Traverser::addIncludes(QStringList &absolutePaths)
 
 /*! Add a patterns to identify excludes.
  */
+void Traverser::addExcludes(const char *absolutePath)
+{
+    m_excludePatterns.append(absolutePath);
+}
+
+
+/*! Add a patterns to identify excludes.
+ */
 void Traverser::addExcludes(QString &absolutePath)
 {
     m_excludePatterns.append(absolutePath);
