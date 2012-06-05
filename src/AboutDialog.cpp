@@ -31,15 +31,30 @@
 
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
-    static const QString text = tr("<b>INVERITA Personal Backup</b> Version 0.1<br>"
-                                   "Copyright (c) 2012 Marc Weidler. All rights reserved.<br><br>"
-                                   "'INVERITA Personal Backup' is licensed under the BSD license (simplified, 2-clause).<br>"
-                                   "This software uses Qt library, which is copyright (c) 2011 Nokia Corp.<br>"
-                                   "This software uses parts PolarSSL library, which is copyright (c) 2011 Polar Corp.<br>"
-                                   "This software uses parts ... library, which is copyright (c) 2011 xxx Corp.<br>"
-                                  );
+    static const QString text = tr(
+      "<b>INVERITA Personal Backup</b> Version 0.1<br>"
+      "Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)<br>"
+      "All rights reserved.<br><br>"
+      "INVERITA is free software: you can redistribute it and/or modify<br>"
+      "it under the terms of the GNU General Public License as published by<br>"
+      "the Free Software Foundation, either version 3 of the License, or<br>"
+      "(at your option) any later version.<br><br>"
+      "INVERITA is distributed in the hope that it will be useful,<br>"
+      "but WITHOUT ANY WARRANTY; without even the implied warranty of<br>"
+      "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br>"
+      "GNU General Public License for more details.<br>"
+      "http://www.gnu.org/licenses/<br><br>"
+      "INVERITA uses Qt library %1<br>"
+      "Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).<br><br>"
+      "INVERITA uses parts of PolarSSL library (http://www.polarssl.org)<br>"
+      "FIPS-180-1 compliant SHA-1 implementation<br>"
+      "Copyright (C) 2006-2010, Brainspark B.V.<br><br>"
+      "INVERITA uses images from asdasd<br>"
+      "Copyright (C) 2011 xxx Corp.<br>"
+      );
 
-    QLabel *labelTitle =  new QLabel(text);
+    QLabel *labelAboutText = new QLabel(text.arg(qVersion()));
+
 
     QPixmap pixmap(":/images/backup-icon.png");
     QLabel *labelImage = new QLabel;
@@ -49,8 +64,9 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     buttonBox->addButton(QDialogButtonBox::Ok);
 
     QHBoxLayout *hlayout = new QHBoxLayout;
+    hlayout->setAlignment(Qt::AlignLeft);
     hlayout->addWidget(labelImage);
-    hlayout->addWidget(labelTitle);
+    hlayout->addWidget(labelAboutText);
 
     QVBoxLayout *masterLayout = new QVBoxLayout;
     masterLayout->setContentsMargins(20, 20, 20, 20);
@@ -60,8 +76,8 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 
-    setMinimumSize(640, 300);
-    resize(640, 300);
+    setMinimumSize(700, 500);
+    resize(700, 500);
     setWindowTitle(tr("About INVERITA Personal Backup"));
 }
 
