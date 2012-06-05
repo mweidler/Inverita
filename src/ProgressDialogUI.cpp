@@ -33,6 +33,15 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, QWidget *parent) : QDial
 {
     m_model = model;
 
+    QFont font;
+    font.setFamily("Courier");
+    font.setFixedPitch(true);
+    font.setPointSize(10);
+
+    m_textArea = new QTextEdit;
+    m_textArea->setFont(font);
+    m_textArea->setPlainText("Hallo");
+
     m_progressBar = new QProgressBar(parent);
     m_progressBar->setTextVisible(true);
     m_progressBar->setMinimum(0);
@@ -56,6 +65,7 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, QWidget *parent) : QDial
     }
     layout->addWidget(m_progressBar);
     layout->addWidget(m_labelRemaining);
+    layout->addWidget(m_textArea);
     layout->addWidget(buttonBox);
     this->setLayout(layout);
 

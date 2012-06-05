@@ -75,7 +75,7 @@ BackupHistoryUI::BackupHistoryUI(QAbstractTableModel *model, QWidget *parent) : 
     setFrameStyle(QFrame::StyledPanel);
 
     connect(m_tableView, SIGNAL(clicked(QModelIndex)), this, SLOT(OnItemSelected()));
-    connect(m_buttonValidate, SIGNAL(clicked()), this, SIGNAL(validateBackup()));
+    connect(m_buttonValidate, SIGNAL(clicked()), this, SLOT(OnValidate()));
     connect(m_buttonDelete, SIGNAL(clicked()), this, SLOT(OnDelete()));
     connect(m_buttonReload, SIGNAL(clicked()), this, SIGNAL(reload()));
 }
@@ -95,6 +95,13 @@ void BackupHistoryUI::OnItemSelected()
     m_buttonValidate->setEnabled(true);
     m_buttonDelete->setEnabled(true);
     qDebug() << "Current index" << m_tableView->currentIndex();
+}
+
+void BackupHistoryUI::OnValidate()
+{
+    emit validateBackup();
+    m_buttonValidate->setEnabled(false);
+    m_buttonDelete->setEnabled(false);
 }
 
 void BackupHistoryUI::OnDelete()

@@ -29,6 +29,7 @@
 #include <QProgressBar>
 #include <QLabel>
 #include <QTimer>
+#include <QTextEdit>
 
 #include "WorkerEngine.h"
 
@@ -57,6 +58,7 @@ private:
     QLabel         *m_labelRemaining;
     int            m_previousCurrentTask;
     QTimer         *m_timer;
+    QTextEdit      *m_textArea;
 };
 
 #endif

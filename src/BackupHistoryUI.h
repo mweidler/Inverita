@@ -44,6 +44,7 @@ signals:
 
 public slots:
     void OnItemSelected();
+    void OnValidate();
     void OnDelete();
 
 protected:
