@@ -1,6 +1,7 @@
 <!DOCTYPE RCC><RCC version="1.0">
  <qresource>
      <file>images/backup-icon.png</file>
+     <file>images/gplv3.png</file>
  </qresource>
  </RCC>
 

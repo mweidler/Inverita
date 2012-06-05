@@ -140,8 +140,9 @@ bool Traverser::isExcluded(const QString &filepath)
 {
     for (int i = 0; i < m_excludePatterns.count(); i++) {
         QRegExp rx(m_excludePatterns[i], Qt::CaseSensitive, QRegExp::Wildcard);
-        if (filepath.contains(rx))
+        if (filepath.contains(rx)) {
             return true;
+        }
     }
 
     return false;
