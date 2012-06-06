@@ -69,17 +69,17 @@ MainWindow::MainWindow(QWidget *parent)
     m_backupEngine = new BackupEngine();
     m_backupThread = new QThread;
     m_backupEngine->moveToThread(m_backupThread);
-    m_backupThread->start();
+    m_backupThread->start(QThread::IdlePriority);
 
     m_eraseEngine = new EraseEngine();
     m_eraseThread = new QThread;
     m_eraseEngine->moveToThread(m_eraseThread);
-    m_eraseThread->start();
+    m_eraseThread->start(QThread::IdlePriority);
 
     m_validateEngine = new ValidateEngine();
     m_validateThread = new QThread;
     m_validateEngine->moveToThread(m_validateThread);
-    m_validateThread->start();
+    m_validateThread->start(QThread::IdlePriority);
 
     m_progressBackupDialog = new ProgressDialogUI(m_backupEngine, ProgressDialogUI::ShowTextBox, this);
     m_progressEraseDialog = new ProgressDialogUI(m_eraseEngine, ProgressDialogUI::NoTextBox, this);
