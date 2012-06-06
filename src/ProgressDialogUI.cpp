@@ -27,7 +27,7 @@
 
 #include "ProgressDialogUI.h"
 
-ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, QWidget *parent) : QDialog(parent)
+ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, QWidget *parent) : QDialog(parent)
 {
     m_model = model;
 
@@ -63,7 +63,9 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, QWidget *parent) : QDial
     }
     layout->addWidget(m_progressBar);
     layout->addWidget(m_labelRemaining);
-    layout->addWidget(m_textArea);
+    if (type == ShowTextBox) {
+       layout->addWidget(m_textArea);
+    }
     layout->addWidget(m_buttonBox);
     this->setLayout(layout);
 

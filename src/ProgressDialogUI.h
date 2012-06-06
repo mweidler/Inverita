@@ -39,7 +39,9 @@ class ProgressDialogUI : public QDialog
     Q_OBJECT
 
 public:
-    ProgressDialogUI(WorkerEngine *model, QWidget *parent = 0);
+    enum DialogType { ShowTextBox, NoTextBox };
+
+    ProgressDialogUI(WorkerEngine *model, DialogType type = NoTextBox, QWidget *parent = 0);
     ~ProgressDialogUI();
 
 public slots:
@@ -55,13 +57,13 @@ protected:
     void closeEvent(QCloseEvent *event);
 
 private:
-    WorkerEngine   *m_model;
-    QList<QLabel *> m_labelList;
-    QProgressBar   *m_progressBar;
-    QLabel         *m_labelRemaining;
-    int            m_previousCurrentTask;
-    QTimer         *m_timer;
-    QTextEdit      *m_textArea;
+    WorkerEngine     *m_model;
+    QList<QLabel *>  m_labelList;
+    QProgressBar     *m_progressBar;
+    QLabel           *m_labelRemaining;
+    int              m_previousCurrentTask;
+    QTimer           *m_timer;
+    QTextEdit        *m_textArea;
     QDialogButtonBox *m_buttonBox;
 };
 
