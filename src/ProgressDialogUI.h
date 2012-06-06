@@ -30,6 +30,7 @@
 #include <QLabel>
 #include <QTimer>
 #include <QTextEdit>
+#include <QDialogButtonBox>
 
 #include "WorkerEngine.h"
 
@@ -43,6 +44,8 @@ public:
 
 public slots:
     void update();
+    void finalize();
+    void display(QString message);
 
 signals:
     void aborted();
@@ -59,6 +62,7 @@ private:
     int            m_previousCurrentTask;
     QTimer         *m_timer;
     QTextEdit      *m_textArea;
+    QDialogButtonBox *m_buttonBox;
 };
 
 #endif

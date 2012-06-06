@@ -22,10 +22,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
-
 #include <QVBoxLayout>
-#include <QDialogButtonBox>
+#include <QPushButton>
 
 #include "ProgressDialogUI.h"
 
@@ -36,11 +34,10 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, QWidget *parent) : QDial
     QFont font;
     font.setFamily("Courier");
     font.setFixedPitch(true);
-    font.setPointSize(10);
+    //font.setPointSize(10);
 
     m_textArea = new QTextEdit;
     m_textArea->setFont(font);
-    m_textArea->setPlainText("Hallo");
 
     m_progressBar = new QProgressBar(parent);
     m_progressBar->setTextVisible(true);
@@ -52,8 +49,9 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, QWidget *parent) : QDial
     m_timer = new QTimer(this);
     m_timer->setInterval(250);
 
-    QDialogButtonBox *buttonBox = new QDialogButtonBox();
-    buttonBox->addButton(QDialogButtonBox::Abort);
+    m_buttonBox = new QDialogButtonBox();
+    m_buttonBox->addButton(QDialogButtonBox::Abort);
+    m_buttonBox->addButton(QDialogButtonBox::Ok);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setContentsMargins(20, 20, 20, 20);
@@ -66,15 +64,16 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, QWidget *parent) : QDial
     layout->addWidget(m_progressBar);
     layout->addWidget(m_labelRemaining);
     layout->addWidget(m_textArea);
-    layout->addWidget(buttonBox);
+    layout->addWidget(m_buttonBox);
     this->setLayout(layout);
 
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
-    connect(buttonBox, SIGNAL(rejected()), this, SIGNAL(aborted()));
+    connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(m_buttonBox, SIGNAL(rejected()), this, SIGNAL(aborted()));
+    connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(close()));
     connect(m_timer, SIGNAL(timeout()), this, SLOT(update()));
     connect(m_model, SIGNAL(started()), this, SLOT(show()));
     connect(m_model, SIGNAL(aborted()), this, SLOT(close()));
-    connect(m_model, SIGNAL(finished()), this, SLOT(close()));
+    connect(m_model, SIGNAL(finished()), this, SLOT(finalize()));
 
     setMinimumSize(500, 300);
     resize(500, 300);
@@ -88,9 +87,26 @@ ProgressDialogUI::~ProgressDialogUI()
 
 }
 
+void ProgressDialogUI::display(QString message)
+{
+    m_textArea->append(message);
+}
+
+void ProgressDialogUI::finalize()
+{
+    m_timer->stop();
+    m_buttonBox->button(QDialogButtonBox::Abort)->hide();
+    m_buttonBox->button(QDialogButtonBox::Ok)->show();
+    update();
+}
+
+
 /*!\reimp */
 void ProgressDialogUI::showEvent(QShowEvent *event)
 {
+    m_buttonBox->button(QDialogButtonBox::Ok)->hide();
+    m_buttonBox->button(QDialogButtonBox::Abort)->show();
+    m_textArea->clear();
     QDialog::showEvent(event);
     m_timer->start();
 }
