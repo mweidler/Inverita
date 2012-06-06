@@ -30,6 +30,9 @@ ValidateEngine::ValidateEngine()
 {
     reset();
 
+    // tarverser and engine can emit notify signals to the progress dialog
+    connect(&m_validateTraverser, SIGNAL(notify(QString)), this, SIGNAL(notify(QString)));
+
     m_descriptions << tr("Validating all items of the selected backup snapshot");
 }
 

@@ -107,6 +107,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_validateEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
     connect(m_validateEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
     connect(m_validateEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
+    connect(m_validateEngine, SIGNAL(notify(QString)), m_progressValidateDialog, SLOT(display(QString)));
 
     statusBar()->showMessage(tr("Welcome."));
 
@@ -133,10 +134,10 @@ void MainWindow::onBackupFailed()
     qDebug() << "onBackupFailed";
     QString failure = m_backupEngine->failureHint();
 
-    QString msg = tr(
-                      "A critical error during backup execution has occured:\n\n"
-
-                  );
+    QString msg =
+            tr(
+                "A critical error during backup execution has occured:\n\n"
+              );
 
     msg += failure;
     msg += "\n";
@@ -149,7 +150,8 @@ void MainWindow::onBackupFailed()
 
                "Due to backup integrity, this backup snapshot with all\n"
                "contained folders and files should be deleted manually.\n"
-               "Please try to solve the problem and restart the backup.");
+               "Please try to solve the problem and restart the backup."
+            );
 
     QMessageBox::critical(0, tr("INVERITA execution error"), msg);
 

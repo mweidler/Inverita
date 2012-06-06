@@ -56,6 +56,7 @@ signals:
     void finished();
     void aborted();
     void failed();
+    void notify(QString message);
 
 protected:
     void buildFailureHint(ApplicationException &e);
