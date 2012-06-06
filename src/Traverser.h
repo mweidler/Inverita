@@ -54,6 +54,7 @@ public:
     void   addExcludes(QStringList &absolutePaths);
     qint64 totalFiles();
     qint64 totalSize();
+    qint64 totalErrors();
 
     virtual void onFile(const QString &absoluteFilePath);
     virtual void onEnterDir(const QString &absoluteFilePath);
@@ -62,7 +63,7 @@ public:
     virtual void onOther(const QString &absoluteFilePath);
 
 signals:
-    void notify(QString message);
+    void report(QString message);
 
 public slots:
     void traverse();
@@ -77,6 +78,7 @@ protected:
     QStringList    m_excludePatterns; //!< list of patterns to indentify excludes
     qint64         m_totalFiles;      //!< number of traversed files
     qint64         m_totalSize;       //!< size of all traversed files
+    qint64         m_totalErrors;     //!< number of errors
     bool           m_abort;           //!< flag to signal the traverser to abort as soon as possible
     QReadWriteLock m_lock;            //!< lock semaphore for thread-safe read/write to statistics
 };

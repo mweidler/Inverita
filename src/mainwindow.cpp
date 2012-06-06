@@ -107,7 +107,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_validateEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
     connect(m_validateEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
     connect(m_validateEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
-    connect(m_validateEngine, SIGNAL(notify(QString)), m_progressValidateDialog, SLOT(display(QString)));
+    connect(m_validateEngine, SIGNAL(report(QString)), m_progressValidateDialog, SLOT(display(QString)));
 
     statusBar()->showMessage(tr("Welcome."));
 

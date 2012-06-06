@@ -111,11 +111,11 @@ void ValidateTraverser::onFile(const QString &absoluteFilePath)
     hashFile(absoluteFilePath, currentHash);
 
     if (previousHash != currentHash) {
-        emit notify(absoluteFilePath + "has beed modified");
-    } else {
-        emit notify(absoluteFilePath + "is ok");
+        emit report(absoluteFilePath + " has beed modified.<br>");
+        m_totalErrors++;
     }
 
+    m_signatures.remove(key);
     m_totalFiles++;
 }
 

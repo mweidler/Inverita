@@ -41,6 +41,7 @@ void Traverser::reset()
 {
     m_totalFiles = 0;
     m_totalSize = 0;
+    m_totalErrors = 0;
     m_basePaths.clear();
     m_excludePatterns.clear();
 }
@@ -98,6 +99,13 @@ qint64 Traverser::totalFiles()
 qint64 Traverser::totalSize()
 {
     return m_totalSize;
+}
+
+/*! \returns the number of occured errors.
+ */
+qint64 Traverser::totalErrors()
+{
+    return m_totalErrors;
 }
 
 

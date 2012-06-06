@@ -37,6 +37,7 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, QWidget
     //font.setPointSize(10);
 
     m_textArea = new QTextEdit;
+    m_textArea->setReadOnly(true);
     m_textArea->setFont(font);
 
     m_progressBar = new QProgressBar(parent);
@@ -77,8 +78,8 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, QWidget
     connect(m_model, SIGNAL(aborted()), this, SLOT(close()));
     connect(m_model, SIGNAL(finished()), this, SLOT(finalize()));
 
-    setMinimumSize(500, 300);
-    resize(500, 300);
+    setMinimumSize(700, 400);
+    resize(700, 400);
     setWindowTitle(tr("Progress"));
 
     m_previousCurrentTask = -1;
@@ -91,7 +92,7 @@ ProgressDialogUI::~ProgressDialogUI()
 
 void ProgressDialogUI::display(QString message)
 {
-    m_textArea->append(message);
+    m_textArea->insertHtml(message);
 }
 
 void ProgressDialogUI::finalize()

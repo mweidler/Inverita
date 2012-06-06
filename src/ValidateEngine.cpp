@@ -30,8 +30,8 @@ ValidateEngine::ValidateEngine()
 {
     reset();
 
-    // tarverser and engine can emit notify signals to the progress dialog
-    connect(&m_validateTraverser, SIGNAL(notify(QString)), this, SIGNAL(notify(QString)));
+    // tarverser and engine can emit report signals to the progress dialog
+    connect(&m_validateTraverser, SIGNAL(report(QString)), this, SIGNAL(report(QString)));
 
     m_descriptions << tr("Validating all items of the selected backup snapshot");
 }
@@ -86,6 +86,35 @@ void ValidateEngine::start()
         buildFailureHint(e);
         emit failed();
         return;
+    }
+
+    QString msg = tr("%1 files validated, %2 errors found.") + "<br><br>";
+    msg = msg.arg(m_validateTraverser.totalFiles()).arg(m_validateTraverser.totalErrors());
+    emit report(msg);
+
+    bool corrupted = false;
+    QList<QString> keys = m_validateTraverser.signatures().keys();
+    if (keys.size() > 0) {
+        report(tr("WARNING: The following files are missing in this backup snapshot:") + "<br>");
+        for (int i = 0; i < keys.size(); i++)  {
+            report(keys[i] + "<br>");
+        }
+        report("<br>");
+        corrupted = true;
+    }
+    else {
+        report(tr("All expected files were found in this backup snapshot.") + "<br>");
+    }
+
+    if (m_validateTraverser.totalErrors()) {
+        corrupted = true;
+    }
+
+    if (corrupted) {
+        emit report(tr("WARNING: Backup snapshot is corrupted!") + "<br>");
+    }
+    else {
+        emit report(tr("Backup snapshot is valid.") + "<br>");
     }
 
     emit finished();
