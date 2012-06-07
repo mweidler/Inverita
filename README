@@ -11,7 +11,7 @@ is a software for data backup on various media.
 The main features are:
   * Backup data in snapshots
   * Nice and user-friendly user interface
-  * Hard-link technologie for each backup snapshot to minimize the needed media space.
+  * Hard-link technology for each backup snapshot to minimize needed media space.
   * Integrity validation of backups
 
 
