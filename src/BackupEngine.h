@@ -40,9 +40,7 @@ class BackupEngine : public WorkerEngine
 public:
     BackupEngine();
 
-    qreal completion();
-    int   remainingSeconds();
-
+    WorkerStatus status();
     void select(const QString &backupPath);
 
 public slots:

@@ -35,7 +35,7 @@
 
 
 /******************************************************************************
- * Container for mata information
+ * Container for meta information
  ******************************************************************************/
 typedef struct BackupHistoryEntry {
     QDateTime   execution;

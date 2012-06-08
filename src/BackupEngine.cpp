@@ -38,23 +38,25 @@ BackupEngine::BackupEngine()
 }
 
 
-qreal BackupEngine::completion()
+WorkerStatus BackupEngine::status()
 {
+    WorkerStatus st;
+
     qint64 totalFileSize = m_scanTraverser.totalSize();
 
     qDebug() << "Completion" << m_scanTraverser.totalSize() << m_copyTraverser.totalSize();
 
     if (totalFileSize == 0) {
-        return 0.0;
+        st.completion = 0.0;
     }
 
-    return ((qreal)m_copyTraverser.totalSize()) / totalFileSize;
+    st.completion = ((qreal)m_copyTraverser.totalSize()) / totalFileSize;
+    st.transfered = m_copyTraverser.totalSize();
+    st.remainingSeconds = 60 * 60;
+
+    return st;
 }
 
-int BackupEngine::remainingSeconds()
-{
-    return 60 * 60 * 2;
-}
 
 // slot, called each time a new backup has selected
 void BackupEngine::select(const QString &backupPath)

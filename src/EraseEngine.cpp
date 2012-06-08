@@ -33,20 +33,23 @@ EraseEngine::EraseEngine()
     m_descriptions << tr("Deleting all items of the selected backup snapshot");
 }
 
-qreal EraseEngine::completion()
+
+WorkerStatus EraseEngine::status()
 {
+    WorkerStatus st;
+
     // one additional file to delete: "metainfo"
     qreal expectedFiles = m_metaInfo.numberOfFiles() + 1;
 
     qDebug() << "Completion" << expectedFiles << m_eraseTraverser.totalFiles();
 
-    return m_eraseTraverser.totalFiles() / expectedFiles;
+    st.completion = m_eraseTraverser.totalFiles() / expectedFiles;
+    st.transfered = m_eraseTraverser.totalSize();
+    st.remainingSeconds = 60 * 60;
+
+    return st;
 }
 
-int EraseEngine::remainingSeconds()
-{
-    return 60 * 60 * 2;
-}
 
 void EraseEngine::select(const QString &snapshotName)
 {

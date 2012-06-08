@@ -135,9 +135,9 @@ void MainWindow::onBackupFailed()
     QString failure = m_backupEngine->failureHint();
 
     QString msg =
-            tr(
-                "A critical error during backup execution has occured:\n\n"
-              );
+        tr(
+            "A critical error during backup execution has occured:\n\n"
+        );
 
     msg += failure;
     msg += "\n";
@@ -151,7 +151,7 @@ void MainWindow::onBackupFailed()
                "Due to backup integrity, this backup snapshot with all\n"
                "contained folders and files should be deleted manually.\n"
                "Please try to solve the problem and restart the backup."
-            );
+           );
 
     QMessageBox::critical(0, tr("INVERITA execution error"), msg);
 

@@ -31,8 +31,15 @@
 #include <QTimer>
 #include <QTextEdit>
 #include <QDialogButtonBox>
+#include <QList>
+#include <QDateTime>
 
 #include "WorkerEngine.h"
+
+typedef struct ProgressHistory {
+    QDateTime time;
+    qint64    transfered;
+} ProgressHistory;
 
 class ProgressDialogUI : public QDialog
 {
@@ -65,6 +72,8 @@ private:
     QTimer           *m_timer;
     QTextEdit        *m_textArea;
     QDialogButtonBox *m_buttonBox;
+    QList<ProgressHistory> m_progressHistory;
+
 };
 
 #endif

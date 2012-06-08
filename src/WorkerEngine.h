@@ -31,6 +31,15 @@
 
 #include "ApplicationException.h"
 
+/******************************************************************************
+ * Container for meta information
+ ******************************************************************************/
+typedef struct WorkerStatus {
+    qreal  completion;
+    qint64 transfered;
+    int    remainingSeconds;
+} WorkerStatus;
+
 class WorkerEngine : public QObject
 {
     Q_OBJECT
@@ -44,8 +53,7 @@ public:
     int     currentTask();
     QString failureHint();
 
-    virtual qreal completion() = 0;
-    virtual int   remainingSeconds() = 0;
+    virtual WorkerStatus status() = 0;
 
 public slots:
     virtual void start() = 0;

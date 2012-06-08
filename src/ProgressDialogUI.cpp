@@ -22,6 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QtCore>
 #include <QVBoxLayout>
 #include <QPushButton>
 
@@ -48,7 +49,7 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, QWidget
     m_labelRemaining = new QLabel();
 
     m_timer = new QTimer(this);
-    m_timer->setInterval(250);
+    m_timer->setInterval(500);
 
     m_buttonBox = new QDialogButtonBox();
     m_buttonBox->addButton(QDialogButtonBox::Abort);
@@ -65,7 +66,7 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, QWidget
     layout->addWidget(m_progressBar);
     layout->addWidget(m_labelRemaining);
     if (type == ShowTextBox) {
-       layout->addWidget(m_textArea);
+        layout->addWidget(m_textArea);
     }
     layout->addWidget(m_buttonBox);
     this->setLayout(layout);
@@ -110,6 +111,8 @@ void ProgressDialogUI::showEvent(QShowEvent *event)
     m_buttonBox->button(QDialogButtonBox::Ok)->hide();
     m_buttonBox->button(QDialogButtonBox::Abort)->show();
     m_textArea->clear();
+    m_progressHistory.clear();
+
     QDialog::showEvent(event);
     m_timer->start();
 }
@@ -124,6 +127,9 @@ void ProgressDialogUI::closeEvent(QCloseEvent *event)
 
 void ProgressDialogUI::update()
 {
+    QString remaining;
+    QString transferRate;
+
     if (m_previousCurrentTask != m_model->currentTask()) {
         for (int i = 0; i < m_model->taskCount(); i++) {
             QString text = m_model->taskDescription(i);
@@ -136,19 +142,35 @@ void ProgressDialogUI::update()
         m_previousCurrentTask = m_model->currentTask();
     }
 
-    m_progressBar->setValue((int)(m_model->completion() * m_progressBar->maximum()));
+    WorkerStatus status = m_model->status();
+    ProgressHistory progressHistory;
+    progressHistory.time = QDateTime::currentDateTime();
+    progressHistory.transfered = status.transfered;
 
-    QString remaining;
-    if (m_model->remainingSeconds() >= 60 * 60) {
-        remaining.sprintf("%.1f ", (float)(m_model->remainingSeconds() / 60.0 / 60.0));
+    if (m_progressHistory.size() >= 5) {
+        m_progressHistory.removeFirst();
+    }
+
+    m_progressHistory.append(progressHistory);
+
+    if (m_progressHistory.size() >= 5) {
+        qint64 deltaTransfered = m_progressHistory.last().transfered - m_progressHistory.first().transfered;
+        qint64 deltaTimeMs = m_progressHistory.first().time.msecsTo(m_progressHistory.last().time);
+        transferRate.sprintf(" %s %.1f MByte/sec", tr("while transfering").toStdString().c_str(), deltaTransfered / (deltaTimeMs * 1000.0));
+    }
+
+    m_progressBar->setValue((int)(status.completion * m_progressBar->maximum()));
+
+    if (status.remainingSeconds >= 60 * 60) {
+        remaining.sprintf("%.1f ", (float)(status.remainingSeconds / 60.0 / 60.0));
         remaining += tr("hours remaining");
-    } else if (m_model->remainingSeconds() >= 120) {
-        remaining.sprintf("%d ", m_model->remainingSeconds() / 60);
+    } else if (status.remainingSeconds >= 120) {
+        remaining.sprintf("%d ", status.remainingSeconds / 60);
         remaining += tr("minutes remaining");
     } else {
-        remaining.sprintf("%d ", m_model->remainingSeconds());
+        remaining.sprintf("%d ", status.remainingSeconds);
         remaining += tr("seconds remaining");
     }
 
-    m_labelRemaining->setText(remaining);
+    m_labelRemaining->setText(remaining + transferRate);
 }

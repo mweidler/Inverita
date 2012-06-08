@@ -39,9 +39,7 @@ class EraseEngine : public WorkerEngine
 public:
     EraseEngine();
 
-    qreal completion();
-    int remainingSeconds();
-
+    WorkerStatus status();
     void select(const QString &snapshotName);
 
 public slots:

@@ -37,25 +37,26 @@ ValidateEngine::ValidateEngine()
 }
 
 
-qreal ValidateEngine::completion()
+WorkerStatus ValidateEngine::status()
 {
+    WorkerStatus st;
+
     qreal expectedSize = m_metaInfo.sizeOfFiles();
     qint64 totalSize = m_validateTraverser.totalSize();
 
     qDebug() << "Completion" << totalSize << expectedSize;
 
     if (expectedSize == 0) {
-        return 0.0;
+        st.completion = 0.0;
     }
 
-    return ((qreal)totalSize) / expectedSize;
+    st.completion = ((qreal)totalSize) / expectedSize;
+    st.transfered = m_validateTraverser.totalSize();
+    st.remainingSeconds = 60 * 60;
+
+    return st;
 }
 
-
-int ValidateEngine::remainingSeconds()
-{
-    return 60 * 60 * 2;
-}
 
 void ValidateEngine::select(const QString &snapshotName)
 {
@@ -101,8 +102,7 @@ void ValidateEngine::start()
         }
         report("<br>");
         corrupted = true;
-    }
-    else {
+    } else {
         report(tr("All expected files were found in this backup snapshot.") + "<br>");
     }
 
@@ -112,8 +112,7 @@ void ValidateEngine::start()
 
     if (corrupted) {
         emit report(tr("WARNING: Backup snapshot is corrupted!") + "<br>");
-    }
-    else {
+    } else {
         emit report(tr("Backup snapshot is valid.") + "<br>");
     }
 

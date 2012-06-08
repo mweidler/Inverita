@@ -38,9 +38,7 @@ class ValidateEngine : public WorkerEngine
 public:
     ValidateEngine();
 
-    qreal completion();
-    int remainingSeconds();
-
+    WorkerStatus status();
     void select(const QString &snapshotName);
 
 public slots:
