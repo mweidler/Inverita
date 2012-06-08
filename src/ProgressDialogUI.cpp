@@ -111,7 +111,7 @@ void ProgressDialogUI::showEvent(QShowEvent *event)
     m_buttonBox->button(QDialogButtonBox::Ok)->hide();
     m_buttonBox->button(QDialogButtonBox::Abort)->show();
     m_textArea->clear();
-    m_progressHistory.clear();
+    m_statusHistory.clear();
 
     QDialog::showEvent(event);
     m_timer->start();
@@ -127,8 +127,8 @@ void ProgressDialogUI::closeEvent(QCloseEvent *event)
 
 void ProgressDialogUI::update()
 {
-    QString remaining;
-    QString transferRate;
+    QString remainingInfo;
+    QString transferRateInfo;
 
     if (m_previousCurrentTask != m_model->currentTask()) {
         for (int i = 0; i < m_model->taskCount(); i++) {
@@ -142,35 +142,44 @@ void ProgressDialogUI::update()
         m_previousCurrentTask = m_model->currentTask();
     }
 
-    WorkerStatus status = m_model->status();
-    ProgressHistory progressHistory;
-    progressHistory.time = QDateTime::currentDateTime();
-    progressHistory.transfered = status.transfered;
 
-    if (m_progressHistory.size() >= 5) {
-        m_progressHistory.removeFirst();
+    if (m_statusHistory.size() >= 5) { // TODO: increase to 20
+        m_statusHistory.removeFirst();
     }
 
-    m_progressHistory.append(progressHistory);
+    m_statusHistory.append(m_model->status());
+    qreal completion = m_statusHistory.last().completion;
 
-    if (m_progressHistory.size() >= 5) {
-        qint64 deltaTransfered = m_progressHistory.last().transfered - m_progressHistory.first().transfered;
-        qint64 deltaTimeMs = m_progressHistory.first().time.msecsTo(m_progressHistory.last().time);
-        transferRate.sprintf(" %s %.1f MByte/sec", tr("while transfering").toStdString().c_str(), deltaTransfered / (deltaTimeMs * 1000.0));
+    if (m_statusHistory.size() >= 5) {
+        qint64 deltaTransfered = m_statusHistory.last().processed - m_statusHistory.first().processed;
+        qint64 deltaTimeMs = m_statusHistory.first().timestamp.msecsTo(m_statusHistory.last().timestamp);
+        qreal  transferRate = deltaTransfered / (deltaTimeMs * 1000.0);
+        transferRateInfo.sprintf(" %s %.1f MByte/sec",
+                                 tr("while processing").toStdString().c_str(), transferRate);
+
+        qreal deltaCompletion = completion - m_statusHistory.first().completion;
+        qreal openCompletion = 1.0 - completion;
+        qreal remainingSeconds = ((openCompletion/deltaCompletion) * deltaTimeMs) / 1000.0;
+        if (remainingSeconds >= 60 * 60) {
+            remainingInfo.sprintf("%.1f ", (float)(remainingSeconds / 60.0 / 60.0));
+            remainingInfo += tr("hours remaining");
+        } else if (remainingSeconds >= 120) {
+            remainingInfo.sprintf("%d ", (int)(remainingSeconds / 60));
+            remainingInfo += tr("minutes remaining");
+        } else {
+            remainingInfo.sprintf("%d ", (int)remainingSeconds);
+            remainingInfo += tr("seconds remaining");
+        }
+    }
+    else {
+        remainingInfo = tr("Please be patient...");
     }
 
-    m_progressBar->setValue((int)(status.completion * m_progressBar->maximum()));
-
-    if (status.remainingSeconds >= 60 * 60) {
-        remaining.sprintf("%.1f ", (float)(status.remainingSeconds / 60.0 / 60.0));
-        remaining += tr("hours remaining");
-    } else if (status.remainingSeconds >= 120) {
-        remaining.sprintf("%d ", status.remainingSeconds / 60);
-        remaining += tr("minutes remaining");
-    } else {
-        remaining.sprintf("%d ", status.remainingSeconds);
-        remaining += tr("seconds remaining");
+    if (completion >= 1.0) {
+        remainingInfo = tr("Finished.");
+        transferRateInfo.clear();
     }
 
-    m_labelRemaining->setText(remaining + transferRate);
+    m_progressBar->setValue((int)(completion * m_progressBar->maximum()));
+    m_labelRemaining->setText(remainingInfo + transferRateInfo);
 }

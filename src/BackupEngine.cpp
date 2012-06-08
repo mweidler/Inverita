@@ -41,18 +41,9 @@ BackupEngine::BackupEngine()
 WorkerStatus BackupEngine::status()
 {
     WorkerStatus st;
-
-    qint64 totalFileSize = m_scanTraverser.totalSize();
-
-    qDebug() << "Completion" << m_scanTraverser.totalSize() << m_copyTraverser.totalSize();
-
-    if (totalFileSize == 0) {
-        st.completion = 0.0;
-    }
-
-    st.completion = ((qreal)m_copyTraverser.totalSize()) / totalFileSize;
-    st.transfered = m_copyTraverser.totalSize();
-    st.remainingSeconds = 60 * 60;
+    st.timestamp  = QDateTime::currentDateTime();
+    st.completion = ((qreal)m_copyTraverser.totalSize()) / qMax(m_scanTraverser.totalSize(),(qint64)1);
+    st.processed  = m_copyTraverser.totalSize();
 
     return st;
 }

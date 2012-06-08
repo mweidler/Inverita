@@ -28,6 +28,7 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
+#include <QDateTime>
 
 #include "ApplicationException.h"
 
@@ -35,9 +36,9 @@
  * Container for meta information
  ******************************************************************************/
 typedef struct WorkerStatus {
-    qreal  completion;
-    qint64 transfered;
-    int    remainingSeconds;
+    QDateTime timestamp;
+    qreal     completion;
+    qint64    processed;
 } WorkerStatus;
 
 class WorkerEngine : public QObject

@@ -40,19 +40,9 @@ ValidateEngine::ValidateEngine()
 WorkerStatus ValidateEngine::status()
 {
     WorkerStatus st;
-
-    qreal expectedSize = m_metaInfo.sizeOfFiles();
-    qint64 totalSize = m_validateTraverser.totalSize();
-
-    qDebug() << "Completion" << totalSize << expectedSize;
-
-    if (expectedSize == 0) {
-        st.completion = 0.0;
-    }
-
-    st.completion = ((qreal)totalSize) / expectedSize;
-    st.transfered = m_validateTraverser.totalSize();
-    st.remainingSeconds = 60 * 60;
+    st.timestamp  = QDateTime::currentDateTime();
+    st.completion = ((qreal)m_validateTraverser.totalSize()) / qMax(m_metaInfo.sizeOfFiles(), (qint64)1);
+    st.processed  = m_validateTraverser.totalSize();
 
     return st;
 }
