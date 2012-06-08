@@ -143,14 +143,14 @@ void ProgressDialogUI::update()
     }
 
 
-    if (m_statusHistory.size() >= 5) { // TODO: increase to 20
+    while (m_statusHistory.size() >= 20) {
         m_statusHistory.removeFirst();
     }
 
     m_statusHistory.append(m_model->status());
     qreal completion = m_statusHistory.last().completion;
 
-    if (m_statusHistory.size() >= 5) {
+    if (m_statusHistory.size() >= 20) {
         qint64 deltaTransfered = m_statusHistory.last().processed - m_statusHistory.first().processed;
         qint64 deltaTimeMs = m_statusHistory.first().timestamp.msecsTo(m_statusHistory.last().timestamp);
         qreal  transferRate = deltaTransfered / (deltaTimeMs * 1000.0);
@@ -159,7 +159,7 @@ void ProgressDialogUI::update()
 
         qreal deltaCompletion = completion - m_statusHistory.first().completion;
         qreal openCompletion = 1.0 - completion;
-        qreal remainingSeconds = ((openCompletion/deltaCompletion) * deltaTimeMs) / 1000.0;
+        qreal remainingSeconds = ((openCompletion / deltaCompletion) * deltaTimeMs) / 1000.0;
         if (remainingSeconds >= 60 * 60) {
             remainingInfo.sprintf("%.1f ", (float)(remainingSeconds / 60.0 / 60.0));
             remainingInfo += tr("hours remaining");
@@ -170,8 +170,7 @@ void ProgressDialogUI::update()
             remainingInfo.sprintf("%d ", (int)remainingSeconds);
             remainingInfo += tr("seconds remaining");
         }
-    }
-    else {
+    } else {
         remainingInfo = tr("Please be patient...");
     }
 

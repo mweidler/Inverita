@@ -42,7 +42,7 @@ WorkerStatus BackupEngine::status()
 {
     WorkerStatus st;
     st.timestamp  = QDateTime::currentDateTime();
-    st.completion = ((qreal)m_copyTraverser.totalSize()) / qMax(m_scanTraverser.totalSize(),(qint64)1);
+    st.completion = ((qreal)m_copyTraverser.totalSize()) / qMax(m_scanTraverser.totalSize(), (qint64)1);
     st.processed  = m_copyTraverser.totalSize();
 
     return st;
