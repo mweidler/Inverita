@@ -50,8 +50,8 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
             "INVERITA uses parts of PolarSSL library (http://www.polarssl.org)<br>"
             "FIPS-180-1 compliant SHA-1 implementation<br>"
             "Copyright (C) 2006-2010, Brainspark B.V.<br><br>"
-            "INVERITA uses images from asdasd<br>"
-            "Copyright (C) 2011 xxx Corp.<br>"
+            "INVERITA uses icons from Artua (http://www.artua.com)<br>"
+            "that are free for non-commercial use.<br>"
         );
 
     QLabel *labelAboutText = new QLabel(text.arg(qVersion()));

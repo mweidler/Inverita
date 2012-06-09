@@ -77,12 +77,12 @@ QVariant BackupHistoryList::headerData(int section, Qt::Orientation orientation,
         return m_headerLabels[section];
     }
 
-    if (role == Qt::TextAlignmentRole)
-    {
-        if (section == 2 || section == 3)
-          return QVariant(Qt::AlignRight);
-        else
-          return QVariant(Qt::AlignLeft);
+    if (role == Qt::TextAlignmentRole) {
+        if (section == 2 || section == 3) {
+            return QVariant(Qt::AlignRight);
+        } else {
+            return QVariant(Qt::AlignLeft);
+        }
     }
 
     return QVariant();
@@ -96,12 +96,12 @@ QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
 {
     const BackupHistoryEntry &entry = this->at(index.row());
 
-    if (role == Qt::TextAlignmentRole)
-    {
-        if (index.column() == 2 || index.column() == 3)
-          return QVariant(Qt::AlignRight);
-        else
-          return QVariant(Qt::AlignLeft);
+    if (role == Qt::TextAlignmentRole) {
+        if (index.column() == 2 || index.column() == 3) {
+            return QVariant(Qt::AlignRight);
+        } else {
+            return QVariant(Qt::AlignLeft);
+        }
     }
 
     if (role == Qt::DisplayRole) {
