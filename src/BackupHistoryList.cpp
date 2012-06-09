@@ -22,11 +22,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QString>
+
 #include "BackupHistoryList.h"
-#include <stdlib.h>
-#include <string.h>
-#include <iostream>
+#include "SnapshotMetaInfo.h"
 
 
 /*******************************************************************************
@@ -35,8 +33,8 @@
 BackupHistoryList::BackupHistoryList(QObject *parent) : QAbstractTableModel(parent)
 {
     m_headerLabels << tr("Name") <<
-                   tr("Execution date") <<
-                   tr("Number of files") <<
+                   tr("Execution date/time") <<
+                   tr("Files") <<
                    tr("Size") <<
                    tr("Execution status");
     clear();
@@ -79,6 +77,14 @@ QVariant BackupHistoryList::headerData(int section, Qt::Orientation orientation,
         return m_headerLabels[section];
     }
 
+    if (role == Qt::TextAlignmentRole)
+    {
+        if (section == 2 || section == 3)
+          return QVariant(Qt::AlignRight);
+        else
+          return QVariant(Qt::AlignLeft);
+    }
+
     return QVariant();
 }
 
@@ -89,6 +95,14 @@ QVariant BackupHistoryList::headerData(int section, Qt::Orientation orientation,
 QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
 {
     const BackupHistoryEntry &entry = this->at(index.row());
+
+    if (role == Qt::TextAlignmentRole)
+    {
+        if (index.column() == 2 || index.column() == 3)
+          return QVariant(Qt::AlignRight);
+        else
+          return QVariant(Qt::AlignLeft);
+    }
 
     if (role == Qt::DisplayRole) {
         switch (index.column()) {
@@ -104,12 +118,21 @@ QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
                 return QVariant(entry.files);
                 break;
 
+            case 3:
+                return QVariant(entry.totalSize);
+                break;
+
+            case 4:
+                return QString("Unknown");
+                break;
+
             default:
                 return QString("Row%1, Column%2")
                        .arg(index.row() + 1)
                        .arg(index.column() + 1);
         }
     }
+
     return QVariant();
 }
 
@@ -130,19 +153,18 @@ void BackupHistoryList::investigate(QString &origin)
     for (int i = 0; i < list.size(); i++) {
         QFileInfo fileInfo = list.at(i);
 
+        qDebug() << "Investigate" << fileInfo.absoluteFilePath();
+        SnapshotMetaInfo metaInfo;
+        metaInfo.Load(fileInfo.absoluteFilePath() + "/" + "metainfo") ;
+
         BackupHistoryEntry entry;
         entry.execution = fileInfo.lastModified();
-        entry.files = i;
-        entry.totalSize = i * i;
+        entry.files = metaInfo.numberOfFiles();
+        entry.totalSize = metaInfo.sizeOfFiles();
         entry.location = fileInfo.absoluteFilePath();
         entry.name = fileInfo.fileName();
         this->append(entry);
     }
 
     endResetModel();
-
-    //QModelIndex topLeft = createIndex(0,0);
-    //QModelIndex bottomRight = createIndex(m_headerLabels.size()-1,size()-1);
-    //emit a signal to make the view reread identified data
-    //emit dataChanged(topLeft, bottomRight);
 }

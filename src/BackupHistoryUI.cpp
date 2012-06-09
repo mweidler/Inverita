@@ -38,9 +38,10 @@ BackupHistoryUI::BackupHistoryUI(QAbstractTableModel *model, QWidget *parent) : 
 
     m_tableView->verticalHeader()->hide();
     m_tableView->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
-    //tableView->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
-    m_tableView->horizontalHeader()->setResizeMode(1, QHeaderView::Stretch);
-    m_tableView->horizontalHeader()->setResizeMode(2, QHeaderView::Stretch);
+    m_tableView->horizontalHeader()->setResizeMode(0, QHeaderView::ResizeToContents);
+    m_tableView->horizontalHeader()->setResizeMode(1, QHeaderView::ResizeToContents);
+    m_tableView->horizontalHeader()->setResizeMode(2, QHeaderView::ResizeToContents);
+    m_tableView->horizontalHeader()->setResizeMode(3, QHeaderView::ResizeToContents);
     m_tableView->horizontalHeader()->setDefaultSectionSize(150);
     m_tableView->horizontalHeader()->setStretchLastSection(true);
     m_tableView->show();
