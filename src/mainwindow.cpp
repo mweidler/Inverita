@@ -112,8 +112,8 @@ MainWindow::MainWindow(QWidget *parent)
     statusBar()->showMessage(tr("Welcome."));
 
     setWindowTitle(tr("INVERITA Personal Backup"));
-    setMinimumSize(640, 480);
-    resize(800, 600);
+    setMinimumSize(800, 700);
+    resize(800, 700);
 
     onBackupSelected();
 }

@@ -5,4 +5,5 @@ objs/
 doc/
 Makefile
 qrc_resources.cpp
+staging/
 

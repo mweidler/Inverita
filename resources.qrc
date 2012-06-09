@@ -1,8 +1,8 @@
-<!DOCTYPE RCC><RCC version="1.0">
- <qresource>
-     <file>images/backup-icon.png</file>
-     <file>images/gplv3.png</file>
- </qresource>
- </RCC>
-
-
+<RCC>
+    <qresource prefix="/">
+        <file>images/backup-icon.png</file>
+        <file>images/gplv3.png</file>
+        <file>images/Copy-icon.png</file>
+        <file>images/Verify-icon.png</file>
+    </qresource>
+</RCC>

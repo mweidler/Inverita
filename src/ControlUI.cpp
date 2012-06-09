@@ -25,6 +25,7 @@
 
 #include <QPushButton>
 #include <QHBoxLayout>
+#include <QToolButton>
 
 #include "ControlUI.h"
 
@@ -35,8 +36,18 @@
 ControlUI::ControlUI(QWidget *parent) : QFrame(parent)
 {
     QLabel *description = new QLabel(tr("<b>Start</b> your backup, or verify an existing backup."));
-    QPushButton *btnCreate = new QPushButton(tr("Create\nnew\nBackup"), this);
-    QPushButton *btnVerify = new QPushButton(tr("&Verify\nexisting\nBackup"), this);
+
+    QToolButton *btnCreate = new QToolButton(this);
+    btnCreate->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    btnCreate->setText(tr("Create new backup snapshot"));
+    btnCreate->setIcon(QIcon(":/images/Copy-icon.png"));
+    btnCreate->setIconSize(QSize(96,96));
+
+    QToolButton *btnVerify = new QToolButton(this);
+    btnVerify->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    btnVerify->setText(tr("Verify last backup with origin"));
+    btnVerify->setIcon(QIcon(":/images/Verify-icon.png"));
+    btnVerify->setIconSize(QSize(96,96));
 
     QHBoxLayout *hboxlayout = new QHBoxLayout;
     hboxlayout->setMargin(5);
