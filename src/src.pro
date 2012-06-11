@@ -39,7 +39,8 @@ SOURCES += main.cpp\
     ApplicationException.cpp \
     WorkerEngine.cpp \
     ValidateTraverser.cpp \
-    ValidateEngine.cpp
+    ValidateEngine.cpp \
+    VerifyEngine.cpp
 
 HEADERS  += mainwindow.h \
     BackupSelectorUI.h \
@@ -65,5 +66,6 @@ HEADERS  += mainwindow.h \
     ApplicationException.h \
     WorkerEngine.h \
     ValidateTraverser.h \
-    ValidateEngine.h
+    ValidateEngine.h \
+    VerifyEngine.h
 

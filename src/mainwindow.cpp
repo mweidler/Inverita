@@ -81,9 +81,15 @@ MainWindow::MainWindow(QWidget *parent)
     m_validateEngine->moveToThread(m_validateThread);
     m_validateThread->start(QThread::IdlePriority);
 
+    m_verifyEngine = new VerifyEngine();
+    m_verifyThread = new QThread;
+    m_verifyEngine->moveToThread(m_verifyThread);
+    m_verifyThread->start(QThread::IdlePriority);
+
     m_progressBackupDialog = new ProgressDialogUI(m_backupEngine, ProgressDialogUI::ShowTextBox, this);
     m_progressEraseDialog = new ProgressDialogUI(m_eraseEngine, ProgressDialogUI::NoTextBox, this);
     m_progressValidateDialog = new ProgressDialogUI(m_validateEngine, ProgressDialogUI::ShowTextBox, this);
+    m_progressVerifyDialog = new ProgressDialogUI(m_verifyEngine, ProgressDialogUI::ShowTextBox, this);
 
     connect(m_backupSelectorUI, SIGNAL(backupSelected()), this, SLOT(onBackupSelected()));
     connect(m_backupHistoryUI, SIGNAL(reload()), this, SLOT(onBackupSelected()));
@@ -108,6 +114,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_validateEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
     connect(m_validateEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
     connect(m_validateEngine, SIGNAL(report(QString)), m_progressValidateDialog, SLOT(display(QString)));
+
+    connect(m_controlUI, SIGNAL(startVerify()), m_verifyEngine, SLOT(start()));
+    connect(m_progressVerifyDialog, SIGNAL(aborted()), this, SLOT(cancelVerifyProgress()));
+    connect(m_verifyEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
+    connect(m_verifyEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
+    connect(m_verifyEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
+    connect(m_verifyEngine, SIGNAL(report(QString)), m_progressVerifyDialog, SLOT(display(QString)));
 
     statusBar()->showMessage(tr("Welcome."));
 
@@ -167,6 +180,7 @@ void MainWindow::onBackupSelected()
     QString origin = m_backupListModel->backupList().at(index).origin;
     m_historyList->investigate(origin);
     m_backupEngine->select(origin);
+    m_verifyEngine->select(origin);
     updateLatestLink(origin);
 }
 
@@ -208,6 +222,15 @@ void MainWindow::cancelValidateProgress()
     m_validateEngine->abort();
 }
 
+void MainWindow::cancelVerifyProgress()
+{
+    std::cerr << "CancelVerifyProgress called\n";
+
+    // abort() can not be called via event loop (connect), because
+    // the worker thread blocks its event queue.
+    m_verifyEngine->abort();
+}
+
 void MainWindow::onDeleteBackup()
 {
     int index = m_backupSelectorUI->currentSelection();
@@ -238,7 +261,7 @@ void MainWindow::onValidateBackup()
  */
 void MainWindow::updateLatestLink(QString &absolutePath)
 {
-    qDebug() << "absolutePath" << absolutePath;
+    qDebug() << "updateLatestLink" << absolutePath;
 
     QString linkPath = absolutePath + "/latest";
     QString linkName;

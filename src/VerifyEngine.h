@@ -1,5 +1,5 @@
 /**
- * ControlUI.hpp
+ * VerifyEngine.h
  *
  * This file is part of INVERITA.
  *
@@ -22,28 +22,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADER_CONTROLUI_INC
-#define HEADER_CONTROLUI_INC
+#ifndef HEADER_VERIFYENGINE_INC
+#define HEADER_VERIFYENGINE_INC
 
-#include <QWidget>
-#include <ProgressDialogUI.h>
+#include <QString>
 
-/*****************************************************************************
-* Create a new BackupSelectorUI component with GUI elements
-*****************************************************************************/
-class ControlUI : public QFrame
+#include "WorkerEngine.h"
+#include "ValidateTraverser.h"
+#include "SnapshotMetaInfo.h"
+#include "Configuration.h"
+
+class VerifyEngine : public WorkerEngine
 {
     Q_OBJECT
 
 public:
-    ControlUI(QWidget *parent = 0);
-    ~ControlUI();
+    VerifyEngine();
 
-signals:
-    void backupStarted();
-    void startVerify();
+    WorkerStatus status();
+    void select(const QString &backupPath);
 
-private:
+public slots:
+    void start();
+    void abort();
+
+protected:
+    void executeVerification();
+
+protected:
+    QString            m_backupRootPath;
+    Configuration      m_config;
+    ValidateTraverser  m_validateTraverser;
+    SnapshotMetaInfo   m_metaInfo;
 };
 
 #endif

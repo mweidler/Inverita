@@ -112,6 +112,8 @@ void ProgressDialogUI::showEvent(QShowEvent *event)
     m_buttonBox->button(QDialogButtonBox::Abort)->show();
     m_textArea->clear();
     m_statusHistory.clear();
+    m_progressBar->reset();
+    m_labelRemaining->clear();
 
     QDialog::showEvent(event);
     m_timer->start();
@@ -149,6 +151,7 @@ void ProgressDialogUI::update()
 
     m_statusHistory.append(m_model->status());
     qreal completion = m_statusHistory.last().completion;
+    qDebug() << "Completion" << completion;
 
     if (m_statusHistory.size() >= 20) {
         qint64 deltaTransfered = m_statusHistory.last().processed - m_statusHistory.first().processed;

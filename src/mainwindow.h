@@ -34,6 +34,7 @@
 #include "BackupEngine.h"
 #include "EraseEngine.h"
 #include "ValidateEngine.h"
+#include "VerifyEngine.h"
 
 class MainWindow : public QMainWindow
 {
@@ -46,6 +47,7 @@ public:
 signals:
     void deleteBackup();
     void validateBackup();
+    void verifyBackup();
 
 public slots:
     void about();
@@ -60,6 +62,7 @@ protected slots:
     void cancelBackupProgress();
     void cancelEraseProgress();
     void cancelValidateProgress();
+    void cancelVerifyProgress();
 
 private:
     void createActions();
@@ -82,9 +85,12 @@ private:
     QThread           *m_eraseThread;
     ValidateEngine    *m_validateEngine;
     QThread           *m_validateThread;
+    VerifyEngine      *m_verifyEngine;
+    QThread           *m_verifyThread;
     ProgressDialogUI  *m_progressBackupDialog;
     ProgressDialogUI  *m_progressEraseDialog;
     ProgressDialogUI  *m_progressValidateDialog;
+    ProgressDialogUI  *m_progressVerifyDialog;
 };
 
 #endif // HEADER_MAINWINDOW_INC

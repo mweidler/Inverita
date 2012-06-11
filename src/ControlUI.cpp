@@ -66,6 +66,7 @@ ControlUI::ControlUI(QWidget *parent) : QFrame(parent)
     setFrameStyle(QFrame::StyledPanel);
 
     connect(btnCreate, SIGNAL(clicked()), this, SIGNAL(backupStarted()));
+    connect(btnVerify, SIGNAL(clicked()), this, SIGNAL(startVerify()));
 }
 
 ControlUI::~ControlUI()
