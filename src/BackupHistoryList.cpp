@@ -25,7 +25,7 @@
 
 #include "BackupHistoryList.h"
 #include "SnapshotMetaInfo.h"
-
+#include "Utilities.h"
 
 /*******************************************************************************
  * Constructor
@@ -111,7 +111,7 @@ QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
                 break;
 
             case 1:
-                return QVariant(entry.execution);
+                return QVariant(entry.execution.toString(Qt::SystemLocaleLongDate)); //entry.execution);
                 break;
 
             case 2:
@@ -119,7 +119,7 @@ QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
                 break;
 
             case 3:
-                return QVariant(entry.totalSize);
+                return HumanReadableSize(entry.totalSize);
                 break;
 
             case 4:

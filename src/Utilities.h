@@ -30,5 +30,6 @@
 int     CopyMeta(QString &reference, QString &target);
 QString ReadLink(const QString &filepath);
 QString SearchLatestBackupDir(QString absolutePath);
+QString HumanReadableSize(qint64 size);
 
 #endif

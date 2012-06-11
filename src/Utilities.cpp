@@ -122,3 +122,30 @@ QString SearchLatestBackupDir(QString absolutePath)
         return fileInfo.absoluteFilePath();
     }
 }
+
+QString HumanReadableSize(qint64 size)
+{
+    QString einheit[] = { "Byte", "KByte", "MByte", "GByte", "TByte" };
+    int     einheitIdx = 0;
+    QString stringValue;
+    qreal   value = size;
+
+    while (value >= 1024 && einheitIdx < 4) {
+        einheitIdx++;
+        value /= 1024;
+    }
+
+    if (value >= 100)
+        stringValue.sprintf("%.0f", value);
+    else if (value >= 10)
+        stringValue.sprintf("%.1f", value);
+    else
+    {
+        if (einheitIdx == 0)
+           stringValue.sprintf("%.0f", value);
+        else
+            stringValue.sprintf("%.2f", value);
+    }
+
+    return stringValue + " " + einheit[einheitIdx];
+}
