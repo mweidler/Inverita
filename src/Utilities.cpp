@@ -135,16 +135,16 @@ QString HumanReadableSize(qint64 size)
         value /= 1024;
     }
 
-    if (value >= 100)
+    if (value >= 100) {
         stringValue.sprintf("%.0f", value);
-    else if (value >= 10)
+    } else if (value >= 10) {
         stringValue.sprintf("%.1f", value);
-    else
-    {
-        if (einheitIdx == 0)
-           stringValue.sprintf("%.0f", value);
-        else
+    } else {
+        if (einheitIdx == 0) {
+            stringValue.sprintf("%.0f", value);
+        } else {
             stringValue.sprintf("%.2f", value);
+        }
     }
 
     return stringValue + " " + einheit[einheitIdx];

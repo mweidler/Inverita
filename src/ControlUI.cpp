@@ -49,9 +49,12 @@ ControlUI::ControlUI(QWidget *parent) : QFrame(parent)
     btnVerify->setIcon(QIcon(":/images/Verify-icon.png"));
     btnVerify->setIconSize(QSize(96, 96));
 
+    m_pieChart = new PieChart(parent);
+
     QHBoxLayout *hboxlayout = new QHBoxLayout;
     hboxlayout->setMargin(5);
     hboxlayout->addWidget(description, 1);
+    hboxlayout->addWidget(m_pieChart, 0);
     hboxlayout->addWidget(btnCreate, 1);
     hboxlayout->addWidget(btnVerify, 1);
     QFrame *buttonframe = new QFrame();

@@ -40,7 +40,8 @@ SOURCES += main.cpp\
     WorkerEngine.cpp \
     ValidateTraverser.cpp \
     ValidateEngine.cpp \
-    VerifyEngine.cpp
+    VerifyEngine.cpp \
+    PieChart.cpp
 
 HEADERS  += mainwindow.h \
     BackupSelectorUI.h \
@@ -67,5 +68,6 @@ HEADERS  += mainwindow.h \
     WorkerEngine.h \
     ValidateTraverser.h \
     ValidateEngine.h \
-    VerifyEngine.h
+    VerifyEngine.h \
+    PieChart.h
 

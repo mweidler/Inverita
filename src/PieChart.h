@@ -1,5 +1,5 @@
 /**
- * ControlUI.hpp
+ * PieChart.cpp
  *
  * This file is part of INVERITA.
  *
@@ -22,30 +22,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADER_CONTROLUI_INC
-#define HEADER_CONTROLUI_INC
+
+#ifndef HEADER_PIECHART_INC
+#define HEADER_PIECHART_INC
 
 #include <QWidget>
-#include <ProgressDialogUI.h>
-#include "PieChart.h"
+#include <QColor>
 
-/*****************************************************************************
-* Create a new BackupSelectorUI component with GUI elements
-*****************************************************************************/
-class ControlUI : public QFrame
+class PieChart : public QWidget
 {
     Q_OBJECT
 
 public:
-    ControlUI(QWidget *parent = 0);
-    ~ControlUI();
+    PieChart(QWidget *parent);
 
-signals:
-    void backupStarted();
-    void startVerify();
+    QSize minimumSizeHint() const;
+    QSize sizeHint() const;
+    void paintEvent(QPaintEvent *event);
 
 private:
-    PieChart *m_pieChart;
 };
 
 #endif
