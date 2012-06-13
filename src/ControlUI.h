@@ -27,7 +27,7 @@
 
 #include <QWidget>
 #include <ProgressDialogUI.h>
-#include "PieChart.h"
+#include "DriveUsageUI.h"
 
 /*****************************************************************************
 * Create a new BackupSelectorUI component with GUI elements
@@ -45,7 +45,7 @@ signals:
     void startVerify();
 
 private:
-    PieChart *m_pieChart;
+    DriveUsageUI *m_driveUsageUI;
 };
 
 #endif

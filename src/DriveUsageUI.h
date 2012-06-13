@@ -1,5 +1,5 @@
 /**
- * PieChart.cpp
+ * DriveUsageUI.h
  *
  * This file is part of INVERITA.
  *
@@ -29,18 +29,20 @@
 #include <QWidget>
 #include <QColor>
 
-class PieChart : public QWidget
+class DriveUsageUI : public QWidget
 {
     Q_OBJECT
 
 public:
-    PieChart(QWidget *parent);
+    DriveUsageUI(QWidget *parent);
 
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
     void paintEvent(QPaintEvent *event);
 
 private:
+    void drawShadow(QPainter &painter, QRect &panel, int from, int to);
+    void drawElement(QPainter &painter, QRect &panel, int from, int to, QColor color);
 };
 
 #endif

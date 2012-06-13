@@ -119,7 +119,7 @@ QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
                 break;
 
             case 3:
-                return HumanReadableSize(entry.totalSize);
+                return ScaleToSiPrefix(entry.totalSize);
                 break;
 
             case 4:

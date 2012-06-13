@@ -165,13 +165,13 @@ void ProgressDialogUI::update()
         qreal remainingSeconds = ((openCompletion / deltaCompletion) * deltaTimeMs) / 1000.0;
         if (remainingSeconds >= 60 * 60) {
             remainingInfo.sprintf("%.1f ", (float)(remainingSeconds / 60.0 / 60.0));
-            remainingInfo += tr("hours remaining");
+            remainingInfo += tr("hours estimated remaining");
         } else if (remainingSeconds >= 120) {
             remainingInfo.sprintf("%d ", (int)(remainingSeconds / 60));
-            remainingInfo += tr("minutes remaining");
+            remainingInfo += tr("minutes estimated remaining");
         } else {
             remainingInfo.sprintf("%d ", (int)remainingSeconds);
-            remainingInfo += tr("seconds remaining");
+            remainingInfo += tr("seconds estimated remaining");
         }
     } else {
         remainingInfo = tr("Please be patient...");
