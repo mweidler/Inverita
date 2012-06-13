@@ -123,16 +123,28 @@ QString SearchLatestBackupDir(QString absolutePath)
     }
 }
 
-QString HumanReadableSize(qint64 size)
+/*
+This function uses decimal prefixes (SI) for base-10 units with multiple of 1000.
+See <http://wiki.ubuntu.com/UnitsPolicy> for details.
+    1 Byte  = 1 byte
+    1 kByte = 1,000 bytes (Note: small k)
+    1 MByte = 1,000 kByte = 1,000,000 bytes
+    1 GByte = 1,000 MByte = 1,000,000 kByte = 1,000,000,000 bytes
+    1 TByte = 1,000 GByte = 1,000,000 MByte = 1,000,000,000 kByte = 1,000,000,000,000 bytes
+    1 PByte = 1,000 TByte = 1,000,000 GByte = 1,000,000,000 MByte = 1,000,000,000,000 kByte = 1,000,000,000,000,000 bytes
+*/
+QString ScaleToSiPrefix(qint64 size)
 {
-    QString einheit[] = { "Byte", "KByte", "MByte", "GByte", "TByte" };
-    int     einheitIdx = 0;
+    QStringList units;
+    int     unitIdx = 0;
     QString stringValue;
     qreal   value = size;
 
-    while (value >= 1024 && einheitIdx < 4) {
-        einheitIdx++;
-        value /= 1024;
+    units << "Byte" << "KB" << "MB" << "GB" << "TB" << "PB";
+
+    while (value >= 1000 && unitIdx < units.size()) {
+        unitIdx++;
+        value /= 1000;
     }
 
     if (value >= 100) {
@@ -140,12 +152,12 @@ QString HumanReadableSize(qint64 size)
     } else if (value >= 10) {
         stringValue.sprintf("%.1f", value);
     } else {
-        if (einheitIdx == 0) {
+        if (unitIdx == 0) {
             stringValue.sprintf("%.0f", value);
         } else {
             stringValue.sprintf("%.2f", value);
         }
     }
 
-    return stringValue + " " + einheit[einheitIdx];
+    return stringValue + " " + units[unitIdx];
 }
