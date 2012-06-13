@@ -27,7 +27,6 @@
 
 #include <QWidget>
 #include <ProgressDialogUI.h>
-#include "DriveUsageUI.h"
 
 /*****************************************************************************
 * Create a new BackupSelectorUI component with GUI elements
@@ -43,9 +42,6 @@ public:
 signals:
     void backupStarted();
     void startVerify();
-
-private:
-    DriveUsageUI *m_driveUsageUI;
 };
 
 #endif

@@ -25,8 +25,10 @@
 #include "DriveUsageUI.h"
 #include <QPainter>
 
-DriveUsageUI::DriveUsageUI(QWidget *parent) : QWidget(parent)
+DriveUsageUI::DriveUsageUI(FilesystemInfo *filesystemInfo, QWidget *parent) : QWidget(parent)
 {
+    m_filesystemInfo = filesystemInfo;
+
     setBackgroundRole(QPalette::NoRole);
     setAutoFillBackground(true);
 }
@@ -89,9 +91,11 @@ void DriveUsageUI::paintEvent(QPaintEvent * /* event */)
     QColor freeColor(0,255,150);
     QColor usedColor(255,0,0);
 
-    drawShadow(painter, panel, 90, 290);
-    drawShadow(painter, panel, 0, 90);
+    qreal usedCapacity = m_filesystemInfo->usedCapacity();
 
-    drawElement(painter, panel, 90, 290, freeColor);
-    drawElement(painter, panel, 0, 90, usedColor);
+    drawShadow(painter, panel, usedCapacity * 360, 360);
+    drawShadow(painter, panel, 0, usedCapacity * 360);
+
+    drawElement(painter, panel, usedCapacity * 360, 360, freeColor);
+    drawElement(painter, panel, 0, usedCapacity * 360, usedColor);
 }

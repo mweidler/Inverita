@@ -41,7 +41,8 @@ SOURCES += main.cpp\
     ValidateTraverser.cpp \
     ValidateEngine.cpp \
     VerifyEngine.cpp \
-    DriveUsageUI.cpp
+    DriveUsageUI.cpp \
+    FilesystemInfo.cpp
 
 HEADERS  += mainwindow.h \
     BackupSelectorUI.h \
@@ -69,5 +70,6 @@ HEADERS  += mainwindow.h \
     ValidateTraverser.h \
     ValidateEngine.h \
     VerifyEngine.h \
-    DriveUsageUI.h
+    DriveUsageUI.h \
+    FilesystemInfo.h
 

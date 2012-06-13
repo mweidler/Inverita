@@ -23,18 +23,20 @@
  */
 
 
-#ifndef HEADER_PIECHART_INC
-#define HEADER_PIECHART_INC
+#ifndef HEADER_DRIVEUSAGEUI_INC
+#define HEADER_DRIVEUSAGEUI_INC
 
 #include <QWidget>
 #include <QColor>
+
+#include "FilesystemInfo.h"
 
 class DriveUsageUI : public QWidget
 {
     Q_OBJECT
 
 public:
-    DriveUsageUI(QWidget *parent);
+    DriveUsageUI(FilesystemInfo *filesystemInfo, QWidget *parent);
 
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
@@ -43,6 +45,8 @@ public:
 private:
     void drawShadow(QPainter &painter, QRect &panel, int from, int to);
     void drawElement(QPainter &painter, QRect &panel, int from, int to, QColor color);
+
+    FilesystemInfo *m_filesystemInfo;
 };
 
 #endif

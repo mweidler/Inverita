@@ -44,6 +44,8 @@ MainWindow::MainWindow(QWidget *parent)
     QWidget *widget = new QWidget;
     setCentralWidget(widget);
 
+    m_filesystemInfo = new FilesystemInfo();
+
     m_backupListModel = new BackupListModel(parent);
     m_backupListModel->Load("inverita");
     m_backupSelectorUI = new BackupSelectorUI(m_backupListModel, this);
@@ -51,14 +53,19 @@ MainWindow::MainWindow(QWidget *parent)
     m_historyList = new BackupHistoryList(parent);
     m_backupHistoryUI = new BackupHistoryUI(m_historyList, this);
 
+    m_driveUsageUI = new DriveUsageUI(m_filesystemInfo, this);
     m_controlUI = new ControlUI(parent);
+
+    QHBoxLayout *hlayout = new QHBoxLayout;
+    hlayout->addWidget(m_driveUsageUI);
+    hlayout->addWidget(m_controlUI);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(10);
     layout->setSpacing(20);
     layout->addWidget(m_backupSelectorUI);
     layout->addWidget(m_backupHistoryUI);
-    layout->addWidget(m_controlUI);
+    layout->addLayout(hlayout);
     widget->setLayout(layout);
 
     createActions();
@@ -180,6 +187,7 @@ void MainWindow::onBackupSelected()
     int index = m_backupSelectorUI->currentSelection();
     QString origin = m_backupListModel->backupList().at(index).origin;
     m_historyList->investigate(origin);
+    m_filesystemInfo->setFile(origin);
     m_backupEngine->select(origin);
     m_verifyEngine->select(origin);
     updateLatestLink(origin);
