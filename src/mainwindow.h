@@ -61,10 +61,7 @@ public slots:
     void onBackupFailed();
 
 protected slots:
-    void cancelBackupProgress();
-    void cancelEraseProgress();
-    void cancelValidateProgress();
-    void cancelVerifyProgress();
+    void cancelProgress();
 
 private:
     void createActions();

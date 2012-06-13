@@ -47,9 +47,6 @@ public:
     qint64 freeCapacity();
     qint64 totalCapacity();
 
-//signals:
-//    void dataChanged();
-
 public slots:
     void refresh();
 

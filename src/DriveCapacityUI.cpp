@@ -31,7 +31,7 @@ DriveCapacityUI::DriveCapacityUI(AbstractDriveCapacityModel *model, QWidget *par
 
     setBackgroundRole(QPalette::NoRole);
     setAutoFillBackground(true);
-    
+
     connect(m_model, SIGNAL(dataChanged()), this, SLOT(update()));
 }
 
@@ -42,7 +42,7 @@ QSize DriveCapacityUI::minimumSizeHint() const
 
 QSize DriveCapacityUI::sizeHint() const
 {
-    return QSize(130, 130);
+    return QSize(175, 175);
 }
 
 void DriveCapacityUI::drawShadow(QPainter &painter, QRect &panel, int from, int to)
@@ -71,7 +71,8 @@ void DriveCapacityUI::drawElement(QPainter &painter, QRect &panel, int from, int
     painter.drawPie(panel, from * 16, to * 16);
 
     QString test;
-    test = "hallo";
+    test.sprintf("%.1f%%", (float)(100.0 * m_model->capacity()));
+
     painter.setBrush(color);
     painter.setPen(Qt::black);
 

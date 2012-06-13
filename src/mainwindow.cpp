@@ -104,26 +104,26 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_backupHistoryUI, SIGNAL(validateBackup()), this, SLOT(onValidateBackup()));
 
     connect(m_controlUI, SIGNAL(backupStarted()), m_backupEngine, SLOT(start()));
-    connect(m_progressBackupDialog, SIGNAL(aborted()), this, SLOT(cancelBackupProgress()));
+    connect(m_progressBackupDialog, SIGNAL(aborted()), this, SLOT(cancelProgress()));
     connect(m_backupEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
     connect(m_backupEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
     connect(m_backupEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
 
     connect(this, SIGNAL(deleteBackup()), m_eraseEngine, SLOT(start()));
-    connect(m_progressEraseDialog, SIGNAL(aborted()), this, SLOT(cancelEraseProgress()));
+    connect(m_progressEraseDialog, SIGNAL(aborted()), this, SLOT(cancelProgress()));
     connect(m_eraseEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
     connect(m_eraseEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
     connect(m_eraseEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
 
     connect(this, SIGNAL(validateBackup()), m_validateEngine, SLOT(start()));
-    connect(m_progressValidateDialog, SIGNAL(aborted()), this, SLOT(cancelValidateProgress()));
+    connect(m_progressValidateDialog, SIGNAL(aborted()), this, SLOT(cancelProgress()));
     connect(m_validateEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
     connect(m_validateEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
     connect(m_validateEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
     connect(m_validateEngine, SIGNAL(report(QString)), m_progressValidateDialog, SLOT(display(QString)));
 
     connect(m_controlUI, SIGNAL(startVerify()), m_verifyEngine, SLOT(start()));
-    connect(m_progressVerifyDialog, SIGNAL(aborted()), this, SLOT(cancelVerifyProgress()));
+    connect(m_progressVerifyDialog, SIGNAL(aborted()), this, SLOT(cancelProgress()));
     connect(m_verifyEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
     connect(m_verifyEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
     connect(m_verifyEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
@@ -204,41 +204,18 @@ void MainWindow::onBackupAborted()
     std::cerr << "onBackupAborted\n";
 }
 
-void MainWindow::cancelBackupProgress()
+void MainWindow::cancelProgress()
 {
-    std::cerr << "CancelBackupProgress called\n";
+    std::cerr << "CancelProgress called\n";
 
     // abort() can not be called via event loop (connect), because
     // the worker thread blocks its event queue.
     m_backupEngine->abort();
-}
-
-void MainWindow::cancelEraseProgress()
-{
-    std::cerr << "CancelEraseProgress called\n";
-
-    // abort() can not be called via event loop (connect), because
-    // the worker thread blocks its event queue.
     m_eraseEngine->abort();
-}
-
-void MainWindow::cancelValidateProgress()
-{
-    std::cerr << "CancelValidateProgress called\n";
-
-    // abort() can not be called via event loop (connect), because
-    // the worker thread blocks its event queue.
     m_validateEngine->abort();
-}
-
-void MainWindow::cancelVerifyProgress()
-{
-    std::cerr << "CancelVerifyProgress called\n";
-
-    // abort() can not be called via event loop (connect), because
-    // the worker thread blocks its event queue.
     m_verifyEngine->abort();
 }
+
 
 void MainWindow::onDeleteBackup()
 {
