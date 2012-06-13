@@ -46,7 +46,7 @@ public:
     Configuration();
 
     void reset();
-    void Load(QString filename);
+    bool Load(QString filename);
     void Save(QString filename);
 
     QStringList   &GetIncludes();

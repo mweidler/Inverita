@@ -37,6 +37,7 @@
 #include "BackupHistoryList.h"
 #include "AboutDialog.h"
 #include "Utilities.h"
+#include "Configuration.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -190,7 +191,15 @@ void MainWindow::onBackupSelected()
     m_filesystemInfo->setFile(origin);
     m_backupEngine->select(origin);
     m_verifyEngine->select(origin);
-    updateLatestLink(origin);
+
+    Configuration config;
+    if (config.Load(origin + "/inverita.conf")) {
+       updateLatestLink(origin);
+       m_controlUI->setEnabled(true);
+    }
+    else {
+       m_controlUI->setEnabled(false);
+    }
 }
 
 void MainWindow::onBackupFinished()

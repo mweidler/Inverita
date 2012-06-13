@@ -48,9 +48,12 @@ void Configuration::reset()
     m_maxBackups   = 50;
 }
 
-void Configuration::Load(QString filename)
+bool Configuration::Load(QString filename)
 {
     reset();
+
+    if (QFile::exists(filename) == false)
+        return false;
 
     QSettings settings(filename,  QSettings::IniFormat);
     if (settings.status() != QSettings::NoError) {
@@ -84,6 +87,8 @@ void Configuration::Load(QString filename)
     m_purgeBackups = settings.value("OPTIONS/PurgeBackups", true).toBool();
     m_limitBackups = settings.value("OPTIONS/LimitBackups", true).toBool();
     m_maxBackups   = settings.value("OPTIONS/MaxBackups", 50).toInt();
+
+    return true;
 }
 
 
