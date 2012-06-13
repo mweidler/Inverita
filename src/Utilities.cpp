@@ -126,12 +126,12 @@ QString SearchLatestBackupDir(QString absolutePath)
 /*
 This function uses decimal prefixes (SI) for base-10 units with multiple of 1000.
 See <http://wiki.ubuntu.com/UnitsPolicy> for details.
-    1 Byte  = 1 byte
-    1 kByte = 1,000 bytes (Note: small k)
-    1 MByte = 1,000 kByte = 1,000,000 bytes
-    1 GByte = 1,000 MByte = 1,000,000 kByte = 1,000,000,000 bytes
-    1 TByte = 1,000 GByte = 1,000,000 MByte = 1,000,000,000 kByte = 1,000,000,000,000 bytes
-    1 PByte = 1,000 TByte = 1,000,000 GByte = 1,000,000,000 MByte = 1,000,000,000,000 kByte = 1,000,000,000,000,000 bytes
+    1 Byte = 1 byte
+    1 kB = 1,000 bytes (Note: small k)
+    1 MB = 1,000 kByte = 1,000,000 bytes
+    1 GB = 1,000 MByte = 1,000,000 kByte = 1,000,000,000 bytes
+    1 TB = 1,000 GByte = 1,000,000 MByte = 1,000,000,000 kByte = 1,000,000,000,000 bytes
+    1 PB = 1,000 TByte = 1,000,000 GByte = 1,000,000,000 MByte = 1,000,000,000,000 kByte = 1,000,000,000,000,000 bytes
 */
 QString ScaleToSiPrefix(qint64 size)
 {
@@ -140,7 +140,7 @@ QString ScaleToSiPrefix(qint64 size)
     QString stringValue;
     qreal   value = size;
 
-    units << "Byte" << "KB" << "MB" << "GB" << "TB" << "PB";
+    units << "Byte" << "kB" << "MB" << "GB" << "TB" << "PB";
 
     while (value >= 1000 && unitIdx < units.size()) {
         unitIdx++;
