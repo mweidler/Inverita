@@ -1,5 +1,5 @@
 /**
- * DriveUsageUI.h
+ * DriveCapacityUI.h
  *
  * This file is part of INVERITA.
  *
@@ -23,20 +23,20 @@
  */
 
 
-#ifndef HEADER_DRIVEUSAGEUI_INC
-#define HEADER_DRIVEUSAGEUI_INC
+#ifndef HEADER_DRIVECAPACITYUI_INC
+#define HEADER_DRIVECAPACITYUI_INC
 
 #include <QWidget>
 #include <QColor>
 
-#include "FilesystemInfo.h"
+#include "AbstractDriveCapacityModel.h"
 
-class DriveUsageUI : public QWidget
+class DriveCapacityUI : public QWidget
 {
     Q_OBJECT
 
 public:
-    DriveUsageUI(FilesystemInfo *filesystemInfo, QWidget *parent);
+    DriveCapacityUI(AbstractDriveCapacityModel *model, QWidget *parent);
 
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
@@ -46,7 +46,7 @@ private:
     void drawShadow(QPainter &painter, QRect &panel, int from, int to);
     void drawElement(QPainter &painter, QRect &panel, int from, int to, QColor color);
 
-    FilesystemInfo *m_filesystemInfo;
+    AbstractDriveCapacityModel *m_model;
 };
 
 #endif

@@ -1,5 +1,5 @@
 /**
- * FilesystemInfo.h
+ * AbstractDriveCapacityModel.h
  *
  * This file is part of INVERITA.
  *
@@ -23,48 +23,23 @@
  */
 
 
-#ifndef HEADER_FILESYSTEMINFO_INC
-#define HEADER_FILESYSTEMINFO_INC
+#ifndef HEADER_ABSTRACTDRIVECAPACITYMODEL_INC
+#define HEADER_ABSTRACTDRIVECAPACITYMODEL_INC
 
 #include <QObject>
-#include "AbstractDriveCapacityModel.h"
 
-/*
-#ifndef __USE_FILE_OFFSET64
-   will not compile
-#endif
-
-#ifndef __USE_LARGEFILE64
-   will not compile
-#endif
-*/
-#include <sys/vfs.h>
-
-/*! Provides infos of the underlaying file system where the given file resides on.
-*/
-class FilesystemInfo : public AbstractDriveCapacityModel
+class AbstractDriveCapacityModel : public QObject
 {
     Q_OBJECT
 
 public:
-    FilesystemInfo();
-    FilesystemInfo(const QString &file);
-    void setFile(const QString &file);
+    virtual qreal capacity() = 0;
+    virtual qint64 usedCapacity() = 0;
+    virtual qint64 freeCapacity() = 0;
+    virtual qint64 totalCapacity() = 0;
 
-    qreal capacity();
-    qint64 usedCapacity();
-    qint64 freeCapacity();
-    qint64 totalCapacity();
-
-//signals:
-//    void dataChanged();
-
-public slots:
-    void refresh();
-
-private:
-    QString m_absolutePath; //!< the absolute path for the reference file
-    struct statfs m_st;     //!< file system info structure
+signals:
+    void dataChanged();
 };
 
 #endif

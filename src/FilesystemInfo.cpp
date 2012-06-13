@@ -25,35 +25,79 @@
 #include "FilesystemInfo.h"
 #include <QDebug>
 
+
+/*! Default constructor
+*/
 FilesystemInfo::FilesystemInfo()
 {
+    setFile(".");
 }
 
+
+/*! Constructor with a reference file
+ *  From now on, the file system information is based on the file system
+ *  where the reference file is located on.
+ *
+ *  \param file reference file
+ */
 FilesystemInfo::FilesystemInfo(const QString &file)
 {
     setFile(file);
 }
 
+
+/*! Set a new reference file. From now on, the file system information
+ *  is based on the file system where the reference file is located on.
+ *
+ *  \param file reference file
+ */
 void FilesystemInfo::setFile(const QString &file)
 {
     m_absolutePath = file;
-    emit changed();
+    refresh();
 }
 
-qreal FilesystemInfo::usedCapacity()
-{
-    readStat();
 
-    qreal totalSize = m_st.f_bsize * m_st.f_blocks;
-    qreal available = m_st.f_bsize * m_st.f_bavail;
-
-    qDebug() << totalSize << available << 1.0 - (totalSize / available);
-    return 1.0 - (totalSize / available);
-}
-
-void FilesystemInfo::readStat()
+/*! Reads actual information from the file system.
+ */
+void FilesystemInfo::refresh()
 {
     int rc;
+    rc = statfs(m_absolutePath.toStdString().c_str(), &m_st);
+    emit dataChanged();
+}
 
-    rc = statfs64(m_absolutePath.toStdString().c_str(), &m_st);
+
+/*! Returns the capacity of the file system.
+ *  The value is between 0 (no capacity, full) and 1 (full capacity, empty).
+ *
+ * \return capacity of the file system
+ */
+qreal FilesystemInfo::capacity()
+{
+    return 1.0 - ((qreal)usedCapacity() / totalCapacity());
+}
+
+
+/*! \return the number of used bytes in the file system.
+ */
+qint64 FilesystemInfo::usedCapacity()
+{
+    return (totalCapacity() - freeCapacity());
+}
+
+
+/*! \return the number of free/available bytes in the file system.
+ */
+qint64 FilesystemInfo::freeCapacity()
+{
+    return ((qint64)m_st.f_bsize) * m_st.f_bavail;
+}
+
+
+/*! \return the total number (size) bytes in the file system.
+ */
+qint64 FilesystemInfo::totalCapacity()
+{
+    return ((qint64)m_st.f_bsize) * m_st.f_blocks;
 }

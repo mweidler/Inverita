@@ -1,5 +1,5 @@
 /**
- * DriveUsageUI.cpp
+ * DriveCapacityUI.cpp
  *
  * This file is part of INVERITA.
  *
@@ -22,35 +22,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "DriveUsageUI.h"
+#include "DriveCapacityUI.h"
 #include <QPainter>
 
-DriveUsageUI::DriveUsageUI(FilesystemInfo *filesystemInfo, QWidget *parent) : QWidget(parent)
+DriveCapacityUI::DriveCapacityUI(AbstractDriveCapacityModel *model, QWidget *parent) : QWidget(parent)
 {
-    m_filesystemInfo = filesystemInfo;
+    m_model = model;
 
     setBackgroundRole(QPalette::NoRole);
     setAutoFillBackground(true);
+    
+    connect(m_model, SIGNAL(dataChanged()), this, SLOT(update()));
 }
 
-QSize DriveUsageUI::minimumSizeHint() const
+QSize DriveCapacityUI::minimumSizeHint() const
 {
     return QSize(100, 100);
 }
 
-QSize DriveUsageUI::sizeHint() const
+QSize DriveCapacityUI::sizeHint() const
 {
     return QSize(130, 130);
 }
 
-void DriveUsageUI::drawShadow(QPainter &painter, QRect &panel, int from, int to)
+void DriveCapacityUI::drawShadow(QPainter &painter, QRect &panel, int from, int to)
 {
     painter.setPen(Qt::darkGray);
     painter.setBrush(Qt::darkGray);
     painter.drawPie(panel.adjusted(5,5,5,5), from * 16, to * 16);
 }
 
-void DriveUsageUI::drawElement(QPainter &painter, QRect &panel, int from, int to, QColor color)
+void DriveCapacityUI::drawElement(QPainter &painter, QRect &panel, int from, int to, QColor color)
 {
     QPoint center = panel.center();
 
@@ -79,7 +81,7 @@ void DriveUsageUI::drawElement(QPainter &painter, QRect &panel, int from, int to
     painter.drawText(rotated, test);
 }
 
-void DriveUsageUI::paintEvent(QPaintEvent * /* event */)
+void DriveCapacityUI::paintEvent(QPaintEvent * /* event */)
 {
     QPainter painter(this);
 
@@ -91,11 +93,11 @@ void DriveUsageUI::paintEvent(QPaintEvent * /* event */)
     QColor freeColor(0,255,150);
     QColor usedColor(255,0,0);
 
-    qreal usedCapacity = m_filesystemInfo->usedCapacity();
+    qreal capacity = m_model->capacity();
 
-    drawShadow(painter, panel, usedCapacity * 360, 360);
-    drawShadow(painter, panel, 0, usedCapacity * 360);
+    drawShadow(painter, panel, capacity * 360, 360);
+    drawShadow(painter, panel, 0, capacity * 360);
 
-    drawElement(painter, panel, usedCapacity * 360, 360, freeColor);
-    drawElement(painter, panel, 0, usedCapacity * 360, usedColor);
+    drawElement(painter, panel, capacity * 360, 360, freeColor);
+    drawElement(painter, panel, 0, capacity * 360, usedColor);
 }

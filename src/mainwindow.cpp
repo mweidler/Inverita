@@ -53,11 +53,11 @@ MainWindow::MainWindow(QWidget *parent)
     m_historyList = new BackupHistoryList(parent);
     m_backupHistoryUI = new BackupHistoryUI(m_historyList, this);
 
-    m_driveUsageUI = new DriveUsageUI(m_filesystemInfo, this);
+    m_driveCapacityUI = new DriveCapacityUI(m_filesystemInfo, this);
     m_controlUI = new ControlUI(parent);
 
     QHBoxLayout *hlayout = new QHBoxLayout;
-    hlayout->addWidget(m_driveUsageUI);
+    hlayout->addWidget(m_driveCapacityUI);
     hlayout->addWidget(m_controlUI);
 
     QVBoxLayout *layout = new QVBoxLayout;

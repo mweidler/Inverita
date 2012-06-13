@@ -36,7 +36,7 @@
 #include "ValidateEngine.h"
 #include "VerifyEngine.h"
 #include "FilesystemInfo.h"
-#include "DriveUsageUI.h"
+#include "DriveCapacityUI.h"
 
 class MainWindow : public QMainWindow
 {
@@ -81,7 +81,7 @@ private:
     BackupHistoryUI   *m_backupHistoryUI;
 
     FilesystemInfo    *m_filesystemInfo;
-    DriveUsageUI      *m_driveUsageUI;
+    DriveCapacityUI   *m_driveCapacityUI;
     ControlUI         *m_controlUI;
     BackupEngine      *m_backupEngine;
     QThread           *m_backupThread;
