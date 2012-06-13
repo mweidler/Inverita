@@ -27,17 +27,8 @@
 #define HEADER_FILESYSTEMINFO_INC
 
 #include <QObject>
+
 #include "AbstractDriveCapacityModel.h"
-
-/*
-#ifndef __USE_FILE_OFFSET64
-   will not compile
-#endif
-
-#ifndef __USE_LARGEFILE64
-   will not compile
-#endif
-*/
 #include <sys/vfs.h>
 
 /*! Provides infos of the underlaying file system where the given file resides on.
