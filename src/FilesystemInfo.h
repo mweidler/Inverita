@@ -27,6 +27,15 @@
 #define HEADER_FILESYSTEMINFO_INC
 
 #include <QObject>
+
+#ifndef __USE_FILE_OFFSET64
+   will not compile
+#endif
+
+#ifndef __USE_LARGEFILE64
+   will not compile
+#endif
+
 #include <sys/vfs.h>
 
 class FilesystemInfo : public QObject
