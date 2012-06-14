@@ -32,7 +32,7 @@
 #include <QColor>
 
 
-/*! Draws a pie chart visualizing the used/free space of the backup drive
+/*! Draws a pie chart visualizing the used/free space of the backup drive.
  */
 class DriveCapacityUI : public QWidget
 {
@@ -46,10 +46,11 @@ public:
     void paintEvent(QPaintEvent *event);
 
 protected:
+    QPoint rotate(qreal scale, qreal angle);
     void drawShadow(QPainter &painter, QRect &panel, int from, int to);
-    void drawElement(QPainter &painter, QRect &panel, int from, int to,  QColor centerColor, QColor borderColor);
+    void drawElement(QPainter &painter, QRect &panel, int from, int to,  QColor centerColor, QColor borderColor, qreal capacity);
 
-    AbstractDriveCapacityModel *m_model;
+    AbstractDriveCapacityModel *m_model; //!< the model containing drive space information
 };
 
 #endif

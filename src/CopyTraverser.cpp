@@ -1,4 +1,4 @@
-/**
+/*
  * CopyTraverser.cpp
  *
  * This file is part of INVERITA.
@@ -275,6 +275,13 @@ void CopyTraverser::onLink(const QString &absoluteFilePath, const QString &linkN
 {
     QString source = m_currentBackupPath + absoluteFilePath;
     int rc = symlink(linkName.toStdString().c_str(), source.toStdString().c_str());
+
+    // As symlink is not documented intuitively, here is an example:
+    // e.g. symlink("abc/testfile.txt", "/home/user/xfile");
+    //
+    //      $ ls /home/user
+    //      lrwxrwxrwx 1 user users 13 May  9 07:40 xfile -> abc/testfile.txt
+     
     if (rc == -1) {
         ApplicationException e;
         e.setCauser("Create symbolic link '" + source + "' to '" + linkName + "'");

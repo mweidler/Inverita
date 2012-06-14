@@ -1,4 +1,4 @@
-/**
+/*
  * AboutDialog.cpp
  *
  * This file is part of INVERITA.
@@ -23,12 +23,17 @@
  */
 
 
-#include <QVBoxLayout>
-#include <QDialogButtonBox>
-
 #include "AboutDialog.h"
 
+#include <QBoxLayout>
+#include <QDialogButtonBox>
+#include <QLabel>
 
+
+/*! Constructs a new AboutDialog object with UI elements
+ *
+ * \param parent the parent ui element
+ */
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
     static const QString text =
@@ -55,7 +60,6 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
         );
 
     QLabel *labelAboutText = new QLabel(text.arg(qVersion()));
-
 
     QPixmap pixmap(":/images/backup-icon.png");
     QLabel *labelImage = new QLabel;
@@ -91,8 +95,10 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     setWindowTitle(tr("About INVERITA Personal Backup"));
 }
 
+
+/*! Destructor
+ */
 AboutDialog::~AboutDialog()
 {
-
 }
 

@@ -26,9 +26,10 @@
 
 #include <QPainter>
 #include <QRadialGradient>
+#include <qmath.h>
+#include <QDebug>
 
-
-/*! Constructs a new capacity visualizing object.
+/*! Constructs a new capacity visualizing widget which is a child of \em parent.
  *
  * \param model the model containing drive space information
  * \param parent the parent UI control element
@@ -44,16 +45,12 @@ DriveCapacityUI::DriveCapacityUI(AbstractDriveCapacityModel *model, QWidget *par
 }
 
 
-/*! \reimp
- */
 QSize DriveCapacityUI::minimumSizeHint() const
 {
     return QSize(100, 100);
 }
 
 
-/*! \reimp QWidget::sizeHint()
- */
 QSize DriveCapacityUI::sizeHint() const
 {
     return QSize(175, 175);
@@ -75,6 +72,20 @@ void DriveCapacityUI::drawShadow(QPainter &painter, QRect &panel, int from, int 
 }
 
 
+QPoint DriveCapacityUI::rotate(qreal scale, qreal angle)
+{
+    qreal rot = (angle+315)*3.14159265358979/180;
+
+    qreal x = ((qCos(rot) - qSin(rot))/1.41) * scale;
+    qreal y = ((qSin(rot) + qCos(rot))/1.41) * scale;
+
+    qDebug() << "rotate" << angle << x << y;
+
+    return QPoint(x,y);
+
+}
+
+
 /*! Draws the pie chart element
  *
  * \param painter the paint device
@@ -84,7 +95,7 @@ void DriveCapacityUI::drawShadow(QPainter &painter, QRect &panel, int from, int 
  * \param centerColor the color of the pie chart segment in the center
  * \param borderColor the color of the pie chart segment at the border
  */
-void DriveCapacityUI::drawElement(QPainter &painter, QRect &panel, int from, int to, QColor centerColor, QColor borderColor)
+void DriveCapacityUI::drawElement(QPainter &painter, QRect &panel, int from, int to, QColor centerColor, QColor borderColor, qreal capacity)
 {
     QPoint center = panel.center();
 
@@ -97,20 +108,18 @@ void DriveCapacityUI::drawElement(QPainter &painter, QRect &panel, int from, int
     painter.drawPie(panel, from * 16, to * 16);
 
     QString test;
-    test.sprintf("%.1f%%", (float)(100.0 * m_model->capacity()));
+    test.sprintf("%.1f%%", (float)(100.0 * capacity));
 
     painter.setBrush(borderColor);
     painter.setPen(Qt::black);
 
-    QPoint origin = center;
-    QPoint rotated = origin + QPoint(20, 20);
+    QPoint rotated = rotate(20, to-from);
 
-    painter.drawText(rotated, test);
+    painter.drawText(center + rotated, test);
+    painter.drawLine(center, rotated);
 }
 
 
-/*! \reimp
- */
 void DriveCapacityUI::paintEvent(QPaintEvent * /* event */)
 {
     QPainter painter(this);
@@ -127,9 +136,9 @@ void DriveCapacityUI::paintEvent(QPaintEvent * /* event */)
 
     qreal capacity = m_model->capacity();
 
-    drawShadow(painter, panel, capacity * 360, 360);
-    drawShadow(painter, panel, 0, capacity * 360);
+    //drawShadow(painter, panel, capacity * 360, 360);
+    //drawShadow(painter, panel, 0, capacity * 360);
 
-    drawElement(painter, panel, capacity * 360, 360, lightFreeColor, freeColor);
-    drawElement(painter, panel, 0, capacity * 360, lightUsedColor, usedColor);
+    drawElement(painter, panel, 0, capacity * 360, lightFreeColor, freeColor, m_model->capacity());
+    //drawElement(painter, panel, capacity * 360, 360, lightUsedColor, usedColor, 1-m_model->capacity());
 }

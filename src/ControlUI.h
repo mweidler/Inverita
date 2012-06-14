@@ -29,6 +29,7 @@
 #include <QWidget>
 #include <QToolButton>
 
+
 /*!
  * Control elements that contains buttons to start create or verify of a backup
  */
@@ -45,12 +46,12 @@ public:
     void setEnabledButtons(LogicalButton button, bool enabled);
 
 signals:
-    void backupStarted();
+    void backupStarted(); // TODO: rename to "startBackup"
     void startVerify();
 
 private:
-    QToolButton *m_btnCreate;
-    QToolButton *m_btnVerify;
+    QToolButton *m_btnCreate;  //!< Button to start creating a new backup snapshot
+    QToolButton *m_btnVerify;  //!< Button to start verifying an existing backup
 };
 
 #endif

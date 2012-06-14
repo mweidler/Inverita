@@ -1,4 +1,4 @@
-/**
+/*
  * FilesystemInfo.cpp
  *
  * This file is part of INVERITA.
@@ -22,19 +22,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 #include "FilesystemInfo.h"
+
 #include <QDebug>
 
 
-/*! Default constructor
-*/
+/*! Constructs a new object providing infos of the root file system.
+ *
+ *  From now on, the file system information is based on the root file system.
+ */
 FilesystemInfo::FilesystemInfo()
 {
     setFile(".");
 }
 
 
-/*! Constructor with a reference file
+/*! Constructs a new object providing infos of a given file system containing the reference file.
+ *
  *  From now on, the file system information is based on the file system
  *  where the reference file is located on.
  *
@@ -62,10 +67,12 @@ void FilesystemInfo::setFile(const QString &file)
  */
 void FilesystemInfo::refresh()
 {
-    int rc;
-
-    rc = statfs(m_absolutePath.toStdString().c_str(), &m_st);
-    emit dataChanged();
+    if (statfs(m_absolutePath.toStdString().c_str(), &m_st) == 0) {
+      emit dataChanged();
+    }
+    else {
+      memset(&m_st, 0, sizeof(m_st));
+    }
 }
 
 
@@ -76,6 +83,9 @@ void FilesystemInfo::refresh()
  */
 qreal FilesystemInfo::capacity()
 {
+    if (totalCapacity() == 0)
+      return 0.0;
+     
     return 1.0 - ((qreal)usedCapacity() / totalCapacity());
 }
 
@@ -102,3 +112,4 @@ qint64 FilesystemInfo::totalCapacity()
 {
     return ((qint64)m_st.f_bsize) * m_st.f_blocks;
 }
+

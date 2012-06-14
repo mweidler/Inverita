@@ -1,4 +1,4 @@
-/**
+/*
  * AboutDialog.h
  *
  * This file is part of INVERITA.
@@ -26,8 +26,10 @@
 #define HEADER_ABOUTDIALOG_INC
 
 #include <QDialog>
-#include <QLabel>
 
+
+/*! AboutDialog showing copyright and legal information.
+ */
 class AboutDialog : public QDialog
 {
     Q_OBJECT

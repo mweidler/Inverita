@@ -1,4 +1,4 @@
-/**
+/*
  * ApplicationException.h
  *
  * This file is part of INVERITA.
@@ -28,6 +28,9 @@
 #include <QString>
 #include <exception>
 
+
+/*! Generic expection class, working with QStrings instead of std::strings
+*/
 class ApplicationException : public std::exception
 {
 public:

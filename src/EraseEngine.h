@@ -1,4 +1,4 @@
-/**
+/*
  * EraseEngine.h
  *
  * This file is part of INVERITA.
@@ -32,6 +32,9 @@
 #include "EraseTraverser.h"
 #include "SnapshotMetaInfo.h"
 
+
+/*! Handles the whole job of erasing a backup snapshot.
+ */
 class EraseEngine : public WorkerEngine
 {
     Q_OBJECT

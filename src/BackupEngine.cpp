@@ -1,4 +1,4 @@
-/**
+/*
  * BackupEngine.cpp
  *
  * This file is part of INVERITA.
@@ -27,6 +27,9 @@
 #include "SnapshotMetaInfo.h"
 #include "Utilities.h"
 
+
+/*! Constructs a new backup engine object.
+ */
 BackupEngine::BackupEngine()
 {
     reset();
@@ -38,6 +41,14 @@ BackupEngine::BackupEngine()
 }
 
 
+/*! Returns the current \em WorkerStatus of this engine,
+ *  containing \em completion and \em processed bytes.
+ *
+ *  The worker status is requested by the progress dialog
+ *  to present the current job status to the user.
+ * 
+ *  \return the current \em WorkerStatus
+ */
 WorkerStatus BackupEngine::status()
 {
     WorkerStatus st;
@@ -49,7 +60,11 @@ WorkerStatus BackupEngine::status()
 }
 
 
-// slot, called each time a new backup has selected
+/*! Is called each time a new backup has selected (by the user)
+ *  to inform the engine of a new backup root path.
+ *
+ * \param backupPath the new backup root path
+ */
 void BackupEngine::select(const QString &backupPath)
 {
     m_backupRootPath = backupPath;
@@ -57,8 +72,11 @@ void BackupEngine::select(const QString &backupPath)
 }
 
 
-// slot called each time, the "Start Backup" button is pressed
-// Attention: this will run in a different thread scope
+/*! This slot is called each time, the "Create Backup" button is pressed
+ *  by the user and a new backup shall be created.
+ *
+ *  \em Attention: this method will run in it's own thread scope.
+ */
 void BackupEngine::start()
 {
     reset();
@@ -94,8 +112,16 @@ void BackupEngine::start()
 }
 
 
-// abort() can not be called via event loop (connect), because
-// the worker thread blocks its event queue.
+/*! This slot is called each time, the worker job (thread) should be
+ *  aborted (self-controlled by the thread). So, this call is only a
+ *  \em request to abort and does not terminate the thread immediately.
+ *  All currently running tasks should be stopped by the engine
+ *  implementation, finally emitting a \em finished-event.
+ *
+ *  \em Attention: abort() can not be called via event loop (connect),
+ *                 because the worker thread blocks its event queue.
+ *                 The calling thread will hang!
+ */
 void BackupEngine::abort()
 {
     qDebug() << "BackupEngine: abort requested";
@@ -104,6 +130,10 @@ void BackupEngine::abort()
     m_copyTraverser.abort();
 }
 
+
+/*! Sub job of the backup engine: Scans the requested directory and
+ *  counts the number of files and their size using a \em traverser.
+ */
 void BackupEngine::scanDirectories()
 {
     m_scanTraverser.addIncludes(m_config.GetIncludes());
@@ -111,6 +141,12 @@ void BackupEngine::scanDirectories()
     m_scanTraverser.traverse();
 }
 
+
+/*! Sub job of the backup engine: Copies the files and elements to the
+ *  backup directory using a \em traverser.
+ *
+ * \param timestamp of the new backup snapshot
+ */
 void BackupEngine::executeBackup(QString &timestamp)
 {
     QString previousBackup = SearchLatestBackupDir(m_backupRootPath);
@@ -132,3 +168,4 @@ void BackupEngine::executeBackup(QString &timestamp)
     meta.setSizeOfFiles(m_copyTraverser.totalSize());
     meta.Save(currentBackup + "/" + "metainfo");
 }
+

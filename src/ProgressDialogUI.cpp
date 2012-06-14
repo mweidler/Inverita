@@ -1,4 +1,4 @@
-/**
+/*
  * ProgressDialogUI.cpp
  *
  * This file is part of INVERITA.
@@ -22,12 +22,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ProgressDialogUI.h"
+
 #include <QtCore>
 #include <QVBoxLayout>
 #include <QPushButton>
 
-#include "ProgressDialogUI.h"
 
+/*! Constructs a new Progress Dialog object with UI elements
+ *
+ * \param model  the model engine interface providing status information
+ * \param type   dialog type
+ * \param parent the parent ui element
+ */
 ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, QWidget *parent) : QDialog(parent)
 {
     m_model = model;
@@ -86,16 +93,27 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, QWidget
     m_previousCurrentTask = -1;
 }
 
+
+/*! Destructor
+ */
 ProgressDialogUI::~ProgressDialogUI()
 {
 
 }
 
+
+/*! Receives string messages to be displayed in the progress dialog text area
+ *
+ * \param message the message to be added to the dialog text area
+ */
 void ProgressDialogUI::display(QString message)
 {
     m_textArea->insertHtml(message);
 }
 
+
+/*! Sigals the user, that the job has finished and the dialog can be closed by the user.
+ */
 void ProgressDialogUI::finalize()
 {
     m_timer->stop();
@@ -105,7 +123,6 @@ void ProgressDialogUI::finalize()
 }
 
 
-/*!\reimp */
 void ProgressDialogUI::showEvent(QShowEvent *event)
 {
     m_buttonBox->button(QDialogButtonBox::Ok)->hide();
@@ -119,7 +136,7 @@ void ProgressDialogUI::showEvent(QShowEvent *event)
     m_timer->start();
 }
 
-/*!\reimp */
+
 void ProgressDialogUI::closeEvent(QCloseEvent *event)
 {
     m_timer->stop();
@@ -127,6 +144,8 @@ void ProgressDialogUI::closeEvent(QCloseEvent *event)
 }
 
 
+/*! Update infos in the progress dialog.
+ */
 void ProgressDialogUI::update()
 {
     QString remainingInfo;

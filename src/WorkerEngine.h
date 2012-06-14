@@ -1,4 +1,4 @@
-/**
+/*
  * WorkerEngine.h
  *
  * This file is part of INVERITA.
@@ -32,15 +32,21 @@
 
 #include "ApplicationException.h"
 
-/******************************************************************************
- * Container for meta information
- ******************************************************************************/
+
+/*! Container for meta information
+ */
 typedef struct WorkerStatus {
     QDateTime timestamp;
     qreal     completion;
     qint64    processed;
 } WorkerStatus;
 
+
+/*! Abstract worker engine base class for several worker job classes.
+ *
+ *  Worker classes are working in a different thread and can thus work
+ *  independently and without blocking the user interface.
+ */
 class WorkerEngine : public QObject
 {
     Q_OBJECT

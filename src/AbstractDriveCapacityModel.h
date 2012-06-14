@@ -1,4 +1,4 @@
-/**
+/*
  * AbstractDriveCapacityModel.h
  *
  * This file is part of INVERITA.
@@ -28,6 +28,9 @@
 
 #include <QObject>
 
+
+/*! Data model interface providing drive capacity information.
+*/
 class AbstractDriveCapacityModel : public QObject
 {
     Q_OBJECT

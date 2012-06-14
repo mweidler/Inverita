@@ -1,4 +1,4 @@
-/**
+/*
  * BackupEngine.h
  *
  * This file is part of INVERITA.
@@ -33,6 +33,9 @@
 #include "ScanTraverser.h"
 #include "WorkerEngine.h"
 
+
+/*! Handles the whole job of creating a new backup snapshot.
+ */
 class BackupEngine : public WorkerEngine
 {
     Q_OBJECT

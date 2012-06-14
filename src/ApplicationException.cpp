@@ -1,4 +1,4 @@
-/**
+/*
  * ApplicationException.cpp
  *
  * This file is part of INVERITA.
@@ -22,6 +22,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ApplicationException.h"
+
 #include <QtCore>
 #include <QString>
 
@@ -33,42 +35,71 @@
 #include <unistd.h>
 #endif
 
-#include "ApplicationException.h"
 
+/*! Construct a new exception object
+ */
 ApplicationException::ApplicationException() throw()
 {
 }
 
+
+/*! Destructor
+ */
 ApplicationException::~ApplicationException() throw()
 {
 }
 
+
+/*! Describes, who causes the error/exception, e.g. "Write to disk"
+ *
+ * \param causer
+ */
 void ApplicationException::setCauser(QString causer)
 {
     m_causer = causer;
 }
 
+
+/*! Describes, what kind of error happened, e.g. "No rights to write to disk"
+ *
+ * \param errormsg
+ */
 void ApplicationException::setErrorMessage(QString errormsg)
 {
     m_errormsg = errormsg;
 }
 
+
+/*! Describes, what kind of error happened, e.g. "No rights to write to disk"
+ *
+ * \param errormsg
+ */
 void ApplicationException::setErrorMessage(char *errormsg)
 {
     m_errormsg = QString(errormsg);
 }
 
+
+/*! \return the causer of the error/exception
+ */
 QString &ApplicationException::causer()
 {
     return m_causer;
 }
 
+
+/*! \return the error message, describing the error/exception
+ */
 QString &ApplicationException::errorMessage()
 {
     return m_errormsg;
 }
 
+
+/*! \return legacy std::string error/exception description
+ */
 const char *ApplicationException::what()
 {
     return m_errormsg.toStdString().c_str();
 }
+

@@ -1,4 +1,4 @@
-/**
+/*
  * WorkerEngine.cpp
  *
  * This file is part of INVERITA.
@@ -26,17 +26,23 @@
 #include "WorkerEngine.h"
 
 
+/*! Constructs a new worker engine object.
+ */
 WorkerEngine::WorkerEngine()
 {
     reset();
 }
 
+
+/*! Reset the internal state of the worker engine.
+ */
 void WorkerEngine::reset()
 {
     m_currentTask = 0;
     m_abort = false;
     m_descriptions.clear();
 }
+
 
 int WorkerEngine::taskCount()
 {

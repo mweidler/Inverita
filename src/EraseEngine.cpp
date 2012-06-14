@@ -1,4 +1,4 @@
-/**
+/*
  * EraseEngine.cpp
  *
  * This file is part of INVERITA.
@@ -26,6 +26,9 @@
 #include "EraseEngine.h"
 #include "Utilities.h"
 
+
+/*! Constructs a new erase engine object.
+ */
 EraseEngine::EraseEngine()
 {
     reset();
@@ -34,6 +37,14 @@ EraseEngine::EraseEngine()
 }
 
 
+/*! Returns the current \em WorkerStatus of this engine,
+ *  containing \em completion and \em processed bytes.
+ *
+ *  The worker status is requested by the progress dialog
+ *  to present the current job status to the user.
+ * 
+ *  \return the current \em WorkerStatus
+ */
 WorkerStatus EraseEngine::status()
 {
     // one additional file to delete: "metainfo"
@@ -50,6 +61,11 @@ WorkerStatus EraseEngine::status()
 }
 
 
+/*! Is called each time a new backup has selected (by the user)
+ *  to inform the engine of a new backup root path.
+ *
+ * \param backupPath the new backup root path
+ */
 void EraseEngine::select(const QString &snapshotName)
 {
     m_snapshotName = snapshotName;
@@ -57,8 +73,11 @@ void EraseEngine::select(const QString &snapshotName)
 }
 
 
-// slot called each time, the "Start Backup" button is pressed
-// Attention: this will run in a different thread scope
+/*! This slot is called each time, the "Erase Backup snapshot" button is pressed
+ *  by the user and a backup snapshot shall be erased.
+ *
+ *  \em Attention: this method will run in it's own thread scope.
+ */
 void EraseEngine::start()
 {
     reset();
@@ -86,8 +105,17 @@ void EraseEngine::start()
     emit finished();
 }
 
-// abort() can not be called via event loop (connect), because
-// the thread blocks its event queue.
+
+/*! This slot is called each time, the worker job (thread) should be
+ *  aborted (self-controlled by the thread). So, this call is only a
+ *  \em request to abort and does not terminate the thread immediately.
+ *  All currently running tasks should be stopped by the engine
+ *  implementation, finally emitting a \em finished-event.
+ *
+ *  \em Attention: abort() can not be called via event loop (connect),
+ *                 because the worker thread blocks its event queue.
+ *                 The calling thread will hang!
+ */
 void EraseEngine::abort()
 {
     qDebug() << "EraseEngine: abort requested";

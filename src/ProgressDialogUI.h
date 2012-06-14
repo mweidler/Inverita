@@ -1,4 +1,4 @@
-/**
+/*
  * ProgressDialogUI.h
  *
  * This file is part of INVERITA.
@@ -37,6 +37,8 @@
 #include "WorkerEngine.h"
 
 
+/*! Dialog class presenting progress information to the user
+ */
 class ProgressDialogUI : public QDialog
 {
     Q_OBJECT

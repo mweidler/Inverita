@@ -1,4 +1,4 @@
-/**
+/*
  * FilesystemInfo.h
  *
  * This file is part of INVERITA.
@@ -26,10 +26,10 @@
 #ifndef HEADER_FILESYSTEMINFO_INC
 #define HEADER_FILESYSTEMINFO_INC
 
-#include <QObject>
-
 #include "AbstractDriveCapacityModel.h"
+
 #include <sys/vfs.h>
+
 
 /*! Provides infos of the underlaying file system where the given file resides on.
 */
