@@ -37,6 +37,7 @@
 #include "VerifyEngine.h"
 #include "FilesystemInfo.h"
 #include "DriveCapacityUI.h"
+#include "ProgressDialogUI.h"
 
 class MainWindow : public QMainWindow
 {

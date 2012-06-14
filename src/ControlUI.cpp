@@ -1,4 +1,4 @@
-/**
+/*
  * ControlUI.cpp
  *
  * This file is part of INVERITA.
@@ -23,53 +23,78 @@
  */
 
 
-#include <QPushButton>
-#include <QHBoxLayout>
-#include <QToolButton>
-
 #include "ControlUI.h"
 
+#include <QLabel>
+#include <QBoxLayout>
 
-/*******************************************************************************
-* Create a new BackupSelectorUI component with GUI elements
-*******************************************************************************/
+
+/*!
+ * Create a new ControlUI component with GUI elements
+ *
+ * \param parent the parent control element of this UI element
+ */
 ControlUI::ControlUI(QWidget *parent) : QFrame(parent)
 {
     QLabel *description = new QLabel(tr("<b>Start</b> your backup, or verify an existing backup."));
 
-    QToolButton *btnCreate = new QToolButton(this);
-    btnCreate->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    btnCreate->setText(tr("Create new backup snapshot"));
-    btnCreate->setIcon(QIcon(":/images/Copy-icon.png"));
-    btnCreate->setIconSize(QSize(96, 96));
+    m_btnCreate = new QToolButton(this);
+    m_btnCreate->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    m_btnCreate->setText(tr("Create new backup snapshot"));
+    m_btnCreate->setIcon(QIcon(":/images/Copy-icon.png"));
+    m_btnCreate->setIconSize(QSize(96, 96));
 
-    QToolButton *btnVerify = new QToolButton(this);
-    btnVerify->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    btnVerify->setText(tr("Verify last backup with origin"));
-    btnVerify->setIcon(QIcon(":/images/Verify-icon.png"));
-    btnVerify->setIconSize(QSize(96, 96));
+    m_btnVerify = new QToolButton(this);
+    m_btnVerify->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    m_btnVerify->setText(tr("Verify last backup with origin"));
+    m_btnVerify->setIcon(QIcon(":/images/Verify-icon.png"));
+    m_btnVerify->setIconSize(QSize(96, 96));
 
     QHBoxLayout *hboxlayout = new QHBoxLayout;
     hboxlayout->setMargin(5);
-    hboxlayout->addWidget(description, 1);
-    hboxlayout->addWidget(btnCreate, 1);
-    hboxlayout->addWidget(btnVerify, 1);
-    QFrame *buttonframe = new QFrame();
-    buttonframe->setLayout(hboxlayout);
+    hboxlayout->addWidget(m_btnCreate, 1);
+    hboxlayout->addWidget(m_btnVerify, 1);
 
     QVBoxLayout *vboxlayout = new QVBoxLayout;
     vboxlayout->setMargin(5);
     vboxlayout->addWidget(description);
-    vboxlayout->addWidget(buttonframe);
+    vboxlayout->addLayout(hboxlayout);
     this->setLayout(vboxlayout);
 
     setFrameStyle(QFrame::StyledPanel);
 
-    connect(btnCreate, SIGNAL(clicked()), this, SIGNAL(backupStarted()));
-    connect(btnVerify, SIGNAL(clicked()), this, SIGNAL(startVerify()));
+    connect(m_btnCreate, SIGNAL(clicked()), this, SIGNAL(backupStarted()));
+    connect(m_btnVerify, SIGNAL(clicked()), this, SIGNAL(startVerify()));
 }
 
+
+/*! Destructor
+ */
 ControlUI::~ControlUI()
 {
 
+}
+
+
+/*! Enable/disables buttons of this control
+ *
+ * \param button the button to be disabled/enabled
+ * \param enabled true enables button, false disables the button
+ */
+void ControlUI::setEnabledButtons(LogicalButton button, bool enabled)
+{
+    switch (button) {
+        case ControlUI::CreateButton:
+            m_btnCreate->setEnabled(enabled);
+            break;
+
+        case ControlUI::VerifyButton:
+            m_btnVerify->setEnabled(enabled);
+            break;
+
+        case ControlUI::AllButtons:
+            m_btnCreate->setEnabled(enabled);
+            m_btnVerify->setEnabled(enabled);
+            break;
+    }
 }

@@ -52,8 +52,9 @@ bool Configuration::Load(QString filename)
 {
     reset();
 
-    if (QFile::exists(filename) == false)
+    if (QFile::exists(filename) == false) {
         return false;
+    }
 
     QSettings settings(filename,  QSettings::IniFormat);
     if (settings.status() != QSettings::NoError) {

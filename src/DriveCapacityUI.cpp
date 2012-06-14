@@ -49,7 +49,7 @@ void DriveCapacityUI::drawShadow(QPainter &painter, QRect &panel, int from, int 
 {
     painter.setPen(Qt::darkGray);
     painter.setBrush(Qt::darkGray);
-    painter.drawPie(panel.adjusted(5,5,5,5), from * 16, to * 16);
+    painter.drawPie(panel.adjusted(5, 5, 5, 5), from * 16, to * 16);
 }
 
 void DriveCapacityUI::drawElement(QPainter &painter, QRect &panel, int from, int to, QColor color)
@@ -59,12 +59,12 @@ void DriveCapacityUI::drawElement(QPainter &painter, QRect &panel, int from, int
     QLinearGradient gradient(center.x(),
                              panel.top(),
                              center.x(),
-                             3*panel.bottom()
-                             );
+                             3 * panel.bottom()
+                            );
 
 
-    gradient.setColorAt(1,Qt::black);
-    gradient.setColorAt(0,color);
+    gradient.setColorAt(1, Qt::black);
+    gradient.setColorAt(0, color);
     painter.setBrush(gradient);
     painter.setPen(color);
 
@@ -77,7 +77,7 @@ void DriveCapacityUI::drawElement(QPainter &painter, QRect &panel, int from, int
     painter.setPen(Qt::black);
 
     QPoint origin = center;
-    QPoint rotated = origin + QPoint(20,20);
+    QPoint rotated = origin + QPoint(20, 20);
 
     painter.drawText(rotated, test);
 }
@@ -86,13 +86,13 @@ void DriveCapacityUI::paintEvent(QPaintEvent * /* event */)
 {
     QPainter painter(this);
 
-    QRect panel = contentsRect().adjusted(10,10,-10,-10);
+    QRect panel = contentsRect().adjusted(10, 10, -10, -10);
 
     painter.setRenderHints(QPainter::Antialiasing, true);
     painter.setBackgroundMode(Qt::OpaqueMode);
 
-    QColor freeColor(0,255,150);
-    QColor usedColor(255,0,0);
+    QColor freeColor(0, 255, 150);
+    QColor usedColor(255, 0, 0);
 
     qreal capacity = m_model->capacity();
 

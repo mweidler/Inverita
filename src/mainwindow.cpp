@@ -130,6 +130,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_verifyEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
     connect(m_verifyEngine, SIGNAL(report(QString)), m_progressVerifyDialog, SLOT(display(QString)));
 
+    m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
     statusBar()->showMessage(tr("Welcome."));
 
     //setWindowIcon()  TODO
@@ -194,11 +195,11 @@ void MainWindow::onBackupSelected()
 
     Configuration config;
     if (config.Load(origin + "/inverita.conf")) {
-       updateLatestLink(origin);
-       m_controlUI->setEnabled(true);
-    }
-    else {
-       m_controlUI->setEnabled(false);
+        updateLatestLink(origin);
+        m_controlUI->setEnabledButtons(ControlUI::CreateButton, true);
+        m_controlUI->setEnabledButtons(ControlUI::VerifyButton, (m_historyList->size() > 0));
+    } else {
+        m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
     }
 }
 

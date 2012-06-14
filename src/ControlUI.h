@@ -1,4 +1,4 @@
-/**
+/*
  * ControlUI.hpp
  *
  * This file is part of INVERITA.
@@ -25,23 +25,32 @@
 #ifndef HEADER_CONTROLUI_INC
 #define HEADER_CONTROLUI_INC
 
+#include <QFrame>
 #include <QWidget>
-#include <ProgressDialogUI.h>
+#include <QToolButton>
 
-/*****************************************************************************
-* Create a new BackupSelectorUI component with GUI elements
-*****************************************************************************/
+/*!
+ * Control elements that contains buttons to start create or verify of a backup
+ */
 class ControlUI : public QFrame
 {
     Q_OBJECT
 
 public:
+    enum LogicalButton { CreateButton, VerifyButton, AllButtons };
+
     ControlUI(QWidget *parent = 0);
     ~ControlUI();
+
+    void setEnabledButtons(LogicalButton button, bool enabled);
 
 signals:
     void backupStarted();
     void startVerify();
+
+private:
+    QToolButton *m_btnCreate;
+    QToolButton *m_btnVerify;
 };
 
 #endif
