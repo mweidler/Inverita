@@ -1,4 +1,4 @@
-/**
+/*
  * DriveCapacityUI.h
  *
  * This file is part of INVERITA.
@@ -26,11 +26,14 @@
 #ifndef HEADER_DRIVECAPACITYUI_INC
 #define HEADER_DRIVECAPACITYUI_INC
 
+#include "AbstractDriveCapacityModel.h"
+
 #include <QWidget>
 #include <QColor>
 
-#include "AbstractDriveCapacityModel.h"
 
+/*! Draws a pie chart visualizing the used/free space of the backup drive
+ */
 class DriveCapacityUI : public QWidget
 {
     Q_OBJECT
@@ -42,9 +45,9 @@ public:
     QSize sizeHint() const;
     void paintEvent(QPaintEvent *event);
 
-private:
+protected:
     void drawShadow(QPainter &painter, QRect &panel, int from, int to);
-    void drawElement(QPainter &painter, QRect &panel, int from, int to, QColor color);
+    void drawElement(QPainter &painter, QRect &panel, int from, int to,  QColor centerColor, QColor borderColor);
 
     AbstractDriveCapacityModel *m_model;
 };

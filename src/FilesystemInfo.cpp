@@ -63,6 +63,7 @@ void FilesystemInfo::setFile(const QString &file)
 void FilesystemInfo::refresh()
 {
     int rc;
+
     rc = statfs(m_absolutePath.toStdString().c_str(), &m_st);
     emit dataChanged();
 }

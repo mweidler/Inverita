@@ -1,4 +1,4 @@
-/**
+/*
  * mainwindow.cpp
  *
  * This file is part of INVERITA.
@@ -39,8 +39,7 @@
 #include "Utilities.h"
 #include "Configuration.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     QWidget *widget = new QWidget;
     setCentralWidget(widget);
