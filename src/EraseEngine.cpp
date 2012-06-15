@@ -47,10 +47,10 @@ EraseEngine::EraseEngine()
  */
 WorkerStatus EraseEngine::status()
 {
-    // one additional file to delete: "metainfo"
-    qreal expectedFiles = m_metaInfo.numberOfFiles() + 1;
+    // one additional file to delete: "metainfo" and "signatures"
+    qreal expectedFiles = m_metaInfo.numberOfFiles() + 2;
 
-    qDebug() << "Completion" << expectedFiles << m_eraseTraverser.totalFiles();
+    qDebug() << "Erase-completion" << expectedFiles << m_eraseTraverser.totalFiles();
 
     WorkerStatus st;
     st.timestamp  = QDateTime::currentDateTime();

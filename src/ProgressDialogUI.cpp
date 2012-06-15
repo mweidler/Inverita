@@ -72,9 +72,19 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, QWidget
     }
     layout->addWidget(m_progressBar);
     layout->addWidget(m_labelRemaining);
-    if (type == ShowTextBox) {
-        layout->addWidget(m_textArea);
+
+    switch (type) {
+        case ProgressDialogUI::ShowTextBox:
+            layout->addWidget(m_textArea);
+            setMinimumSize(700, 400);
+            break;
+
+        default: // fall through
+        case ProgressDialogUI::NoTextBox:
+            setMinimumSize(400, 200);
+            break;
     }
+
     layout->addWidget(m_buttonBox);
     this->setLayout(layout);
 
@@ -86,10 +96,7 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, QWidget
     connect(m_model, SIGNAL(aborted()), this, SLOT(close()));
     connect(m_model, SIGNAL(finished()), this, SLOT(finalize()));
 
-    setMinimumSize(700, 400);
-    resize(700, 400);
     setWindowTitle(tr("Progress"));
-
     m_previousCurrentTask = -1;
 }
 
@@ -119,6 +126,7 @@ void ProgressDialogUI::finalize()
     m_timer->stop();
     m_buttonBox->button(QDialogButtonBox::Abort)->hide();
     m_buttonBox->button(QDialogButtonBox::Ok)->show();
+    qDebug() << "Finalized update requested";
     update();
 }
 
@@ -170,7 +178,6 @@ void ProgressDialogUI::update()
 
     m_statusHistory.append(m_model->status());
     qreal completion = m_statusHistory.last().completion;
-    qDebug() << "Completion" << completion;
 
     if (m_statusHistory.size() >= 20) {
         qint64 deltaTransfered = m_statusHistory.last().processed - m_statusHistory.first().processed;
@@ -199,6 +206,10 @@ void ProgressDialogUI::update()
     if (completion >= 1.0) {
         remainingInfo = tr("Finished.");
         transferRateInfo.clear();
+    }
+
+    if (completion > 1.0) {
+       qDebug() << "Completion exceeds 1.0:" << completion;
     }
 
     m_progressBar->setValue((int)(completion * m_progressBar->maximum()));
