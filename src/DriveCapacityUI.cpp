@@ -103,8 +103,6 @@ QPoint DriveCapacityUI::rotatedPoint(qreal radius, qreal angle)
     point.setX(qRound(x));
     point.setY(-qRound(y)); // (0,0) coords are in the left-upper corner: invert y
 
-    qDebug() << "rotate" << angle << x << y << point;
-
     return point;
 }
 
