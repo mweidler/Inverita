@@ -40,7 +40,6 @@ CopyTraverser::CopyTraverser()
 
 
 /*! \returns Returns the signatures map.
- *
  */
 SignatureMap &CopyTraverser::currentSignatures()
 {
@@ -281,7 +280,7 @@ void CopyTraverser::onLink(const QString &absoluteFilePath, const QString &linkN
     //
     //      $ ls /home/user
     //      lrwxrwxrwx 1 user users 13 May  9 07:40 xfile -> abc/testfile.txt
-     
+
     if (rc == -1) {
         ApplicationException e;
         e.setCauser("Create symbolic link '" + source + "' to '" + linkName + "'");

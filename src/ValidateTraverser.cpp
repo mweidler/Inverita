@@ -1,4 +1,4 @@
-/**
+/*
  * ValidateTraverser.cpp
  *
  * This file is part of INVERITA.

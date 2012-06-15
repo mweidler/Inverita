@@ -46,7 +46,7 @@ public:
     void paintEvent(QPaintEvent *event);
 
 protected:
-    QPoint rotate(qreal scale, qreal angle);
+    QPoint rotatedPoint(qreal scale, qreal angle);
     void drawShadow(QPainter &painter, QRect &panel, int from, int to);
     void drawElement(QPainter &painter, QRect &panel, qreal from, qreal span, QColor centerColor, QColor borderColor);
 

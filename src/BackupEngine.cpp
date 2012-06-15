@@ -46,7 +46,7 @@ BackupEngine::BackupEngine()
  *
  *  The worker status is requested by the progress dialog
  *  to present the current job status to the user.
- * 
+ *
  *  \return the current \em WorkerStatus
  */
 WorkerStatus BackupEngine::status()

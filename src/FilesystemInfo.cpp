@@ -68,10 +68,9 @@ void FilesystemInfo::setFile(const QString &file)
 void FilesystemInfo::refresh()
 {
     if (statfs(m_absolutePath.toStdString().c_str(), &m_st) == 0) {
-      emit dataChanged();
-    }
-    else {
-      memset(&m_st, 0, sizeof(m_st));
+        emit dataChanged();
+    } else {
+        memset(&m_st, 0, sizeof(m_st));
     }
 }
 
@@ -83,9 +82,10 @@ void FilesystemInfo::refresh()
  */
 qreal FilesystemInfo::capacity()
 {
-    if (totalCapacity() == 0)
-      return 0.0;
-     
+    if (totalCapacity() == 0) {
+        return 0.0;
+    }
+
     return 1.0 - ((qreal)usedCapacity() / totalCapacity());
 }
 

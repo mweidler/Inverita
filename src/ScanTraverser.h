@@ -1,4 +1,4 @@
-/**
+/*
  * ScanTraverser.h
  *
  * This file is part of INVERITA.

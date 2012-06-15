@@ -29,6 +29,7 @@
 #include <qmath.h>
 #include <QDebug>
 
+
 /*! Constructs a new capacity visualizing widget which is a child of \em parent.
  *
  * \param model the model containing drive space information
@@ -42,16 +43,6 @@ DriveCapacityUI::DriveCapacityUI(AbstractDriveCapacityModel *model, QWidget *par
     setAutoFillBackground(true);
 
     connect(m_model, SIGNAL(dataChanged()), this, SLOT(update()));
-
-    rotate(10,0);
-    rotate(10,45);
-    rotate(10,90);
-    rotate(10,135);
-    rotate(10,180);
-    rotate(10,225);
-    rotate(10,270);
-    rotate(10,315);
-    rotate(10,360);
 }
 
 
@@ -82,22 +73,35 @@ void DriveCapacityUI::drawShadow(QPainter &painter, QRect &panel, int from, int 
 }
 
 
-QPoint DriveCapacityUI::rotate(qreal scale, qreal angle)
+/*! Returns a point rotated by \em angle degrees on a circle
+ *  with a given \em radius and center \em (0,0).
+ *
+ *    0 degrees results in (1,0) * radius
+ *   90 degrees results in (0,1) * radius
+ *  180 degrees results in (-1,0) * radius
+ *  270 degrees results in (0,-1) * radius
+ *  360 degrees results in (1,0) * radius
+ *  Every degree between is allowed.
+ *
+ * \param radius  the radius of the circle to rotate on
+ * \param angle   the angle (0..360) to rotate by
+ */
+QPoint DriveCapacityUI::rotatedPoint(qreal radius, qreal angle)
 {
     const qreal pi = 3.14159265358979;
     const qreal rotationStart = 315;
-    QPoint point;
 
-    qreal a = pi/180.0 * (angle + rotationStart);
+    qreal a = pi / 180.0 * (angle + rotationStart);
     qreal sina = qSin(a);
     qreal cosa = qCos(a);
 
-    scale /= 1.41421; // scale to unit circle
-    qreal x = (cosa - sina) * scale;
-    qreal y = (sina + cosa) * scale;
+    radius /= qSqrt(2.0); // divide by 1.41421 to reach unit circle scaling
+    qreal x = (cosa - sina) * radius;
+    qreal y = (sina + cosa) * radius;
 
+    QPoint point;
     point.setX(qRound(x));
-    point.setY(-qRound(y));
+    point.setY(-qRound(y)); // (0,0) coords are in the left-upper corner: invert y
 
     qDebug() << "rotate" << angle << x << y << point;
 
@@ -110,12 +114,16 @@ QPoint DriveCapacityUI::rotate(qreal scale, qreal angle)
  * \param painter the paint device
  * \param panel   the borders of the paint range
  * \param from    start angle of the pie chart segment
- * \param to      end angle of the pie chart segment
+ * \param span    width of the pie chart segment
  * \param centerColor the color of the pie chart segment in the center
  * \param borderColor the color of the pie chart segment at the border
  */
 void DriveCapacityUI::drawElement(QPainter &painter, QRect &panel, qreal from, qreal span, QColor centerColor, QColor borderColor)
 {
+    if (span == 0) {
+        return;
+    }
+
     QPoint center = panel.center();
 
     QRadialGradient gradient(center.x(), center.y(), 75);
@@ -126,17 +134,19 @@ void DriveCapacityUI::drawElement(QPainter &painter, QRect &panel, qreal from, q
     painter.setPen(borderColor);
     painter.drawPie(panel, from * 360 * 16, span * 360 * 16);
 
-    QString test;
-    test.sprintf("%.1f%%", (float)(100.0 * span));
+    if (span >= 0.05) {
+        QString label;
+        label.sprintf("%.1f%%", (float)(100.0 * span));
 
-    painter.setBrush(borderColor);
-    painter.setPen(Qt::black);
+        painter.setBackgroundMode(Qt::TransparentMode);
+        painter.setBrush(borderColor);
+        painter.setPen(Qt::black);
 
-    QPoint rotated = rotate(40, (from + span/2) * 360);
-    QPoint textCenter = center + rotated;
+        QPoint labelCenter = center + rotatedPoint(40, (from + span / 2) * 360);
 
-    QRect rect(textCenter.x()-40, textCenter.y()-20, 100, 40);
-    painter.drawText(rect, Qt::AlignCenter, test);
+        QRect labelRect(labelCenter.x() - 40, labelCenter.y() - 20, 100, 40);
+        painter.drawText(labelRect, Qt::AlignCenter, label);
+    }
 }
 
 
@@ -156,10 +166,9 @@ void DriveCapacityUI::paintEvent(QPaintEvent * /* event */)
 
     qreal capacity = m_model->capacity();
 
-    capacity = 0.1575;
     //drawShadow(painter, panel, capacity * 360, 360);
     //drawShadow(painter, panel, 0, capacity * 360);
 
     drawElement(painter, panel, 0, capacity, lightFreeColor, freeColor);
-    drawElement(painter, panel, capacity, 1.0-capacity, lightUsedColor, usedColor);
+    drawElement(painter, panel, capacity, 1.0 - capacity, lightUsedColor, usedColor);
 }
