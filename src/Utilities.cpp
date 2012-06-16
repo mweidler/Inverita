@@ -50,7 +50,7 @@ int CopyMeta(QString &reference, QString &target)
     struct stat meta;
     struct timespec times[2];
 
-    if (lstat(reference.toStdString().c_str(), &meta) == -1) {
+    if (lstat(reference.toUtf8().data(), &meta) == -1) {
         return -1;
     }
 
@@ -59,18 +59,18 @@ int CopyMeta(QString &reference, QString &target)
     times[1].tv_sec = meta.st_mtime;
     times[1].tv_nsec = 0;
     // If pathname is absolute, then dirfd is ignored.
-    if (utimensat(/*dirfd*/0, target.toStdString().c_str(), times, AT_SYMLINK_NOFOLLOW) == -1) {
+    if (utimensat(/*dirfd*/0, target.toUtf8().data(), times, AT_SYMLINK_NOFOLLOW) == -1) {
         return -1;
     }
 
     // Do not chmod() on symbolic links, they have all permissions.
     if (!S_ISLNK(meta.st_mode)) {
-        if (chmod(target.toStdString().c_str(), meta.st_mode) == -1) {
+        if (chmod(target.toUtf8().data(), meta.st_mode) == -1) {
             return -1;
         }
     }
 
-    if (lchown(target.toStdString().c_str(), meta.st_uid, meta.st_uid) == -1) {
+    if (lchown(target.toUtf8().data(), meta.st_uid, meta.st_uid) == -1) {
         return -1;
     }
 
