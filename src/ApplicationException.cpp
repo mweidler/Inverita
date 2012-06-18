@@ -100,6 +100,6 @@ QString &ApplicationException::errorMessage()
  */
 const char *ApplicationException::what()
 {
-    return m_errormsg.toStdString().c_str();
+    return m_errormsg.toUtf8().data();
 }
 

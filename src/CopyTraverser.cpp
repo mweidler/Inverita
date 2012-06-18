@@ -177,7 +177,7 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
     if (m_previousBackupPath.size() && equalsFile(source, previous)) {
         qDebug() << "linking " << previous << target;
 
-        int rc = link(previous.toStdString().c_str(), target.toStdString().c_str());
+        int rc = link(previous.toUtf8().data(), target.toUtf8().data());
         if (rc == -1) {
             ApplicationException e;
             e.setCauser("create hard link from '" + previous + "' to '" + target + "'");
@@ -273,7 +273,7 @@ void CopyTraverser::onLeaveDir(const QString &absoluteFilePath)
 void CopyTraverser::onLink(const QString &absoluteFilePath, const QString &linkName)
 {
     QString source = m_currentBackupPath + absoluteFilePath;
-    int rc = symlink(linkName.toStdString().c_str(), source.toStdString().c_str());
+    int rc = symlink(linkName.toUtf8().data(), source.toUtf8().data());
 
     // As symlink is not documented intuitively, here is an example:
     // e.g. symlink("abc/testfile.txt", "/home/user/xfile");

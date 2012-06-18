@@ -183,8 +183,9 @@ void ProgressDialogUI::update()
         qint64 deltaTransfered = m_statusHistory.last().processed - m_statusHistory.first().processed;
         qint64 deltaTimeMs = m_statusHistory.first().timestamp.msecsTo(m_statusHistory.last().timestamp);
         qreal  transferRate = deltaTransfered / (deltaTimeMs * 1000.0);
+        // TODO remove sprintf
         transferRateInfo.sprintf(" %s %.1f MByte/s",
-                                 tr("while processing").toStdString().c_str(), transferRate);
+                                 tr("while processing").toUtf8().data(), transferRate);
 
         qreal deltaCompletion = completion - m_statusHistory.first().completion;
         qreal openCompletion = 1.0 - completion;

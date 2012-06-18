@@ -105,7 +105,7 @@ bool BackupListModel::insertRows(int position, int rows, const QModelIndex & /*p
     beginInsertRows(QModelIndex(), position, position + rows - 1);
 
     for (int row = 0; row < rows; ++row) {
-        fprintf(stderr, "BackupList insert %d\n", position);
+        qDebug() << "BackupList insert: " << position;
 
         BackupEntry entry;
         m_list.insert(position, entry);
@@ -129,7 +129,7 @@ bool BackupListModel::removeRows(int position, int rows, const QModelIndex & /*p
 
 void BackupListModel::onDataChanged()
 {
-    fprintf(stderr, "onDataChanged called\n");
+    qDebug() <<  "onDataChanged called";
     Save();
 }
 
@@ -167,7 +167,7 @@ void BackupListModel::Save()
 
     settings.beginWriteArray("Backups");
     for (int i = 0; i < m_list.size(); ++i) {
-        std::cerr << "Write BackupList " << i << " in  " << m_organization.toStdString() << "\n";
+        qDebug() << "Write BackupList " << i << " in  " << m_organization;
         settings.setArrayIndex(i);
         settings.setValue("origin", m_list[i].origin);
     }
@@ -184,7 +184,7 @@ void BackupListModel::SaveAs(const QString &organization)
 
     settings.beginWriteArray("Backups");
     for (int i = 0; i < m_list.size(); ++i) {
-        fprintf(stderr, "Write BackupList %d\n", i);
+        qDebug() << "Write BackupList" <<  i;
         settings.setArrayIndex(i);
         settings.setValue("origin", m_list[i].origin);
     }

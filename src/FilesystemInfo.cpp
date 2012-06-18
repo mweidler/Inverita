@@ -67,7 +67,7 @@ void FilesystemInfo::setFile(const QString &file)
  */
 void FilesystemInfo::refresh()
 {
-    if (statfs(m_absolutePath.toStdString().c_str(), &m_st) == 0) {
+    if (statfs(m_absolutePath.toUtf8().data(), &m_st) == 0) {
         emit dataChanged();
     } else {
         memset(&m_st, 0, sizeof(m_st));
