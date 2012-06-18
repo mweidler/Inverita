@@ -42,6 +42,7 @@ void Traverser::reset()
     m_totalFiles = 0;
     m_totalSize = 0;
     m_totalErrors = 0;
+    m_abort = false;
     m_basePaths.clear();
     m_excludePatterns.clear();
 }
@@ -121,7 +122,7 @@ qint64 Traverser::totalErrors()
  */
 void Traverser::abort()
 {
-    qDebug() << "DirectoryTraverser: abort requested";;
+    qDebug() << "DirectoryTraverser: abort requested";
     m_abort = true;
 }
 
@@ -131,10 +132,6 @@ void Traverser::abort()
  */
 void Traverser::traverse()
 {
-    m_totalFiles = 0;
-    m_totalSize = 0;
-    m_abort = false;
-
     for (int i = 0; i < m_basePaths.count() && !m_abort; i++) {
         QString currentBasePath = m_basePaths[i];
 

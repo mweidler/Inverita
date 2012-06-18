@@ -84,17 +84,15 @@ void EraseEngine::start()
     m_eraseTraverser.reset();
     emit started();
 
-    qDebug() << "deleteBackup entered: " << m_snapshotName;
-
-    QDir rootPath(m_snapshotName);
-    rootPath.cdUp();
-    QString backupRootPath = rootPath.absolutePath();
-
-    qDebug() << "rootDir: " << backupRootPath;
+    qDebug() << "deleteBackup: " << m_snapshotName;
 
     try {
         m_metaInfo.Load(m_snapshotName + "/" + "metainfo") ;
         m_eraseTraverser.addIncludes(m_snapshotName);
+
+        // force metainfo deletion as first file of the snapshot to
+        // invalidate whole snapshot.
+        m_eraseTraverser.onFile(m_snapshotName + "/" + "metainfo");
         m_eraseTraverser.traverse();
     } catch (ApplicationException &e) {
         buildFailureHint(e);
@@ -115,10 +113,11 @@ void EraseEngine::start()
  *  \em Attention: abort() can not be called via event loop (connect),
  *                 because the worker thread blocks its event queue.
  *                 The calling thread will hang!
+ *
+ *  \em Attention: Erase can not be aborted.
  */
 void EraseEngine::abort()
 {
-    qDebug() << "EraseEngine: abort requested";
-    m_abort = true;
-    m_eraseTraverser.abort();
+    qDebug() << "EraseEngine: abort requested but erase is not allowed to abort";
+    // TODO: disable abort button in ProgressDialogUI
 }
