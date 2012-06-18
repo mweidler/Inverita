@@ -84,7 +84,7 @@ void BackupEngine::start()
     m_copyTraverser.reset();
     emit started();
 
-    QString timestamp = QDateTime::currentDateTime().toString("yyyy-MMM-dd-hh-mm-ss");
+    QString timestamp = QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss");
     qDebug() << "startBackup entered: " << m_backupRootPath;
 
     try {
@@ -151,8 +151,13 @@ void BackupEngine::executeBackup(QString &timestamp)
 {
     QString previousBackup = SearchLatestBackupDir(m_backupRootPath);
     QString currentBackup = m_backupRootPath + "/" + timestamp;
-
     QDir dir;
+
+    // ensure, that the new directory of the new snapshot does not exist
+    while (QFile::exists(currentBackup)) {
+        currentBackup+= "1";
+    }
+
     dir.mkpath(currentBackup);
 
     m_copyTraverser.addIncludes(m_config.GetIncludes());

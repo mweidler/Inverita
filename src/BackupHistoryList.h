@@ -71,7 +71,7 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
     /** Misc */
-    void investigate(QString &origin);
+    void investigate(const QString &origin);
 
     /** Destructor */
     virtual ~BackupHistoryList();
