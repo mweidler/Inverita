@@ -137,10 +137,15 @@ QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
 }
 
 
-/*******************************************************************************
- * Investigates the backup history
- ******************************************************************************/
-void BackupHistoryList::investigate(QString &origin)
+/*! Fills the backup history list by analyzing all directories in the given
+ *  directory (backup root directory. If the directory has valid metadata,
+ *  then the directoty will see accepted as a valid backup snapshot and
+ *  added to the list.
+ *
+ * \param origin backup origin root directory
+ *
+ */
+void BackupHistoryList::investigate(const QString &origin)
 {
     QDir dir(origin);
     dir.setFilter(QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks);
@@ -155,15 +160,15 @@ void BackupHistoryList::investigate(QString &origin)
 
         qDebug() << "Investigate" << fileInfo.absoluteFilePath();
         SnapshotMetaInfo metaInfo;
-        metaInfo.Load(fileInfo.absoluteFilePath() + "/" + "metainfo") ;
-
-        BackupHistoryEntry entry;
-        entry.execution = fileInfo.lastModified();
-        entry.files = metaInfo.numberOfFiles();
-        entry.totalSize = metaInfo.sizeOfFiles();
-        entry.location = fileInfo.absoluteFilePath();
-        entry.name = fileInfo.fileName();
-        this->append(entry);
+        if (metaInfo.Load(fileInfo.absoluteFilePath() + "/" + "metainfo")) {
+            BackupHistoryEntry entry;
+            entry.execution = fileInfo.lastModified();
+            entry.files = metaInfo.numberOfFiles();
+            entry.totalSize = metaInfo.sizeOfFiles();
+            entry.location = fileInfo.absoluteFilePath();
+            entry.name = fileInfo.fileName();
+            this->append(entry);
+        }
     }
 
     endResetModel();

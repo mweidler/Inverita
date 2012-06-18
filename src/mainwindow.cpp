@@ -265,10 +265,8 @@ void MainWindow::updateLatestLink(QString &absolutePath)
     }
 
     if (m_historyList->isEmpty()) {
-        if (linkName.size() > 0) {
-            QFile::remove(linkPath);
-            qDebug() << "latest link removed";
-        }
+        QFile::remove(linkPath);
+        qDebug() << "latest link removed";
     } else {
         QString newName = m_historyList->last().name;
         if (linkName != newName) {
