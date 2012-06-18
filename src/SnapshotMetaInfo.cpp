@@ -60,8 +60,9 @@ bool SnapshotMetaInfo::Load(QString filename)
     m_files = (qint64)settings.value("TotalFiles", 0).toLongLong();
     m_totalSize = (qint64)settings.value("TotalSize", 0).toLongLong();
 
-    if (m_files == 0)
+    if (m_files == 0) {
         return false;
+    }
 
     return true;
 }

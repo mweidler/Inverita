@@ -34,7 +34,8 @@
  * \param  parent the parent UI control element
  */
 BackupListModel::BackupListModel(QObject *parent) : QAbstractListModel(parent)
-{  // TODO is parent really needed?
+{
+    // TODO is parent really needed?
     m_list.clear();
 
     connect(this, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged()));
@@ -59,7 +60,8 @@ BackupList BackupListModel::backupList()
 /*! \return the flags
  */
 Qt::ItemFlags BackupListModel::flags(const QModelIndex &index) const
-{// TODO: is this method really needed?
+{
+    // TODO: is this method really needed?
     if (!index.isValid()) {
         return Qt::ItemIsEnabled;
     }

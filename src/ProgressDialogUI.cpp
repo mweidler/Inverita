@@ -85,14 +85,13 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, DialogA
             break;
     }
 
-    switch (abortable)
-    {
+    switch (abortable) {
         case ProgressDialogUI::NotAbortable:
             m_buttonBox->setEnabled(false);
             break;
 
         default: // fall through
-       case ProgressDialogUI::Abortable:
+        case ProgressDialogUI::Abortable:
             m_buttonBox->setEnabled(true);
             break;
     }
@@ -201,19 +200,19 @@ void ProgressDialogUI::update()
         qreal deltaCompletion = completion - m_statusHistory.first().completion;
         qreal openCompletion = 1.0 - completion;
         int remainingSeconds = (int)(((openCompletion / deltaCompletion) * deltaTimeMs) / 1000.0);
-        int remainingHours = remainingSeconds / (60*60);
-        remainingSeconds -= remainingHours * (60*60);
+        int remainingHours = remainingSeconds / (60 * 60);
+        remainingSeconds -= remainingHours * (60 * 60);
         int remainingMinutes = remainingSeconds / 60;
         remainingSeconds -= remainingMinutes * 60;
 
         if (remainingHours >= 1) {
-           remainingInfo += tr("%1 hour(s)", "", remainingHours).arg(remainingHours);
-           remainingInfo += " " + tr("and") + " ";
-           remainingInfo += tr("%1 minute(s)", "", remainingMinutes).arg(remainingMinutes);
+            remainingInfo += tr("%1 hour(s)", "", remainingHours).arg(remainingHours);
+            remainingInfo += " " + tr("and") + " ";
+            remainingInfo += tr("%1 minute(s)", "", remainingMinutes).arg(remainingMinutes);
         } else if (remainingMinutes >= 1) {
-           remainingInfo += tr("%1 minute(s)", "", remainingMinutes).arg(remainingMinutes);
+            remainingInfo += tr("%1 minute(s)", "", remainingMinutes).arg(remainingMinutes);
         } else {
-           remainingInfo += tr("%1 second(s)", "", remainingSeconds).arg(remainingSeconds);
+            remainingInfo += tr("%1 second(s)", "", remainingSeconds).arg(remainingSeconds);
         }
 
         remainingInfo += " " + tr("estimated time remaining") + " ";
@@ -228,7 +227,7 @@ void ProgressDialogUI::update()
     }
 
     if (completion > 1.0) {
-       qDebug() << "Completion exceeds 1.0:" << completion;
+        qDebug() << "Completion exceeds 1.0:" << completion;
     }
 
     m_progressBar->setValue((int)(completion * m_progressBar->maximum()));

@@ -52,7 +52,7 @@ BackupHistoryList::~BackupHistoryList()
 
 /*! Returns the number of rows of the model, means backup history entries
  *
- * \return number of rows 
+ * \return number of rows
  */
 int BackupHistoryList::rowCount(const QModelIndex & /*parent*/) const
 {

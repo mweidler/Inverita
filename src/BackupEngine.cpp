@@ -155,7 +155,7 @@ void BackupEngine::executeBackup(QString &timestamp)
 
     // ensure, that the new directory of the new snapshot does not exist
     while (QFile::exists(currentBackup)) {
-        currentBackup+= "1";
+        currentBackup += "1";
     }
 
     dir.mkpath(currentBackup);
