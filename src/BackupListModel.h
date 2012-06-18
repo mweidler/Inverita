@@ -1,5 +1,5 @@
-/**
- * BackupHistoryList.h
+/*
+ * BackupListModel.h
  *
  * This file is part of INVERITA.
  *
@@ -22,8 +22,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADER_BACKUPLIST_INC
-#define HEADER_BACKUPLIST_INC
+#ifndef HEADER_BACKUPLISTMODEL_INC
+#define HEADER_BACKUPLISTMODEL_INC
 
 #include <QtCore>
 #include <QString>
@@ -33,9 +33,8 @@
 #include <sys/stat.h>
 
 
-/*****************************************************************************
- * Container for mata information and hash value.
- *****************************************************************************/
+/*! Container for meta information and hash value.
+ */
 typedef struct BackupEntry {
     struct stat meta;
     QString     origin;
@@ -43,16 +42,14 @@ typedef struct BackupEntry {
 } BackupEntry;
 
 
-/*****************************************************************************
- * Base type storage definition
- *****************************************************************************/
+/*! Base type storage definition
+ */
 typedef QList<BackupEntry> BackupList;
 typedef QListIterator<BackupEntry> BackupListIterator;
 
 
-/*****************************************************************************
- * Container class for storing and handling validation information.
- *****************************************************************************/
+/*! Container class for storing and handling validation information.
+ */
 class BackupListModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -86,4 +83,4 @@ private:
     QString    m_organization;
 };
 
-#endif // ! HEADER_BACKUPLIST_INC
+#endif // ! HEADER_BACKUPLISTMODEL_INC

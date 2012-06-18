@@ -1,4 +1,4 @@
-/**
+/*
  * ConfigurationListUI.h
  *
  * This file is part of INVERITA.
@@ -27,10 +27,6 @@
 
 #include <QtGui>
 
-
-/*****************************************************************************
-* Local events ID declaration.
-*****************************************************************************/
 
 class ConfigurationListUI : public QFrame
 {

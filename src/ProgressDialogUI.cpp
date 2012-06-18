@@ -183,23 +183,28 @@ void ProgressDialogUI::update()
         qint64 deltaTransfered = m_statusHistory.last().processed - m_statusHistory.first().processed;
         qint64 deltaTimeMs = m_statusHistory.first().timestamp.msecsTo(m_statusHistory.last().timestamp);
         qreal  transferRate = deltaTransfered / (deltaTimeMs * 1000.0);
-        // TODO remove sprintf
-        transferRateInfo.sprintf(" %s %.1f MByte/s",
-                                 tr("while processing").toUtf8().data(), transferRate);
+        transferRateInfo = tr("while processing %1 MByte/s").arg(transferRate, 0, 'f', 1);
 
         qreal deltaCompletion = completion - m_statusHistory.first().completion;
         qreal openCompletion = 1.0 - completion;
-        qreal remainingSeconds = ((openCompletion / deltaCompletion) * deltaTimeMs) / 1000.0;
-        if (remainingSeconds >= 60 * 60) {
-            remainingInfo.sprintf("%.1f ", (float)(remainingSeconds / 60.0 / 60.0));
-            remainingInfo += tr("hours estimated remaining");
-        } else if (remainingSeconds >= 120) {
-            remainingInfo.sprintf("%d ", (int)(remainingSeconds / 60));
-            remainingInfo += tr("minutes estimated remaining");
+        int remainingSeconds = (int)(((openCompletion / deltaCompletion) * deltaTimeMs) / 1000.0);
+        int remainingHours = remainingSeconds / (60*60);
+        remainingSeconds -= remainingHours * (60*60);
+        int remainingMinutes = remainingSeconds / 60;
+        remainingSeconds -= remainingMinutes * 60;
+
+        if (remainingHours >= 1) {
+           remainingInfo += tr("%1 hour(s)", "", remainingHours).arg(remainingHours);
+           remainingInfo += " " + tr("and") + " ";
+           remainingInfo += tr("%1 minute(s)", "", remainingMinutes).arg(remainingMinutes);
+        } else if (remainingMinutes >= 1) {
+           remainingInfo += tr("%1 minute(s)", "", remainingMinutes).arg(remainingMinutes);
         } else {
-            remainingInfo.sprintf("%d ", (int)remainingSeconds);
-            remainingInfo += tr("seconds estimated remaining");
+           remainingInfo += tr("%1 second(s)", "", remainingSeconds).arg(remainingSeconds);
         }
+
+        remainingInfo += " " + tr("estimated time remaining") + " ";
+
     } else {
         remainingInfo = tr("Please be patient...");
     }

@@ -1,5 +1,5 @@
-/**
- * ConfigurationUI.hpp
+/*
+ * Configuration.hpp
  *
  * This file is part of INVERITA.
  *

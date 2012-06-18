@@ -1,4 +1,4 @@
-/**
+/*
  * BackupSelectorUI.cpp
  *
  * This file is part of INVERITA.
@@ -27,9 +27,9 @@
 #include "BackupSelectorUI.h"
 #include "ConfigurationUI.h"
 
-/*******************************************************************************
-* Create a new BackupSelectorUI component with GUI elements
-*******************************************************************************/
+
+/*! Create a new BackupSelectorUI component with GUI elements
+ */
 BackupSelectorUI::BackupSelectorUI(QAbstractListModel *model, QWidget *parent) : QFrame(parent)
 {
     m_choice = new QComboBox();

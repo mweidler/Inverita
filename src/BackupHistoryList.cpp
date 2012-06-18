@@ -1,4 +1,4 @@
-/**
+/*
  * BackupHistoryList.cpp
  *
  * This file is part of INVERITA.
@@ -27,9 +27,10 @@
 #include "SnapshotMetaInfo.h"
 #include "Utilities.h"
 
-/*******************************************************************************
- * Constructor
- ******************************************************************************/
+/*! Constructs a new backup history list object
+ *
+ * /param parent the parent UI element
+ */
 BackupHistoryList::BackupHistoryList(QObject *parent) : QAbstractTableModel(parent)
 {
     m_headerLabels << tr("Name") <<
@@ -41,36 +42,36 @@ BackupHistoryList::BackupHistoryList(QObject *parent) : QAbstractTableModel(pare
 }
 
 
-/*******************************************************************************
- * Destructor
- ******************************************************************************/
+/*! Destructor
+ */
 BackupHistoryList::~BackupHistoryList()
 {
     clear();
 }
 
 
-/*******************************************************************************
- * Return number of rows, means backup history entries
- ******************************************************************************/
+/*! Returns the number of rows of the model, means backup history entries
+ *
+ * \return number of rows 
+ */
 int BackupHistoryList::rowCount(const QModelIndex & /*parent*/) const
 {
     return size();
 }
 
 
-/*******************************************************************************
- * Return number of columns in the table
- ******************************************************************************/
+/*! Return number of columns in the table of the model
+ *
+ * \return number of columns
+ */
 int BackupHistoryList::columnCount(const QModelIndex & /*parent*/) const
 {
     return m_headerLabels.size();
 }
 
 
-/*******************************************************************************
- * Return the title of the headers
- ******************************************************************************/
+/*! \return the title of the headers
+ */
 QVariant BackupHistoryList::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
@@ -89,9 +90,8 @@ QVariant BackupHistoryList::headerData(int section, Qt::Orientation orientation,
 }
 
 
-/*******************************************************************************
- * Return the data to displayed in the tabe
- ******************************************************************************/
+/*! \return the data to displayed in the tabe
+ */
 QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
 {
     const BackupHistoryEntry &entry = this->at(index.row());
@@ -143,7 +143,6 @@ QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
  *  added to the list.
  *
  * \param origin backup origin root directory
- *
  */
 void BackupHistoryList::investigate(const QString &origin)
 {

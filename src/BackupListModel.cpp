@@ -1,4 +1,4 @@
-/**
+/*
  * BackupList.cpp
  *
  * This file is part of INVERITA.
@@ -29,31 +29,37 @@
 #include <iostream>
 
 
-/*****************************************************************************
- * Constructor
- *****************************************************************************/
+/*! Constructs a new backup list model.
+ *
+ * \param  parent the parent UI control element
+ */
 BackupListModel::BackupListModel(QObject *parent) : QAbstractListModel(parent)
-{
+{  // TODO is parent really needed?
     m_list.clear();
 
     connect(this, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged()));
 }
 
-/*****************************************************************************
- * Destructor
- *****************************************************************************/
+
+/*! Destructor
+ */
 BackupListModel::~BackupListModel()
 {
     m_list.clear();
 }
 
+/*! \return the backup list
+ */
 BackupList BackupListModel::backupList()
 {
     return m_list;
 }
 
+
+/*! \return the flags
+ */
 Qt::ItemFlags BackupListModel::flags(const QModelIndex &index) const
-{
+{// TODO: is this method really needed?
     if (!index.isValid()) {
         return Qt::ItemIsEnabled;
     }
@@ -133,9 +139,11 @@ void BackupListModel::onDataChanged()
     Save();
 }
 
-/*******************************************************************************
-* Read config into selector choice.
-*******************************************************************************/
+
+/*! Read config into selector choice.
+ *
+ * \param organization the organisation/filename for the configuration storage
+ */
 int BackupListModel::Load(const QString &organization)
 {
     m_list.clear();
@@ -158,9 +166,8 @@ int BackupListModel::Load(const QString &organization)
 }
 
 
-/*******************************************************************************
-* Write selector choice content to config file.
-*******************************************************************************/
+/*! Write selector choice content to config file.
+ */
 void BackupListModel::Save()
 {
     QSettings settings(m_organization);
@@ -175,9 +182,10 @@ void BackupListModel::Save()
 }
 
 
-/*******************************************************************************
-* Write selector choice content to config file.
-*******************************************************************************/
+/*! Write selector choice content to config file.
+ *
+ * \param organization the organisation/filename for the configuration storage
+ */
 void BackupListModel::SaveAs(const QString &organization)
 {
     QSettings settings(organization);

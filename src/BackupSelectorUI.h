@@ -1,4 +1,4 @@
-/**
+/*
  * BackupSelectorUI.h
  *
  * This file is part of INVERITA.
@@ -28,9 +28,10 @@
 #include <QtGui>
 #include "BackupListModel.h"
 
-/*****************************************************************************
-* Create a new BackupSelectorUI component with GUI elements
-*****************************************************************************/
+
+/*!
+ * Create a new BackupSelectorUI component with GUI elements
+ */
 class BackupSelectorUI : public QFrame
 {
     Q_OBJECT

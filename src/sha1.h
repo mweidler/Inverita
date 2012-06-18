@@ -1,4 +1,4 @@
-/**
+/*
  * \file sha1.h
  *
  * \brief SHA-1 cryptographic hash function

@@ -1,4 +1,4 @@
-/**
+/*
  * mainwindow.h
  *
  * This file is part of INVERITA.

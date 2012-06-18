@@ -1,4 +1,4 @@
-/**
+/*
  * BackupHistoryUI.hpp
  *
  * This file is part of INVERITA.

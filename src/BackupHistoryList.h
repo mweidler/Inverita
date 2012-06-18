@@ -1,4 +1,4 @@
-/**
+/*
  * BackupHistoryList.h
  *
  * This file is part of INVERITA.
@@ -34,9 +34,8 @@
 #include <sys/stat.h>
 
 
-/******************************************************************************
- * Container for meta information
- ******************************************************************************/
+/*! Container for meta information
+ */
 typedef struct BackupHistoryEntry {
     QDateTime   execution;
     QString     origin;
@@ -47,34 +46,28 @@ typedef struct BackupHistoryEntry {
 } BackupHistoryEntry;
 
 
-/*******************************************************************************
- * Base type storage definition
- ******************************************************************************/
+/*! Base type storage definition
+ */
 typedef QList<BackupHistoryEntry> BaseBackupHistoryList;
 typedef QListIterator<BackupHistoryEntry> BackupHistoryListIterator;
 
 
-/*******************************************************************************
- * Model class for storing and handling backup history.
- ******************************************************************************/
+/*! Model class for storing and handling backup history.
+ */
 class BackupHistoryList : public BaseBackupHistoryList, public QAbstractTableModel
 {
 public:
 
-    /** Constructor */
     BackupHistoryList(QObject *parent = 0);
+    virtual ~BackupHistoryList();
 
-    /** model<->view handling */
+    // model<->view handling
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
-    /** Misc */
     void investigate(const QString &origin);
-
-    /** Destructor */
-    virtual ~BackupHistoryList();
 
 protected:
 

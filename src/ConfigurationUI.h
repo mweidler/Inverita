@@ -1,4 +1,4 @@
-/**
+/*
  * ConfigurationUI.h
  *
  * This file is part of INVERITA.
@@ -30,6 +30,7 @@
 #include <QSpinBox>
 
 #include "Configuration.h"
+
 
 class ConfigurationUI : public QDialog
 {
