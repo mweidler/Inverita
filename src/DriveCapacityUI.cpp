@@ -129,7 +129,7 @@ void DriveCapacityUI::drawElement(QPainter &painter, QRect &panel, qreal from, q
     gradient.setColorAt(1, borderColor);
 
     painter.setBrush(gradient);
-    painter.setPen(borderColor);
+    painter.setPen(painter.background().color());
     painter.drawPie(panel, from * 360 * 16, span * 360 * 16);
 
     if (span >= 0.05) {
