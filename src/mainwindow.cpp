@@ -93,10 +93,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_verifyEngine->moveToThread(m_verifyThread);
     m_verifyThread->start(QThread::IdlePriority);
 
-    m_progressBackupDialog = new ProgressDialogUI(m_backupEngine, ProgressDialogUI::ShowTextBox, this);
-    m_progressEraseDialog = new ProgressDialogUI(m_eraseEngine, ProgressDialogUI::NoTextBox, this);
-    m_progressValidateDialog = new ProgressDialogUI(m_validateEngine, ProgressDialogUI::ShowTextBox, this);
-    m_progressVerifyDialog = new ProgressDialogUI(m_verifyEngine, ProgressDialogUI::ShowTextBox, this);
+    m_progressBackupDialog = new ProgressDialogUI(m_backupEngine, ProgressDialogUI::ShowTextBox, ProgressDialogUI::Abortable, this);
+    m_progressEraseDialog = new ProgressDialogUI(m_eraseEngine, ProgressDialogUI::NoTextBox, ProgressDialogUI::NotAbortable, this);
+    m_progressValidateDialog = new ProgressDialogUI(m_validateEngine, ProgressDialogUI::ShowTextBox, ProgressDialogUI::Abortable, this);
+    m_progressVerifyDialog = new ProgressDialogUI(m_verifyEngine, ProgressDialogUI::ShowTextBox, ProgressDialogUI::Abortable, this);
 
     connect(m_backupSelectorUI, SIGNAL(backupSelected()), this, SLOT(onBackupSelected()));
     connect(m_backupHistoryUI, SIGNAL(reload()), this, SLOT(onBackupSelected()));

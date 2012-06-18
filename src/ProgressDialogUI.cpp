@@ -35,7 +35,7 @@
  * \param type   dialog type
  * \param parent the parent ui element
  */
-ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, QWidget *parent) : QDialog(parent)
+ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, DialogAbortable abortable, QWidget *parent) : QDialog(parent)
 {
     m_model = model;
 
@@ -85,6 +85,18 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, QWidget
             break;
     }
 
+    switch (abortable)
+    {
+        case ProgressDialogUI::NotAbortable:
+            m_buttonBox->setEnabled(false);
+            break;
+
+        default: // fall through
+       case ProgressDialogUI::Abortable:
+            m_buttonBox->setEnabled(true);
+            break;
+    }
+
     layout->addWidget(m_buttonBox);
     this->setLayout(layout);
 
@@ -124,6 +136,7 @@ void ProgressDialogUI::display(QString message)
 void ProgressDialogUI::finalize()
 {
     m_timer->stop();
+    m_buttonBox->setEnabled(true);
     m_buttonBox->button(QDialogButtonBox::Abort)->hide();
     m_buttonBox->button(QDialogButtonBox::Ok)->show();
     qDebug() << "Finalized update requested";

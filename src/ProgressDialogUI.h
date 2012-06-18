@@ -45,8 +45,9 @@ class ProgressDialogUI : public QDialog
 
 public:
     enum DialogType { ShowTextBox, NoTextBox };
+    enum DialogAbortable { NotAbortable, Abortable };
 
-    ProgressDialogUI(WorkerEngine *model, DialogType type = NoTextBox, QWidget *parent = 0);
+    ProgressDialogUI(WorkerEngine *model, DialogType type = NoTextBox, DialogAbortable abortable = Abortable, QWidget *parent = 0);
     ~ProgressDialogUI();
 
 public slots:
@@ -71,7 +72,6 @@ private:
     QTextEdit        *m_textArea;
     QDialogButtonBox *m_buttonBox;
     QList<WorkerStatus> m_statusHistory;
-
 };
 
 #endif
