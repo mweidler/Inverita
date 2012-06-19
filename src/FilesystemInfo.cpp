@@ -67,6 +67,8 @@ void FilesystemInfo::setFile(const QString &file)
  */
 void FilesystemInfo::refresh()
 {
+    qDebug() << "FilesystemInfo: refresh";
+
     if (statfs(m_absolutePath.toUtf8().data(), &m_st) == 0) {
         emit dataChanged();
     } else {

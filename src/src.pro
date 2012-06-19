@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     ValidateEngine.cpp \
     VerifyEngine.cpp \
     FilesystemInfo.cpp \
-    DriveCapacityUI.cpp
+    DriveCapacityUI.cpp \
+    DriveSpaceWatcher.cpp
 
 HEADERS  += mainwindow.h \
     BackupSelectorUI.h \
@@ -72,5 +73,6 @@ HEADERS  += mainwindow.h \
     VerifyEngine.h \
     FilesystemInfo.h \
     DriveCapacityUI.h \
-    AbstractDriveCapacityModel.h
+    AbstractDriveCapacityModel.h \
+    DriveSpaceWatcher.h
 

@@ -41,6 +41,9 @@ public:
     virtual qint64 freeCapacity() = 0;
     virtual qint64 totalCapacity() = 0;
 
+public slots:
+    virtual void refresh() = 0;
+
 signals:
     void dataChanged();
 };
