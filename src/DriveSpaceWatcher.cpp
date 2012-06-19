@@ -1,5 +1,5 @@
 /*
- * DriveSpaceWatcher.cpp
+ * DriveCapacityWatcher.cpp
  *
  * This file is part of INVERITA.
  *
@@ -23,13 +23,13 @@
  */
 
 
-#include "DriveSpaceWatcher.h"
+#include "DriveCapacityWatcher.h"
 #include "Utilities.h"
 
 
 /*! Constructs a new drivespace watcher object.
  */
-DriveSpaceWatcher::DriveSpaceWatcher(AbstractDriveCapacityModel *capacityModel, BackupHistoryList *historyListModel)
+DriveCapacityWatcher::DriveCapacityWatcher(AbstractDriveCapacityModel *capacityModel, BackupHistoryList *historyListModel)
 {
     m_capacityModel = capacityModel;
     m_historyListModel = historyListModel;
@@ -52,7 +52,7 @@ DriveSpaceWatcher::DriveSpaceWatcher(AbstractDriveCapacityModel *capacityModel, 
  *
  *  \return the current \em WorkerStatus
  */
-WorkerStatus DriveSpaceWatcher::status()
+WorkerStatus DriveCapacityWatcher::status()
 {
     // one additional file to delete: "metainfo" and "signatures"
     qreal expectedFiles = m_metaInfo.numberOfFiles() + 2;
@@ -73,14 +73,14 @@ WorkerStatus DriveSpaceWatcher::status()
  *
  * \param backupPath the new backup root path
  */
-void DriveSpaceWatcher::select(const QString &backupPath)
+void DriveCapacityWatcher::select(const QString &backupPath)
 {
     m_backupRootPath = backupPath;
-    qDebug() << "DriveSpaceWatcher selected: " << m_backupRootPath;
+    qDebug() << "DriveCapacityWatcher selected: " << m_backupRootPath;
 }
 
 
-void DriveSpaceWatcher::update()
+void DriveCapacityWatcher::update()
 {
     qreal capacity = m_capacityModel->capacity();
     qDebug() << "watch: " << m_backupRootPath << capacity;
@@ -96,7 +96,7 @@ void DriveSpaceWatcher::update()
  *
  *  \em Attention: this method will run in it's own thread scope.
  */
-void DriveSpaceWatcher::start()
+void DriveCapacityWatcher::start()
 {
     reset();
     m_eraseTraverser.reset();
@@ -134,7 +134,7 @@ void DriveSpaceWatcher::start()
  *
  *  \em Attention: Erase can not be aborted.
  */
-void DriveSpaceWatcher::abort()
+void DriveCapacityWatcher::abort()
 {
-    qDebug() << "DriveSpaceWatcher: abort requested but erase is not allowed to abort";
+    qDebug() << "DriveCapacityWatcher: abort requested but erase is not allowed to abort";
 }

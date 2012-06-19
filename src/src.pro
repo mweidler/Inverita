@@ -72,7 +72,7 @@ HEADERS  += mainwindow.h \
     FilesystemInfo.h \
     DriveCapacityUI.h \
     AbstractDriveCapacityModel.h \
-    DriveSpaceWatcher.h \
     ProgressDialog.h \
-    ConfigurationDialog.h
+    ConfigurationDialog.h \
+    DriveCapacityWatcher.h
 

@@ -38,7 +38,7 @@
 #include "FilesystemInfo.h"
 #include "DriveCapacityUI.h"
 #include "ProgressDialog.h"
-#include "DriveSpaceWatcher.h"
+#include "DriveCapacityWatcher.h"
 
 class MainWindow : public QMainWindow
 {
@@ -90,7 +90,7 @@ private:
     QThread           *m_validateThread;
     VerifyEngine      *m_verifyEngine;
     QThread           *m_verifyThread;
-    DriveSpaceWatcher *m_driveSpaceWatcher;
+    DriveCapacityWatcher *m_driveCapacityWatcher;
     QThread           *m_driveWatchThread;
     ProgressDialog    *m_progressBackupDialog;
     ProgressDialog    *m_progressEraseDialog;

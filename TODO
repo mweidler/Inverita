@@ -1,4 +1,3 @@
-5. Change DriveSpaceWatcher to DriveCapacityWatcher
 6. DriveCapacityWatcher runs permanently in a own thread and updates the AbstractDriveCapacityModel (done)
 7. Pruefen: BackupListModel -> BackupList umbenennen; Signatur QAbstractListModel in Parametern
 

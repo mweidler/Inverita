@@ -93,9 +93,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_verifyEngine->moveToThread(m_verifyThread);
     m_verifyThread->start(QThread::IdlePriority);
 
-    m_driveSpaceWatcher = new DriveSpaceWatcher(m_filesystemInfo, m_historyList);
+    m_driveCapacityWatcher = new DriveCapacityWatcher(m_filesystemInfo, m_historyList);
     m_driveWatchThread = new QThread;
-    m_driveSpaceWatcher->moveToThread(m_verifyThread);
+    m_driveCapacityWatcher->moveToThread(m_verifyThread);
     m_driveWatchThread->start(QThread::LowPriority); // must have higher priority than backup execution
 
     m_progressBackupDialog = new ProgressDialog(m_backupEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
@@ -134,8 +134,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(m_verifyEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
     connect(m_verifyEngine, SIGNAL(report(QString)), m_progressVerifyDialog, SLOT(display(QString)));
 
-    connect(m_driveSpaceWatcher, SIGNAL(finished()), this, SLOT(onBackupFinished()));
-    connect(m_driveSpaceWatcher, SIGNAL(failed()), this, SLOT(onBackupFailed()));
+    connect(m_driveCapacityWatcher, SIGNAL(finished()), this, SLOT(onBackupFinished()));
+    connect(m_driveCapacityWatcher, SIGNAL(failed()), this, SLOT(onBackupFailed()));
 
     m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
     statusBar()->showMessage(tr("Welcome."));
@@ -199,7 +199,7 @@ void MainWindow::onBackupSelected()
     m_filesystemInfo->setFile(origin);
     m_backupEngine->select(origin);
     m_verifyEngine->select(origin);
-    m_driveSpaceWatcher->select(origin);
+    m_driveCapacityWatcher->select(origin);
 
     Configuration config;
     if (config.Load(origin + "/inverita.conf")) {

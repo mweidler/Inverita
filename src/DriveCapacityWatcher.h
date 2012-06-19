@@ -1,5 +1,5 @@
 /*
- * DriveSpaceWatcher.h
+ * DriveCapacityWatcher.h
  *
  * This file is part of INVERITA.
  *
@@ -22,8 +22,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADER_DRIVESPACEWATCHER_INC
-#define HEADER_DRIVESPACEWATCHER_INC
+#ifndef HEADER_DRIVECAPACITYWATCHER_INC
+#define HEADER_DRIVECAPACITYWATCHER_INC
 
 #include <QString>
 #include <QStringList>
@@ -37,12 +37,12 @@
 
 /*! Handles the whole job of erasing a backup snapshot.
  */
-class DriveSpaceWatcher : public WorkerEngine
+class DriveCapacityWatcher : public WorkerEngine
 {
     Q_OBJECT
 
 public:
-    DriveSpaceWatcher(AbstractDriveCapacityModel *capacityModel, BackupHistoryList *historyListModel);
+    DriveCapacityWatcher(AbstractDriveCapacityModel *capacityModel, BackupHistoryList *historyListModel);
 
     WorkerStatus status();
     void select(const QString &backupPath);
