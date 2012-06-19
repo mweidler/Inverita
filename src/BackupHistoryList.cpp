@@ -29,7 +29,7 @@
 
 /*! Constructs a new backup history list object
  *
- * /param parent the parent UI element
+ * \param parent the parent UI element
  */
 BackupHistoryList::BackupHistoryList(QObject *parent) : QAbstractTableModel(parent)
 {

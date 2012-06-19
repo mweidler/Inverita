@@ -37,7 +37,7 @@
 #include "VerifyEngine.h"
 #include "FilesystemInfo.h"
 #include "DriveCapacityUI.h"
-#include "ProgressDialogUI.h"
+#include "ProgressDialog.h"
 #include "DriveSpaceWatcher.h"
 
 class MainWindow : public QMainWindow
@@ -92,10 +92,10 @@ private:
     QThread           *m_verifyThread;
     DriveSpaceWatcher *m_driveSpaceWatcher;
     QThread           *m_driveWatchThread;
-    ProgressDialogUI  *m_progressBackupDialog;
-    ProgressDialogUI  *m_progressEraseDialog;
-    ProgressDialogUI  *m_progressValidateDialog;
-    ProgressDialogUI  *m_progressVerifyDialog;
+    ProgressDialog    *m_progressBackupDialog;
+    ProgressDialog    *m_progressEraseDialog;
+    ProgressDialog    *m_progressValidateDialog;
+    ProgressDialog    *m_progressVerifyDialog;
 };
 
 #endif // HEADER_MAINWINDOW_INC

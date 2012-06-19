@@ -24,7 +24,6 @@ SOURCES += main.cpp\
     Configuration.cpp \
     ConfigurationListUI.cpp \
     ControlUI.cpp \
-    ProgressDialogUI.cpp \
     Utilities.cpp \
     BackupEngine.cpp \
     EraseEngine.cpp \
@@ -43,7 +42,8 @@ SOURCES += main.cpp\
     VerifyEngine.cpp \
     FilesystemInfo.cpp \
     DriveCapacityUI.cpp \
-    DriveSpaceWatcher.cpp
+    DriveSpaceWatcher.cpp \
+    ProgressDialog.cpp
 
 HEADERS  += mainwindow.h \
     BackupSelectorUI.h \
@@ -54,7 +54,6 @@ HEADERS  += mainwindow.h \
     Configuration.h \
     ConfigurationListUI.h \
     ControlUI.h \
-    ProgressDialogUI.h \
     Utilities.h \
     BackupEngine.h \
     EraseEngine.h \
@@ -74,5 +73,6 @@ HEADERS  += mainwindow.h \
     FilesystemInfo.h \
     DriveCapacityUI.h \
     AbstractDriveCapacityModel.h \
-    DriveSpaceWatcher.h
+    DriveSpaceWatcher.h \
+    ProgressDialog.h
 

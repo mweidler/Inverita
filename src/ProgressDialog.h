@@ -1,5 +1,5 @@
 /*
- * ProgressDialogUI.h
+ * ProgressDialog.h
  *
  * This file is part of INVERITA.
  *
@@ -22,8 +22,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADER_PROGRESSDIALOGUI_INC
-#define HEADER_PROGRESSDIALOGUI_INC
+#ifndef HEADER_PROGRESSDIALOG_INC
+#define HEADER_PROGRESSDIALOG_INC
 
 #include <QDialog>
 #include <QProgressBar>
@@ -39,7 +39,7 @@
 
 /*! Dialog class presenting progress information to the user
  */
-class ProgressDialogUI : public QDialog
+class ProgressDialog : public QDialog
 {
     Q_OBJECT
 
@@ -47,8 +47,8 @@ public:
     enum DialogType { ShowTextBox, NoTextBox };
     enum DialogAbortable { NotAbortable, Abortable };
 
-    ProgressDialogUI(WorkerEngine *model, DialogType type = NoTextBox, DialogAbortable abortable = Abortable, QWidget *parent = 0);
-    ~ProgressDialogUI();
+    ProgressDialog(WorkerEngine *model, DialogType type = NoTextBox, DialogAbortable abortable = Abortable, QWidget *parent = 0);
+    ~ProgressDialog();
 
 public slots:
     void update();

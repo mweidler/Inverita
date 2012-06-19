@@ -12,5 +12,6 @@ OTHER_FILES += \
     beautify.sh \
     LICENSE \
     README \
+    TODO \
     Doxyfile \
     astyle.opt

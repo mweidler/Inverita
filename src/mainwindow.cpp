@@ -98,10 +98,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_driveSpaceWatcher->moveToThread(m_verifyThread);
     m_driveWatchThread->start(QThread::LowPriority); // must have higher priority than backup execution
 
-    m_progressBackupDialog = new ProgressDialogUI(m_backupEngine, ProgressDialogUI::ShowTextBox, ProgressDialogUI::Abortable, this);
-    m_progressEraseDialog = new ProgressDialogUI(m_eraseEngine, ProgressDialogUI::NoTextBox, ProgressDialogUI::NotAbortable, this);
-    m_progressValidateDialog = new ProgressDialogUI(m_validateEngine, ProgressDialogUI::ShowTextBox, ProgressDialogUI::Abortable, this);
-    m_progressVerifyDialog = new ProgressDialogUI(m_verifyEngine, ProgressDialogUI::ShowTextBox, ProgressDialogUI::Abortable, this);
+    m_progressBackupDialog = new ProgressDialog(m_backupEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
+    m_progressEraseDialog = new ProgressDialog(m_eraseEngine, ProgressDialog::NoTextBox, ProgressDialog::NotAbortable, this);
+    m_progressValidateDialog = new ProgressDialog(m_validateEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
+    m_progressVerifyDialog = new ProgressDialog(m_verifyEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
 
     connect(m_backupSelectorUI, SIGNAL(backupSelected()), this, SLOT(onBackupSelected()));
     connect(m_backupHistoryUI, SIGNAL(reload()), this, SLOT(onBackupSelected()));

@@ -119,5 +119,4 @@ void EraseEngine::start()
 void EraseEngine::abort()
 {
     qDebug() << "EraseEngine: abort requested but erase is not allowed to abort";
-    // TODO: disable abort button in ProgressDialogUI
 }

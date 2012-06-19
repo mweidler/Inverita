@@ -1,5 +1,5 @@
 /*
- * ProgressDialogUI.cpp
+ * ProgressDialog.cpp
  *
  * This file is part of INVERITA.
  *
@@ -22,7 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ProgressDialogUI.h"
+#include "ProgressDialog.h"
 
 #include <QtCore>
 #include <QVBoxLayout>
@@ -35,7 +35,7 @@
  * \param type   dialog type
  * \param parent the parent ui element
  */
-ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, DialogAbortable abortable, QWidget *parent) : QDialog(parent)
+ProgressDialog::ProgressDialog(WorkerEngine *model, DialogType type, DialogAbortable abortable, QWidget *parent) : QDialog(parent)
 {
     m_model = model;
 
@@ -74,24 +74,24 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, DialogA
     layout->addWidget(m_labelRemaining);
 
     switch (type) {
-        case ProgressDialogUI::ShowTextBox:
+        case ProgressDialog::ShowTextBox:
             layout->addWidget(m_textArea);
             setMinimumSize(700, 400);
             break;
 
         default: // fall through
-        case ProgressDialogUI::NoTextBox:
+        case ProgressDialog::NoTextBox:
             setMinimumSize(400, 200);
             break;
     }
 
     switch (abortable) {
-        case ProgressDialogUI::NotAbortable:
+        case ProgressDialog::NotAbortable:
             m_buttonBox->setEnabled(false);
             break;
 
         default: // fall through
-        case ProgressDialogUI::Abortable:
+        case ProgressDialog::Abortable:
             m_buttonBox->setEnabled(true);
             break;
     }
@@ -114,7 +114,7 @@ ProgressDialogUI::ProgressDialogUI(WorkerEngine *model, DialogType type, DialogA
 
 /*! Destructor
  */
-ProgressDialogUI::~ProgressDialogUI()
+ProgressDialog::~ProgressDialog()
 {
 
 }
@@ -124,7 +124,7 @@ ProgressDialogUI::~ProgressDialogUI()
  *
  * \param message the message to be added to the dialog text area
  */
-void ProgressDialogUI::display(QString message)
+void ProgressDialog::display(QString message)
 {
     m_textArea->insertHtml(message);
 }
@@ -132,7 +132,7 @@ void ProgressDialogUI::display(QString message)
 
 /*! Sigals the user, that the job has finished and the dialog can be closed by the user.
  */
-void ProgressDialogUI::finalize()
+void ProgressDialog::finalize()
 {
     m_timer->stop();
     m_buttonBox->setEnabled(true);
@@ -143,7 +143,7 @@ void ProgressDialogUI::finalize()
 }
 
 
-void ProgressDialogUI::showEvent(QShowEvent *event)
+void ProgressDialog::showEvent(QShowEvent *event)
 {
     m_buttonBox->button(QDialogButtonBox::Ok)->hide();
     m_buttonBox->button(QDialogButtonBox::Abort)->show();
@@ -157,7 +157,7 @@ void ProgressDialogUI::showEvent(QShowEvent *event)
 }
 
 
-void ProgressDialogUI::closeEvent(QCloseEvent *event)
+void ProgressDialog::closeEvent(QCloseEvent *event)
 {
     m_timer->stop();
     QDialog::closeEvent(event);
@@ -166,7 +166,7 @@ void ProgressDialogUI::closeEvent(QCloseEvent *event)
 
 /*! Update infos in the progress dialog.
  */
-void ProgressDialogUI::update()
+void ProgressDialog::update()
 {
     QString remainingInfo;
     QString transferRateInfo;
