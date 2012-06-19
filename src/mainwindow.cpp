@@ -109,6 +109,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(m_backupHistoryUI, SIGNAL(validateBackup()), this, SLOT(onValidateBackup()));
 
     connect(m_controlUI, SIGNAL(backupStarted()), m_backupEngine, SLOT(start()));
+    connect(m_controlUI, SIGNAL(backupStarted()), this, SLOT(onBackupStarted()));
     connect(m_progressBackupDialog, SIGNAL(aborted()), this, SLOT(cancelProgress()));
     connect(m_backupEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
     connect(m_backupEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
@@ -211,15 +212,24 @@ void MainWindow::onBackupSelected()
     }
 }
 
+void MainWindow::onBackupStarted()
+{
+    qDebug() << "onBackupStarted";
+    m_driveCapacityWatcher->setAutoDeleteEnabled(true);
+}
+
+
 void MainWindow::onBackupFinished()
 {
     std::cerr << "onBackupFinished\n";
+    m_driveCapacityWatcher->setAutoDeleteEnabled(false);
     onBackupSelected();
 }
 
 void MainWindow::onBackupAborted()
 {
     std::cerr << "onBackupAborted\n";
+    m_driveCapacityWatcher->setAutoDeleteEnabled(false);
 }
 
 void MainWindow::cancelProgress()

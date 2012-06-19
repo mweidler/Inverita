@@ -39,8 +39,8 @@ DriveCapacityUI::DriveCapacityUI(AbstractDriveCapacityModel *model, QWidget *par
 {
     m_model = model;
 
-    setBackgroundRole(QPalette::NoRole);
-    setAutoFillBackground(true);
+    //setBackgroundRole(QPalette::NoRole);
+    //setAutoFillBackground(true);
 
     connect(m_model, SIGNAL(dataChanged()), this, SLOT(update()));
 }
@@ -55,21 +55,6 @@ QSize DriveCapacityUI::minimumSizeHint() const
 QSize DriveCapacityUI::sizeHint() const
 {
     return QSize(175, 175);
-}
-
-
-/*! Draws a shadow of the pie chart element
- *
- * \param painter the paint device
- * \param panel   the borders of the paint range
- * \param from    start angle of the pie chart segment
- * \param to      end angle of the pie chart segment
- */
-void DriveCapacityUI::drawShadow(QPainter &painter, QRect &panel, int from, int to)
-{
-    painter.setPen(Qt::darkGray);
-    painter.setBrush(Qt::darkGray);
-    painter.drawPie(panel.adjusted(5, 5, 5, 5), from * 16, to * 16);
 }
 
 
@@ -116,13 +101,13 @@ QPoint DriveCapacityUI::rotatedPoint(qreal radius, qreal angle)
  * \param centerColor the color of the pie chart segment in the center
  * \param borderColor the color of the pie chart segment at the border
  */
-void DriveCapacityUI::drawElement(QPainter &painter, QRect &panel, qreal from, qreal span, QColor centerColor, QColor borderColor)
+void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, QColor centerColor, QColor borderColor)
 {
     if (span == 0) {
         return;
     }
 
-    QPoint center = panel.center();
+    QPoint center = contentsRect().center();
 
     QRadialGradient gradient(center.x(), center.y(), 75);
     gradient.setColorAt(0, centerColor);
@@ -130,11 +115,12 @@ void DriveCapacityUI::drawElement(QPainter &painter, QRect &panel, qreal from, q
 
     painter.setBrush(gradient);
     painter.setPen(painter.background().color());
-    painter.drawPie(panel, from * 360 * 16, span * 360 * 16);
+    painter.drawPie(contentsRect(), from * 360 * 16, span * 360 * 16);
 
     if (span >= 0.05) {
         QString label;
-        label.sprintf("%.1f%%", (float)(100.0 * span));
+        label.setNum(100.0 * span, 'f', 1);//.sprintf("%.1f%%", (float)(100.0 * span));
+        label += "%";
 
         painter.setBackgroundMode(Qt::TransparentMode);
         painter.setBrush(borderColor);
@@ -151,9 +137,6 @@ void DriveCapacityUI::drawElement(QPainter &painter, QRect &panel, qreal from, q
 void DriveCapacityUI::paintEvent(QPaintEvent * /* event */)
 {
     QPainter painter(this);
-
-    QRect panel = contentsRect().adjusted(10, 10, -10, -10);
-
     painter.setRenderHints(QPainter::Antialiasing, true);
     painter.setBackgroundMode(Qt::OpaqueMode);
 
@@ -163,10 +146,6 @@ void DriveCapacityUI::paintEvent(QPaintEvent * /* event */)
     QColor lightUsedColor(255, 200, 200);
 
     qreal capacity = m_model->capacity();
-
-    //drawShadow(painter, panel, capacity * 360, 360);
-    //drawShadow(painter, panel, 0, capacity * 360);
-
-    drawElement(painter, panel, 0, capacity, lightFreeColor, freeColor);
-    drawElement(painter, panel, capacity, 1.0 - capacity, lightUsedColor, usedColor);
+    drawElement(painter, 0, capacity, lightFreeColor, freeColor);
+    drawElement(painter, capacity, 1.0 - capacity, lightUsedColor, usedColor);
 }

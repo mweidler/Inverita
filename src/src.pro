@@ -41,9 +41,9 @@ SOURCES += main.cpp\
     VerifyEngine.cpp \
     FilesystemInfo.cpp \
     DriveCapacityUI.cpp \
-    DriveSpaceWatcher.cpp \
     ProgressDialog.cpp \
-    ConfigurationDialog.cpp
+    ConfigurationDialog.cpp \
+    DriveCapacityWatcher.cpp
 
 HEADERS  += mainwindow.h \
     BackupSelectorUI.h \

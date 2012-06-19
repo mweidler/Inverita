@@ -35,6 +35,7 @@ DriveCapacityWatcher::DriveCapacityWatcher(AbstractDriveCapacityModel *capacityM
     m_historyListModel = historyListModel;
 
     reset();
+    setAutoDeleteEnabled(false);
     m_timer = new QTimer(this);
     m_timer->setInterval(10000);
     m_timer->start();
@@ -80,12 +81,18 @@ void DriveCapacityWatcher::select(const QString &backupPath)
 }
 
 
+void DriveCapacityWatcher::setAutoDeleteEnabled(bool autoDelete)
+{
+    m_autoDelete = autoDelete;
+    qDebug() << "DriveCapacityWatcher setAutoDelete" << autoDelete;
+}
+
 void DriveCapacityWatcher::update()
 {
     qreal capacity = m_capacityModel->capacity();
     qDebug() << "watch: " << m_backupRootPath << capacity;
 
-    if (capacity < 0.05 && m_historyListModel->size() > 0) {
+    if (capacity < 0.05 && m_historyListModel->size() > 0 && m_autoDelete) {
         m_snapshotName = m_backupRootPath + "/" + m_historyListModel->at(0).name;
         start();
     }

@@ -46,6 +46,7 @@ public:
 
     WorkerStatus status();
     void select(const QString &backupPath);
+    void setAutoDeleteEnabled(bool autoDelete);
 
 public slots:
     void update();
@@ -60,6 +61,7 @@ protected:
     SnapshotMetaInfo           m_metaInfo;
     AbstractDriveCapacityModel *m_capacityModel;    //!< the model containing drive space information
     BackupHistoryList          *m_historyListModel;
+    bool                       m_autoDelete;
 };
 
 #endif
