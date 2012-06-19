@@ -1,5 +1,5 @@
 /*
- * ConfigurationUI.h
+ * ConfigurationDialog.h
  *
  * This file is part of INVERITA.
  *
@@ -22,8 +22,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADER_CONFIGURATIONUI_INC
-#define HEADER_CONFIGURATIONUI_INC
+#ifndef HEADER_CONFIGURATIONDIALOG_INC
+#define HEADER_CONFIGURATIONDIALOG_INC
 
 #include <QDialog>
 #include <QCheckBox>
@@ -32,13 +32,13 @@
 #include "Configuration.h"
 
 
-class ConfigurationUI : public QDialog
+class ConfigurationDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    ConfigurationUI(Configuration &model, QWidget *parent);
-    ~ConfigurationUI();
+    ConfigurationDialog(Configuration &model, QWidget *parent);
+    ~ConfigurationDialog();
 
 public slots:
     void onVerifyToggeled();

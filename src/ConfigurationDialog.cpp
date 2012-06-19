@@ -1,5 +1,5 @@
 /*
- * ConfigurationUI.cpp
+ * ConfigurationDialog.cpp
  *
  * This file is part of INVERITA.
  *
@@ -30,10 +30,10 @@
 #include <QLabel>
 #include <QTableWidget>
 
-#include "ConfigurationUI.h"
+#include "ConfigurationDialog.h"
 #include "ConfigurationListUI.h"
 
-ConfigurationUI::ConfigurationUI(Configuration &model, QWidget *parent) : QDialog(parent), m_config(model)
+ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) : QDialog(parent), m_config(model)
 {
     QString includeText = tr("The list below defines the coverage of your backup.\n"
                              "You can specify any many files, file patterns or directories you want.");
@@ -136,12 +136,12 @@ ConfigurationUI::ConfigurationUI(Configuration &model, QWidget *parent) : QDialo
     setWindowTitle(tr("Backup configuration"));
 }
 
-ConfigurationUI::~ConfigurationUI()
+ConfigurationDialog::~ConfigurationDialog()
 {
 
 }
 
-void ConfigurationUI::onVerifyToggeled()
+void ConfigurationDialog::onVerifyToggeled()
 {
     if (m_verify->isChecked()) {
         m_verifyHash->setEnabled(true);
@@ -154,7 +154,7 @@ void ConfigurationUI::onVerifyToggeled()
     }
 }
 
-void ConfigurationUI::onSave()
+void ConfigurationDialog::onSave()
 {
     int verification = 0;
 

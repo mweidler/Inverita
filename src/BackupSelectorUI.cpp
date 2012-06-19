@@ -25,7 +25,7 @@
 #include <QtGui>
 
 #include "BackupSelectorUI.h"
-#include "ConfigurationUI.h"
+#include "ConfigurationDialog.h"
 
 
 /*! Create a new BackupSelectorUI component with GUI elements
@@ -145,8 +145,8 @@ void BackupSelectorUI::onNew()
     QString filename = dirname + "/" + "inverita.conf";
 
     Configuration config;
-    ConfigurationUI configUI(config, this);
-    if (configUI.exec() == QDialog::Accepted) {
+    ConfigurationDialog configDialog(config, this);
+    if (configDialog.exec() == QDialog::Accepted) {
         config.Save(filename);
 
         // do not store a duplicate item
@@ -176,8 +176,8 @@ void BackupSelectorUI::onConfigure()
     Configuration config;
     config.Load(filename);
 
-    ConfigurationUI configUI(config, this);
-    if (configUI.exec() == QDialog::Accepted) {
+    ConfigurationDialog configDialog(config, this);
+    if (configDialog.exec() == QDialog::Accepted) {
         config.Save(filename);
         emit backupSelected();
     }

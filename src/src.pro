@@ -20,7 +20,6 @@ SOURCES += main.cpp\
     BackupHistoryUI.cpp \
     BackupHistoryList.cpp \
     BackupListModel.cpp \
-    ConfigurationUI.cpp \
     Configuration.cpp \
     ConfigurationListUI.cpp \
     ControlUI.cpp \
@@ -43,14 +42,14 @@ SOURCES += main.cpp\
     FilesystemInfo.cpp \
     DriveCapacityUI.cpp \
     DriveSpaceWatcher.cpp \
-    ProgressDialog.cpp
+    ProgressDialog.cpp \
+    ConfigurationDialog.cpp
 
 HEADERS  += mainwindow.h \
     BackupSelectorUI.h \
     BackupHistoryUI.h \
     BackupHistoryList.h \
     BackupListModel.h \
-    ConfigurationUI.h \
     Configuration.h \
     ConfigurationListUI.h \
     ControlUI.h \
@@ -74,5 +73,6 @@ HEADERS  += mainwindow.h \
     DriveCapacityUI.h \
     AbstractDriveCapacityModel.h \
     DriveSpaceWatcher.h \
-    ProgressDialog.h
+    ProgressDialog.h \
+    ConfigurationDialog.h
 
