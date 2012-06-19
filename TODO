@@ -1,5 +1,5 @@
-6. DriveCapacityWatcher runs permanently in a own thread and updates the AbstractDriveCapacityModel (done)
-7. Pruefen: BackupListModel -> BackupList umbenennen; Signatur QAbstractListModel in Parametern
+Pruefen: BackupListModel -> BackupList umbenennen; Signatur QAbstractListModel in Parametern
+
 
 ApplicationException
 Utilities
@@ -12,10 +12,9 @@ BackupHistoryList
 BackupListModel <- QAbstractListModel
 AbstractDriveCapacityModel
 
-
 AboutDialog
-ProgressDialogUI -> ProgressDialog
-ConfigurationUI -> ConfigurationDialog
+ProgressDialog
+ConfigurationDialog
 
 BackupSelectorUI
 BackupHistoryUI
@@ -23,13 +22,11 @@ ConfigurationListUI
 ControlUI
 DriveCapacityUI
 
-
 Traverser
 ValidateTraverser
 ScanTraverser
 EraseTraverser
 CopyTraverser
-
 
 WorkerEngine
 ValidateEngine
@@ -37,4 +34,5 @@ BackupEngine
 VerifyEngine
 EraseEngine
 
-DriveSpaceWatcher -> DriveCapacityWatcher
+DriveCapacityWatcher
+
