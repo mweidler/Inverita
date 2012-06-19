@@ -119,7 +119,7 @@ void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, QCo
 
     if (span >= 0.05) {
         QString label;
-        label.setNum(100.0 * span, 'f', 1);//.sprintf("%.1f%%", (float)(100.0 * span));
+        label.setNum(100.0 * span, 'f', 1);
         label += "%";
 
         painter.setBackgroundMode(Qt::TransparentMode);

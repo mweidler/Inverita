@@ -148,14 +148,14 @@ QString ScaleToSiPrefix(qint64 size)
     }
 
     if (value >= 100) {
-        stringValue.sprintf("%.0f", value);
+        stringValue.setNum(value, 'f', 0);
     } else if (value >= 10) {
-        stringValue.sprintf("%.1f", value);
+        stringValue.setNum(value, 'f', 1);
     } else {
         if (unitIdx == 0) {
-            stringValue.sprintf("%.0f", value);
+            stringValue.setNum(value, 'f', 0);
         } else {
-            stringValue.sprintf("%.2f", value);
+            stringValue.setNum(value, 'f', 2);
         }
     }
 
