@@ -47,7 +47,7 @@ public:
 
 protected:
     QPoint rotatedPoint(qreal scale, qreal angle);
-    void drawElement(QPainter &painter, qreal from, qreal span, QColor centerColor, QColor borderColor);
+    void drawElement(QPainter &painter, qreal from, qreal span, qint64 space, QColor centerColor, QColor borderColor);
 
     AbstractDriveCapacityModel *m_model; //!< the model containing drive space information
 };

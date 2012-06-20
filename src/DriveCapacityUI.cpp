@@ -23,6 +23,7 @@
  */
 
 #include "DriveCapacityUI.h"
+#include "Utilities.h"
 
 #include <QPainter>
 #include <QRadialGradient>
@@ -101,7 +102,7 @@ QPoint DriveCapacityUI::rotatedPoint(qreal radius, qreal angle)
  * \param centerColor the color of the pie chart segment in the center
  * \param borderColor the color of the pie chart segment at the border
  */
-void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, QColor centerColor, QColor borderColor)
+void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, qint64 space, QColor centerColor, QColor borderColor)
 {
     if (span == 0) {
         return;
@@ -118,16 +119,18 @@ void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, QCo
     painter.drawPie(contentsRect(), from * 360 * 16, span * 360 * 16);
 
     if (span >= 0.05) {
-        QString label = QString("%1%").arg(100.0 * span, 0, 'f', 1);
+        QString absolute = ScaleToSiPrefix(space);
+        //QString percent = QString("(%1%)").arg(100.0 * span, 0, 'f', 0);
 
         painter.setBackgroundMode(Qt::TransparentMode);
         painter.setBrush(borderColor);
         painter.setPen(Qt::black);
 
-        QPoint labelCenter = center + rotatedPoint(40, (from + span / 2) * 360);
+        QPoint labelCenter = center + rotatedPoint(45, (from + span / 2) * 360);
+        int fontHeight = painter.font().pointSize();
+        QRect absoluteRect(labelCenter.x() - 30, labelCenter.y() - fontHeight, 80, 2*fontHeight);
 
-        QRect labelRect(labelCenter.x() - 40, labelCenter.y() - 20, 100, 40);
-        painter.drawText(labelRect, Qt::AlignCenter, label);
+        painter.drawText(absoluteRect, Qt::AlignCenter, absolute);
     }
 }
 
@@ -138,12 +141,12 @@ void DriveCapacityUI::paintEvent(QPaintEvent * /* event */)
     painter.setRenderHints(QPainter::Antialiasing, true);
     painter.setBackgroundMode(Qt::OpaqueMode);
 
-    QColor freeColor(0, 255, 150);
+    QColor freeColor(0, 235, 100);
     QColor lightFreeColor(200, 255, 200);
-    QColor usedColor(255, 0, 0);
+    QColor usedColor(235, 0, 0);
     QColor lightUsedColor(255, 200, 200);
 
     qreal capacity = m_model->capacity();
-    drawElement(painter, 0, capacity, lightFreeColor, freeColor);
-    drawElement(painter, capacity, 1.0 - capacity, lightUsedColor, usedColor);
+    drawElement(painter, 0, capacity, m_model->freeCapacity(), lightFreeColor, freeColor);
+    drawElement(painter, capacity, 1.0 - capacity, m_model->usedCapacity(), lightUsedColor, usedColor);
 }
