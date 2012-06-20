@@ -211,6 +211,8 @@ void ProgressDialog::update()
             remainingInfo += tr("%1 minute(s)", "", remainingMinutes).arg(remainingMinutes);
         } else if (remainingMinutes >= 1) {
             remainingInfo += tr("%1 minute(s)", "", remainingMinutes).arg(remainingMinutes);
+            remainingInfo += " " + tr("and") + " ";
+            remainingInfo += tr("%1 second(s)", "", remainingSeconds).arg(remainingSeconds);
         } else {
             remainingInfo += tr("%1 second(s)", "", remainingSeconds).arg(remainingSeconds);
         }
