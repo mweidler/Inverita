@@ -9,7 +9,7 @@ SignatureMap
 Configuration
 
 BackupHistoryList
-BackupListModel <- QAbstractListModel
+BackupListModel <- BackupList
 AbstractDriveCapacityModel
 
 AboutDialog
