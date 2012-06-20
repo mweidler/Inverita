@@ -1,5 +1,5 @@
 /*
- * SnapshotMetaInfo.hpp
+ * Snapshot.cpp
  *
  * This file is part of INVERITA.
  *
@@ -22,33 +22,69 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADER_SNAPSHOTMETAINFO_INC
-#define HEADER_SNAPSHOTMETAINFO_INC
 
 #include <QtCore>
 #include <QString>
 #include <QStringList>
 
-#include "ApplicationException.h"
+#include "Snapshot.h"
 
-class SnapshotMetaInfo : public QObject
+
+Snapshot::Snapshot()
 {
-public:
-    SnapshotMetaInfo();
+    reset();
+}
 
-    void reset();
-    bool Load(QString filename);
-    void Save(QString filename);
+void Snapshot::reset()
+{
+    m_execution = QDateTime::currentDateTime();
+    m_origin.clear();
+    m_location.clear();
+    m_name.clear();
+    m_metaInfo.reset();
+}
 
-    qint64 numberOfFiles();
-    void setNumberOfFiles(qint64 count);
+QDateTime Snapshot::modificationTime()
+{
+    return m_execution;
+}
 
-    qint64 sizeOfFiles();
-    void setSizeOfFiles(qint64 count);
+void  Snapshot::setModificationTime(const QDateTime &modificationTime)
+{
+    m_execution = modificationTime;
+}
 
-protected:
-    int  m_files;
-    int  m_totalSize;
-};
+QString Snapshot::origin()
+{
+    return m_origin;
+}
 
-#endif
+void  Snapshot::setOrigin(const QString &origin)
+{
+    m_origin = origin;
+}
+
+QString Snapshot::location()
+{
+    return m_location;
+}
+
+void  Snapshot::setLocation(const QString &location)
+{
+    m_location = location;
+}
+
+QString Snapshot::name()
+{
+    return m_name;
+}
+
+void  Snapshot::setName(const QString &name)
+{
+    m_name = name;
+}
+
+SnapshotMetaInfo & Snapshot::metaInfo()
+{
+    return m_metaInfo;
+}

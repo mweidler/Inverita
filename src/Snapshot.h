@@ -1,5 +1,5 @@
 /*
- * SnapshotMetaInfo.hpp
+ * Snapshot.h
  *
  * This file is part of INVERITA.
  *
@@ -22,33 +22,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADER_SNAPSHOTMETAINFO_INC
-#define HEADER_SNAPSHOTMETAINFO_INC
+#ifndef HEADER_SNAPSHOT_INC
+#define HEADER_SNAPSHOT_INC
 
-#include <QtCore>
-#include <QString>
-#include <QStringList>
 
-#include "ApplicationException.h"
+#include "SnapshotMetaInfo.h"
 
-class SnapshotMetaInfo : public QObject
+class Snapshot : public QObject
 {
 public:
-    SnapshotMetaInfo();
+    Snapshot();
 
     void reset();
-    bool Load(QString filename);
-    void Save(QString filename);
 
-    qint64 numberOfFiles();
-    void setNumberOfFiles(qint64 count);
+    QDateTime modificationTime();
+    void  setModificationTime(const QDateTime &modificationTime);
 
-    qint64 sizeOfFiles();
-    void setSizeOfFiles(qint64 count);
+    QString origin();
+    void  setOrigin(const QString &origin);
+
+    QString location();
+    void  setLocation(const QString &location);
+
+    QString name();
+    void  setName(const QString &name);
+
+    SnapshotMetaInfo &metaInfo();
 
 protected:
-    int  m_files;
-    int  m_totalSize;
+    QDateTime        m_execution;
+    QString          m_origin;
+    QString          m_location;
+    QString          m_name;
+    SnapshotMetaInfo m_metaInfo;
 };
 
 #endif
