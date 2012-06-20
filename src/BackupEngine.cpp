@@ -35,9 +35,8 @@ BackupEngine::BackupEngine()
     reset();
 
     m_descriptions << tr("1. Analyze backup content") <<
-                   tr("2. Create hard link copy") <<
-                   tr("3. Generate backup") <<
-                   tr("4. Verify generated backup");
+                   tr("2. Create backup snapshot") <<
+                   tr("3. Verify generated backup");
 }
 
 
