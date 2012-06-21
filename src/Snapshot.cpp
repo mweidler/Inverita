@@ -35,56 +35,94 @@ Snapshot::Snapshot()
     reset();
 }
 
+Snapshot::Snapshot(const Snapshot &other) : QObject()
+{
+    m_execution = other.m_execution;
+    m_origin = other.m_origin;
+    m_location = other.m_location;
+    m_name = other.m_name;
+    m_status = other.m_status;
+    m_metaInfo = other.m_metaInfo;
+}
+
+Snapshot &Snapshot::operator= (const Snapshot &other)
+{
+    m_execution = other.m_execution;
+    m_origin = other.m_origin;
+    m_location = other.m_location;
+    m_name = other.m_name;
+    m_status = other.m_status;
+    m_metaInfo = other.m_metaInfo;
+
+    return *this;
+}
+
 void Snapshot::reset()
 {
     m_execution = QDateTime::currentDateTime();
     m_origin.clear();
     m_location.clear();
     m_name.clear();
+    m_status = Snapshot::Invalid;
     m_metaInfo.reset();
 }
 
-QDateTime Snapshot::modificationTime()
+QDateTime Snapshot::modificationTime() const
 {
     return m_execution;
 }
 
-void  Snapshot::setModificationTime(const QDateTime &modificationTime)
+void  Snapshot::setModificationTime(QDateTime modificationTime)
 {
     m_execution = modificationTime;
 }
 
-QString Snapshot::origin()
+QString Snapshot::origin() const
 {
     return m_origin;
 }
 
-void  Snapshot::setOrigin(const QString &origin)
+void  Snapshot::setOrigin(QString origin)
 {
     m_origin = origin;
 }
 
-QString Snapshot::location()
+QString Snapshot::location() const
 {
     return m_location;
 }
 
-void  Snapshot::setLocation(const QString &location)
+void Snapshot::setLocation(QString location)
 {
     m_location = location;
 }
 
-QString Snapshot::name()
+QString Snapshot::name() const
 {
     return m_name;
 }
 
-void  Snapshot::setName(const QString &name)
+void  Snapshot::setName(QString name)
 {
     m_name = name;
 }
 
-SnapshotMetaInfo & Snapshot::metaInfo()
+Snapshot::SnapshotStatus Snapshot::status() const
+{
+    return m_status;
+}
+
+void  Snapshot::setStatus(SnapshotStatus status)
+{
+    m_status = status;
+}
+
+SnapshotMetaInfo Snapshot::metaInfo() const
 {
     return m_metaInfo;
+}
+
+void Snapshot::setMetaInfo(SnapshotMetaInfo &metainfo)
+{
+    m_metaInfo = metainfo;
 }

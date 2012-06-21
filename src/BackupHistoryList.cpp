@@ -34,7 +34,7 @@
 BackupHistoryList::BackupHistoryList(QObject *parent) : QAbstractTableModel(parent)
 {
     m_headerLabels << tr("Name") <<
-                   tr("Execution date/time") <<
+                   tr("Last modified") <<
                    tr("Files") <<
                    tr("Size") <<
                    tr("Execution status");
@@ -94,7 +94,7 @@ QVariant BackupHistoryList::headerData(int section, Qt::Orientation orientation,
  */
 QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
 {
-    const BackupHistoryEntry &entry = this->at(index.row());
+    const Snapshot &snapshot = this->at(index.row());
 
     if (role == Qt::TextAlignmentRole) {
         if (index.column() == 2 || index.column() == 3) {
@@ -107,29 +107,29 @@ QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
     if (role == Qt::DisplayRole) {
         switch (index.column()) {
             case 0:
-                return QVariant(entry.name);
+            return QVariant(snapshot.name());
                 break;
 
             case 1:
-                return QVariant(entry.execution.toString(Qt::SystemLocaleLongDate)); //entry.execution);
+                return QVariant(snapshot.modificationTime().toString(Qt::SystemLocaleLongDate)); //entry.execution);
                 break;
 
             case 2:
-                return QVariant(entry.files);
+                return QVariant(snapshot.metaInfo().numberOfFiles());
                 break;
 
             case 3:
-                return ScaleToSiPrefix(entry.totalSize);
+                return ScaleToSiPrefix(snapshot.metaInfo().sizeOfFiles());
                 break;
 
             case 4:
+                if (snapshot.status() == Snapshot::Valid) return tr("Valid");
+                if (snapshot.status() == Snapshot::Invalid) return tr("Invalid");
                 return QString("Unknown");
                 break;
 
             default:
-                return QString("Row%1, Column%2")
-                       .arg(index.row() + 1)
-                       .arg(index.column() + 1);
+                break;
         }
     }
 
@@ -158,16 +158,21 @@ void BackupHistoryList::investigate(const QString &origin)
         QFileInfo fileInfo = list.at(i);
 
         qDebug() << "Investigate" << fileInfo.absoluteFilePath();
+
+        Snapshot snapshot;
+        snapshot.setModificationTime(fileInfo.lastModified());
+        snapshot.setLocation(fileInfo.absoluteFilePath());
+        snapshot.setName(fileInfo.fileName());
+
         SnapshotMetaInfo metaInfo;
         if (metaInfo.Load(fileInfo.absoluteFilePath() + "/" + "metainfo")) {
-            BackupHistoryEntry entry;
-            entry.execution = fileInfo.lastModified();
-            entry.files = metaInfo.numberOfFiles();
-            entry.totalSize = metaInfo.sizeOfFiles();
-            entry.location = fileInfo.absoluteFilePath();
-            entry.name = fileInfo.fileName();
-            this->append(entry);
+            snapshot.setMetaInfo(metaInfo);
+            snapshot.setStatus(Snapshot::Valid);
+        } else {
+            snapshot.setStatus(Snapshot::Invalid);
         }
+
+        this->append(snapshot);
     }
 
     endResetModel();

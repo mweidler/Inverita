@@ -35,6 +35,20 @@ SnapshotMetaInfo::SnapshotMetaInfo()
     reset();
 }
 
+SnapshotMetaInfo::SnapshotMetaInfo(const SnapshotMetaInfo &other) : QObject()
+{
+    m_files = other.m_files;
+    m_totalSize = other.m_totalSize;
+}
+
+SnapshotMetaInfo &SnapshotMetaInfo::operator= (const SnapshotMetaInfo &other)
+{
+    m_files = other.m_files;
+    m_totalSize = other.m_totalSize;
+
+    return *this;
+}
+
 void SnapshotMetaInfo::reset()
 {
     m_files = 0;
@@ -89,7 +103,7 @@ void SnapshotMetaInfo::Save(QString filename)
     }
 }
 
-qint64 SnapshotMetaInfo::numberOfFiles()
+qint64 SnapshotMetaInfo::numberOfFiles() const
 {
     return m_files;
 }
@@ -99,7 +113,7 @@ void SnapshotMetaInfo::setNumberOfFiles(qint64 count)
     m_files = count;
 }
 
-qint64 SnapshotMetaInfo::sizeOfFiles()
+qint64 SnapshotMetaInfo::sizeOfFiles() const
 {
     return m_totalSize;
 }

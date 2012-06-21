@@ -250,7 +250,7 @@ void MainWindow::onDeleteBackup()
     QString origin = m_backupListModel->backupList().at(index).origin;
 
     index = m_backupHistoryUI->currentSelection();
-    QString name = m_historyList->at(index).name;
+    QString name = m_historyList->at(index).name();
     m_eraseEngine->select(origin + "/" + name);
     emit deleteBackup();
 }
@@ -261,7 +261,7 @@ void MainWindow::onValidateBackup()
     QString origin = m_backupListModel->backupList().at(index).origin;
 
     index = m_backupHistoryUI->currentSelection();
-    QString name = m_historyList->at(index).name;
+    QString name = m_historyList->at(index).name();
     m_validateEngine->select(origin + "/" + name);
     emit validateBackup();
 }
@@ -286,7 +286,7 @@ void MainWindow::updateLatestLink(QString &absolutePath)
         QFile::remove(linkPath);
         qDebug() << "latest link removed";
     } else {
-        QString newName = m_historyList->last().name;
+        QString newName = m_historyList->last().name();
         if (linkName != newName) {
             QFile::remove(linkPath);
             QFile::link(newName, linkPath);

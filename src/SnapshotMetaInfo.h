@@ -35,15 +35,17 @@ class SnapshotMetaInfo : public QObject
 {
 public:
     SnapshotMetaInfo();
+    SnapshotMetaInfo(const SnapshotMetaInfo &other);
+    SnapshotMetaInfo &operator= (const SnapshotMetaInfo & other);
 
     void reset();
     bool Load(QString filename);
     void Save(QString filename);
 
-    qint64 numberOfFiles();
+    qint64 numberOfFiles() const;
     void setNumberOfFiles(qint64 count);
 
-    qint64 sizeOfFiles();
+    qint64 sizeOfFiles() const;
     void setSizeOfFiles(qint64 count);
 
 protected:

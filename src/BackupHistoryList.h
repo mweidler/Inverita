@@ -25,6 +25,8 @@
 #ifndef HEADER_BACKUPHISTORYLIST_INC
 #define HEADER_BACKUPHISTORYLIST_INC
 
+#include "Snapshot.h"
+
 #include <QtCore>
 #include <QString>
 #include <QList>
@@ -34,22 +36,10 @@
 #include <sys/stat.h>
 
 
-/*! Container for meta information
- */
-typedef struct BackupHistoryEntry {
-    QDateTime   execution;
-    QString     origin;
-    int         files;
-    int         totalSize;
-    QString     location;
-    QString     name;
-} BackupHistoryEntry;
-
-
 /*! Base type storage definition
  */
-typedef QList<BackupHistoryEntry> BaseBackupHistoryList;
-typedef QListIterator<BackupHistoryEntry> BackupHistoryListIterator;
+typedef QList<Snapshot> BaseBackupHistoryList;
+typedef QListIterator<Snapshot> BackupHistoryListIterator;
 
 
 /*! Model class for storing and handling backup history.

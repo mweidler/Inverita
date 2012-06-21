@@ -31,29 +31,38 @@
 class Snapshot : public QObject
 {
 public:
+    enum SnapshotStatus { Invalid, Valid };
+
     Snapshot();
+    Snapshot(const Snapshot &other);
+    Snapshot &operator= (const Snapshot & other);
 
     void reset();
 
-    QDateTime modificationTime();
-    void  setModificationTime(const QDateTime &modificationTime);
+    QDateTime modificationTime() const;
+    void  setModificationTime(QDateTime modificationTime);
 
-    QString origin();
-    void  setOrigin(const QString &origin);
+    QString origin() const;
+    void  setOrigin(QString origin);
 
-    QString location();
-    void  setLocation(const QString &location);
+    QString location() const;
+    void  setLocation(QString location);
 
-    QString name();
-    void  setName(const QString &name);
+    QString name() const;
+    void  setName(QString name);
 
-    SnapshotMetaInfo &metaInfo();
+    SnapshotStatus status() const;
+    void  setStatus(SnapshotStatus status);
+
+    SnapshotMetaInfo metaInfo() const;
+    void setMetaInfo(SnapshotMetaInfo &metainfo);
 
 protected:
     QDateTime        m_execution;
     QString          m_origin;
     QString          m_location;
     QString          m_name;
+    SnapshotStatus   m_status;
     SnapshotMetaInfo m_metaInfo;
 };
 
