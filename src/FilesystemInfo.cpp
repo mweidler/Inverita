@@ -93,6 +93,25 @@ qreal FilesystemInfo::capacity()
 }
 
 
+/*! Returns the type of the file system (ext4, ext3, etc.)
+ *
+ * \return type of the file system
+ */
+FilesystemInfo::FilesystemType FilesystemInfo::filesystemType()
+{
+    switch (m_st.f_type) {
+        case /*EXT4_SUPER_MAGIC*/ 0xEF53:
+             return FilesystemInfo::Ext4;
+             break;
+
+        default:
+             break;
+    }
+
+    return FilesystemInfo::Unknown;
+}
+
+
 /*! \return the number of used bytes in the file system.
  */
 qint64 FilesystemInfo::usedCapacity()

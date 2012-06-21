@@ -47,7 +47,6 @@ typedef QListIterator<Snapshot> BackupHistoryListIterator;
 class BackupHistoryList : public BaseBackupHistoryList, public QAbstractTableModel
 {
 public:
-
     BackupHistoryList(QObject *parent = 0);
     virtual ~BackupHistoryList();
 
@@ -58,11 +57,6 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
     void investigate(const QString &origin);
-
-protected:
-
-private:
-    QStringList m_headerLabels;
 };
 
 #endif // ! HEADER_BACKUPHISTORYLIST_INC

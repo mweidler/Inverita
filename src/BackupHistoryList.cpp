@@ -27,17 +27,13 @@
 #include "SnapshotMetaInfo.h"
 #include "Utilities.h"
 
+
 /*! Constructs a new backup history list object
  *
  * \param parent the parent UI element
  */
 BackupHistoryList::BackupHistoryList(QObject *parent) : QAbstractTableModel(parent)
 {
-    m_headerLabels << tr("Name") <<
-                   tr("Last modified") <<
-                   tr("Files") <<
-                   tr("Size") <<
-                   tr("Execution status");
     clear();
 }
 
@@ -66,7 +62,7 @@ int BackupHistoryList::rowCount(const QModelIndex & /*parent*/) const
  */
 int BackupHistoryList::columnCount(const QModelIndex & /*parent*/) const
 {
-    return m_headerLabels.size();
+    return 5; //m_headerLabels.size();
 }
 
 
@@ -74,8 +70,15 @@ int BackupHistoryList::columnCount(const QModelIndex & /*parent*/) const
  */
 QVariant BackupHistoryList::headerData(int section, Qt::Orientation orientation, int role) const
 {
+    QStringList headerLabels;
+    headerLabels << tr("Name") <<
+                   tr("Last modified") <<
+                   tr("Files") <<
+                   tr("Size") <<
+                   tr("Execution status");
+
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
-        return m_headerLabels[section];
+        return headerLabels[section];
     }
 
     if (role == Qt::TextAlignmentRole) {

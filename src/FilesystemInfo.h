@@ -38,10 +38,13 @@ class FilesystemInfo : public AbstractDriveCapacityModel
     Q_OBJECT
 
 public:
+    enum FilesystemType { Unknown, Ext4 };
+
     FilesystemInfo();
     FilesystemInfo(const QString &file);
     void setFile(const QString &file);
 
+    FilesystemType filesystemType();
     qreal capacity();
     qint64 usedCapacity();
     qint64 freeCapacity();

@@ -40,8 +40,9 @@ DriveCapacityWatcher::DriveCapacityWatcher(AbstractDriveCapacityModel *capacityM
     m_timer->setInterval(10000);
     m_timer->start();
 
+    connect(this, SIGNAL(refresh()), m_capacityModel, SLOT(refresh()));
     connect(m_timer, SIGNAL(timeout()), m_capacityModel, SLOT(refresh()));
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(update()));
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(watch()));
 }
 
 
@@ -55,14 +56,9 @@ DriveCapacityWatcher::DriveCapacityWatcher(AbstractDriveCapacityModel *capacityM
  */
 WorkerStatus DriveCapacityWatcher::status()
 {
-    // one additional file to delete: "metainfo" and "signatures"
-    qreal expectedFiles = m_metaInfo.numberOfFiles() + 2;
-
-    qDebug() << "Erase-completion" << expectedFiles << m_eraseTraverser.totalFiles();
-
     WorkerStatus st;
-    st.timestamp  = QDateTime::currentDateTime();
-    st.completion = m_eraseTraverser.totalFiles() / expectedFiles;
+    st.timestamp = QDateTime::currentDateTime();
+    st.completion = 0;
     st.processed  = 0;
 
     return st;
@@ -88,51 +84,48 @@ void DriveCapacityWatcher::setAutoDeleteEnabled(bool autoDelete)
 }
 
 
-void DriveCapacityWatcher::update()
-{
-    qDebug() << "DriveCapacityWatcher::update()" << QThread::currentThreadId();
-
-    qreal capacity = m_capacityModel->capacity();
-    qDebug() << "watch: " << m_backupRootPath << capacity;
-
-    if (capacity < 0.05 && m_autoDelete) {
-        if (m_historyListModel->size() > 0) {
-            if (m_historyListModel->at(0).status() == Snapshot::Valid) {
-                m_snapshotName = m_backupRootPath + "/" + m_historyListModel->at(0).name();
-                start();
-            }
-        }
-    }
-}
-
-/*! This slot is called each time, the "Erase Backup snapshot" button is pressed
- *  by the user and a backup snapshot shall be erased.
+/*! This slot is called periodically and watches the free space on the drive.
  *
  *  \em Attention: this method will run in it's own thread scope.
  */
-void DriveCapacityWatcher::start()
+void DriveCapacityWatcher::watch()
 {
-    reset();
-    m_eraseTraverser.reset();
-    emit started();
+    qDebug() << "DriveCapacityWatcher::update()" << m_capacityModel->capacity() << QThread::currentThreadId();
 
-    qDebug() << "watch deleteBackup: " << m_snapshotName;
+    if (m_capacityModel->capacity() >= 0.05 || m_autoDelete == false)
+       return;
+
+    reset();
+    BackupHistoryList historyList(m_historyListModel);
 
     try {
-        m_metaInfo.Load(m_snapshotName + "/" + "metainfo") ;
-        m_eraseTraverser.addIncludes(m_snapshotName);
+        for (int i = 0; i < historyList.size() && m_capacityModel->capacity() < 0.1 && !m_abort; i++) {
+            if (historyList[i].status() != Snapshot::Valid)
+                break;
 
-        // force metainfo deletion as first file of the snapshot to
-        // invalidate whole snapshot.
-        m_eraseTraverser.onFile(m_snapshotName + "/" + "metainfo");
-        m_eraseTraverser.traverse();
+            QString snapshotName = m_backupRootPath + "/" + historyList[i].name();
+
+            m_eraseTraverser.reset();
+            m_eraseTraverser.addIncludes(snapshotName);
+
+            // force metainfo deletion as first file of the snapshot to
+            // invalidate whole snapshot.
+            m_eraseTraverser.onFile(snapshotName + "/" + "metainfo");
+            m_eraseTraverser.traverse();
+            emit refresh();
+        }
+
     } catch (ApplicationException &e) {
+        m_autoDelete = false;
         buildFailureHint(e);
         emit failed();
         return;
     }
+}
 
-    emit finished();
+void DriveCapacityWatcher::start()
+{
+    qDebug() << "DriveCapacityWatcher::start()" << "not used";
 }
 
 

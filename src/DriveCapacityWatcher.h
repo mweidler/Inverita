@@ -35,6 +35,7 @@
 #include "AbstractDriveCapacityModel.h"
 #include "BackupHistoryList.h"
 
+
 /*! Handles the whole job of erasing a backup snapshot.
  */
 class DriveCapacityWatcher : public WorkerEngine
@@ -48,20 +49,21 @@ public:
     void select(const QString &backupPath);
     void setAutoDeleteEnabled(bool autoDelete);
 
+signals:
+    void refresh();
+
 public slots:
-    void update();
+    void watch();
     void start();
     void abort();
 
 protected:
-    QTimer                    *m_timer;
+    bool                       m_autoDelete;
     QString                    m_backupRootPath;
-    QString                    m_snapshotName;
     EraseTraverser             m_eraseTraverser;
-    SnapshotMetaInfo           m_metaInfo;
+    QTimer                     *m_timer;
     AbstractDriveCapacityModel *m_capacityModel;    //!< the model containing drive space information
     BackupHistoryList          *m_historyListModel;
-    bool                       m_autoDelete;
 };
 
 #endif
