@@ -90,14 +90,17 @@ void DriveCapacityWatcher::setAutoDeleteEnabled(bool autoDelete)
 
 void DriveCapacityWatcher::update()
 {
+    qDebug() << "DriveCapacityWatcher::update()" << QThread::currentThreadId();
+
     qreal capacity = m_capacityModel->capacity();
     qDebug() << "watch: " << m_backupRootPath << capacity;
 
     if (capacity < 0.05 && m_autoDelete) {
-        // keep at least 1 previous snapshot
-        if (m_historyListModel->size() > 1) {
-            m_snapshotName = m_backupRootPath + "/" + m_historyListModel->at(0).name();
-            start();
+        if (m_historyListModel->size() > 0) {
+            if (m_historyListModel->at(0).status() == Snapshot::Valid) {
+                m_snapshotName = m_backupRootPath + "/" + m_historyListModel->at(0).name();
+                start();
+            }
         }
     }
 }

@@ -193,7 +193,8 @@ void MainWindow::onBackupFailed()
 
 void MainWindow::onBackupSelected()
 {
-    qDebug() << "onBackupSelected";
+    qDebug() << "MainWindow::onBackupSelected()" << QThread::currentThreadId();
+
     int index = m_backupSelectorUI->currentSelection();
     QString origin = m_backupListModel->backupList().at(index).origin;
     m_historyList->investigate(origin);

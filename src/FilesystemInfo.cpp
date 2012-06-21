@@ -26,6 +26,7 @@
 #include "FilesystemInfo.h"
 
 #include <QDebug>
+#include <QThread>
 
 
 /*! Constructs a new object providing infos of the root file system.
@@ -67,7 +68,7 @@ void FilesystemInfo::setFile(const QString &file)
  */
 void FilesystemInfo::refresh()
 {
-    qDebug() << "FilesystemInfo: refresh";
+    qDebug() << "FilesystemInfo::refresh()" << QThread::currentThreadId();
 
     if (statfs(m_absolutePath.toUtf8().data(), &m_st) == 0) {
         emit dataChanged();
