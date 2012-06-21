@@ -107,6 +107,7 @@ ProgressDialog::ProgressDialog(WorkerEngine *model, DialogType type, DialogAbort
     connect(m_model, SIGNAL(aborted()), this, SLOT(close()));
     connect(m_model, SIGNAL(finished()), this, SLOT(finalize()));
 
+    setModal(true);
     setWindowTitle(tr("Progress"));
     m_previousCurrentTask = -1;
 }
