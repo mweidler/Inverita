@@ -27,6 +27,7 @@
 
 #include <QDebug>
 #include <QThread>
+#include <QFile>
 
 
 /*! Constructs a new object providing infos of the root file system.
@@ -70,11 +71,13 @@ void FilesystemInfo::refresh()
 {
     qDebug() << "FilesystemInfo::refresh()" << QThread::currentThreadId();
 
-    if (statfs(m_absolutePath.toUtf8().data(), &m_st) == 0) {
-        emit dataChanged();
+    if (QFile::exists(m_absolutePath)) {
+        statfs(m_absolutePath.toUtf8().data(), &m_st);
     } else {
         memset(&m_st, 0, sizeof(m_st));
     }
+
+    emit dataChanged();
 }
 
 
