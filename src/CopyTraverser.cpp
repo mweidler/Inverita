@@ -79,7 +79,7 @@ void CopyTraverser::setCurrentBackupPath(QString &path)
  *  \param  reffilename  the absolute path to the file compared to
  *  \return true if file is equal, otherwise false
  */
-bool CopyTraverser::equalsFile(QString &newfilename, QString &reffilename)
+bool CopyTraverser::compareFiles(QString &newfilename, QString &reffilename)
 {
     QFileInfo refInfo(reffilename);
     QFileInfo newInfo(newfilename);
@@ -174,7 +174,7 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
     /* If a previous backup already exists and there is already exactly the same file,
      * we create a hard link on this file instead of creating/copying a new file.
      */
-    if (m_previousBackupPath.size() && equalsFile(source, previous)) {
+    if (m_previousBackupPath.size() && compareFiles(source, previous)) {
         qDebug() << "linking " << previous << target;
 
         int rc = link(previous.toUtf8().data(), target.toUtf8().data());

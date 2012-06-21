@@ -51,7 +51,7 @@ public:
     virtual void onOther(const QString &absoluteFilePath);
 
 protected:
-    bool equalsFile(QString &newfile, QString &reference);
+    bool compareFiles(QString &newfile, QString &reference);
     bool copyFile(QString &sourcefilename, QString &targetfilename, QByteArray &hash);
 
 protected:

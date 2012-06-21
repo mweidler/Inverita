@@ -36,7 +36,7 @@ class SnapshotMetaInfo : public QObject
 public:
     SnapshotMetaInfo();
     SnapshotMetaInfo(const SnapshotMetaInfo &other);
-    SnapshotMetaInfo &operator= (const SnapshotMetaInfo & other);
+    SnapshotMetaInfo &operator= (const SnapshotMetaInfo &other);
 
     void reset();
     bool Load(QString filename);

@@ -35,7 +35,7 @@ public:
 
     Snapshot();
     Snapshot(const Snapshot &other);
-    Snapshot &operator= (const Snapshot & other);
+    Snapshot &operator= (const Snapshot &other);
 
     void reset();
 

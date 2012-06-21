@@ -107,7 +107,7 @@ QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
     if (role == Qt::DisplayRole) {
         switch (index.column()) {
             case 0:
-            return QVariant(snapshot.name());
+                return QVariant(snapshot.name());
                 break;
 
             case 1:
@@ -123,8 +123,12 @@ QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
                 break;
 
             case 4:
-                if (snapshot.status() == Snapshot::Valid) return tr("Valid");
-                if (snapshot.status() == Snapshot::Invalid) return tr("Invalid");
+                if (snapshot.status() == Snapshot::Valid) {
+                    return tr("Valid");
+                }
+                if (snapshot.status() == Snapshot::Invalid) {
+                    return tr("Invalid");
+                }
                 return QString("Unknown");
                 break;
 

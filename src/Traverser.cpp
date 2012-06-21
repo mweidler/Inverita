@@ -136,7 +136,7 @@ void Traverser::traverse()
         QString currentBasePath = m_basePaths[i];
 
         onEnterDir(currentBasePath);
-        RecurseDirectory(currentBasePath);
+        recurseDirectory(currentBasePath);
         onLeaveDir(currentBasePath);
     }
 }
@@ -158,7 +158,7 @@ bool Traverser::isExcluded(const QString &filepath)
  *
  * \param dirname the directory name to be investigated
  */
-void Traverser::RecurseDirectory(const QString &dirname)
+void Traverser::recurseDirectory(const QString &dirname)
 {
     QDir dir(dirname);
     if (!dir.exists()) {
@@ -187,7 +187,7 @@ void Traverser::RecurseDirectory(const QString &dirname)
             onLink(filepath, linkName);
         } else if (fileinfo.isDir()) {
             onEnterDir(filepath);
-            RecurseDirectory(filepath);
+            recurseDirectory(filepath);
             onLeaveDir(filepath);
         } else if (fileinfo.isFile()) {
             onFile(filepath);

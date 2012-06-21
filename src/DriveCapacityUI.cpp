@@ -128,7 +128,7 @@ void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, qin
 
         QPoint labelCenter = center + rotatedPoint(45, (from + span / 2) * 360);
         int fontHeight = painter.font().pointSize();
-        QRect absoluteRect(labelCenter.x() - 30, labelCenter.y() - fontHeight, 80, 2*fontHeight);
+        QRect absoluteRect(labelCenter.x() - 30, labelCenter.y() - fontHeight, 80, 2 * fontHeight);
 
         painter.drawText(absoluteRect, Qt::AlignCenter, absolute);
     }

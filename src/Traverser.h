@@ -70,7 +70,7 @@ public slots:
     void abort();
 
 protected:
-    void RecurseDirectory(const QString &dirname);
+    void recurseDirectory(const QString &dirname);
     bool isExcluded(const QString &filepath);
 
 protected:
