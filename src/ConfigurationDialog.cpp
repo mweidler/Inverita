@@ -35,6 +35,9 @@
 
 ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) : QDialog(parent), m_config(model)
 {
+    QLabel *targetText = new QLabel(tr("The backup target specifies the location, where the backup data\n"
+                            "will be stored on. This can be any drive path reached by your computer."));
+
     QString includeText = tr("The list below defines the coverage of your backup.\n"
                              "You can specify any many files, file patterns or directories you want.");
     QString excludeText = tr("The patterns below specify all files/directories that will"
@@ -75,6 +78,16 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     limitLayout->addWidget(m_numberBackups);
     limitLayout->addWidget(trailingText);
 
+    QLineEdit *targetEdit = new QLineEdit();
+
+    QWidget *pageTarget = new QWidget;
+    QVBoxLayout *targetLayout = new QVBoxLayout;
+    targetLayout->setAlignment(Qt::AlignLeft);
+    targetLayout->addWidget(targetText);
+    targetLayout->addWidget(targetEdit);
+    pageTarget->setLayout(targetLayout);
+
+
     QWidget *pageOptions = new QWidget;
     QVBoxLayout *optionsLayout = new QVBoxLayout;
     optionsLayout->addWidget(verifyText);
@@ -90,6 +103,7 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
 
     // create the final tab
     QTabWidget *tabWidget = new QTabWidget(parent);
+    tabWidget->addTab(pageTarget, tr("Target"));
     tabWidget->addTab(includeListUI, tr("Includes"));
     tabWidget->addTab(excludeListUI, tr("Excludes"));
     tabWidget->addTab(pageOptions, tr("Options"));
