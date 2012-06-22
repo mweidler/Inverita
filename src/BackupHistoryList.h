@@ -29,6 +29,7 @@
 
 #include <QtCore>
 #include <QString>
+#include <QStringList>
 #include <QList>
 #include <QListIterator>
 #include <QFileInfo>
@@ -57,6 +58,9 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
     void investigate(const QString &origin);
+
+protected:
+    QStringList m_headerLabels;
 };
 
 #endif // ! HEADER_BACKUPHISTORYLIST_INC

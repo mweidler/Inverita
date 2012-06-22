@@ -35,6 +35,12 @@
 BackupHistoryList::BackupHistoryList(QObject *parent) : QAbstractTableModel(parent)
 {
     clear();
+
+    m_headerLabels << tr("Name") <<
+                   tr("Last modified") <<
+                   tr("Files") <<
+                   tr("Size") <<
+                   tr("Execution status");
 }
 
 
@@ -62,7 +68,7 @@ int BackupHistoryList::rowCount(const QModelIndex & /*parent*/) const
  */
 int BackupHistoryList::columnCount(const QModelIndex & /*parent*/) const
 {
-    return 5; //m_headerLabels.size();
+    return m_headerLabels.size();
 }
 
 
@@ -70,15 +76,8 @@ int BackupHistoryList::columnCount(const QModelIndex & /*parent*/) const
  */
 QVariant BackupHistoryList::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    QStringList headerLabels;
-    headerLabels << tr("Name") <<
-                   tr("Last modified") <<
-                   tr("Files") <<
-                   tr("Size") <<
-                   tr("Execution status");
-
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
-        return headerLabels[section];
+        return m_headerLabels[section];
     }
 
     if (role == Qt::TextAlignmentRole) {
@@ -164,7 +163,12 @@ void BackupHistoryList::investigate(const QString &origin)
     for (int i = 0; i < list.size(); i++) {
         QFileInfo fileInfo = list.at(i);
 
-        qDebug() << "Investigate" << fileInfo.absoluteFilePath();
+        qDebug() << "Investigate" << fileInfo.absoluteFilePath() << fileInfo.fileName();
+
+        // ignore system/trash directories
+        if (fileInfo.fileName() == "lost+found" || fileInfo.fileName().startsWith(".")) {
+            continue;
+        }
 
         Snapshot snapshot;
         snapshot.setModificationTime(fileInfo.lastModified());
