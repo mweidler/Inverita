@@ -45,6 +45,9 @@ public:
 signals:
     void backupSelected();
 
+protected:
+    void appendChoiceUnique(const QString &filepath);
+
 protected slots:
     void onSelect();
     void onNew();
