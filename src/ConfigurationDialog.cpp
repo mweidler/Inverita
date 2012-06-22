@@ -36,7 +36,12 @@
 ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) : QDialog(parent), m_config(model)
 {
     QLabel *targetText = new QLabel(tr("The backup target specifies the location, where the backup data\n"
-                            "will be stored on. This can be any drive path reached by your computer."));
+                                       "will be stored on. This can be any path mounted on your computer.\n\n"
+                                       "If you change an existing backup location to another location, a new backup\n"
+                                       "will be created on the new location. Your old backup snapshots will not\n"
+                                       "be copied to the new location and reside on the old location.\n\n"
+                                       "Your current backup target:\n"
+                                      ));
 
     QString includeText = tr("The list below defines the coverage of your backup.\n"
                              "You can specify any many files, file patterns or directories you want.");
@@ -78,13 +83,18 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     limitLayout->addWidget(m_numberBackups);
     limitLayout->addWidget(trailingText);
 
-    QLineEdit *targetEdit = new QLineEdit();
+    QHBoxLayout *locationLayout = new QHBoxLayout;
+    m_targetEdit = new QLineEdit();
+    m_buttonChange = new QPushButton(tr("Change"));
+    m_buttonChange->setIcon(QIcon::fromTheme("fileopen"));
+    locationLayout->addWidget(m_targetEdit);
+    locationLayout->addWidget(m_buttonChange);
 
     QWidget *pageTarget = new QWidget;
     QVBoxLayout *targetLayout = new QVBoxLayout;
-    targetLayout->setAlignment(Qt::AlignLeft);
+    targetLayout->setAlignment(Qt::AlignTop);
     targetLayout->addWidget(targetText);
-    targetLayout->addWidget(targetEdit);
+    targetLayout->addLayout(locationLayout);
     pageTarget->setLayout(targetLayout);
 
 
@@ -121,10 +131,6 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     layout->addWidget(buttonBox);
     this->setLayout(layout);
 
-    connect(m_verify, SIGNAL(toggled(bool)), this, SLOT(onVerifyToggeled()));
-    connect(buttonBox, SIGNAL(accepted()), this, SLOT(onSave()));
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
-
     if (m_config.GetVerification() & VERIFY_ENABLED) {
         m_verify->setChecked(true);
     }
@@ -145,6 +151,11 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     m_limitBackups->setChecked(m_config.GetBackupRestricted());
     m_numberBackups->setValue(m_config.GetBackupRestriction());
 
+    connect(m_buttonChange, SIGNAL(clicked()), this, SLOT(onChangeButton()));
+    connect(m_verify, SIGNAL(toggled(bool)), this, SLOT(onVerifyToggeled()));
+    connect(buttonBox, SIGNAL(accepted()), this, SLOT(onSave()));
+    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+
     setMinimumSize(640, 480);
     resize(640, 480);
     setWindowTitle(tr("Backup configuration"));
@@ -153,6 +164,30 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
 ConfigurationDialog::~ConfigurationDialog()
 {
 
+}
+
+QString ConfigurationDialog::location() const
+{
+    return m_targetEdit->text();
+}
+
+void ConfigurationDialog::setLocation(const QString &location)
+{
+    m_targetEdit->setText(location);
+}
+
+void ConfigurationDialog::onChangeButton()
+{
+    QFileDialog filedialog(this);
+    filedialog.setWindowTitle(tr("Select a new backup location..."));
+    filedialog.setFileMode(QFileDialog::Directory);
+    filedialog.setOption(QFileDialog::ShowDirsOnly, true);
+    if (filedialog.exec() == QDialog::Rejected) {
+        return;
+    }
+
+    QString dirname = filedialog.selectedFiles()[0];
+    m_targetEdit->setText(dirname);
 }
 
 void ConfigurationDialog::onVerifyToggeled()

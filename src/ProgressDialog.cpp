@@ -81,7 +81,7 @@ ProgressDialog::ProgressDialog(WorkerEngine *model, DialogType type, DialogAbort
 
         default: // fall through
         case ProgressDialog::NoTextBox:
-            setMinimumSize(500, 200);
+            setMinimumSize(700, 200);
             break;
     }
 
@@ -206,6 +206,7 @@ void ProgressDialog::update()
         int remainingMinutes = remainingSeconds / 60;
         remainingSeconds -= remainingMinutes * 60;
 
+        // TODO: make a compacter time visualization
         if (remainingHours >= 1) {
             remainingInfo += tr("%1 hour(s)", "", remainingHours).arg(remainingHours);
             remainingInfo += " " + tr("and") + " ";

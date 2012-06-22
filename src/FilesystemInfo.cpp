@@ -104,11 +104,11 @@ FilesystemInfo::FilesystemType FilesystemInfo::filesystemType()
 {
     switch (m_st.f_type) {
         case /*EXT4_SUPER_MAGIC*/ 0xEF53:
-             return FilesystemInfo::Ext4;
-             break;
+            return FilesystemInfo::Ext4;
+            break;
 
         default:
-             break;
+            break;
     }
 
     return FilesystemInfo::Unknown;

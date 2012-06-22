@@ -92,16 +92,18 @@ void DriveCapacityWatcher::watch()
 {
     qDebug() << "DriveCapacityWatcher::update()" << m_capacityModel->capacity() << QThread::currentThreadId();
 
-    if (m_capacityModel->capacity() >= 0.05 || m_autoDelete == false)
-       return;
+    if (m_capacityModel->capacity() >= 0.05 || m_autoDelete == false) {
+        return;
+    }
 
     reset();
     BackupHistoryList historyList(m_historyListModel);
 
     try {
         for (int i = 0; i < historyList.size() && m_capacityModel->capacity() < 0.1 && !m_abort; i++) {
-            if (historyList[i].status() != Snapshot::Valid)
+            if (historyList[i].status() != Snapshot::Valid) {
                 break;
+            }
 
             QString snapshotName = m_backupRootPath + "/" + historyList[i].name();
 

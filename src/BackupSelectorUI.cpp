@@ -133,52 +133,57 @@ void BackupSelectorUI::onSelect()
 
 void BackupSelectorUI::onNew()
 {
-    QFileDialog filedialog(this);
-    filedialog.setWindowTitle(tr("Specify a new backup..."));
-    filedialog.setFileMode(QFileDialog::Directory);
-    filedialog.setOption(QFileDialog::ShowDirsOnly, true);
-    if (filedialog.exec() == QDialog::Rejected) {
+    Configuration config;
+    ConfigurationDialog configDialog(config, this);
+    //configDialog.setLocation();
+    if (configDialog.exec() != QDialog::Accepted) {
         return;
     }
 
-    QString dirname = filedialog.selectedFiles()[0];
-    QString filename = dirname + "/" + "inverita.conf";
+    QString newLocation = configDialog.location();
+    config.Save(newLocation + "/" + "inverita.conf");
 
-    Configuration config;
-    ConfigurationDialog configDialog(config, this);
-    if (configDialog.exec() == QDialog::Accepted) {
-        config.Save(filename);
-
-        // do not store a duplicate item
-        for (int i = 0; i < m_choice->count(); i++) {
-            if (m_choice->itemText(i).compare(dirname) == 0) {
-                m_choice->setCurrentIndex(i);
-                emit backupSelected();
-                return;
-            }
+    // do not store a duplicate item
+    for (int i = 0; i < m_choice->count(); i++) {
+        if (m_choice->itemText(i).compare(newLocation) == 0) {
+            m_choice->setCurrentIndex(i);
+            emit backupSelected();
+            return;
         }
-
-        int count = m_choice->model()->rowCount();
-        m_choice->model()->insertRow(count);
-        QModelIndex index = m_choice->model()->index(count, 0);
-        m_choice->model()->setData(index, dirname);
-
-        m_choice->setCurrentIndex(count);
-        emit backupSelected();
     }
+
+    int count = m_choice->model()->rowCount();
+    m_choice->model()->insertRow(count);
+    QModelIndex index = m_choice->model()->index(count, 0);
+    m_choice->model()->setData(index, newLocation);
+    m_choice->setCurrentIndex(count);
+
+    emit backupSelected();
 }
 
 void BackupSelectorUI::onConfigure()
 {
-    QString dirname = m_choice->currentText();
-    QString filename = dirname + "/" + "inverita.conf";
+    QString currentLocation = m_choice->currentText();
 
     Configuration config;
-    config.Load(filename);
+    config.Load(currentLocation + "/" + "inverita.conf");
 
     ConfigurationDialog configDialog(config, this);
-    if (configDialog.exec() == QDialog::Accepted) {
-        config.Save(filename);
-        emit backupSelected();
+    configDialog.setLocation(currentLocation);
+    if (configDialog.exec() != QDialog::Accepted) {
+        return;
     }
+
+    QString newLocation = configDialog.location();
+    config.Save(newLocation + "/" + "inverita.conf");
+
+    if (currentLocation.compare(newLocation) != 0) {
+        int count = m_choice->model()->rowCount();
+        m_choice->model()->insertRow(count);
+        QModelIndex index = m_choice->model()->index(count, 0);
+        m_choice->model()->setData(index, newLocation);
+        m_choice->setCurrentIndex(count);
+    }
+
+    emit backupSelected();
 }

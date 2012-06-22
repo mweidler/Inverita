@@ -40,7 +40,11 @@ public:
     ConfigurationDialog(Configuration &model, QWidget *parent);
     ~ConfigurationDialog();
 
+    QString location() const;
+    void setLocation(const QString &location);
+
 public slots:
+    void onChangeButton();
     void onVerifyToggeled();
     void onSave();
 
@@ -52,7 +56,8 @@ private:
     QCheckBox     *m_purgeBackups;
     QCheckBox     *m_limitBackups;
     QSpinBox      *m_numberBackups;
-
+    QLineEdit     *m_targetEdit;
+    QPushButton   *m_buttonChange;
     Configuration &m_config;
 };
 
