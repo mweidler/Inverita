@@ -107,8 +107,7 @@ bool CopyTraverser::compareFiles(QString &newfilename, QString &reffilename)
 }
 
 
-/*! Copy file system items (file, link, dir, other) from one place to
- *  an other while using hard links for already existing files on the other place.
+/*! Copy file system items (file, link, dir, other) from one place to an other.
  *
  *  The number of copied bytes are added to byte counter. Copy can be aborted by flagging.
  *
@@ -122,9 +121,7 @@ bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, Q
     qint64 bytesRead, bytesWritten;
     QByteArray hashoutput(20, '\0');
     sha1_context ctx;
-    bool   success;
-
-    QFile::remove(targetfilename);
+    bool success;
 
     QFile source(sourcefilename);
     success = source.open(QIODevice::ReadOnly);
@@ -145,6 +142,8 @@ bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, Q
 
             // e.g. disk full error
             if (bytesRead != bytesWritten) {
+                target.close();
+                QFile::remove(targetfilename);
                 return false;
             }
         } while (bytesRead == (qint64)sizeof(m_copyBuffer) && !m_abort);
@@ -180,7 +179,7 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
         int rc = link(previous.toUtf8().data(), target.toUtf8().data());
         if (rc == -1) {
             ApplicationException e;
-            e.setCauser("create hard link from '" + previous + "' to '" + target + "'");
+            e.setCauser("Create hard link from '" + previous + "' to '" + target + "'");
             e.setErrorMessage(strerror(errno));
             throw e;
         }
@@ -199,8 +198,8 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
         bool success = copyFile(source, target, hash);
         if (!success) {
             ApplicationException e;
-            e.setCauser(tr("Copy error from") + "'" + source + "' to '" + target + "'");
-            e.setErrorMessage(tr("Copy error"));
+            e.setCauser(tr("Copy file from") + "'" + source + "' to '" + target + "'");
+            e.setErrorMessage(tr("Copy error, disk full?"));
             throw e;
         }
 
@@ -275,7 +274,7 @@ void CopyTraverser::onLink(const QString &absoluteFilePath, const QString &linkN
     QString source = m_currentBackupPath + absoluteFilePath;
     int rc = symlink(linkName.toUtf8().data(), source.toUtf8().data());
 
-    // As symlink is not documented intuitively, here is an example:
+    // A symlink is not documented intuitively, here is an example:
     // e.g. symlink("abc/testfile.txt", "/home/user/xfile");
     //
     //      $ ls /home/user
