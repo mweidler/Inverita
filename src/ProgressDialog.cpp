@@ -195,26 +195,20 @@ void ProgressDialog::update()
     if (m_statusHistory.size() >= 20) {
         qint64 deltaTransfered = m_statusHistory.last().processed - m_statusHistory.first().processed;
         qint64 deltaTimeMs = m_statusHistory.first().timestamp.msecsTo(m_statusHistory.last().timestamp);
-        qreal  transferRate = deltaTransfered / (deltaTimeMs * 1000.0);
-        transferRateInfo = tr("while processing %1 MByte/s").arg(transferRate, 0, 'f', 1);
+        int transferRate = qRound(deltaTransfered / (deltaTimeMs * 1000.0));
+        transferRateInfo = tr("while processing %1 MByte/s").arg(transferRate);
 
         qreal deltaCompletion = completion - m_statusHistory.first().completion;
         qreal openCompletion = 1.0 - completion;
-        int remainingSeconds = (int)(((openCompletion / deltaCompletion) * deltaTimeMs) / 1000.0);
-        int remainingHours = remainingSeconds / (60 * 60);
-        remainingSeconds -= remainingHours * (60 * 60);
-        int remainingMinutes = remainingSeconds / 60;
-        remainingSeconds -= remainingMinutes * 60;
+        int remainingSeconds = qRound(((openCompletion / deltaCompletion) * deltaTimeMs) / 1000.0);
+        int remainingMinutes = qRound(remainingSeconds / 60.0);
+        int remainingHours = qRound(remainingMinutes / 60.0);
 
-        // TODO: make a compacter time visualization
+        remainingInfo = tr("About") + " ";
         if (remainingHours >= 1) {
             remainingInfo += tr("%1 hour(s)", "", remainingHours).arg(remainingHours);
-            remainingInfo += " " + tr("and") + " ";
-            remainingInfo += tr("%1 minute(s)", "", remainingMinutes).arg(remainingMinutes);
         } else if (remainingMinutes >= 1) {
             remainingInfo += tr("%1 minute(s)", "", remainingMinutes).arg(remainingMinutes);
-            remainingInfo += " " + tr("and") + " ";
-            remainingInfo += tr("%1 second(s)", "", remainingSeconds).arg(remainingSeconds);
         } else {
             remainingInfo += tr("%1 second(s)", "", remainingSeconds).arg(remainingSeconds);
         }
