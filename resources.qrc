@@ -4,5 +4,6 @@
         <file>images/gplv3.png</file>
         <file>images/Copy-icon.png</file>
         <file>images/Verify-icon.png</file>
+        <file>images/drive-icon.png</file>
     </qresource>
 </RCC>

@@ -35,12 +35,14 @@
 
 ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) : QDialog(parent), m_config(model)
 {
-    QLabel *targetText = new QLabel(tr("The backup target specifies the location, where the backup data\n"
-                                       "will be stored on. This can be any path mounted on your computer.\n\n"
-                                       "If you change an existing backup location to another location, a new backup\n"
-                                       "will be created on the new location. Your old backup snapshots will not\n"
-                                       "be copied to the new location and reside on the old location.\n\n"
-                                       "Your current backup target:\n"
+    QLabel *targetText = new QLabel(tr("The backup target specifies the location, where the backup<br>"
+                                       "data will be stored on. This can be any path mounted on<br>"
+                                       "your computer, e.g. <i>/mount/usbdrive</i> or <i>/data/backup</i><br><br>"
+                                       "<u>Attention:</u> If you change an existing backup location to<br>"
+                                       " another location, a new backup will be created on the new<br>"
+                                       "location. Your existing backup and snapshots will not be<br>"
+                                       "copied to the new location and reside on the old location.<br><br><br>"
+                                       "Your current backup target:<br>"
                                       ));
 
     QString includeText = tr("The list below defines the coverage of your backup.\n"
@@ -90,11 +92,23 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     locationLayout->addWidget(m_targetEdit);
     locationLayout->addWidget(m_buttonChange);
 
+    QVBoxLayout *targetVLayout = new QVBoxLayout;
+    targetVLayout->setAlignment(Qt::AlignTop);
+    targetVLayout->addWidget(targetText);
+    targetVLayout->addLayout(locationLayout);
+
+    QPixmap pixmap(":/images/drive-icon.png");
+    QLabel *labelImage = new QLabel;
+    labelImage->setPixmap(pixmap);
+    QVBoxLayout *labelLayout = new QVBoxLayout;
+    labelLayout->setAlignment(Qt::AlignTop);
+    labelLayout->addWidget(labelImage);
+
     QWidget *pageTarget = new QWidget;
-    QVBoxLayout *targetLayout = new QVBoxLayout;
+    QHBoxLayout *targetLayout = new QHBoxLayout;
     targetLayout->setAlignment(Qt::AlignTop);
-    targetLayout->addWidget(targetText);
-    targetLayout->addLayout(locationLayout);
+    targetLayout->addLayout(targetVLayout);
+    targetLayout->addLayout(labelLayout);
     pageTarget->setLayout(targetLayout);
 
 
@@ -181,6 +195,7 @@ void ConfigurationDialog::onChangeButton()
     QFileDialog filedialog(this);
     filedialog.setWindowTitle(tr("Select a new backup location..."));
     filedialog.setFileMode(QFileDialog::Directory);
+    filedialog.setDirectory(m_targetEdit->text());
     filedialog.setOption(QFileDialog::ShowDirsOnly, true);
     if (filedialog.exec() == QDialog::Rejected) {
         return;
@@ -206,6 +221,15 @@ void ConfigurationDialog::onVerifyToggeled()
 void ConfigurationDialog::onSave()
 {
     int verification = 0;
+
+    if (!QFile::exists(location())) {
+        QMessageBox::critical(this,
+                              tr("Backup target does not exist"),
+                              tr("The backup target you have specified does not exist.\n"
+                                 "Please choose another target location.")
+                             );
+        return;
+    }
 
     if (m_verify->isChecked()) {
         verification |= VERIFY_ENABLED;
