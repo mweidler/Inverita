@@ -149,7 +149,7 @@ void BackupEngine::scanDirectories()
 void BackupEngine::executeBackup(QString &timestamp)
 {
     QString previousBackup = SearchLatestBackupDir(m_backupRootPath);
-    QString currentBackup = m_backupRootPath + "/" + timestamp;
+    QString currentBackup = m_backupRootPath + "/" + "@" + timestamp;
     QDir dir;
 
     // ensure, that the new directory of the new snapshot does not exist

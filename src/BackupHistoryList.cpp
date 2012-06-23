@@ -117,10 +117,16 @@ QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
                 break;
 
             case 2:
+                if (snapshot.metaInfo().numberOfFiles() == 0) {
+                    return QString(tr("Unknown"));
+                }
                 return QVariant(snapshot.metaInfo().numberOfFiles());
                 break;
 
             case 3:
+                if (snapshot.metaInfo().sizeOfFiles() == 0) {
+                    return QString(tr("Unknown"));
+                }
                 return ScaleToSiPrefix(snapshot.metaInfo().sizeOfFiles());
                 break;
 
@@ -131,7 +137,7 @@ QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
                 if (snapshot.status() == Snapshot::Invalid) {
                     return tr("Invalid");
                 }
-                return QString("Unknown");
+                return QString(tr("Unknown"));
                 break;
 
             default:
@@ -165,8 +171,8 @@ void BackupHistoryList::investigate(const QString &origin)
 
         qDebug() << "Investigate" << fileInfo.absoluteFilePath() << fileInfo.fileName();
 
-        // ignore system/trash directories
-        if (fileInfo.fileName() == "lost+found" || fileInfo.fileName().startsWith(".")) {
+        // read only snapshot directory names (starting with @-sign)
+        if (!fileInfo.fileName().startsWith("@")) {
             continue;
         }
 
