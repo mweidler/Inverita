@@ -37,7 +37,7 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
 {
     QLabel *targetText = new QLabel(tr("The backup target specifies the location, where the backup<br>"
                                        "data will be stored on. This can be any path mounted on<br>"
-                                       "your computer, e.g. <i>/mount/usbdrive</i> or <i>/data/backup</i><br><br>"
+                                       "your computer, e.g. <i>/media/usbdrive</i> or <i>/data/backup</i><br><br>"
                                        "<u>Attention:</u> If you change an existing backup location to<br>"
                                        " another location, a new backup will be created on the new<br>"
                                        "location. Your existing backup and snapshots will not be<br>"
@@ -47,8 +47,8 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
 
     QString includeText = tr("The list below defines the coverage of your backup.\n"
                              "You can specify any many files, file patterns or directories you want.");
-    QString excludeText = tr("The patterns below specify all files/directories that will"
-                             "be excluded from the backup");
+    QString excludeText = tr("The patterns below specify all files/directories that will be\n"
+                             "excluded from the backup.");
 
     ConfigurationListUI *includeListUI = new ConfigurationListUI(m_config.GetIncludes(), ConfigurationListUI::DIRECTORY, includeText, this);
     ConfigurationListUI *excludeListUI = new ConfigurationListUI(m_config.GetExcludes(), ConfigurationListUI::PATTERN,   excludeText, this);
@@ -71,7 +71,7 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     verifyLayout->addWidget(m_verifySize);
 
     QLabel *purgeText = new QLabel(tr("On low drive space, the oldest backups can be deleted automatically."));
-    m_purgeBackups = new QCheckBox(tr("Delete oldest backup(s) on low drive space"));
+    m_purgeBackups = new QCheckBox(tr("Delete oldest backups on low drive space"));
 
     QLabel *limitText = new QLabel(tr("The number of historical backups can be limited."));
     QHBoxLayout *limitLayout = new QHBoxLayout;
