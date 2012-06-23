@@ -86,13 +86,13 @@ void EraseEngine::start()
 
     qDebug() << "deleteBackup: " << m_snapshotName;
 
+    // First remode metadata to invalidate whole snapshot.
+    QFile::remove(m_snapshotName + "/" + "metainfo");
+
     try {
         m_metaInfo.Load(m_snapshotName + "/" + "metainfo") ;
         m_eraseTraverser.addIncludes(m_snapshotName);
 
-        // force metainfo deletion as first file of the snapshot to
-        // invalidate whole snapshot.
-        m_eraseTraverser.onFile(m_snapshotName + "/" + "metainfo");
         m_eraseTraverser.traverse();
     } catch (ApplicationException &e) {
         buildFailureHint(e);
