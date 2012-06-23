@@ -81,7 +81,7 @@ ProgressDialog::ProgressDialog(WorkerEngine *model, DialogType type, DialogAbort
 
         default: // fall through
         case ProgressDialog::NoTextBox:
-            setMinimumSize(700, 200);
+            setMinimumSize(600, 200);
             break;
     }
 
