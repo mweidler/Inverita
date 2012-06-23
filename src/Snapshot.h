@@ -28,6 +28,8 @@
 
 #include "SnapshotMetaInfo.h"
 
+/*! Container class for storing snapshot data
+ */
 class Snapshot : public QObject
 {
 public:
