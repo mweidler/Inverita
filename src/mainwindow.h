@@ -71,7 +71,10 @@ private:
     void createMenus();
     void updateLatestLink(QString &absolutePath);
 
+    QMenu   *backupMenu;
     QMenu   *helpMenu;
+    QAction *createBackupAct;
+    QAction *chooseBackupAct;
     QAction *aboutAct;
     QAction *aboutQtAct;
 

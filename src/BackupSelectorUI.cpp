@@ -43,7 +43,7 @@ BackupSelectorUI::BackupSelectorUI(QAbstractListModel *model, QWidget *parent) :
     choiceLayout->addWidget(m_choice, 1);
 
     QPushButton *btnSelect = new QPushButton(tr("Select existing"));
-    btnSelect->setIcon(QIcon::fromTheme("find"));
+    btnSelect->setIcon(QIcon::fromTheme("document-open"));
     QPushButton *btnNew    = new QPushButton(tr("Create new"));
     btnNew->setIcon(QIcon::fromTheme("document-new"));
     QPushButton *btnConf   = new QPushButton(tr("Configure"));

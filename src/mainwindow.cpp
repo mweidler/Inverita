@@ -156,7 +156,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::about()
 {
-    AboutDialog dialog;
+    AboutDialog dialog(this);
     dialog.exec();
 }
 
@@ -298,6 +298,18 @@ void MainWindow::updateLatestLink(QString &absolutePath)
 
 void MainWindow::createActions()
 {
+    createBackupAct = new QAction(tr("&Create new backup"), this);
+    createBackupAct->setStatusTip(tr("Create new backup configuration"));
+    createBackupAct->setIconVisibleInMenu(true);
+    createBackupAct->setIcon(QIcon::fromTheme("document-new"));
+    connect(createBackupAct, SIGNAL(triggered()), m_backupSelectorUI, SLOT(onNew()));
+
+    chooseBackupAct = new QAction(tr("&Open existing backup"), this);
+    chooseBackupAct->setStatusTip(tr("Open an existing backup configuration"));
+    chooseBackupAct->setIconVisibleInMenu(true);
+    chooseBackupAct->setIcon(QIcon::fromTheme("document-open"));
+    connect(chooseBackupAct, SIGNAL(triggered()), m_backupSelectorUI, SLOT(onSelect()));
+
     aboutAct = new QAction(tr("&About"), this);
     aboutAct->setStatusTip(tr("Show the application's About box"));
     aboutAct->setIconVisibleInMenu(true);
@@ -313,6 +325,10 @@ void MainWindow::createActions()
 
 void MainWindow::createMenus()
 {
+    backupMenu = menuBar()->addMenu(tr("&Backup"));
+    backupMenu->addAction(createBackupAct);
+    backupMenu->addAction(chooseBackupAct);
+
     helpMenu = menuBar()->addMenu(tr("&Help"));
     helpMenu->addAction(aboutAct);
     helpMenu->addAction(aboutQtAct);
