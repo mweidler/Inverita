@@ -13,5 +13,6 @@ OTHER_FILES += \
     LICENSE \
     README \
     TODO \
+    versioning.sh \
     Doxyfile \
     astyle.opt

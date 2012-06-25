@@ -24,6 +24,7 @@
 
 
 #include "AboutDialog.h"
+#include "version.h"
 
 #include <QBoxLayout>
 #include <QDialogButtonBox>
@@ -38,7 +39,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
     static const QString text =
         tr(
-            "<b>INVERITA Personal Backup</b> Version 0.1<br>"
+            "<b>INVERITA Personal Backup</b> Version %1<br>"
             "Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)<br>"
             "All rights reserved.<br><br>"
             "INVERITA is free software: you can redistribute it and/or modify<br>"
@@ -50,7 +51,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
             "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br>"
             "GNU General Public License for more details.<br>"
             "http://www.gnu.org/licenses/<br><br>"
-            "INVERITA uses Qt library %1<br>"
+            "INVERITA uses Qt library %2<br>"
             "Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).<br><br>"
             "INVERITA uses parts of PolarSSL library (http://www.polarssl.org)<br>"
             "FIPS-180-1 compliant SHA-1 implementation<br>"
@@ -59,7 +60,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
             "that are free for non-commercial use.<br>"
         );
 
-    QLabel *labelAboutText = new QLabel(text.arg(qVersion()));
+    QLabel *labelAboutText = new QLabel(text.arg(INVERITA_COMMIT_VERSION).arg(qVersion()));
 
     QPixmap pixmap(":/images/backup-icon.png");
     QLabel *labelImage = new QLabel;
