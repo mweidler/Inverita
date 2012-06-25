@@ -45,10 +45,12 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
                                        "Your current backup target:<br>"
                                       ));
 
-    QString includeText = tr("The list below defines the coverage of your backup.\n"
-                             "You can specify any many files, file patterns or directories you want.");
-    QString excludeText = tr("The patterns below specify all files/directories that will be\n"
-                             "excluded from the backup.");
+    QString includeText = tr("The list below defines the coverage of your backup. With each entry,<br>"
+                             "you specify a directory that will be included in your backup,<br>"
+                             "e.g. <i>/data</i> or <i>/home/user</i>");
+    QString excludeText = tr("The patterns below specify all files/directories that will be excluded from<br>"
+                             "the backup, e.g. <i>/data/temp<i> will exclude the whole directrory,<br>"
+                             "<i>test*</i> will exclude all files beginning with 'test'");
 
     ConfigurationListUI *includeListUI = new ConfigurationListUI(m_config.GetIncludes(), ConfigurationListUI::DIRECTORY, includeText, this);
     ConfigurationListUI *excludeListUI = new ConfigurationListUI(m_config.GetExcludes(), ConfigurationListUI::PATTERN,   excludeText, this);
@@ -170,8 +172,8 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(onSave()));
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
-    setMinimumSize(640, 480);
-    resize(640, 480);
+    setMinimumSize(640, 500);
+    resize(640, 500);
     setWindowTitle(tr("Backup configuration"));
 }
 
