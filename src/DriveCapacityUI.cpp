@@ -49,13 +49,13 @@ DriveCapacityUI::DriveCapacityUI(AbstractDriveCapacityModel *model, QWidget *par
 
 QSize DriveCapacityUI::minimumSizeHint() const
 {
-    return QSize(100, 100);
+    return QSize(200, 200);
 }
 
 
 QSize DriveCapacityUI::sizeHint() const
 {
-    return QSize(175, 175);
+    return QSize(200, 200);
 }
 
 
@@ -134,6 +134,43 @@ void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, qin
     }
 }
 
+void DriveCapacityUI::drawLegend(QPainter &painter, qreal from, qreal span, qint64 space, QColor centerColor, QColor borderColor)
+{
+    if (span == 0) {
+        return;
+    }
+
+    QPoint center = contentsRect().center();
+
+    QRadialGradient gradient(center.x(), center.y(), 75);
+    gradient.setColorAt(0, centerColor);
+    gradient.setColorAt(1, borderColor);
+
+    painter.setBrush(gradient);
+    painter.setPen(painter.background().color());
+    painter.drawPie(contentsRect(), from * 360 * 16, span * 360 * 16);
+
+    //QString absolute = ScaleToSiPrefix(space);
+    //QString percent = QString("(%1%)").arg(100.0 * span, 0, 'f', 0);
+
+    painter.setBackgroundMode(Qt::TransparentMode);
+    painter.setBrush(borderColor);
+    painter.setPen(Qt::black);
+
+    QPoint labelCenter = center + rotatedPoint(45, (from + span / 2) * 360);
+    int fontHeight = painter.font().pointSize();
+    QRect absoluteRect(labelCenter.x() - 30, labelCenter.y() - fontHeight, 80, 2 * fontHeight);
+
+    QRect legendRect1(contentsRect().left()+70, contentsRect().bottom()-15, 10,10);
+    painter.drawRect(legendRect1);
+    painter.drawText(legendRect1.bottomLeft()+QPoint(15,2),  tr("15.1 GB free"));
+
+    QRect legendRect2(contentsRect().left(), contentsRect().bottom()-15, 10,10);
+    painter.drawRect(legendRect2);
+    painter.drawText(legendRect2.bottomLeft()+QPoint(15,2), tr("used"));
+
+}
+
 
 void DriveCapacityUI::paintEvent(QPaintEvent * /* event */)
 {
@@ -149,4 +186,6 @@ void DriveCapacityUI::paintEvent(QPaintEvent * /* event */)
     qreal capacity = m_model->capacity();
     drawElement(painter, 0, capacity, m_model->freeCapacity(), lightFreeColor, freeColor);
     drawElement(painter, capacity, 1.0 - capacity, m_model->usedCapacity(), lightUsedColor, usedColor);
+
+    drawLegend(painter, capacity, 1.0 - capacity, m_model->usedCapacity(), lightUsedColor, usedColor);
 }
