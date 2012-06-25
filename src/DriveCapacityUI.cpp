@@ -43,19 +43,27 @@ DriveCapacityUI::DriveCapacityUI(AbstractDriveCapacityModel *model, QWidget *par
     //setBackgroundRole(QPalette::NoRole);
     //setAutoFillBackground(true);
 
+    m_freeColor = QColor(0, 235, 100);
+    m_usedColor = QColor(235, 0, 0);
+
     connect(m_model, SIGNAL(dataChanged()), this, SLOT(update()));
 }
 
 
+/*! \copydoc QWidget::minimumSizeHint()
+ */
 QSize DriveCapacityUI::minimumSizeHint() const
 {
-    return QSize(200, 200);
+    qDebug() << "DriveCapacityUI::minimumSizeHint()";
+    return QSize(146, 190);
 }
 
 
+/*! \copydoc QWidget::sizeHint()
+ */
 QSize DriveCapacityUI::sizeHint() const
 {
-    return QSize(200, 200);
+    return minimumSizeHint();
 }
 
 
@@ -72,7 +80,7 @@ QSize DriveCapacityUI::sizeHint() const
  * \param radius  the radius of the circle to rotate on
  * \param angle   the angle (0..360) to rotate by
  */
-QPoint DriveCapacityUI::rotatedPoint(qreal radius, qreal angle)
+QPoint DriveCapacityUI::rotatedPoint(qreal radius, qreal angle) const
 {
     const qreal pi = 3.14159265358979;
     const qreal rotationStart = 315;
@@ -96,19 +104,18 @@ QPoint DriveCapacityUI::rotatedPoint(qreal radius, qreal angle)
 /*! Draws the pie chart element
  *
  * \param painter the paint device
- * \param panel   the borders of the paint range
  * \param from    start angle of the pie chart segment
  * \param span    width of the pie chart segment
  * \param centerColor the color of the pie chart segment in the center
  * \param borderColor the color of the pie chart segment at the border
  */
-void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, qint64 space, QColor centerColor, QColor borderColor)
+void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, QColor centerColor, QColor borderColor)
 {
     if (span == 0) {
         return;
     }
 
-    QPoint center = contentsRect().center();
+    QPoint center = m_pieChartRect.center();
 
     QRadialGradient gradient(center.x(), center.y(), 75);
     gradient.setColorAt(0, centerColor);
@@ -116,76 +123,75 @@ void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, qin
 
     painter.setBrush(gradient);
     painter.setPen(painter.background().color());
-    painter.drawPie(contentsRect(), from * 360 * 16, span * 360 * 16);
+    painter.drawPie(m_pieChartRect, from * 360 * 16, span * 360 * 16);
 
     if (span >= 0.05) {
-        QString absolute = ScaleToSiPrefix(space);
-        //QString percent = QString("(%1%)").arg(100.0 * span, 0, 'f', 0);
+        QString percent = QString("%1%").arg(qRound(100.0 * span));
 
-        painter.setBackgroundMode(Qt::TransparentMode);
         painter.setBrush(borderColor);
-        painter.setPen(Qt::black);
+        painter.setPen(this->palette().text().color());
 
-        QPoint labelCenter = center + rotatedPoint(45, (from + span / 2) * 360);
+        QPoint labelCenter = center + rotatedPoint(40, (from + span / 2) * 360);
         int fontHeight = painter.font().pointSize();
-        QRect absoluteRect(labelCenter.x() - 30, labelCenter.y() - fontHeight, 80, 2 * fontHeight);
-
-        painter.drawText(absoluteRect, Qt::AlignCenter, absolute);
+        QRect absoluteRect(labelCenter.x() - 35, labelCenter.y() - fontHeight, 80, 2 * fontHeight);
+        painter.drawText(absoluteRect, Qt::AlignCenter, percent);
     }
 }
 
-void DriveCapacityUI::drawLegend(QPainter &painter, qreal from, qreal span, qint64 space, QColor centerColor, QColor borderColor)
+
+/*! Draws the legend with free/used capacity
+ *
+ * \param painter the paint device
+ * \param free    free space (in bytes) on the medium
+ * \param span    used space (in bytes) on the medium
+ */
+void DriveCapacityUI::drawLegend(QPainter &painter, qint64 free, qint64 used)
 {
-    if (span == 0) {
-        return;
-    }
+    QRect usedRect(m_legendRect.left()+10, m_legendRect.top()+1, 10,10);
+    QRect freeRect(m_legendRect.left()+10, m_legendRect.top()+22, 10,10);
 
-    QPoint center = contentsRect().center();
-
-    QRadialGradient gradient(center.x(), center.y(), 75);
-    gradient.setColorAt(0, centerColor);
-    gradient.setColorAt(1, borderColor);
-
-    painter.setBrush(gradient);
     painter.setPen(painter.background().color());
-    painter.drawPie(contentsRect(), from * 360 * 16, span * 360 * 16);
+    painter.setBrush(m_usedColor);
+    painter.drawRect(usedRect);
+    painter.setBrush(m_freeColor);
+    painter.drawRect(freeRect);
 
-    //QString absolute = ScaleToSiPrefix(space);
-    //QString percent = QString("(%1%)").arg(100.0 * span, 0, 'f', 0);
-
-    painter.setBackgroundMode(Qt::TransparentMode);
-    painter.setBrush(borderColor);
-    painter.setPen(Qt::black);
-
-    QPoint labelCenter = center + rotatedPoint(45, (from + span / 2) * 360);
-    int fontHeight = painter.font().pointSize();
-    QRect absoluteRect(labelCenter.x() - 30, labelCenter.y() - fontHeight, 80, 2 * fontHeight);
-
-    QRect legendRect1(contentsRect().left()+70, contentsRect().bottom()-15, 10,10);
-    painter.drawRect(legendRect1);
-    painter.drawText(legendRect1.bottomLeft()+QPoint(15,2),  tr("15.1 GB free"));
-
-    QRect legendRect2(contentsRect().left(), contentsRect().bottom()-15, 10,10);
-    painter.drawRect(legendRect2);
-    painter.drawText(legendRect2.bottomLeft()+QPoint(15,2), tr("used"));
-
+    painter.setPen(this->palette().text().color());
+    painter.drawText(usedRect.bottomLeft()+QPoint(20,1), ScaleToSiPrefix(used) + " " + tr("used"));
+    painter.drawText(freeRect.bottomLeft()+QPoint(20,1), ScaleToSiPrefix(free) + " " + tr("free"));
 }
 
 
+/*! \copydoc QWidget::paintEvent(QPaintEvent *)
+ */
 void DriveCapacityUI::paintEvent(QPaintEvent * /* event */)
 {
+    static const QColor lightFreeColor(200, 250, 200);
+    static const QColor lightUsedColor(250, 200, 200);
+
     QPainter painter(this);
     painter.setRenderHints(QPainter::Antialiasing, true);
-    painter.setBackgroundMode(Qt::OpaqueMode);
+    painter.setBackgroundMode(Qt::TransparentMode);
 
-    QColor freeColor(0, 235, 100);
-    QColor lightFreeColor(200, 255, 200);
-    QColor usedColor(235, 0, 0);
-    QColor lightUsedColor(255, 200, 200);
+    QFontMetrics fm = painter.fontMetrics();
+    int legendHeight = 2 * fm.height();
+
+    m_pieChartRect.setRect(contentsRect().left(),
+                           contentsRect().top(),
+                           contentsRect().width(),
+                           contentsRect().height() - legendHeight - 10);
+
+    m_legendRect.setRect(contentsRect().left(),
+                         contentsRect().bottom() - legendHeight,
+                         contentsRect().width(),
+                         legendHeight);
+
+    qDebug() << "pieChart" << m_pieChartRect;
+    qDebug() << "legentChart" << m_legendRect;
 
     qreal capacity = m_model->capacity();
-    drawElement(painter, 0, capacity, m_model->freeCapacity(), lightFreeColor, freeColor);
-    drawElement(painter, capacity, 1.0 - capacity, m_model->usedCapacity(), lightUsedColor, usedColor);
+    drawElement(painter, 0, capacity, lightFreeColor, m_freeColor);
+    drawElement(painter, capacity, 1.0 - capacity, lightUsedColor, m_usedColor);
 
-    drawLegend(painter, capacity, 1.0 - capacity, m_model->usedCapacity(), lightUsedColor, usedColor);
+    drawLegend(painter, m_model->freeCapacity(), m_model->usedCapacity());
 }

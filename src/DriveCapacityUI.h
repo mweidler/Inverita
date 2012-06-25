@@ -46,10 +46,15 @@ public:
     void paintEvent(QPaintEvent *event);
 
 protected:
-    QPoint rotatedPoint(qreal scale, qreal angle);
-    void drawElement(QPainter &painter, qreal from, qreal span, qint64 space, QColor centerColor, QColor borderColor);
-    void drawLegend(QPainter &painter, qreal from, qreal span, qint64 space, QColor centerColor, QColor borderColor);
+    QPoint rotatedPoint(qreal scale, qreal angle) const;
+    void drawElement(QPainter &painter, qreal from, qreal span, QColor centerColor, QColor borderColor);
+    void drawLegend(QPainter &painter, qint64 free, qint64 used);
 
+protected:
+    QRect  m_pieChartRect; //!< the rectangle where the pie chart is painted in
+    QRect  m_legendRect;   //!< the rectangle where the legend is painted in
+    QColor m_freeColor;    //!< color used for the free space visualization
+    QColor m_usedColor;    //!< color used for the used space visualization
     AbstractDriveCapacityModel *m_model; //!< the model containing drive space information
 };
 
