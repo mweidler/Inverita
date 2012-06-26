@@ -1,38 +1,8 @@
-Pruefen: BackupListModel -> BackupList umbenennen; Signatur QAbstractListModel in Parametern
-
-
-ApplicationException
-Utilities
-FilesystemInfo
-SnapshotMetaInfo
-SignatureMap
-Configuration
-
-BackupHistoryList
-BackupListModel <- BackupList
-AbstractDriveCapacityModel
-
-AboutDialog
-ProgressDialog
-ConfigurationDialog
-
-BackupSelectorUI
-BackupHistoryUI
-ConfigurationListUI
-ControlUI
-DriveCapacityUI
-
-Traverser
-ValidateTraverser
-ScanTraverser
-EraseTraverser
-CopyTraverser
-
-WorkerEngine
-ValidateEngine
-BackupEngine
-VerifyEngine
-EraseEngine
-
-DriveCapacityWatcher
-
+[ ] test AutoDeleteSnapshot: delete from 5%, until 10% capacity reached again
+[ ] Be aware of the options
+[ ] Error dialog, if config file can not be saved (loaded?)
+[ ] UI redisign without frames
+[ ] Verify after backup
+[ ] Check file format of backup drive
+[ ] Do not inherit DriveCapacityWatcher from Worker ?
+[ ] Progressbar on unknown values (e.g. invalid snapshot deletion)
