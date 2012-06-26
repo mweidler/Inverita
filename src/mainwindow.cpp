@@ -141,7 +141,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
     statusBar()->showMessage(tr("Welcome."));
 
-    //setWindowIcon()  TODO
+    QIcon appicon(QPixmap(":/images/backup-icon.png"));
+    setWindowIcon(appicon);
     setWindowTitle(tr("INVERITA Personal Backup"));
     setMinimumSize(800, 700);
     resize(800, 700);
@@ -304,11 +305,17 @@ void MainWindow::createActions()
     createBackupAct->setIcon(QIcon::fromTheme("document-new"));
     connect(createBackupAct, SIGNAL(triggered()), m_backupSelectorUI, SLOT(onNew()));
 
-    chooseBackupAct = new QAction(tr("&Open existing backup"), this);
-    chooseBackupAct->setStatusTip(tr("Open an existing backup configuration"));
-    chooseBackupAct->setIconVisibleInMenu(true);
-    chooseBackupAct->setIcon(QIcon::fromTheme("document-open"));
-    connect(chooseBackupAct, SIGNAL(triggered()), m_backupSelectorUI, SLOT(onSelect()));
+    selectBackupAct = new QAction(tr("&Select existing backup"), this);
+    selectBackupAct->setStatusTip(tr("Select an existing backup configuration"));
+    selectBackupAct->setIconVisibleInMenu(true);
+    selectBackupAct->setIcon(QIcon::fromTheme("document-open"));
+    connect(selectBackupAct, SIGNAL(triggered()), m_backupSelectorUI, SLOT(onSelect()));
+
+    exitAct = new QAction(tr("&Exit"), this);
+    exitAct->setStatusTip(tr("Exit application"));
+    exitAct->setIconVisibleInMenu(true);
+    exitAct->setIcon(QIcon::fromTheme("exit"));
+    connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
     aboutAct = new QAction(tr("&About"), this);
     aboutAct->setStatusTip(tr("Show the application's About box"));
@@ -327,7 +334,9 @@ void MainWindow::createMenus()
 {
     backupMenu = menuBar()->addMenu(tr("&Backup"));
     backupMenu->addAction(createBackupAct);
-    backupMenu->addAction(chooseBackupAct);
+    backupMenu->addAction(selectBackupAct);
+    backupMenu->addSeparator();
+    backupMenu->addAction(exitAct);
 
     helpMenu = menuBar()->addMenu(tr("&Help"));
     helpMenu->addAction(aboutAct);

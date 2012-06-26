@@ -74,7 +74,8 @@ private:
     QMenu   *backupMenu;
     QMenu   *helpMenu;
     QAction *createBackupAct;
-    QAction *chooseBackupAct;
+    QAction *selectBackupAct;
+    QAction *exitAct;
     QAction *aboutAct;
     QAction *aboutQtAct;
 
