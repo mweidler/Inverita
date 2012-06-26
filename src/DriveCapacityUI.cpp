@@ -147,18 +147,17 @@ void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, QCo
  */
 void DriveCapacityUI::drawLegend(QPainter &painter, qint64 free, qint64 used)
 {
-    QRect usedRect(m_legendRect.left() + 10, m_legendRect.top() + 1, 10, 10);
-    QRect freeRect(m_legendRect.left() + 10, m_legendRect.top() + 22, 10, 10);
-
-    painter.setPen(painter.background().color());
-    painter.setBrush(m_usedColor);
-    painter.drawRect(usedRect);
-    painter.setBrush(m_freeColor);
-    painter.drawRect(freeRect);
+    QRect freeRect(m_legendRect.left() + 10, m_legendRect.top() + 1, 10, 10);
+    QRect usedRect(m_legendRect.left() + 10, m_legendRect.top() + 22, 10, 10);
 
     painter.setPen(this->palette().text().color());
-    painter.drawText(usedRect.bottomLeft() + QPoint(20, 1), ScaleToSiPrefix(used) + " " + tr("used"));
+    painter.setBrush(m_freeColor);
+    painter.drawRect(freeRect);
+    painter.setBrush(m_usedColor);
+    painter.drawRect(usedRect);
+
     painter.drawText(freeRect.bottomLeft() + QPoint(20, 1), ScaleToSiPrefix(free) + " " + tr("free"));
+    painter.drawText(usedRect.bottomLeft() + QPoint(20, 1), ScaleToSiPrefix(used) + " " + tr("used"));
 }
 
 
