@@ -36,31 +36,26 @@ BackupSelectorUI::BackupSelectorUI(QAbstractListModel *model, QWidget *parent) :
     m_choice->setModel(model);
     m_choice->setCurrentIndex(0);
 
-    QLabel *labelCurrentBackup = new QLabel(tr("Current backup:"));
-    QHBoxLayout *choiceLayout = new QHBoxLayout;
-    choiceLayout->setMargin(5);
-    choiceLayout->addWidget(labelCurrentBackup);
-    choiceLayout->addWidget(m_choice, 1);
+    QLabel *labelCurrentBackup = new QLabel(tr("Select your backup target or<br>"
+                                               "open/create a backup from the Menu.<br><br>"
+                                               "Your current backup target:")
+                                            );
 
-    QPushButton *btnSelect = new QPushButton(tr("Select existing"));
-    btnSelect->setIcon(QIcon::fromTheme("document-open"));
-    QPushButton *btnNew    = new QPushButton(tr("Create new"));
-    btnNew->setIcon(QIcon::fromTheme("document-new"));
     QPushButton *btnConf   = new QPushButton(tr("Configure"));
     btnConf->setIcon(QIcon::fromTheme("preferences-desktop"));
 
-    QHBoxLayout *buttonLayout = new QHBoxLayout;
-    buttonLayout->setMargin(5);
-    buttonLayout->setSpacing(20);
-    buttonLayout->addWidget(btnSelect);
-    buttonLayout->addWidget(btnNew);
-    buttonLayout->addWidget(btnConf);
+    QHBoxLayout *choiceLayout = new QHBoxLayout;
+    choiceLayout->addWidget(m_choice, 1);
+    choiceLayout->addWidget(btnConf);
+
+//    buttonLayout->setMargin(5);
+//    buttonLayout->setSpacing(20);
 
     QVBoxLayout *controlLayout = new QVBoxLayout;
     controlLayout->setSizeConstraint(QLayout::SetMaximumSize);
-    controlLayout->setMargin(5);
-    controlLayout->addLayout(choiceLayout, 1);
-    controlLayout->addLayout(buttonLayout, 1);
+    controlLayout->setAlignment(Qt::AlignCenter);
+    controlLayout->addWidget(labelCurrentBackup);
+    controlLayout->addLayout(choiceLayout);
 
     QPixmap pixmap(":/images/backup-icon.png");
     //QIcon icon = QIcon::fromTheme("deja-dup").pixmap(96,96);
@@ -68,23 +63,13 @@ BackupSelectorUI::BackupSelectorUI(QAbstractListModel *model, QWidget *parent) :
     labelImage->setPixmap(pixmap);
 
     QHBoxLayout *hboxlayout = new QHBoxLayout;
-    hboxlayout->setMargin(5);
     hboxlayout->addWidget(labelImage);
     hboxlayout->addLayout(controlLayout);
+    this->setLayout(hboxlayout);
 
-    QLabel *description = new QLabel(tr("<b>Select</b> your backup, create a <b>new</b> or <b>configure</b> an existing backup."));
-
-    QVBoxLayout *vboxlayout = new QVBoxLayout;
-    vboxlayout->setMargin(5);
-    vboxlayout->addWidget(description);
-    vboxlayout->addLayout(hboxlayout);
-    this->setLayout(vboxlayout);
-
-    setFrameStyle(QFrame::StyledPanel);
+    //setFrameStyle(QFrame::StyledPanel);
 
     connect(m_choice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(backupSelected()));
-    connect(btnSelect, SIGNAL(clicked()), this, SLOT(onSelect()));
-    connect(btnNew, SIGNAL(clicked()), this, SLOT(onNew()));
     connect(btnConf, SIGNAL(clicked()), this, SLOT(onConfigure()));
 }
 
