@@ -1,5 +1,5 @@
 /*
- * BackupHistoryList.cpp
+ * SnapshotListModel.cpp
  *
  * This file is part of INVERITA.
  *
@@ -23,7 +23,7 @@
  */
 
 
-#include "BackupHistoryList.h"
+#include "SnapshotListModel.h"
 #include "SnapshotMetaInfo.h"
 #include "Utilities.h"
 
@@ -32,7 +32,7 @@
  *
  * \param parent the parent UI element
  */
-BackupHistoryList::BackupHistoryList(QObject *parent) : QAbstractTableModel(parent)
+SnapshotListModel::SnapshotListModel(QObject *parent) : QAbstractTableModel(parent)
 {
     clear();
 
@@ -46,7 +46,7 @@ BackupHistoryList::BackupHistoryList(QObject *parent) : QAbstractTableModel(pare
 
 /*! Destructor
  */
-BackupHistoryList::~BackupHistoryList()
+SnapshotListModel::~SnapshotListModel()
 {
     clear();
 }
@@ -56,7 +56,7 @@ BackupHistoryList::~BackupHistoryList()
  *
  * \return number of rows
  */
-int BackupHistoryList::rowCount(const QModelIndex & /*parent*/) const
+int SnapshotListModel::rowCount(const QModelIndex & /*parent*/) const
 {
     return size();
 }
@@ -66,7 +66,7 @@ int BackupHistoryList::rowCount(const QModelIndex & /*parent*/) const
  *
  * \return number of columns
  */
-int BackupHistoryList::columnCount(const QModelIndex & /*parent*/) const
+int SnapshotListModel::columnCount(const QModelIndex & /*parent*/) const
 {
     return m_headerLabels.size();
 }
@@ -74,7 +74,7 @@ int BackupHistoryList::columnCount(const QModelIndex & /*parent*/) const
 
 /*! \return the title of the headers
  */
-QVariant BackupHistoryList::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant SnapshotListModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         return m_headerLabels[section];
@@ -94,7 +94,7 @@ QVariant BackupHistoryList::headerData(int section, Qt::Orientation orientation,
 
 /*! \return the data to displayed in the tabe
  */
-QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
+QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
 {
     const Snapshot &snapshot = this->at(index.row());
 
@@ -156,7 +156,7 @@ QVariant BackupHistoryList::data(const QModelIndex &index, int role) const
  *
  * \param origin backup origin root directory
  */
-void BackupHistoryList::investigate(const QString &origin)
+void SnapshotListModel::investigate(const QString &origin)
 {
     QDir dir(origin);
     dir.setFilter(QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks);

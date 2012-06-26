@@ -29,10 +29,10 @@
 
 /*! Constructs a new drivespace watcher object.
  */
-DriveCapacityWatcher::DriveCapacityWatcher(AbstractDriveCapacityModel *capacityModel, BackupHistoryList *historyListModel)
+DriveCapacityWatcher::DriveCapacityWatcher(AbstractDriveCapacityModel *capacityModel, SnapshotListModel *historyListModel)
 {
     m_capacityModel = capacityModel;
-    m_historyListModel = historyListModel;
+    m_snapshotListModel = historyListModel;
 
     reset();
     setAutoDeleteEnabled(false);
@@ -97,7 +97,7 @@ void DriveCapacityWatcher::watch()
     }
 
     reset();
-    BackupHistoryList historyList(m_historyListModel);
+    SnapshotListModel historyList(m_snapshotListModel);
 
     try {
         for (int i = 0; i < historyList.size() && m_capacityModel->capacity() < 0.1 && !m_abort; i++) {

@@ -28,7 +28,7 @@
 #include <QMainWindow>
 #include "BackupListModel.h"
 #include "BackupSelectorUI.h"
-#include "BackupHistoryList.h"
+#include "SnapshotListModel.h"
 #include "SnapshotListUI.h"
 #include "ControlUI.h"
 #include "BackupEngine.h"
@@ -81,7 +81,7 @@ private:
 
     BackupListModel   *m_backupListModel;
     BackupSelectorUI  *m_backupSelectorUI;
-    BackupHistoryList *m_historyList;
+    SnapshotListModel *m_snapshotListModel;
     SnapshotListUI    *m_snapshotListUI;
 
     FilesystemInfo    *m_filesystemInfo;

@@ -1,5 +1,5 @@
 /*
- * BackupHistoryList.h
+ * SnapshotListModel.h
  *
  * This file is part of INVERITA.
  *
@@ -22,8 +22,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADER_BACKUPHISTORYLIST_INC
-#define HEADER_BACKUPHISTORYLIST_INC
+#ifndef HEADER_SNAPSHOTLISTMODEL_INC
+#define HEADER_SNAPSHOTLISTMODEL_INC
 
 #include "Snapshot.h"
 
@@ -45,11 +45,11 @@ typedef QListIterator<Snapshot> BackupHistoryListIterator;
 
 /*! Model class for storing and handling backup history.
  */
-class BackupHistoryList : public BaseBackupHistoryList, public QAbstractTableModel
+class SnapshotListModel : public BaseBackupHistoryList, public QAbstractTableModel
 {
 public:
-    BackupHistoryList(QObject *parent = 0);
-    virtual ~BackupHistoryList();
+    SnapshotListModel(QObject *parent = 0);
+    virtual ~SnapshotListModel();
 
     // model<->view handling
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
@@ -63,4 +63,4 @@ protected:
     QStringList m_headerLabels;
 };
 
-#endif // ! HEADER_BACKUPHISTORYLIST_INC
+#endif // ! HEADER_SNAPSHOTLISTMODEL_INC

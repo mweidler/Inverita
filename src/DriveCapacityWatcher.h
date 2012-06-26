@@ -33,7 +33,7 @@
 #include "EraseTraverser.h"
 #include "SnapshotMetaInfo.h"
 #include "AbstractDriveCapacityModel.h"
-#include "BackupHistoryList.h"
+#include "SnapshotListModel.h"
 
 
 /*! Handles the whole job of erasing a backup snapshot.
@@ -43,7 +43,7 @@ class DriveCapacityWatcher : public WorkerEngine
     Q_OBJECT
 
 public:
-    DriveCapacityWatcher(AbstractDriveCapacityModel *capacityModel, BackupHistoryList *historyListModel);
+    DriveCapacityWatcher(AbstractDriveCapacityModel *capacityModel, SnapshotListModel *historyListModel);
 
     WorkerStatus status();
     void select(const QString &backupPath);
@@ -63,7 +63,7 @@ protected:
     EraseTraverser             m_eraseTraverser;
     QTimer                     *m_timer;
     AbstractDriveCapacityModel *m_capacityModel;    //!< the model containing drive space information
-    BackupHistoryList          *m_historyListModel;
+    SnapshotListModel          *m_snapshotListModel;
 };
 
 #endif

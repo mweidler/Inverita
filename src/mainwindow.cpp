@@ -34,7 +34,7 @@
 #include "BackupSelectorUI.h"
 #include "SnapshotListUI.h"
 #include "ControlUI.h"
-#include "BackupHistoryList.h"
+#include "SnapshotListModel.h"
 #include "AboutDialog.h"
 #include "Utilities.h"
 #include "Configuration.h"
@@ -50,8 +50,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_backupListModel->Load("inverita");
     m_backupSelectorUI = new BackupSelectorUI(m_backupListModel, this);
 
-    m_historyList = new BackupHistoryList(parent);
-    m_snapshotListUI = new SnapshotListUI(m_historyList, this);
+    m_snapshotListModel = new SnapshotListModel(parent);
+    m_snapshotListUI = new SnapshotListUI(m_snapshotListModel, this);
 
     m_driveCapacityUI = new DriveCapacityUI(m_filesystemInfo, this);
     m_controlUI = new ControlUI(parent);
@@ -93,7 +93,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_verifyEngine->moveToThread(m_verifyThread);
     m_verifyThread->start(QThread::IdlePriority);
 
-    m_driveCapacityWatcher = new DriveCapacityWatcher(m_filesystemInfo, m_historyList);
+    m_driveCapacityWatcher = new DriveCapacityWatcher(m_filesystemInfo, m_snapshotListModel);
     m_driveWatchThread = new QThread;
     m_driveCapacityWatcher->moveToThread(m_verifyThread);
     m_driveWatchThread->start(QThread::LowPriority); // must have higher priority than backup execution
@@ -198,7 +198,7 @@ void MainWindow::onBackupSelected()
 
     int index = m_backupSelectorUI->currentSelection();
     QString origin = m_backupListModel->backupList().at(index).origin;
-    m_historyList->investigate(origin);
+    m_snapshotListModel->investigate(origin);
     m_filesystemInfo->setFile(origin);
     m_backupEngine->select(origin);
     m_verifyEngine->select(origin);
@@ -208,7 +208,7 @@ void MainWindow::onBackupSelected()
     if (config.Load(origin + "/inverita.conf")) {
         updateLatestLink(origin);
         m_controlUI->setEnabledButtons(ControlUI::CreateButton, true);
-        m_controlUI->setEnabledButtons(ControlUI::VerifyButton, (m_historyList->size() > 0));
+        m_controlUI->setEnabledButtons(ControlUI::VerifyButton, (m_snapshotListModel->size() > 0));
     } else {
         m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
     }
@@ -252,7 +252,7 @@ void MainWindow::onDeleteBackup()
     QString origin = m_backupListModel->backupList().at(index).origin;
 
     index = m_snapshotListUI->currentSelection();
-    QString name = m_historyList->at(index).name();
+    QString name = m_snapshotListModel->at(index).name();
     m_eraseEngine->select(origin + "/" + name);
     emit deleteBackup();
 }
@@ -263,7 +263,7 @@ void MainWindow::onValidateBackup()
     QString origin = m_backupListModel->backupList().at(index).origin;
 
     index = m_snapshotListUI->currentSelection();
-    QString name = m_historyList->at(index).name();
+    QString name = m_snapshotListModel->at(index).name();
     m_validateEngine->select(origin + "/" + name);
     emit validateBackup();
 }
@@ -284,11 +284,11 @@ void MainWindow::updateLatestLink(QString &absolutePath)
         linkName = ReadLink(linkPath);
     }
 
-    if (m_historyList->isEmpty()) {
+    if (m_snapshotListModel->isEmpty()) {
         QFile::remove(linkPath);
         qDebug() << "latest link removed";
     } else {
-        QString newName = m_historyList->last().name();
+        QString newName = m_snapshotListModel->last().name();
         if (linkName != newName) {
             QFile::remove(linkPath);
             QFile::link(newName, linkPath);
