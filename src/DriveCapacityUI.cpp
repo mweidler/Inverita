@@ -55,7 +55,7 @@ DriveCapacityUI::DriveCapacityUI(AbstractDriveCapacityModel *model, QWidget *par
 QSize DriveCapacityUI::minimumSizeHint() const
 {
     qDebug() << "DriveCapacityUI::minimumSizeHint()";
-    return QSize(146, 190);
+    return QSize(250, 150);
 }
 
 
@@ -175,15 +175,20 @@ void DriveCapacityUI::paintEvent(QPaintEvent * /* event */)
     QFontMetrics fm = painter.fontMetrics();
     int legendHeight = 2 * fm.height();
 
-    m_pieChartRect.setRect(contentsRect().left(),
+    m_pieChartRect.setRect(0,
+                           0,
+                           150,
+                           150);
+
+    /*m_pieChartRect.setRect(contentsRect().left(),
                            contentsRect().top(),
                            contentsRect().width(),
-                           contentsRect().height() - legendHeight - 10);
+                           contentsRect().height() - legendHeight - 10);*/
 
-    m_legendRect.setRect(contentsRect().left(),
-                         contentsRect().bottom() - legendHeight,
-                         contentsRect().width(),
-                         legendHeight);
+    m_legendRect.setRect(150,
+                         20,
+                         100,
+                         150);
 
     qDebug() << "pieChart" << m_pieChartRect;
     qDebug() << "legentChart" << m_legendRect;
