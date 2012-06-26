@@ -145,11 +145,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setWindowIcon(appicon);
     setWindowTitle(tr("INVERITA Personal Backup"));
 
-    QSettings settings("inverita");
-    restoreGeometry(settings.value("geometry").toByteArray());
-
-    setMinimumSize(800, 700);
+    setMinimumSize(800, 700); // TODO: make 600 pixels height (netbook resolution)
     resize(800, 700);
+
+    // center application window on the current screen
+    QRect desktopRect = QApplication::desktop()->availableGeometry(this);
+    move(desktopRect.center() - rect().center());
 
     onBackupSelected();
 }
@@ -270,14 +271,6 @@ void MainWindow::onValidateBackup()
     QString name = m_snapshotListModel->at(index).name();
     m_validateEngine->select(origin + "/" + name);
     emit validateBackup();
-}
-
-
-void MainWindow::closeEvent(QCloseEvent *event)
-{
-     QSettings settings("inverita");
-     settings.setValue("geometry", saveGeometry());
-     QWidget::closeEvent(event);
 }
 
 
