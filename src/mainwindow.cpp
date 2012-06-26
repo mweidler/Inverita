@@ -57,8 +57,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_controlUI = new ControlUI(parent);
 
     QHBoxLayout *hlayout = new QHBoxLayout;
-    hlayout->addWidget(m_driveCapacityUI);
-    hlayout->addWidget(m_controlUI);
+    hlayout->addWidget(m_driveCapacityUI, 0, Qt::AlignLeft);
+    hlayout->addWidget(m_controlUI, 1, Qt::AlignRight);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(10);
@@ -145,8 +145,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setWindowIcon(appicon);
     setWindowTitle(tr("INVERITA Personal Backup"));
 
-    setMinimumSize(800, 700); // TODO: make 600 pixels height (netbook resolution)
-    resize(800, 700);
+    setMinimumSize(750, 700); // TODO: make 600 pixels height (netbook resolution)
+    resize(750, 700);
 
     // center application window on the current screen
     QRect desktopRect = QApplication::desktop()->availableGeometry(this);

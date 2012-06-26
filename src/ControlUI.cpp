@@ -42,26 +42,24 @@ ControlUI::ControlUI(QWidget *parent) : QFrame(parent)
     m_btnCreate->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     m_btnCreate->setText(tr("Create new backup snapshot"));
     m_btnCreate->setIcon(QIcon(":/images/Copy-icon.png"));
-    m_btnCreate->setIconSize(QSize(96, 96));
+    m_btnCreate->setIconSize(QSize(64, 64));
 
     m_btnVerify = new QToolButton(this);
     m_btnVerify->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     m_btnVerify->setText(tr("Verify last backup with origin"));
     m_btnVerify->setIcon(QIcon(":/images/Verify-icon.png"));
-    m_btnVerify->setIconSize(QSize(96, 96));
+    m_btnVerify->setIconSize(QSize(64, 64));
 
     QHBoxLayout *hboxlayout = new QHBoxLayout;
-    hboxlayout->setMargin(5);
-    hboxlayout->addWidget(m_btnCreate, 1);
-    hboxlayout->addWidget(m_btnVerify, 1);
+    hboxlayout->addWidget(m_btnCreate);
+    hboxlayout->addSpacerItem(new QSpacerItem(15,0));
+    hboxlayout->addWidget(m_btnVerify);
 
     QVBoxLayout *vboxlayout = new QVBoxLayout;
-    vboxlayout->setMargin(5);
+    vboxlayout->setAlignment(Qt::AlignTop);
     vboxlayout->addWidget(description);
     vboxlayout->addLayout(hboxlayout);
     this->setLayout(vboxlayout);
-
-    setFrameStyle(QFrame::StyledPanel);
 
     connect(m_btnCreate, SIGNAL(clicked()), this, SIGNAL(backupStarted()));
     connect(m_btnVerify, SIGNAL(clicked()), this, SIGNAL(startVerify()));
