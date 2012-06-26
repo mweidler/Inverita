@@ -299,31 +299,34 @@ void MainWindow::updateLatestLink(QString &absolutePath)
 
 void MainWindow::createActions()
 {
-    createBackupAct = new QAction(tr("&Create new backup"), this);
+    createBackupAct = new QAction(tr("&Create new backup..."), this);
     createBackupAct->setStatusTip(tr("Create new backup configuration"));
     createBackupAct->setIconVisibleInMenu(true);
     createBackupAct->setIcon(QIcon::fromTheme("document-new"));
+    createBackupAct->setShortcut(Qt::ALT | Qt::Key_N);
     connect(createBackupAct, SIGNAL(triggered()), m_backupSelectorUI, SLOT(onNew()));
 
-    selectBackupAct = new QAction(tr("&Select existing backup"), this);
+    selectBackupAct = new QAction(tr("&Select existing backup..."), this);
     selectBackupAct->setStatusTip(tr("Select an existing backup configuration"));
     selectBackupAct->setIconVisibleInMenu(true);
     selectBackupAct->setIcon(QIcon::fromTheme("document-open"));
+    selectBackupAct->setShortcut(Qt::ALT | Qt::Key_S);
     connect(selectBackupAct, SIGNAL(triggered()), m_backupSelectorUI, SLOT(onSelect()));
 
     exitAct = new QAction(tr("&Exit"), this);
     exitAct->setStatusTip(tr("Exit application"));
     exitAct->setIconVisibleInMenu(true);
     exitAct->setIcon(QIcon::fromTheme("exit"));
+    exitAct->setShortcut(Qt::ALT | Qt::Key_F4);
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
-    aboutAct = new QAction(tr("&About"), this);
+    aboutAct = new QAction(tr("&About..."), this);
     aboutAct->setStatusTip(tr("Show the application's About box"));
     aboutAct->setIconVisibleInMenu(true);
     aboutAct->setIcon(QIcon::fromTheme("help-about"));
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 
-    aboutQtAct = new QAction(tr("About &Qt"), this);
+    aboutQtAct = new QAction(tr("About &Qt..."), this);
     aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
     aboutQtAct->setIconVisibleInMenu(true);
     aboutQtAct->setIcon(QIcon::fromTheme("help-about"));
