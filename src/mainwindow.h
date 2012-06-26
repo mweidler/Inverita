@@ -48,6 +48,8 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void closeEvent(QCloseEvent *event);
+
 signals:
     void deleteBackup();
     void validateBackup();
