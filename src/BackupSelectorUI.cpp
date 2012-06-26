@@ -36,10 +36,10 @@ BackupSelectorUI::BackupSelectorUI(QAbstractListModel *model, QWidget *parent) :
     m_choice->setModel(model);
     m_choice->setCurrentIndex(0);
 
-    QLabel *labelCurrentBackup = new QLabel(tr("Select your backup target or<br>"
-                                               "open/create a backup from the Menu.<br><br>"
-                                               "Your current backup target:")
-                                            );
+    QLabel *labelCurrentBackup = new QLabel(tr("Select your backup (target and configuration) you want to work with or<br>"
+                                               "open an existing backup or create a new backup from the menu.") + "<br><br>" +
+                                            tr("Your current backup target:")
+                                           );
 
     QPushButton *btnConf   = new QPushButton(tr("Configure"));
     btnConf->setIcon(QIcon::fromTheme("preferences-desktop"));
@@ -48,11 +48,7 @@ BackupSelectorUI::BackupSelectorUI(QAbstractListModel *model, QWidget *parent) :
     choiceLayout->addWidget(m_choice, 1);
     choiceLayout->addWidget(btnConf);
 
-//    buttonLayout->setMargin(5);
-//    buttonLayout->setSpacing(20);
-
     QVBoxLayout *controlLayout = new QVBoxLayout;
-    controlLayout->setSizeConstraint(QLayout::SetMaximumSize);
     controlLayout->setAlignment(Qt::AlignCenter);
     controlLayout->addWidget(labelCurrentBackup);
     controlLayout->addLayout(choiceLayout);
@@ -64,10 +60,9 @@ BackupSelectorUI::BackupSelectorUI(QAbstractListModel *model, QWidget *parent) :
 
     QHBoxLayout *hboxlayout = new QHBoxLayout;
     hboxlayout->addWidget(labelImage);
+    hboxlayout->addSpacerItem(new QSpacerItem(20,0));
     hboxlayout->addLayout(controlLayout);
     this->setLayout(hboxlayout);
-
-    //setFrameStyle(QFrame::StyledPanel);
 
     connect(m_choice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(backupSelected()));
     connect(btnConf, SIGNAL(clicked()), this, SLOT(onConfigure()));
