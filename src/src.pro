@@ -17,7 +17,6 @@ RESOURCES += \
 SOURCES += main.cpp\
         mainwindow.cpp \
     BackupSelectorUI.cpp \
-    BackupHistoryUI.cpp \
     BackupHistoryList.cpp \
     BackupListModel.cpp \
     Configuration.cpp \
@@ -44,11 +43,11 @@ SOURCES += main.cpp\
     ProgressDialog.cpp \
     ConfigurationDialog.cpp \
     DriveCapacityWatcher.cpp \
-    Snapshot.cpp
+    Snapshot.cpp \
+    SnapshotListUI.cpp
 
 HEADERS  += mainwindow.h \
     BackupSelectorUI.h \
-    BackupHistoryUI.h \
     BackupHistoryList.h \
     BackupListModel.h \
     Configuration.h \
@@ -76,5 +75,6 @@ HEADERS  += mainwindow.h \
     ProgressDialog.h \
     ConfigurationDialog.h \
     DriveCapacityWatcher.h \
-    Snapshot.h
+    Snapshot.h \
+    SnapshotListUI.h
 

@@ -29,7 +29,7 @@
 #include "BackupListModel.h"
 #include "BackupSelectorUI.h"
 #include "BackupHistoryList.h"
-#include "BackupHistoryUI.h"
+#include "SnapshotListUI.h"
 #include "ControlUI.h"
 #include "BackupEngine.h"
 #include "EraseEngine.h"
@@ -82,7 +82,7 @@ private:
     BackupListModel   *m_backupListModel;
     BackupSelectorUI  *m_backupSelectorUI;
     BackupHistoryList *m_historyList;
-    BackupHistoryUI   *m_backupHistoryUI;
+    SnapshotListUI    *m_snapshotListUI;
 
     FilesystemInfo    *m_filesystemInfo;
     DriveCapacityUI   *m_driveCapacityUI;

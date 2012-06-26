@@ -1,5 +1,5 @@
 /*
- * BackupHistoryUI.cpp
+ * SnapshotListUI.cpp
  *
  * This file is part of INVERITA.
  *
@@ -22,10 +22,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QtGui>
-#include "BackupHistoryUI.h"
+#include "SnapshotListUI.h"
 
-BackupHistoryUI::BackupHistoryUI(QAbstractTableModel *model, QWidget *parent) : QFrame(parent)
+SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QFrame(parent)
 {
     QLabel *description = new QLabel(tr("Backup snapshots"));
 
@@ -81,31 +80,31 @@ BackupHistoryUI::BackupHistoryUI(QAbstractTableModel *model, QWidget *parent) : 
     connect(m_buttonReload, SIGNAL(clicked()), this, SIGNAL(reload()));
 }
 
-BackupHistoryUI::~BackupHistoryUI()
+SnapshotListUI::~SnapshotListUI()
 {
 
 }
 
-int BackupHistoryUI::currentSelection()
+int SnapshotListUI::currentSelection()
 {
     return m_tableView->currentIndex().row();
 }
 
-void BackupHistoryUI::OnItemSelected()
+void SnapshotListUI::OnItemSelected()
 {
     m_buttonValidate->setEnabled(true);
     m_buttonDelete->setEnabled(true);
     qDebug() << "Current index" << m_tableView->currentIndex();
 }
 
-void BackupHistoryUI::OnValidate()
+void SnapshotListUI::OnValidate()
 {
     emit validateBackup();
     m_buttonValidate->setEnabled(false);
     m_buttonDelete->setEnabled(false);
 }
 
-void BackupHistoryUI::OnDelete()
+void SnapshotListUI::OnDelete()
 {
     emit deleteBackup();
     m_buttonValidate->setEnabled(false);

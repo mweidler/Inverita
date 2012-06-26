@@ -32,7 +32,7 @@
 #include "mainwindow.h"
 #include "BackupListModel.h"
 #include "BackupSelectorUI.h"
-#include "BackupHistoryUI.h"
+#include "SnapshotListUI.h"
 #include "ControlUI.h"
 #include "BackupHistoryList.h"
 #include "AboutDialog.h"
@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_backupSelectorUI = new BackupSelectorUI(m_backupListModel, this);
 
     m_historyList = new BackupHistoryList(parent);
-    m_backupHistoryUI = new BackupHistoryUI(m_historyList, this);
+    m_snapshotListUI = new SnapshotListUI(m_historyList, this);
 
     m_driveCapacityUI = new DriveCapacityUI(m_filesystemInfo, this);
     m_controlUI = new ControlUI(parent);
@@ -64,7 +64,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     layout->setMargin(10);
     layout->setSpacing(20);
     layout->addWidget(m_backupSelectorUI);
-    layout->addWidget(m_backupHistoryUI);
+    layout->addWidget(m_snapshotListUI);
     layout->addLayout(hlayout);
     widget->setLayout(layout);
 
@@ -104,9 +104,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_progressVerifyDialog = new ProgressDialog(m_verifyEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
 
     connect(m_backupSelectorUI, SIGNAL(backupSelected()), this, SLOT(onBackupSelected()));
-    connect(m_backupHistoryUI, SIGNAL(reload()), this, SLOT(onBackupSelected()));
-    connect(m_backupHistoryUI, SIGNAL(deleteBackup()), this, SLOT(onDeleteBackup()));
-    connect(m_backupHistoryUI, SIGNAL(validateBackup()), this, SLOT(onValidateBackup()));
+    connect(m_snapshotListUI, SIGNAL(reload()), this, SLOT(onBackupSelected()));
+    connect(m_snapshotListUI, SIGNAL(deleteBackup()), this, SLOT(onDeleteBackup()));
+    connect(m_snapshotListUI, SIGNAL(validateBackup()), this, SLOT(onValidateBackup()));
 
     connect(m_controlUI, SIGNAL(backupStarted()), m_backupEngine, SLOT(start()));
     connect(m_controlUI, SIGNAL(backupStarted()), this, SLOT(onBackupStarted()));
@@ -251,7 +251,7 @@ void MainWindow::onDeleteBackup()
     int index = m_backupSelectorUI->currentSelection();
     QString origin = m_backupListModel->backupList().at(index).origin;
 
-    index = m_backupHistoryUI->currentSelection();
+    index = m_snapshotListUI->currentSelection();
     QString name = m_historyList->at(index).name();
     m_eraseEngine->select(origin + "/" + name);
     emit deleteBackup();
@@ -262,7 +262,7 @@ void MainWindow::onValidateBackup()
     int index = m_backupSelectorUI->currentSelection();
     QString origin = m_backupListModel->backupList().at(index).origin;
 
-    index = m_backupHistoryUI->currentSelection();
+    index = m_snapshotListUI->currentSelection();
     QString name = m_historyList->at(index).name();
     m_validateEngine->select(origin + "/" + name);
     emit validateBackup();

@@ -1,5 +1,5 @@
 /*
- * BackupHistoryUI.hpp
+ * SnapshotListUI.hpp
  *
  * This file is part of INVERITA.
  *
@@ -22,18 +22,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADER_BACKUPHISTORYUI_INC
-#define HEADER_BACKUPHISTORYUI_INC
+#ifndef HEADER_SNAPSHOTLISTUI_INC
+#define HEADER_SNAPSHOTLISTUI_INC
 
 #include <QtGui>
 
-class BackupHistoryUI : public QFrame
+class SnapshotListUI : public QFrame
 {
     Q_OBJECT
 
 public:
-    BackupHistoryUI(QAbstractTableModel *model, QWidget *parent = 0);
-    ~BackupHistoryUI();
+    SnapshotListUI(QAbstractTableModel *model, QWidget *parent = 0);
+    ~SnapshotListUI();
 
     int currentSelection();
 
