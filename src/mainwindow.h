@@ -56,7 +56,7 @@ signals:
 public slots:
     void about();
     void onBackupSelected();
-    void onBackupStarted();
+    void onStartBackup();
     void onBackupFinished();
     void onBackupAborted();
     void onDeleteBackup();

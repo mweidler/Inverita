@@ -101,8 +101,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(m_snapshotListUI, SIGNAL(deleteBackup()), this, SLOT(onDeleteBackup()));
     connect(m_snapshotListUI, SIGNAL(validateBackup()), this, SLOT(onValidateBackup()));
 
-    connect(m_controlUI, SIGNAL(backupStarted()), m_backupEngine, SLOT(start()));
-    connect(m_controlUI, SIGNAL(backupStarted()), this, SLOT(onBackupStarted()));
+    connect(m_controlUI, SIGNAL(startBackup()), m_backupEngine, SLOT(start()));
+    connect(m_controlUI, SIGNAL(startBackup()), this, SLOT(onStartBackup()));
     connect(m_progressBackupDialog, SIGNAL(aborted()), this, SLOT(cancelProgress()));
     connect(m_backupEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
     connect(m_backupEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
@@ -219,9 +219,9 @@ void MainWindow::onBackupSelected()
 }
 
 
-void MainWindow::onBackupStarted()
+void MainWindow::onStartBackup()
 {
-    qDebug() << "onBackupStarted";
+    qDebug() << "onStartBackup";
     m_driveCapacityWatcher->setAutoDeleteEnabled(true);
 }
 
@@ -270,7 +270,7 @@ void MainWindow::onValidateBackup()
 {
     int index = m_backupSelectorUI->currentSelection();
     // TODO: is backupList() needed of can I directly access at(index)?
-    //       see also in onDeleteBackup
+    //       see also in onDeleteBackup. NO! Inherit BackupListModel from BackupList
     QString origin = m_backupListModel->backupList().at(index).origin;
 
     index = m_snapshotListUI->currentSelection();

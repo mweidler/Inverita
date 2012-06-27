@@ -45,7 +45,7 @@ public:
     void setEnabledButtons(LogicalButton button, bool enabled);
 
 signals:
-    void backupStarted(); // TODO: rename to "startBackup"
+    void startBackup();
     void startVerify();
 
 private:

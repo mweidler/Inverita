@@ -61,7 +61,7 @@ ControlUI::ControlUI(QWidget *parent) : QWidget(parent)
     vboxlayout->addLayout(hboxlayout);
     this->setLayout(vboxlayout);
 
-    connect(m_btnCreate, SIGNAL(clicked()), this, SIGNAL(backupStarted()));
+    connect(m_btnCreate, SIGNAL(clicked()), this, SIGNAL(startBackup()));
     connect(m_btnVerify, SIGNAL(clicked()), this, SIGNAL(startVerify()));
 }
 
