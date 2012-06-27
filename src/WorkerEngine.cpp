@@ -40,7 +40,6 @@ void WorkerEngine::reset()
 {
     m_currentTask = 0;
     m_abort = false;
-    m_descriptions.clear();
 }
 
 
