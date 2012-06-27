@@ -37,7 +37,7 @@ BackupSelectorUI::BackupSelectorUI(QAbstractListModel *model, QWidget *parent) :
     m_choice->setCurrentIndex(0);
 
     QLabel *labelCurrentBackup = new QLabel(tr("Select your backup (target and configuration) you want to work with or<br>"
-                                               "open an existing backup or create a new backup from the menu.") + "<br><br>" +
+                                            "open an existing backup or create a new backup from the menu.") + "<br><br>" +
                                             tr("Your current backup target:")
                                            );
 
@@ -60,7 +60,7 @@ BackupSelectorUI::BackupSelectorUI(QAbstractListModel *model, QWidget *parent) :
 
     QHBoxLayout *hboxlayout = new QHBoxLayout;
     hboxlayout->addWidget(labelImage);
-    hboxlayout->addSpacerItem(new QSpacerItem(20,0));
+    hboxlayout->addSpacerItem(new QSpacerItem(20, 0));
     hboxlayout->addLayout(controlLayout);
     this->setLayout(hboxlayout);
 

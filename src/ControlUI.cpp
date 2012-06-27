@@ -36,7 +36,7 @@
  */
 ControlUI::ControlUI(QWidget *parent) : QFrame(parent)
 {
-    QLabel *description = new QLabel(tr("<b>Start</b> your backup, or verify an existing backup."));
+    QLabel *description = new QLabel(tr("<b>Create</b> a new backup snapshot or <b>verify</b> your existing backup."));
 
     m_btnCreate = new QToolButton(this);
     m_btnCreate->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -52,7 +52,7 @@ ControlUI::ControlUI(QWidget *parent) : QFrame(parent)
 
     QHBoxLayout *hboxlayout = new QHBoxLayout;
     hboxlayout->addWidget(m_btnCreate);
-    hboxlayout->addSpacerItem(new QSpacerItem(15,0));
+    hboxlayout->addSpacerItem(new QSpacerItem(15, 0));
     hboxlayout->addWidget(m_btnVerify);
 
     QVBoxLayout *vboxlayout = new QVBoxLayout;
