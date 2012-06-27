@@ -40,15 +40,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     m_filesystemInfo = new FilesystemInfo();
 
-    m_backupListModel = new BackupListModel(parent);
+    m_backupListModel = new BackupListModel(this);
     m_backupListModel->Load("inverita");
     m_backupSelectorUI = new BackupSelectorUI(m_backupListModel, this);
 
-    m_snapshotListModel = new SnapshotListModel(parent);
+    m_snapshotListModel = new SnapshotListModel(this);
     m_snapshotListUI = new SnapshotListUI(m_snapshotListModel, this);
 
     m_driveCapacityUI = new DriveCapacityUI(m_filesystemInfo, this);
-    m_controlUI = new ControlUI(parent);
+    m_controlUI = new ControlUI(this);
 
     QHBoxLayout *hlayout = new QHBoxLayout;
     hlayout->addWidget(m_driveCapacityUI, 0, Qt::AlignLeft);

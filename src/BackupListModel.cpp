@@ -32,7 +32,6 @@
  */
 BackupListModel::BackupListModel(QObject *parent) : QAbstractListModel(parent)
 {
-    // TODO is parent really needed?
     m_list.clear();
 
     connect(this, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged()));
