@@ -22,10 +22,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QtGui>
 
 #include "BackupSelectorUI.h"
 #include "ConfigurationDialog.h"
+
+#include <QFileDialog>
 
 
 /*! Create a new BackupSelectorUI component with GUI elements

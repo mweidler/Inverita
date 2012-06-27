@@ -22,20 +22,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//#include <stdlib.h>
-//#include <string.h>
-//#include <iostream>
-
-// TODO: replace by really needed includes
-#include <QtGui>
-
 
 #include "mainwindow.h"
-//#include "BackupListModel.h"
-//#include "BackupSelectorUI.h"
-//#include "SnapshotListModel.h"
-//#include "SnapshotListUI.h"
-//#include "ControlUI.h"
 #include "AboutDialog.h"
 #include "Utilities.h"
 #include "Configuration.h"

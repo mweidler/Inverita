@@ -22,16 +22,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QtCore>
-#include <QtGui>
-#include <QString>
-#include <QStringList>
-#include <QDialog>
-#include <QLabel>
-#include <QTableWidget>
 
 #include "ConfigurationDialog.h"
 #include "ConfigurationListUI.h"
+
 
 ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) : QDialog(parent), m_config(model)
 {

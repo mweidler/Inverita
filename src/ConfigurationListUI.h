@@ -25,7 +25,16 @@
 #ifndef HEADER_CONFIGURATIONLISTUI_INC
 #define HEADER_CONFIGURATIONLISTUI_INC
 
-#include <QtGui>
+
+#include <QStringListModel>
+#include <QLabel>
+#include <QBoxLayout>
+#include <QListView>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QDialogButtonBox>
+#include <QFileDialog>
+#include <QMessageBox>
 
 
 class ConfigurationListUI : public QWidget

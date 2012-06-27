@@ -25,9 +25,12 @@
 #ifndef HEADER_BACKUPSELECTORUI_INC
 #define HEADER_BACKUPSELECTORUI_INC
 
-#include <QtGui>
 #include "BackupListModel.h"
 
+#include <QComboBox>
+#include <QLabel>
+#include <QBoxLayout>
+#include <QPushButton>
 
 /*!
  * Create a new BackupSelectorUI component with GUI elements

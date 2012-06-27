@@ -22,10 +22,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QtCore>
-#include <QtGui>
-
 #include "ConfigurationListUI.h"
+
+#include <QInputDialog>
 
 
 ConfigurationListUI::ConfigurationListUI(QStringList &list, ConfigurationListMode mode, QString &description, QWidget *parent) : QWidget(parent), m_list(list)
