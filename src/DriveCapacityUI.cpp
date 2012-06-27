@@ -51,7 +51,6 @@ DriveCapacityUI::DriveCapacityUI(AbstractDriveCapacityModel *model, QWidget *par
  */
 QSize DriveCapacityUI::minimumSizeHint() const
 {
-    qDebug() << "DriveCapacityUI::minimumSizeHint()";
     return QSize(270, 100);
 }
 
@@ -171,9 +170,6 @@ void DriveCapacityUI::paintEvent(QPaintEvent * /* event */)
 
     m_pieChartRect.setRect(11, 11, 120, 120);
     m_legendRect.setRect(130, 15, 100, 100);
-
-    qDebug() << "pieChart" << m_pieChartRect;
-    qDebug() << "legentChart" << m_legendRect;
 
     qreal capacity = m_model->capacity();
     drawElement(painter, 0, capacity, lightFreeColor, m_freeColor);

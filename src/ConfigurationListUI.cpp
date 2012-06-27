@@ -28,7 +28,7 @@
 #include "ConfigurationListUI.h"
 
 
-ConfigurationListUI::ConfigurationListUI(QStringList &list, ConfigurationListMode mode, QString &description, QWidget *parent) : QFrame(parent), m_list(list)
+ConfigurationListUI::ConfigurationListUI(QStringList &list, ConfigurationListMode mode, QString &description, QWidget *parent) : QWidget(parent), m_list(list)
 {
     QLabel *descriptionLabel = new QLabel(description);
     m_listModel = new QStringListModel(list);

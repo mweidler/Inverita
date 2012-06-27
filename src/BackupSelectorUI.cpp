@@ -30,7 +30,7 @@
 
 /*! Create a new BackupSelectorUI component with GUI elements
  */
-BackupSelectorUI::BackupSelectorUI(QAbstractListModel *model, QWidget *parent) : QFrame(parent)
+BackupSelectorUI::BackupSelectorUI(QAbstractListModel *model, QWidget *parent) : QWidget(parent)
 {
     m_choice = new QComboBox();
     m_choice->setModel(model);

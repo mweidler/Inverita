@@ -25,7 +25,6 @@
 #ifndef HEADER_CONTROLUI_INC
 #define HEADER_CONTROLUI_INC
 
-#include <QFrame>
 #include <QWidget>
 #include <QToolButton>
 
@@ -33,7 +32,7 @@
 /*!
  * Control elements that contains buttons to start create or verify of a backup
  */
-class ControlUI : public QFrame
+class ControlUI : public QWidget
 {
     Q_OBJECT
 

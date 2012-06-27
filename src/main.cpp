@@ -37,24 +37,6 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-// TODO: cleanup this
-
-    //"QGroupBox { border: 1px solid gray; border-radius: 3px; } "
-    QString style("QGroupBox { border: 1px solid; border-radius: 3px; } "
-                  //"QGroupBox::title { background-color: transparent; subcontrol-position: top left; padding: 10 3px; }"
-                 );
-
-    /*QGroupBox::title {
-        subcontrol-origin: margin;
-        subcontrol-position: top center;
-        padding: 0 3px;
-        background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                          stop: 0 #FFOECE, stop: 1 #FFFFFF);
-    }*/
-    // a.setStyleSheet(style);
-
-// TODO: Replace QFrame by QWidget where no frame is needed/displayed
-
     MainWindow w;
     w.show();
 

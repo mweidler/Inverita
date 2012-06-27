@@ -28,7 +28,7 @@
 #include <QtGui>
 
 
-class ConfigurationListUI : public QFrame
+class ConfigurationListUI : public QWidget
 {
     Q_OBJECT
 

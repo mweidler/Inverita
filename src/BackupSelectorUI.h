@@ -32,7 +32,7 @@
 /*!
  * Create a new BackupSelectorUI component with GUI elements
  */
-class BackupSelectorUI : public QFrame
+class BackupSelectorUI : public QWidget
 {
     Q_OBJECT
 

@@ -34,7 +34,7 @@
  *
  * \param parent the parent control element of this UI element
  */
-ControlUI::ControlUI(QWidget *parent) : QFrame(parent)
+ControlUI::ControlUI(QWidget *parent) : QWidget(parent)
 {
     QLabel *description = new QLabel(tr("<b>Create</b> a new backup snapshot or <b>verify</b> your existing backup."));
 
