@@ -37,6 +37,9 @@ BackupEngine::BackupEngine()
     m_descriptions << tr("1. Analyze backup content") <<
                    tr("2. Create backup snapshot") <<
                    tr("3. Verify generated backup");
+
+    // tarverser and engine can emit report signals to the progress dialog
+    connect(&m_validateTraverser, SIGNAL(report(QString)), this, SIGNAL(report(QString)));
 }
 
 
@@ -50,9 +53,17 @@ BackupEngine::BackupEngine()
  */
 WorkerStatus BackupEngine::status()
 {
+    qint64 expected = qMax(m_scanTraverser.totalSize(), (qint64)1);
+    qint64 current = m_copyTraverser.totalSize() + m_validateTraverser.totalSize();
+
+    // Completion assumption: copying takes the same time as validation.
+    if (m_config.GetVerification() & VERIFY_ENABLED) {
+       expected *= 2;
+    }
+
     WorkerStatus st;
     st.timestamp  = QDateTime::currentDateTime();
-    st.completion = ((qreal)m_copyTraverser.totalSize()) / qMax(m_scanTraverser.totalSize(), (qint64)1);
+    st.completion = ((qreal)current) / expected;
     st.processed  = m_copyTraverser.totalSize();
 
     return st;
@@ -81,6 +92,7 @@ void BackupEngine::start()
     reset();
     m_scanTraverser.reset();
     m_copyTraverser.reset();
+    m_validateTraverser.reset();
     emit started();
 
     QString timestamp = QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss");
@@ -94,9 +106,14 @@ void BackupEngine::start()
         scanDirectories();
         m_currentTask = 1;
         executeBackup(timestamp);
-        m_currentTask = 2;
 
+        qDebug() << "backup finished";
         // TODO: if config enabled VerifyBackup();
+        if (m_config.GetVerification() & VERIFY_ENABLED) {
+           m_currentTask = 2;
+           qDebug() << "should validate";
+          validateBackup(timestamp);
+        }
     } catch (ApplicationException &e) {
         buildFailureHint(e);
         emit failed();
@@ -127,6 +144,7 @@ void BackupEngine::abort()
     m_abort = true;
     m_scanTraverser.abort();
     m_copyTraverser.abort();
+    m_validateTraverser.abort();
 }
 
 
@@ -167,9 +185,30 @@ void BackupEngine::executeBackup(QString &timestamp)
     m_copyTraverser.traverse();
     m_copyTraverser.currentSignatures().Save(currentBackup + "/" + "signatures");
 
-    SnapshotMetaInfo meta;
-    meta.setNumberOfFiles(m_copyTraverser.totalFiles());
-    meta.setSizeOfFiles(m_copyTraverser.totalSize());
-    meta.Save(currentBackup + "/" + "metainfo");
+    m_metaInfo.reset();
+    m_metaInfo.setNumberOfFiles(m_copyTraverser.totalFiles());
+    m_metaInfo.setSizeOfFiles(m_copyTraverser.totalSize());
+    m_metaInfo.Save(currentBackup + "/" + "metainfo");
 }
 
+
+/*! Sub job of the backup engine: Validates, if the backup is fully readable and
+ *  compares content against hash signatures.
+ *
+ * \param timestamp of the new backup snapshot
+ */
+void BackupEngine::validateBackup(QString &timestamp)
+{
+    QString snapshotName = m_backupRootPath + "/" + "@" + timestamp;
+
+    m_validateTraverser.addIncludes(snapshotName);
+    m_validateTraverser.addExcludes("metainfo");
+    m_validateTraverser.addExcludes("signatures");
+    m_validateTraverser.setBackupPath(snapshotName);
+    m_validateTraverser.signatures().Load(snapshotName + "/signatures");
+    m_validateTraverser.traverse();
+
+    qDebug() << "BackupEngine::validateBackup";
+
+    // TODO: show error, if something has been detected.
+}

@@ -29,9 +29,11 @@
 #include <QStringList>
 
 #include "Configuration.h"
-#include "CopyTraverser.h"
 #include "ScanTraverser.h"
+#include "CopyTraverser.h"
+#include "ValidateTraverser.h"
 #include "WorkerEngine.h"
+#include "SnapshotMetaInfo.h"
 
 
 /*! Handles the whole job of creating a new backup snapshot.
@@ -53,14 +55,17 @@ public slots:
 protected:
     void scanDirectories();
     void executeBackup(QString &timestamp);
+    void validateBackup(QString &timestamp);
 
 protected:
-    QString       m_backupRootPath;
-    Configuration m_config;
-    QString       m_latestBackup;
-    QString       m_currentBackup;
-    ScanTraverser m_scanTraverser;
-    CopyTraverser m_copyTraverser;
+    QString           m_backupRootPath;
+    Configuration     m_config;
+    QString           m_latestBackup;
+    QString           m_currentBackup;
+    ScanTraverser     m_scanTraverser;
+    CopyTraverser     m_copyTraverser;
+    ValidateTraverser m_validateTraverser;
+    SnapshotMetaInfo  m_metaInfo;
 };
 
 #endif

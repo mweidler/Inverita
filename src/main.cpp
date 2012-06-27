@@ -22,12 +22,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QApplication>
 #include "mainwindow.h"
+#include <QApplication>
 
+
+/*! The one and only main function and start point of the program
+ *
+ * \param argc number of command line arguments given
+ * \param vector of pointers to the command line arguments
+ *
+ * \return status of the application
+ */
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+// TODO: cleanup this
 
     //"QGroupBox { border: 1px solid gray; border-radius: 3px; } "
     QString style("QGroupBox { border: 1px solid; border-radius: 3px; } "
@@ -42,6 +52,8 @@ int main(int argc, char *argv[])
                                           stop: 0 #FFOECE, stop: 1 #FFFFFF);
     }*/
     // a.setStyleSheet(style);
+
+// TODO: Replace QFrame by QWidget where no frame is needed/displayed
 
     MainWindow w;
     w.show();

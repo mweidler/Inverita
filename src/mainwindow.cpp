@@ -22,23 +22,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <iostream>
+//#include <stdlib.h>
+//#include <string.h>
+//#include <iostream>
 
+// TODO: replace by really needed includes
 #include <QtGui>
 
 
 #include "mainwindow.h"
-#include "BackupListModel.h"
-#include "BackupSelectorUI.h"
-#include "SnapshotListUI.h"
-#include "ControlUI.h"
-#include "SnapshotListModel.h"
+//#include "BackupListModel.h"
+//#include "BackupSelectorUI.h"
+//#include "SnapshotListModel.h"
+//#include "SnapshotListUI.h"
+//#include "ControlUI.h"
 #include "AboutDialog.h"
 #include "Utilities.h"
 #include "Configuration.h"
 
+
+/*! Constructs a new mainwindow objects and initializes the user interface.
+ *
+ * \param parent the parent UI element
+ */
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     QWidget *widget = new QWidget;
@@ -153,16 +159,22 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     onBackupSelected();
 }
 
+
+/*! Destructor
+ */
 MainWindow::~MainWindow()
 {
 
 }
 
+/*! Is called if the user selects the "application about" in the menu.
+ */
 void MainWindow::about()
 {
     AboutDialog dialog(this);
     dialog.exec();
 }
+
 
 void MainWindow::onBackupFailed()
 {
@@ -195,6 +207,7 @@ void MainWindow::onBackupFailed()
     onBackupSelected();
 }
 
+
 void MainWindow::onBackupSelected()
 {
     qDebug() << "MainWindow::onBackupSelected()" << QThread::currentThreadId();
@@ -217,6 +230,7 @@ void MainWindow::onBackupSelected()
     }
 }
 
+
 void MainWindow::onBackupStarted()
 {
     qDebug() << "onBackupStarted";
@@ -226,20 +240,22 @@ void MainWindow::onBackupStarted()
 
 void MainWindow::onBackupFinished()
 {
-    std::cerr << "onBackupFinished\n";
+    qDebug() << "onBackupFinished";
     m_driveCapacityWatcher->setAutoDeleteEnabled(false);
     onBackupSelected();
 }
 
+
 void MainWindow::onBackupAborted()
 {
-    std::cerr << "onBackupAborted\n";
+    qDebug() << "onBackupAborted";
     m_driveCapacityWatcher->setAutoDeleteEnabled(false);
 }
 
+
 void MainWindow::cancelProgress()
 {
-    std::cerr << "CancelProgress called\n";
+    qDebug() << "CancelProgress called";
 
     // abort() can not be called via event loop (connect), because
     // the worker thread blocks its event queue.
@@ -248,6 +264,7 @@ void MainWindow::cancelProgress()
     m_validateEngine->abort();
     m_verifyEngine->abort();
 }
+
 
 void MainWindow::onDeleteBackup()
 {
@@ -260,9 +277,12 @@ void MainWindow::onDeleteBackup()
     emit deleteBackup();
 }
 
+
 void MainWindow::onValidateBackup()
 {
     int index = m_backupSelectorUI->currentSelection();
+    // TODO: is backupList() needed of can I directly access at(index)?
+    //       see also in onDeleteBackup
     QString origin = m_backupListModel->backupList().at(index).origin;
 
     index = m_snapshotListUI->currentSelection();
@@ -300,23 +320,26 @@ void MainWindow::updateLatestLink(QString &absolutePath)
     }
 }
 
+
+/*! Creates the actions for the application menu
+ */
 void MainWindow::createActions()
 {
-    createBackupAct = new QAction(tr("&Create new backup..."), this);
+    createBackupAct = new QAction(tr("Create new backup..."), this);
     createBackupAct->setStatusTip(tr("Create new backup configuration"));
     createBackupAct->setIconVisibleInMenu(true);
     createBackupAct->setIcon(QIcon::fromTheme("document-new"));
     createBackupAct->setShortcut(Qt::ALT | Qt::Key_N);
     connect(createBackupAct, SIGNAL(triggered()), m_backupSelectorUI, SLOT(onNew()));
 
-    selectBackupAct = new QAction(tr("&Select existing backup..."), this);
+    selectBackupAct = new QAction(tr("Select existing backup..."), this);
     selectBackupAct->setStatusTip(tr("Select an existing backup configuration"));
     selectBackupAct->setIconVisibleInMenu(true);
     selectBackupAct->setIcon(QIcon::fromTheme("document-open"));
     selectBackupAct->setShortcut(Qt::ALT | Qt::Key_S);
     connect(selectBackupAct, SIGNAL(triggered()), m_backupSelectorUI, SLOT(onSelect()));
 
-    exitAct = new QAction(tr("&Exit"), this);
+    exitAct = new QAction(tr("Exit"), this);
     exitAct->setStatusTip(tr("Exit application"));
     exitAct->setIconVisibleInMenu(true);
     exitAct->setIcon(QIcon::fromTheme("exit"));
@@ -336,6 +359,9 @@ void MainWindow::createActions()
     connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 }
 
+
+/*! Creates the application menu
+ */
 void MainWindow::createMenus()
 {
     backupMenu = menuBar()->addMenu(tr("&Backup"));

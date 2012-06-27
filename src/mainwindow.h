@@ -84,23 +84,23 @@ private:
     SnapshotListModel *m_snapshotListModel;
     SnapshotListUI    *m_snapshotListUI;
 
-    FilesystemInfo    *m_filesystemInfo;
-    DriveCapacityUI   *m_driveCapacityUI;
-    ControlUI         *m_controlUI;
-    BackupEngine      *m_backupEngine;
-    QThread           *m_backupThread;
-    EraseEngine       *m_eraseEngine;
-    QThread           *m_eraseThread;
-    ValidateEngine    *m_validateEngine;
-    QThread           *m_validateThread;
-    VerifyEngine      *m_verifyEngine;
-    QThread           *m_verifyThread;
+    FilesystemInfo       *m_filesystemInfo;
+    DriveCapacityUI      *m_driveCapacityUI;
+    ControlUI            *m_controlUI;
+    BackupEngine         *m_backupEngine;
+    QThread              *m_backupThread;
+    EraseEngine          *m_eraseEngine;
+    QThread              *m_eraseThread;
+    ValidateEngine       *m_validateEngine;
+    QThread              *m_validateThread;
+    VerifyEngine         *m_verifyEngine;
+    QThread              *m_verifyThread;
     DriveCapacityWatcher *m_driveCapacityWatcher;
-    QThread           *m_driveWatchThread;
-    ProgressDialog    *m_progressBackupDialog;
-    ProgressDialog    *m_progressEraseDialog;
-    ProgressDialog    *m_progressValidateDialog;
-    ProgressDialog    *m_progressVerifyDialog;
+    QThread              *m_driveWatchThread;
+    ProgressDialog       *m_progressBackupDialog;
+    ProgressDialog       *m_progressEraseDialog;
+    ProgressDialog       *m_progressValidateDialog;
+    ProgressDialog       *m_progressVerifyDialog;
 };
 
 #endif // HEADER_MAINWINDOW_INC

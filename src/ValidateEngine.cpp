@@ -90,10 +90,10 @@ void ValidateEngine::start()
         for (int i = 0; i < keys.size(); i++)  {
             report(keys[i] + "<br>");
         }
-        report("<br>");
+        emit report("<br>");
         corrupted = true;
     } else {
-        report(tr("All expected files were found in this backup snapshot.") + "<br>");
+        emit report(tr("All expected files were found in this backup snapshot.") + "<br>");
     }
 
     if (m_validateTraverser.totalErrors()) {
