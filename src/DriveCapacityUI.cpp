@@ -40,9 +40,6 @@ DriveCapacityUI::DriveCapacityUI(AbstractDriveCapacityModel *model, QWidget *par
 {
     m_model = model;
 
-    //setBackgroundRole(QPalette::NoRole);
-    //setAutoFillBackground(true);
-
     m_freeColor = QColor(0, 235, 100);
     m_usedColor = QColor(235, 0, 0);
 
@@ -55,7 +52,7 @@ DriveCapacityUI::DriveCapacityUI(AbstractDriveCapacityModel *model, QWidget *par
 QSize DriveCapacityUI::minimumSizeHint() const
 {
     qDebug() << "DriveCapacityUI::minimumSizeHint()";
-    return QSize(250, 150);
+    return QSize(270, 100);
 }
 
 
@@ -131,7 +128,7 @@ void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, QCo
         painter.setBrush(borderColor);
         painter.setPen(this->palette().text().color());
 
-        QPoint labelCenter = center + rotatedPoint(40, (from + span / 2) * 360);
+        QPoint labelCenter = center + rotatedPoint(35, (from + span / 2) * 360);
         int fontHeight = painter.font().pointSize();
         QRect absoluteRect(labelCenter.x() - 35, labelCenter.y() - fontHeight, 80, 2 * fontHeight);
         painter.drawText(absoluteRect, Qt::AlignCenter, percent);
@@ -156,8 +153,8 @@ void DriveCapacityUI::drawLegend(QPainter &painter, qint64 free, qint64 used)
     painter.setBrush(m_usedColor);
     painter.drawRect(usedRect);
 
-    painter.drawText(freeRect.bottomLeft() + QPoint(20, 1), ScaleToSiPrefix(free) + " " + tr("free"));
-    painter.drawText(usedRect.bottomLeft() + QPoint(20, 1), ScaleToSiPrefix(used) + " " + tr("used"));
+    painter.drawText(freeRect.bottomLeft() + QPoint(15, 1), ScaleToSiPrefix(free) + " " + tr("free"));
+    painter.drawText(usedRect.bottomLeft() + QPoint(15, 1), ScaleToSiPrefix(used) + " " + tr("used"));
 }
 
 
@@ -172,23 +169,8 @@ void DriveCapacityUI::paintEvent(QPaintEvent * /* event */)
     painter.setRenderHints(QPainter::Antialiasing, true);
     painter.setBackgroundMode(Qt::TransparentMode);
 
-    QFontMetrics fm = painter.fontMetrics();
-    int legendHeight = 2 * fm.height();
-
-    m_pieChartRect.setRect(0,
-                           0,
-                           150,
-                           150);
-
-    /*m_pieChartRect.setRect(contentsRect().left(),
-                           contentsRect().top(),
-                           contentsRect().width(),
-                           contentsRect().height() - legendHeight - 10);*/
-
-    m_legendRect.setRect(150,
-                         20,
-                         100,
-                         150);
+    m_pieChartRect.setRect(11, 11, 120, 120);
+    m_legendRect.setRect(130, 15, 100, 100);
 
     qDebug() << "pieChart" << m_pieChartRect;
     qDebug() << "legentChart" << m_legendRect;

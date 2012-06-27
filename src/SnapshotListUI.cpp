@@ -41,12 +41,11 @@ SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QF
     m_tableView->horizontalHeader()->setResizeMode(1, QHeaderView::ResizeToContents);
     m_tableView->horizontalHeader()->setResizeMode(2, QHeaderView::ResizeToContents);
     m_tableView->horizontalHeader()->setResizeMode(3, QHeaderView::ResizeToContents);
-    m_tableView->horizontalHeader()->setDefaultSectionSize(150);
     m_tableView->horizontalHeader()->setStretchLastSection(true);
     m_tableView->show();
 
     m_buttonValidate = new QPushButton(tr("Validate"));
-    m_buttonValidate->setIcon(QIcon::fromTheme("edit-find"));
+    m_buttonValidate->setIcon(QIcon::fromTheme("dialog-yes"));
     m_buttonValidate->setEnabled(false);
     m_buttonDelete = new QPushButton(tr("Delete"));
     m_buttonDelete->setIcon(QIcon::fromTheme("edit-delete"));
@@ -56,8 +55,7 @@ SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QF
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
     buttonLayout->setAlignment(Qt::AlignRight);
-    //buttonLayout->setMargin(5);
-    //buttonLayout->setSpacing(10);
+    buttonLayout->setMargin(0);
     buttonLayout->addWidget(m_buttonValidate);
     buttonLayout->addWidget(m_buttonDelete);
     buttonLayout->addWidget(m_buttonReload);
@@ -65,12 +63,11 @@ SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QF
     QWidget *modificationButtons = new QWidget();
     modificationButtons->setLayout(buttonLayout);
 
-    QVBoxLayout *vboxlayout = new QVBoxLayout;
-    vboxlayout->setMargin(5);
-    vboxlayout->addWidget(description);
-    vboxlayout->addWidget(m_tableView);
-    vboxlayout->addWidget(modificationButtons);
-    this->setLayout(vboxlayout);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(description);
+    mainLayout->addWidget(m_tableView);
+    mainLayout->addWidget(modificationButtons);
+    this->setLayout(mainLayout);
 
     setFrameStyle(QFrame::StyledPanel);
 
@@ -94,7 +91,6 @@ void SnapshotListUI::OnItemSelected()
 {
     m_buttonValidate->setEnabled(true);
     m_buttonDelete->setEnabled(true);
-    qDebug() << "Current index" << m_tableView->currentIndex();
 }
 
 void SnapshotListUI::OnValidate()

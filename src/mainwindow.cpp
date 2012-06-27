@@ -61,7 +61,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     hlayout->addWidget(m_controlUI, 1, Qt::AlignRight);
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(10);
     layout->setSpacing(20);
     layout->addWidget(m_backupSelectorUI);
     layout->addWidget(m_snapshotListUI);
@@ -139,14 +138,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(m_driveCapacityWatcher, SIGNAL(failed()), this, SLOT(onBackupFailed()));
 
     m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
-    statusBar()->showMessage(tr("Welcome."));
 
     QIcon appicon(QPixmap(":/images/backup-icon.png"));
     setWindowIcon(appicon);
     setWindowTitle(tr("INVERITA Personal Backup"));
 
-    setMinimumSize(750, 700); // TODO: make 600 pixels height (netbook resolution)
-    resize(750, 700);
+    setMinimumSize(750, 600);
+    resize(750, 600);
 
     // center application window on the current screen
     QRect desktopRect = QApplication::desktop()->availableGeometry(this);
