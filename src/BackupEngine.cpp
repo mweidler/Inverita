@@ -58,7 +58,7 @@ WorkerStatus BackupEngine::status()
 
     // Completion assumption: copying takes the same time as validation.
     if (m_config.GetVerification() & VERIFY_ENABLED) {
-       expected *= 2;
+        expected *= 2;
     }
 
     WorkerStatus st;
@@ -106,8 +106,8 @@ void BackupEngine::start()
         executeBackup(timestamp);
 
         if (m_config.GetVerification() & VERIFY_ENABLED) {
-           m_currentTask = 2;
-           validateBackup(timestamp);
+            m_currentTask = 2;
+            validateBackup(timestamp);
         }
         m_currentTask = -1; // disable highlighted task
 
