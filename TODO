@@ -1,7 +1,6 @@
 [ ] test AutoDeleteSnapshot: delete from 5%, until 10% capacity reached again
 [ ] Be aware of the options
 [ ] Error dialog, if config file can not be saved (loaded?)
-[ ] Verify after backup
 [ ] Check file format of backup drive
 [ ] Do not inherit DriveCapacityWatcher from Worker ?
 [ ] Progressbar on unknown values (e.g. invalid snapshot deletion)

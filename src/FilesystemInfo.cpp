@@ -25,8 +25,6 @@
 
 #include "FilesystemInfo.h"
 
-#include <QDebug>
-#include <QThread>
 #include <QFile>
 
 
@@ -69,8 +67,6 @@ void FilesystemInfo::setFile(const QString &file)
  */
 void FilesystemInfo::refresh()
 {
-    qDebug() << "FilesystemInfo::refresh()" << QThread::currentThreadId();
-
     if (QFile::exists(m_absolutePath)) {
         statfs(m_absolutePath.toUtf8().data(), &m_st);
     } else {

@@ -73,14 +73,12 @@ WorkerStatus DriveCapacityWatcher::status()
 void DriveCapacityWatcher::select(const QString &backupPath)
 {
     m_backupRootPath = backupPath;
-    qDebug() << "DriveCapacityWatcher selected: " << m_backupRootPath;
 }
 
 
 void DriveCapacityWatcher::setAutoDeleteEnabled(bool autoDelete)
 {
     m_autoDelete = autoDelete;
-    qDebug() << "DriveCapacityWatcher setAutoDelete" << autoDelete;
 }
 
 
@@ -90,8 +88,6 @@ void DriveCapacityWatcher::setAutoDeleteEnabled(bool autoDelete)
  */
 void DriveCapacityWatcher::watch()
 {
-    qDebug() << "DriveCapacityWatcher::update()" << m_capacityModel->capacity() << QThread::currentThreadId();
-
     if (m_capacityModel->capacity() >= 0.05 || m_autoDelete == false) {
         return;
     }
