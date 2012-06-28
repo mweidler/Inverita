@@ -39,6 +39,7 @@ public:
     ValidateTraverser();
     SignatureMap &signatures();
     void setBackupPath(QString &absolutePath);
+    void summary();
 
 public:
     virtual void onFile(const QString &absoluteFilePath);

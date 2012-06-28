@@ -91,7 +91,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_driveCapacityWatcher->moveToThread(m_verifyThread);
     m_driveWatchThread->start(QThread::LowPriority); // must have higher priority than backup execution
 
-    m_progressBackupDialog = new ProgressDialog(m_backupEngine, ProgressDialog::NoTextBox, ProgressDialog::Abortable, this);
+    m_progressBackupDialog = new ProgressDialog(m_backupEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
     m_progressBackupDialog->setWindowTitle(tr("Creating new backup snapshot..."));
     m_progressEraseDialog = new ProgressDialog(m_eraseEngine, ProgressDialog::NoTextBox, ProgressDialog::NotAbortable, this);
     m_progressEraseDialog->setWindowTitle(tr("Deleting backup snapshot..."));
@@ -111,6 +111,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(m_backupEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
     connect(m_backupEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
     connect(m_backupEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
+    connect(m_backupEngine, SIGNAL(report(QString)), m_progressBackupDialog, SLOT(display(QString)));
 
     connect(this, SIGNAL(deleteBackup()), m_eraseEngine, SLOT(start()));
     connect(m_progressEraseDialog, SIGNAL(aborted()), this, SLOT(cancelProgress()));

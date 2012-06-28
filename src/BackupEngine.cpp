@@ -34,11 +34,11 @@ BackupEngine::BackupEngine()
 {
     reset();
 
-    m_descriptions << tr("1. Analyze backup content") <<
-                   tr("2. Create backup snapshot") <<
-                   tr("3. Verify generated backup");
+    m_descriptions << tr("1. Analyzing backup content") <<
+                   tr("2. Creating new backup snapshot") <<
+                   tr("3. Verifying generated backup snapshot");
 
-    // tarverser and engine can emit report signals to the progress dialog
+    // traverser and engine can emit report signals to the progress dialog
     connect(&m_validateTraverser, SIGNAL(report(QString)), this, SIGNAL(report(QString)));
 }
 
@@ -78,7 +78,6 @@ WorkerStatus BackupEngine::status()
 void BackupEngine::select(const QString &backupPath)
 {
     m_backupRootPath = backupPath;
-    qDebug() << "Backup selected: " << m_backupRootPath;
 }
 
 
@@ -96,7 +95,6 @@ void BackupEngine::start()
     emit started();
 
     QString timestamp = QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss");
-    qDebug() << "startBackup entered: " << m_backupRootPath;
 
     try {
         m_config.reset();
@@ -107,13 +105,12 @@ void BackupEngine::start()
         m_currentTask = 1;
         executeBackup(timestamp);
 
-        qDebug() << "backup finished";
-        // TODO: if config enabled VerifyBackup();
         if (m_config.GetVerification() & VERIFY_ENABLED) {
            m_currentTask = 2;
-           qDebug() << "should validate";
-          validateBackup(timestamp);
+           validateBackup(timestamp);
         }
+        m_currentTask = -1; // disable highlighted task
+
     } catch (ApplicationException &e) {
         buildFailureHint(e);
         emit failed();
@@ -207,8 +204,5 @@ void BackupEngine::validateBackup(QString &timestamp)
     m_validateTraverser.setBackupPath(snapshotName);
     m_validateTraverser.signatures().Load(snapshotName + "/signatures");
     m_validateTraverser.traverse();
-
-    qDebug() << "BackupEngine::validateBackup";
-
-    // TODO: show error, if something has been detected.
+    m_validateTraverser.summary();
 }
