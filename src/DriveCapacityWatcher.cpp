@@ -29,7 +29,8 @@
 
 /*! Constructs a new drivespace watcher object.
  */
-DriveCapacityWatcher::DriveCapacityWatcher(AbstractDriveCapacityModel *capacityModel, SnapshotListModel *historyListModel)
+DriveCapacityWatcher::DriveCapacityWatcher(AbstractDriveCapacityModel *capacityModel,
+        SnapshotListModel *historyListModel)
 {
     m_capacityModel = capacityModel;
     m_snapshotListModel = historyListModel;

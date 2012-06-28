@@ -218,6 +218,7 @@ void MainWindow::onBackupSelected()
         updateLatestLink(origin);
         m_controlUI->setEnabledButtons(ControlUI::CreateButton, true);
         m_controlUI->setEnabledButtons(ControlUI::VerifyButton, (m_snapshotListModel->size() > 0));
+        // m_config
     } else {
         m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
     }

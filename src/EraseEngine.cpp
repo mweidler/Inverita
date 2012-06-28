@@ -47,13 +47,13 @@ EraseEngine::EraseEngine()
  */
 WorkerStatus EraseEngine::status()
 {
-    qint64 expectedFiles = qMax(m_metaInfo.numberOfFiles(),(qint64)1);
+    qint64 expectedFiles = qMax(m_metaInfo.numberOfFiles(), (qint64)1);
 
     qDebug() << "Erase-completion" << expectedFiles << m_eraseTraverser.totalFiles();
 
     WorkerStatus st;
     st.timestamp  = QDateTime::currentDateTime();
-    st.completion = expectedFiles ? ((qreal)m_eraseTraverser.totalFiles() / expectedFiles):0;
+    st.completion = expectedFiles ? ((qreal)m_eraseTraverser.totalFiles() / expectedFiles) : 0;
     st.processed  = 0;
 
     return st;

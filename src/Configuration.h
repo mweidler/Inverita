@@ -31,6 +31,7 @@
 
 #include "ApplicationException.h"
 
+/*
 #define VERIFY_ENABLED        1
 #define VERIFY_CONTENT        2
 #define VERIFY_SIZE           4
@@ -39,42 +40,52 @@
 #define VERIFY_DELETION      32
 #define VERIFY_ADDED         64
 #define VERIFY_AFTER_BACKUP 128
-
+*/
 class Configuration : public QObject
 {
 public:
     Configuration();
 
     void reset();
+
+    QStringList &GetIncludes();
+    void        AddInclude(QString include);
+
+    QStringList &GetExcludes();
+    void        AddExclude(QString exclude);
+
+    bool verifyAfterBackup();
+    void setVerifyAfterBackup(bool enable);
+
+    bool verifyHash();
+    void setVerifyHash(bool enable);
+
+    bool verifyTime();
+    void setVerifyTime(bool enable);
+
+    bool verifySize();
+    void setVerifySize(bool enable);
+
+    bool autoDeleteBackups();
+    void setAutoDeleteBackups(bool enable);
+
+    bool limitBackups();
+    void setLimitBackups(bool enable);
+
+    int  maximumBackups();
+    void setMaximumBackups(int count);
+
     bool Load(QString filename);
     void Save(QString filename);
-
-    QStringList   &GetIncludes();
-    void           AddInclude(QString include);
-
-    QStringList   &GetExcludes();
-    void           AddExclude(QString exclude);
-
-    int            GetVerification();
-    void           SetVerification(int verification);
-
-    bool           GetBackupPurgeAllowed();
-    void           SetBackupPurgeAllowed(bool allowed);
-
-    bool           GetBackupRestricted();
-    void           SetBackupRestricted(bool restricted);
-
-    int            GetBackupRestriction();
-    void           SetBackupRestriction(int restriction);
 
 protected:
     QStringList    m_includePaths;
     QStringList    m_excludePatterns;
-    bool           m_verify;
+    bool           m_verifyAfterBackup;
     bool           m_verifyHash;
     bool           m_verifyTime;
     bool           m_verifySize;
-    bool           m_purgeBackups;
+    bool           m_autoDeleteBackups;
     bool           m_limitBackups;
     int            m_maxBackups;
 };

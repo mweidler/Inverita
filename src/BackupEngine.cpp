@@ -57,7 +57,7 @@ WorkerStatus BackupEngine::status()
     qint64 current = m_copyTraverser.totalSize() + m_validateTraverser.totalSize();
 
     // Completion assumption: copying takes the same time as validation.
-    if (m_config.GetVerification() & VERIFY_ENABLED) {
+    if (m_config.verifyAfterBackup()) {
         expected *= 2;
     }
 
@@ -105,7 +105,7 @@ void BackupEngine::start()
         m_currentTask = 1;
         executeBackup(timestamp);
 
-        if (m_config.GetVerification() & VERIFY_ENABLED) {
+        if (m_config.verifyAfterBackup()) {
             m_currentTask = 2;
             validateBackup(timestamp);
         }

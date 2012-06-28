@@ -55,7 +55,8 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     seperator2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 
     QLabel *verifyText = new QLabel(tr("Backups can be verified after backup or on individual request."));
-    m_verify = new QCheckBox(tr("&Verify backup with"));
+    m_verifyAfterBackup = new QCheckBox(tr("&Verify snapshot after each new creation"));
+    QLabel *verifyLabel = new QLabel(tr("On verification, verify backup snapshot covering..."));
 
     QVBoxLayout *verifyLayout = new QVBoxLayout;
     verifyLayout->setContentsMargins(50, 0, 0, 0);
@@ -111,7 +112,8 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     QWidget *pageOptions = new QWidget;
     QVBoxLayout *optionsLayout = new QVBoxLayout;
     optionsLayout->addWidget(verifyText);
-    optionsLayout->addWidget(m_verify);
+    optionsLayout->addWidget(m_verifyAfterBackup);
+    optionsLayout->addWidget(verifyLabel);
     optionsLayout->addLayout(verifyLayout);
     optionsLayout->addWidget(seperator1);
     optionsLayout->addWidget(purgeText);
@@ -141,28 +143,15 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     layout->addWidget(buttonBox);
     this->setLayout(layout);
 
-    if (m_config.GetVerification() & VERIFY_ENABLED) {
-        m_verify->setChecked(true);
-    }
-
-    if (m_config.GetVerification() & VERIFY_CONTENT) {
-        m_verifyHash->setChecked(true);
-    }
-
-    if (m_config.GetVerification() & VERIFY_TIME) {
-        m_verifyDate->setChecked(true);
-    }
-
-    if (m_config.GetVerification() & VERIFY_SIZE) {
-        m_verifySize->setChecked(true);
-    }
-
-    m_purgeBackups->setChecked(m_config.GetBackupPurgeAllowed());
-    m_limitBackups->setChecked(m_config.GetBackupRestricted());
-    m_numberBackups->setValue(m_config.GetBackupRestriction());
+    m_verifyAfterBackup->setChecked(m_config.verifyAfterBackup());
+    m_verifyHash->setChecked(m_config.verifyHash());
+    m_verifyDate->setChecked(m_config.verifyTime());
+    m_verifySize->setChecked(m_config.verifySize());
+    m_purgeBackups->setChecked(m_config.autoDeleteBackups());
+    m_limitBackups->setChecked(m_config.limitBackups());
+    m_numberBackups->setValue(m_config.maximumBackups());
 
     connect(m_buttonChange, SIGNAL(clicked()), this, SLOT(onChangeButton()));
-    connect(m_verify, SIGNAL(toggled(bool)), this, SLOT(onVerifyToggeled()));
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(onSave()));
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
@@ -200,23 +189,9 @@ void ConfigurationDialog::onChangeButton()
     m_targetEdit->setText(dirname);
 }
 
-void ConfigurationDialog::onVerifyToggeled()
-{
-    if (m_verify->isChecked()) {
-        m_verifyHash->setEnabled(true);
-        m_verifyDate->setEnabled(true);
-        m_verifySize->setEnabled(true);
-    } else {
-        m_verifyHash->setEnabled(false);
-        m_verifyDate->setEnabled(false);
-        m_verifySize->setEnabled(false);
-    }
-}
 
 void ConfigurationDialog::onSave()
 {
-    int verification = 0;
-
     if (!QFile::exists(location())) {
         QMessageBox::critical(this,
                               tr("Backup target does not exist"),
@@ -226,23 +201,13 @@ void ConfigurationDialog::onSave()
         return;
     }
 
-    if (m_verify->isChecked()) {
-        verification |= VERIFY_ENABLED;
-    }
-    if (m_verifyHash->isChecked()) {
-        verification |= VERIFY_CONTENT;
-    }
-    if (m_verifySize->isChecked()) {
-        verification |= VERIFY_SIZE;
-    }
-    if (m_verifyDate->isChecked()) {
-        verification |= VERIFY_TIME;
-    }
-
-    m_config.SetVerification(verification);
-    m_config.SetBackupPurgeAllowed(m_purgeBackups->isChecked());
-    m_config.SetBackupRestricted(m_limitBackups->isChecked());
-    m_config.SetBackupRestriction(m_numberBackups->value());
+    m_config.setVerifyAfterBackup(m_verifyAfterBackup->isChecked());
+    m_config.setVerifyHash(m_verifyHash->isChecked());
+    m_config.setVerifySize(m_verifySize->isChecked());
+    m_config.setVerifyTime(m_verifyDate->isChecked());
+    m_config.setAutoDeleteBackups(m_purgeBackups->isChecked());
+    m_config.setLimitBackups(m_limitBackups->isChecked());
+    m_config.setMaximumBackups(m_numberBackups->value());
 
     accept();
 }

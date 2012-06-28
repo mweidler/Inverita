@@ -191,7 +191,7 @@ void ProgressDialog::update()
     m_statusHistory.append(m_model->status());
     qreal completion = m_statusHistory.last().completion;
     if (completion > 0) {
-       m_progressBar->setMaximum(1000);
+        m_progressBar->setMaximum(1000);
     }
 
     if (m_statusHistory.size() >= 20) {

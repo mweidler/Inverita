@@ -45,11 +45,10 @@ public:
 
 public slots:
     void onChangeButton();
-    void onVerifyToggeled();
     void onSave();
 
 private:
-    QCheckBox     *m_verify;
+    QCheckBox     *m_verifyAfterBackup;
     QCheckBox     *m_verifyHash;
     QCheckBox     *m_verifyDate;
     QCheckBox     *m_verifySize;
