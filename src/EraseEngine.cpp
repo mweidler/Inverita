@@ -47,14 +47,13 @@ EraseEngine::EraseEngine()
  */
 WorkerStatus EraseEngine::status()
 {
-    // one additional file to delete: "metainfo" and "signatures"
-    qreal expectedFiles = m_metaInfo.numberOfFiles() + 2;
+    qint64 expectedFiles = qMax(m_metaInfo.numberOfFiles(),(qint64)1);
 
     qDebug() << "Erase-completion" << expectedFiles << m_eraseTraverser.totalFiles();
 
     WorkerStatus st;
     st.timestamp  = QDateTime::currentDateTime();
-    st.completion = m_eraseTraverser.totalFiles() / expectedFiles;
+    st.completion = expectedFiles ? ((qreal)m_eraseTraverser.totalFiles() / expectedFiles):0;
     st.processed  = 0;
 
     return st;
@@ -87,16 +86,17 @@ void EraseEngine::start()
     qDebug() << "deleteBackup: " << m_snapshotName;
 
     try {
+        m_metaInfo.Load(m_snapshotName + "/" + "metainfo");
+
+        // remove metainfo and signatures of the snapshot "manually" to
+        // invalidate whole snapshot. They were not counted on meta data creation.
+        QFile::remove(m_snapshotName + "/" + "metainfo");
+        QFile::remove(m_snapshotName + "/" + "signatures");
+
         m_eraseTraverser.addIncludes(m_snapshotName);
-
-        if (QFile::exists(m_snapshotName + "/" + "metainfo")) {
-            m_metaInfo.Load(m_snapshotName + "/" + "metainfo") ;
-            // force metainfo deletion as first file of the snapshot to
-            // invalidate whole snapshot.
-            m_eraseTraverser.onFile(m_snapshotName + "/" + "metainfo");
-        }
-
         m_eraseTraverser.traverse();
+        m_currentTask = -1; // disable highlighted task
+
     } catch (ApplicationException &e) {
         buildFailureHint(e);
         emit failed();
