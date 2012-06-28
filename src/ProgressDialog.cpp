@@ -51,7 +51,7 @@ ProgressDialog::ProgressDialog(WorkerEngine *model, DialogType type, DialogAbort
     m_progressBar = new QProgressBar(parent);
     m_progressBar->setTextVisible(true);
     m_progressBar->setMinimum(0);
-    m_progressBar->setMaximum(1000);
+    m_progressBar->setMaximum(0);
 
     m_labelRemaining = new QLabel();
 
@@ -190,6 +190,9 @@ void ProgressDialog::update()
 
     m_statusHistory.append(m_model->status());
     qreal completion = m_statusHistory.last().completion;
+    if (completion > 0) {
+       m_progressBar->setMaximum(1000);
+    }
 
     if (m_statusHistory.size() >= 20) {
         qint64 deltaTransfered = m_statusHistory.last().processed - m_statusHistory.first().processed;
