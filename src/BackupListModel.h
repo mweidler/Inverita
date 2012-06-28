@@ -30,13 +30,11 @@
 #include <QList>
 #include <QListIterator>
 #include <QStringListModel>
-#include <sys/stat.h>
 
 
 /*! Container for meta information and hash value.
  */
 typedef struct BackupEntry {
-    struct stat meta;
     QString     origin;
     int         files;
 } BackupEntry;
@@ -58,7 +56,6 @@ public:
     BackupListModel(QObject *parent = 0);
     virtual ~BackupListModel();
 
-    Qt::ItemFlags flags(const QModelIndex &index) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;

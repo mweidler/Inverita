@@ -53,22 +53,8 @@ BackupList BackupListModel::backupList()
 }
 
 
-/*! \return the flags
- */
-Qt::ItemFlags BackupListModel::flags(const QModelIndex &index) const
-{
-    // TODO: is this method really needed?
-    if (!index.isValid()) {
-        return Qt::ItemIsEnabled;
-    }
-
-    return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
-}
-
 bool BackupListModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    fprintf(stderr, "BackupList setData %d\n", index.row());
-
     if (index.isValid() && role == Qt::EditRole) {
 
         BackupEntry entry;
@@ -150,7 +136,6 @@ int BackupListModel::Load(const QString &organization)
 
     int size = settings.beginReadArray("Backups");
     for (int i = 0; i < size; ++i) {
-        fprintf(stderr, "Reading BackupList %d\n", i);
         settings.setArrayIndex(i);
         BackupEntry entry;
         entry.origin = settings.value("origin").toString();

@@ -63,13 +63,12 @@ void VerifyEngine::start()
     m_validateTraverser.reset();
     emit started();
 
-    qDebug() << "Verify entered: " << m_backupRootPath;
-
     try {
         m_config.reset();
         m_config.Load(m_backupRootPath + "/inverita.conf");
 
         executeVerification();
+        m_currentTask = -1; // disable highlighted task
 
     } catch (ApplicationException &e) {
         buildFailureHint(e);
