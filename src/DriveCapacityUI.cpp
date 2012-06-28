@@ -121,7 +121,7 @@ void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, QCo
     painter.setPen(painter.background().color());
     painter.drawPie(m_pieChartRect, from * 360 * 16, span * 360 * 16);
 
-    if (span >= 0.05) {
+    if (span >= 0.1) {
         QString percent = QString("%1%").arg(qRound(100.0 * span));
 
         painter.setBrush(borderColor);
