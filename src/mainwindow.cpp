@@ -92,9 +92,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_driveWatchThread->start(QThread::LowPriority); // must have higher priority than backup execution
 
     m_progressBackupDialog = new ProgressDialog(m_backupEngine, ProgressDialog::NoTextBox, ProgressDialog::Abortable, this);
+    m_progressBackupDialog->setWindowTitle(tr("Creating new backup snapshot..."));
     m_progressEraseDialog = new ProgressDialog(m_eraseEngine, ProgressDialog::NoTextBox, ProgressDialog::NotAbortable, this);
+    m_progressEraseDialog->setWindowTitle(tr("Deleting backup snapshot..."));
     m_progressValidateDialog = new ProgressDialog(m_validateEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
+    m_progressValidateDialog->setWindowTitle(tr("Validating backup snapshot..."));
     m_progressVerifyDialog = new ProgressDialog(m_verifyEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
+    m_progressVerifyDialog->setWindowTitle(tr("Verifying latest backup..."));
 
     connect(m_backupSelectorUI, SIGNAL(backupSelected()), this, SLOT(onBackupSelected()));
     connect(m_snapshotListUI, SIGNAL(reload()), this, SLOT(onBackupSelected()));

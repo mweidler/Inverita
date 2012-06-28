@@ -118,6 +118,7 @@ void BackupSelectorUI::onNew()
 {
     Configuration config;
     ConfigurationDialog configDialog(config, this);
+    configDialog.setWindowTitle(tr("Create new backup configuration"));
     if (configDialog.exec() != QDialog::Accepted) {
         return;
     }
@@ -138,6 +139,7 @@ void BackupSelectorUI::onConfigure()
     config.Load(currentLocation + "/" + "inverita.conf");
 
     ConfigurationDialog configDialog(config, this);
+    configDialog.setWindowTitle(tr("Configuring backup") + "' " + currentLocation + "'");
     configDialog.setLocation(currentLocation);
     if (configDialog.exec() != QDialog::Accepted) {
         return;

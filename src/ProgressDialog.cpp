@@ -108,7 +108,6 @@ ProgressDialog::ProgressDialog(WorkerEngine *model, DialogType type, DialogAbort
     connect(m_model, SIGNAL(finished()), this, SLOT(finalize()));
 
     setModal(true);
-    setWindowTitle(tr("Progress"));
     m_previousCurrentTask = -1;
 }
 
@@ -201,12 +200,12 @@ void ProgressDialog::update()
         qreal deltaCompletion = completion - m_statusHistory.first().completion;
         qreal openCompletion = 1.0 - completion;
         int remainingSeconds = qRound(((openCompletion / deltaCompletion) * deltaTimeMs) / 1000.0);
-        int remainingMinutes = qRound(remainingSeconds / 60.0);
-        int remainingHours = qRound(remainingMinutes / 60.0);
+        int remainingMinutes = remainingSeconds / 60.0;
+        int remainingHours = remainingMinutes / 60.0;
 
-        remainingInfo = tr("About") + " ";
+        remainingInfo.clear();
         if (remainingHours >= 1) {
-            remainingInfo += tr("%1 hour(s)", "", remainingHours).arg(remainingHours);
+            remainingInfo += QString("%1:%2").arg(remainingHours).arg(remainingMinutes, 2, '0');
         } else if (remainingMinutes >= 1) {
             remainingInfo += tr("%1 minute(s)", "", remainingMinutes).arg(remainingMinutes);
         } else {

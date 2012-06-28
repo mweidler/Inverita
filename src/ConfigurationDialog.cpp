@@ -168,7 +168,6 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
 
     setMinimumSize(620, 480);
     resize(620, 480);
-    setWindowTitle(tr("Backup configuration"));
 }
 
 ConfigurationDialog::~ConfigurationDialog()
