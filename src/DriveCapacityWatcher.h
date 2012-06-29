@@ -43,7 +43,7 @@ class DriveCapacityWatcher : public WorkerEngine
     Q_OBJECT
 
 public:
-    DriveCapacityWatcher(AbstractDriveCapacityModel *capacityModel, SnapshotListModel *historyListModel);
+    DriveCapacityWatcher(AbstractDriveCapacityModel *capacityModel, SnapshotListModel *historyListModel, Configuration *config);
 
     WorkerStatus status();
     void select(const QString &backupPath);
@@ -57,13 +57,17 @@ public slots:
     void start();
     void abort();
 
+private:
+    void deleteSnapshot(QString snapshotName);
+
 protected:
-    bool                       m_autoDelete;
+    bool                       m_autoDeleteEnabled;
     QString                    m_backupRootPath;
     EraseTraverser             m_eraseTraverser;
     QTimer                     *m_timer;
     AbstractDriveCapacityModel *m_capacityModel;    //!< the model containing drive space information
     SnapshotListModel          *m_snapshotListModel;
+    Configuration              *m_config;
 };
 
 #endif

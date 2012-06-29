@@ -30,10 +30,11 @@
 /*! Constructs a new drivespace watcher object.
  */
 DriveCapacityWatcher::DriveCapacityWatcher(AbstractDriveCapacityModel *capacityModel,
-        SnapshotListModel *historyListModel)
+        SnapshotListModel *historyListModel, Configuration *config)
 {
     m_capacityModel = capacityModel;
     m_snapshotListModel = historyListModel;
+    m_config = config;
 
     reset();
     setAutoDeleteEnabled(false);
@@ -79,7 +80,7 @@ void DriveCapacityWatcher::select(const QString &backupPath)
 
 void DriveCapacityWatcher::setAutoDeleteEnabled(bool autoDelete)
 {
-    m_autoDelete = autoDelete;
+    m_autoDeleteEnabled = autoDelete;
 }
 
 
@@ -89,37 +90,65 @@ void DriveCapacityWatcher::setAutoDeleteEnabled(bool autoDelete)
  */
 void DriveCapacityWatcher::watch()
 {
-    if (m_capacityModel->capacity() >= 0.05 || m_autoDelete == false) {
+    if (m_autoDeleteEnabled == false)
         return;
-    }
 
     reset();
     SnapshotListModel historyList(m_snapshotListModel);
+/*
+    while (m_config->autoDeleteBackups() && m_capacityModel->capacity() < 0.05) {
 
+        if (historyList[i].status() != Snapshot::Valid) {
+            break;
+        }
+
+        deleteSnapshot(m_backupRootPath + "/" + historyList[i].name());
+    }
+
+    while (m_config->limitBackups() && historyList.count() > m_config->maximumBackups()) {
+
+        if (historyList[i].status() != Snapshot::Valid) {
+            break;
+        }
+
+        deleteSnapshot(m_backupRootPath + "/" + historyList[i].name());
+    }
+
+
+    if (m_capacityModel->capacity() >= 0.05 ||
+        m_autoDeleteEnabled == false ||
+        m_config->autoDeleteBackups() == false) {
+        return;
+    }
+
+*/
     try {
         for (int i = 0; i < historyList.size() && m_capacityModel->capacity() < 0.1 && !m_abort; i++) {
             if (historyList[i].status() != Snapshot::Valid) {
                 break;
             }
 
-            QString snapshotName = m_backupRootPath + "/" + historyList[i].name();
-
-            m_eraseTraverser.reset();
-            m_eraseTraverser.addIncludes(snapshotName);
-
-            // force metainfo deletion as first file of the snapshot to
-            // invalidate whole snapshot.
-            m_eraseTraverser.onFile(snapshotName + "/" + "metainfo");
-            m_eraseTraverser.traverse();
-            emit refresh();
+            deleteSnapshot(m_backupRootPath + "/" + historyList[i].name());
         }
 
     } catch (ApplicationException &e) {
-        m_autoDelete = false;
+        m_autoDeleteEnabled = false;
         buildFailureHint(e);
         emit failed();
         return;
     }
+}
+
+void DriveCapacityWatcher::deleteSnapshot(QString snapshotName)
+{
+    m_eraseTraverser.reset();
+    m_eraseTraverser.addIncludes(snapshotName);
+
+    // force metainfo deletion as first file of the snapshot to
+    // invalidate whole snapshot.
+    m_eraseTraverser.onFile(snapshotName + "/" + "metainfo");
+    m_eraseTraverser.traverse();
+    emit refresh();
 }
 
 void DriveCapacityWatcher::start()

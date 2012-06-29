@@ -101,6 +101,7 @@ private:
     ProgressDialog       *m_progressEraseDialog;
     ProgressDialog       *m_progressValidateDialog;
     ProgressDialog       *m_progressVerifyDialog;
+    Configuration        m_config;
 };
 
 #endif // HEADER_MAINWINDOW_INC

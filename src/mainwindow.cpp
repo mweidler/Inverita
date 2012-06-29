@@ -86,7 +86,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_verifyEngine->moveToThread(m_verifyThread);
     m_verifyThread->start(QThread::IdlePriority);
 
-    m_driveCapacityWatcher = new DriveCapacityWatcher(m_filesystemInfo, m_snapshotListModel);
+    m_driveCapacityWatcher = new DriveCapacityWatcher(m_filesystemInfo, m_snapshotListModel, &m_config);
     m_driveWatchThread = new QThread;
     m_driveCapacityWatcher->moveToThread(m_verifyThread);
     m_driveWatchThread->start(QThread::LowPriority); // must have higher priority than backup execution
@@ -213,12 +213,10 @@ void MainWindow::onBackupSelected()
     m_verifyEngine->select(origin);
     m_driveCapacityWatcher->select(origin);
 
-    Configuration config;
-    if (config.Load(origin + "/inverita.conf")) {
+    if (m_config.Load(origin + "/inverita.conf")) {
         updateLatestLink(origin);
         m_controlUI->setEnabledButtons(ControlUI::CreateButton, true);
         m_controlUI->setEnabledButtons(ControlUI::VerifyButton, (m_snapshotListModel->size() > 0));
-        // m_config
     } else {
         m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
     }
