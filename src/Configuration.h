@@ -25,22 +25,14 @@
 #ifndef HEADER_CONFIGURATION_INC
 #define HEADER_CONFIGURATION_INC
 
-#include <QtCore>
+#include "ApplicationException.h"
+
+//#i//nclude <QtCore>
 #include <QString>
 #include <QStringList>
 
-#include "ApplicationException.h"
 
-/*
-#define VERIFY_ENABLED        1
-#define VERIFY_CONTENT        2
-#define VERIFY_SIZE           4
-#define VERIFY_TIME           8
-#define VERIFY_FLAGS         16
-#define VERIFY_DELETION      32
-#define VERIFY_ADDED         64
-#define VERIFY_AFTER_BACKUP 128
-*/
+
 class Configuration : public QObject
 {
 public:

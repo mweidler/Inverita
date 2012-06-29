@@ -23,11 +23,10 @@
  */
 
 
-#include <QtCore>
-#include <QString>
-#include <QStringList>
-
 #include "Configuration.h"
+
+#include <QFile>
+#include <QSettings>
 
 
 Configuration::Configuration()
@@ -45,7 +44,7 @@ void Configuration::reset()
     m_verifySize   = true;
     m_autoDeleteBackups = true;
     m_limitBackups = true;
-    m_maxBackups   = 50;
+    m_maxBackups   = 40;
 }
 
 QStringList &Configuration::GetIncludes()
@@ -105,7 +104,7 @@ bool Configuration::Load(QString filename)
 
     m_autoDeleteBackups = settings.value("OPTIONS/AutoDeleteBackups", true).toBool();
     m_limitBackups      = settings.value("OPTIONS/LimitBackups", true).toBool();
-    m_maxBackups        = settings.value("OPTIONS/MaxBackups", 50).toInt();
+    m_maxBackups        = settings.value("OPTIONS/MaxBackups", 40).toInt();
 
     return true;
 }

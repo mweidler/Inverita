@@ -25,11 +25,12 @@
 #ifndef HEADER_TRAVERSER_INC
 #define HEADER_TRAVERSER_INC
 
-#include <QString>
-#include <QStringList>
-
 #include "ApplicationException.h"
 #include "Configuration.h"
+
+#include <QReadWriteLock>
+#include <QFileInfo>
+#include <QDir>
 
 
 /*! Traverse recursively through all files and subdirectories and calls

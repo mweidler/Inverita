@@ -51,8 +51,10 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
 
     QLabel *seperator1 = new QLabel;
     QLabel *seperator2 = new QLabel;
+    QLabel *seperator3 = new QLabel;
     seperator1->setFrameStyle(QFrame::HLine | QFrame::Sunken);
     seperator2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+    seperator3->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 
     QLabel *verifyText = new QLabel(tr("Backups can be verified after backup or on individual request."));
     m_verifyAfterBackup = new QCheckBox(tr("&Verify snapshot after each new creation"));
@@ -113,12 +115,13 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     QVBoxLayout *optionsLayout = new QVBoxLayout;
     optionsLayout->addWidget(verifyText);
     optionsLayout->addWidget(m_verifyAfterBackup);
+    optionsLayout->addWidget(seperator1);
     optionsLayout->addWidget(verifyLabel);
     optionsLayout->addLayout(verifyLayout);
-    optionsLayout->addWidget(seperator1);
+    optionsLayout->addWidget(seperator2);
     optionsLayout->addWidget(purgeText);
     optionsLayout->addWidget(m_purgeBackups);
-    optionsLayout->addWidget(seperator2);
+    optionsLayout->addWidget(seperator3);
     optionsLayout->addWidget(limitText);
     optionsLayout->addLayout(limitLayout);
     pageOptions->setLayout(optionsLayout);

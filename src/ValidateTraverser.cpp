@@ -26,6 +26,8 @@
 #include "ValidateTraverser.h"
 #include "sha1.h"
 
+#include <QDebug>
+
 
 /*! Default constructor
  */

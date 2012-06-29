@@ -26,6 +26,9 @@
 #include "Traverser.h"
 #include "Utilities.h"
 
+#include <QDebug>
+#include <QDir>
+
 
 /*! Default constructor
  */

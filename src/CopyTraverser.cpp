@@ -27,6 +27,10 @@
 #include "Utilities.h"
 #include "sha1.h"
 
+#include <QDebug>
+#include <QDateTime>
+#include <QDir>
+
 #ifdef Q_OS_UNIX
 #include <errno.h>
 #endif
