@@ -26,6 +26,9 @@
 #include "ValidateEngine.h"
 #include "Utilities.h"
 
+#include <QDebug>
+
+
 ValidateEngine::ValidateEngine()
 {
     reset();

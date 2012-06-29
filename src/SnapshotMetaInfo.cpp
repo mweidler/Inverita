@@ -23,11 +23,10 @@
  */
 
 
-#include <QtCore>
-#include <QString>
-#include <QStringList>
-
 #include "SnapshotMetaInfo.h"
+#include <QDebug>
+#include <QFile>
+#include <QSettings>
 
 
 SnapshotMetaInfo::SnapshotMetaInfo()

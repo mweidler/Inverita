@@ -25,11 +25,9 @@
 #ifndef HEADER_SNAPSHOTMETAINFO_INC
 #define HEADER_SNAPSHOTMETAINFO_INC
 
-#include <QtCore>
-#include <QString>
-#include <QStringList>
-
 #include "ApplicationException.h"
+#include <QString>
+#include <QObject>
 
 class SnapshotMetaInfo : public QObject
 {

@@ -27,6 +27,8 @@
 #include "SnapshotMetaInfo.h"
 #include "Utilities.h"
 
+#include <QDebug>
+
 
 /*! Constructs a new backup engine object.
  */

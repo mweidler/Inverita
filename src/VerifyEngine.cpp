@@ -26,6 +26,8 @@
 #include "VerifyEngine.h"
 #include "Utilities.h"
 
+#include <QDebug>
+
 VerifyEngine::VerifyEngine()
 {
     reset();
@@ -74,7 +76,7 @@ void VerifyEngine::start()
         m_validateTraverser.addExcludes("metainfo");
         m_validateTraverser.addExcludes("signatures");
         m_validateTraverser.setBackupPath(empty);
-        m_validateTraverser.signatures().Load(currentBackup + "/signatures");        
+        m_validateTraverser.signatures().Load(currentBackup + "/signatures");
         m_validateTraverser.traverse();
         m_validateTraverser.summary();
         m_currentTask = -1; // disable highlighted task
