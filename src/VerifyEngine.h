@@ -47,9 +47,6 @@ public slots:
     void abort();
 
 protected:
-    void executeVerification();
-
-protected:
     QString            m_backupRootPath;
     Configuration      m_config;
     ValidateTraverser  m_validateTraverser;

@@ -90,66 +90,40 @@ void DriveCapacityWatcher::setAutoDeleteEnabled(bool autoDelete)
  */
 void DriveCapacityWatcher::watch()
 {
-    if (m_autoDeleteEnabled == false)
-        return;
-
-    reset();
-    SnapshotListModel historyList(m_snapshotListModel);
-/*
-    while (m_config->autoDeleteBackups() && m_capacityModel->capacity() < 0.05) {
-
-        if (historyList[i].status() != Snapshot::Valid) {
-            break;
-        }
-
-        deleteSnapshot(m_backupRootPath + "/" + historyList[i].name());
-    }
-
-    while (m_config->limitBackups() && historyList.count() > m_config->maximumBackups()) {
-
-        if (historyList[i].status() != Snapshot::Valid) {
-            break;
-        }
-
-        deleteSnapshot(m_backupRootPath + "/" + historyList[i].name());
-    }
-
-
-    if (m_capacityModel->capacity() >= 0.05 ||
-        m_autoDeleteEnabled == false ||
-        m_config->autoDeleteBackups() == false) {
+    if (!m_autoDeleteEnabled) {
         return;
     }
 
-*/
-    try {
-        for (int i = 0; i < historyList.size() && m_capacityModel->capacity() < 0.1 && !m_abort; i++) {
-            if (historyList[i].status() != Snapshot::Valid) {
-                break;
-            }
-
-            deleteSnapshot(m_backupRootPath + "/" + historyList[i].name());
-        }
-
-    } catch (ApplicationException &e) {
-        m_autoDeleteEnabled = false;
-        buildFailureHint(e);
-        emit failed();
+    if ((m_config->autoDeleteBackups() && m_capacityModel->capacity() < 0.05) ||
+        (m_config->limitBackups() && m_snapshotListModel->count() > m_config->maximumBackups())
+       ) {
+        deleteSnapshot(m_backupRootPath + "/" + m_snapshotListModel->at(0).name());
         return;
     }
 }
+
 
 void DriveCapacityWatcher::deleteSnapshot(QString snapshotName)
 {
     m_eraseTraverser.reset();
     m_eraseTraverser.addIncludes(snapshotName);
 
-    // force metainfo deletion as first file of the snapshot to
-    // invalidate whole snapshot.
-    m_eraseTraverser.onFile(snapshotName + "/" + "metainfo");
-    m_eraseTraverser.traverse();
+    // remove metainfo and signatures of the snapshot "manually" to
+    // invalidate whole snapshot. They were not counted on meta data creation.
+    QFile::remove(snapshotName + "/" + "metainfo");
+    QFile::remove(snapshotName + "/" + "signatures");
+
+    try {
+        m_eraseTraverser.traverse();
+    } catch (ApplicationException &e) {
+        m_autoDeleteEnabled = false;
+        buildFailureHint(e);
+        emit failed();
+    }
+
     emit refresh();
 }
+
 
 void DriveCapacityWatcher::start()
 {

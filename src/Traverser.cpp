@@ -144,6 +144,7 @@ void Traverser::traverse()
     }
 }
 
+
 bool Traverser::isExcluded(const QString &filepath)
 {
     for (int i = 0; i < m_excludePatterns.count(); i++) {

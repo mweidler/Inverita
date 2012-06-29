@@ -24,6 +24,7 @@
 
 
 #include "EraseTraverser.h"
+#include <QFile>
 
 
 /*! Default constructor

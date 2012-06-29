@@ -83,17 +83,16 @@ void EraseEngine::start()
     m_eraseTraverser.reset();
     emit started();
 
-    qDebug() << "deleteBackup: " << m_snapshotName;
+    m_metaInfo.Load(m_snapshotName + "/" + "metainfo");
+
+    // remove metainfo and signatures of the snapshot "manually" to
+    // invalidate whole snapshot. They were not counted on meta data creation.
+    QFile::remove(m_snapshotName + "/" + "metainfo");
+    QFile::remove(m_snapshotName + "/" + "signatures");
+
+    m_eraseTraverser.addIncludes(m_snapshotName);
 
     try {
-        m_metaInfo.Load(m_snapshotName + "/" + "metainfo");
-
-        // remove metainfo and signatures of the snapshot "manually" to
-        // invalidate whole snapshot. They were not counted on meta data creation.
-        QFile::remove(m_snapshotName + "/" + "metainfo");
-        QFile::remove(m_snapshotName + "/" + "signatures");
-
-        m_eraseTraverser.addIncludes(m_snapshotName);
         m_eraseTraverser.traverse();
         m_currentTask = -1; // disable highlighted task
 

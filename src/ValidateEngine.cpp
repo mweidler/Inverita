@@ -63,8 +63,6 @@ void ValidateEngine::start()
     m_validateTraverser.reset();
     emit started();
 
-    qDebug() << "validate entered: " << m_snapshotName;
-
     try {
         m_metaInfo.Load(m_snapshotName + "/" + "metainfo") ;
         m_validateTraverser.addIncludes(m_snapshotName);

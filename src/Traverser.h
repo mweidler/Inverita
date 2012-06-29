@@ -67,7 +67,7 @@ signals:
     void report(QString message);
 
 public slots:
-    void traverse();
+    void traverse();  //TODO: ist this really a slot?
     void abort();
 
 protected:

@@ -59,21 +59,21 @@ void ValidateTraverser::setBackupPath(QString &path)
 
 void ValidateTraverser::summary()
 {
-    QString msg = tr("%1 files validated, %2 errors found.") + "<br><br>";
+    QString msg = tr("%1 files checked, %2 errors found.") + "<br><br>";
     msg = msg.arg(m_totalFiles).arg(m_totalErrors);
     emit report(msg);
 
     bool corrupted = false;
     QList<QString> keys = m_signatures.keys();
     if (keys.size() > 0) {
-        report(tr("WARNING: The following files are missing in this backup snapshot:") + "<br>");
+        report(tr("WARNING: The following files are missing in the backup snapshot:") + "<br>");
         for (int i = 0; i < keys.size(); i++)  {
             report(keys[i] + "<br>");
         }
         emit report("<br>");
         corrupted = true;
     } else {
-        emit report(tr("All expected files were found in this backup snapshot.") + "<br>");
+        emit report(tr("All expected files were found in the backup snapshot.") + "<br>");
     }
 
     if (m_totalErrors) {

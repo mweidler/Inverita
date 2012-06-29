@@ -30,10 +30,10 @@ VerifyEngine::VerifyEngine()
 {
     reset();
 
+    m_descriptions << tr("Verifying all items of the selected backup");
+
     // tarverser and engine can emit report signals to the progress dialog
     connect(&m_validateTraverser, SIGNAL(report(QString)), this, SIGNAL(report(QString)));
-
-    m_descriptions << tr("Verifying all items of the selected backup");
 }
 
 
@@ -60,48 +60,28 @@ void VerifyEngine::select(const QString &backupPath)
 void VerifyEngine::start()
 {
     reset();
+    QString empty;
+    QString currentBackup = SearchLatestBackupDir(m_backupRootPath);
+    m_config.reset();
+    m_config.Load(m_backupRootPath + "/inverita.conf");
     m_validateTraverser.reset();
     emit started();
 
     try {
-        m_config.reset();
-        m_config.Load(m_backupRootPath + "/inverita.conf");
-
-        executeVerification();
+        m_metaInfo.Load(currentBackup + "/" + "metainfo") ;
+        m_validateTraverser.addIncludes(m_config.GetIncludes());
+        m_validateTraverser.addExcludes(m_config.GetExcludes());
+        m_validateTraverser.addExcludes("metainfo");
+        m_validateTraverser.addExcludes("signatures");
+        m_validateTraverser.setBackupPath(empty);
+        m_validateTraverser.signatures().Load(currentBackup + "/signatures");        
+        m_validateTraverser.traverse();
+        m_validateTraverser.summary();
         m_currentTask = -1; // disable highlighted task
-
     } catch (ApplicationException &e) {
         buildFailureHint(e);
         emit failed();
         return;
-    }
-
-
-    QString msg = tr("%1 files verified, %2 errors found.") + "<br><br>";
-    msg = msg.arg(m_validateTraverser.totalFiles()).arg(m_validateTraverser.totalErrors());
-    emit report(msg);
-
-    bool corrupted = false;
-    QList<QString> keys = m_validateTraverser.signatures().keys();
-    if (keys.size() > 0) {
-        report(tr("WARNING: The following files are not backed up:") + "<br>");
-        for (int i = 0; i < keys.size(); i++)  {
-            report(keys[i] + "<br>");
-        }
-        report("<br>");
-        corrupted = true;
-    } else {
-        report(tr("All expected files were found in backup.") + "<br>");
-    }
-
-    if (m_validateTraverser.totalErrors()) {
-        corrupted = true;
-    }
-
-    if (corrupted) {
-        emit report(tr("WARNING: Backup is corrupted!") + "<br>");
-    } else {
-        emit report(tr("Backup verification successful, backup is valid!") + "<br>");
     }
 
     emit finished();
@@ -114,18 +94,4 @@ void VerifyEngine::abort()
     qDebug() << "VerifyEngine: abort requested";
     m_abort = true;
     m_validateTraverser.abort();
-}
-
-void VerifyEngine::executeVerification()
-{
-    QString empty;
-    QString currentBackup = SearchLatestBackupDir(m_backupRootPath);
-    qDebug() << "currentBackup: " << currentBackup;
-
-    m_metaInfo.Load(currentBackup + "/" + "metainfo") ;
-    m_validateTraverser.setBackupPath(empty);
-    m_validateTraverser.signatures().Load(currentBackup + "/signatures");
-    m_validateTraverser.addIncludes(m_config.GetIncludes());
-    m_validateTraverser.addExcludes(m_config.GetExcludes());
-    m_validateTraverser.traverse();
 }
