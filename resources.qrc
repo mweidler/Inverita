@@ -1,9 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>images/backup-icon.png</file>
-        <file>images/gplv3.png</file>
-        <file>images/Copy-icon.png</file>
-        <file>images/Verify-icon.png</file>
+        <file>images/copy-icon.png</file>
+        <file>images/verify-icon.png</file>
         <file>images/drive-icon.png</file>
+        <file>images/gplv3.png</file>
     </qresource>
 </RCC>

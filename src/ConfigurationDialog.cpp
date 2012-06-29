@@ -58,23 +58,23 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
 
     QLabel *verifyText = new QLabel(tr("Backups can be verified after backup or on individual request."));
     m_verifyAfterBackup = new QCheckBox(tr("&Verify snapshot after each new creation"));
-    QLabel *verifyLabel = new QLabel(tr("On verification, verify backup snapshot covering..."));
+    QLabel *verifyLabel = new QLabel(tr("On verification, verify backup snapshot including..."));
 
     QVBoxLayout *verifyLayout = new QVBoxLayout;
     verifyLayout->setContentsMargins(50, 0, 0, 0);
-    m_verifyHash = new QCheckBox(tr("SHA1 check sum"));
-    m_verifyDate = new QCheckBox(tr("Date"));
+    m_verifyHash = new QCheckBox(tr("Content checksum (SHA1 hash)"));
+    m_verifyDate = new QCheckBox(tr("Date and time"));
     m_verifySize = new QCheckBox(tr("File size"));
     verifyLayout->addWidget(m_verifyHash);
     verifyLayout->addWidget(m_verifyDate);
     verifyLayout->addWidget(m_verifySize);
 
     QLabel *purgeText = new QLabel(tr("On low drive space, the oldest backups can be deleted automatically."));
-    m_purgeBackups = new QCheckBox(tr("Delete oldest backups on low drive space"));
+    m_purgeBackups = new QCheckBox(tr("&Delete oldest backups on low drive space"));
 
     QLabel *limitText = new QLabel(tr("The number of historical backups can be limited."));
     QHBoxLayout *limitLayout = new QHBoxLayout;
-    m_limitBackups = new QCheckBox(tr("Keep up to"));
+    m_limitBackups = new QCheckBox(tr("&Keep up to"));
     m_numberBackups = new QSpinBox;
     m_numberBackups->setMaximum(50);
     m_numberBackups->setMinimum(1);

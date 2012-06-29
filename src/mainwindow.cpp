@@ -206,6 +206,10 @@ void MainWindow::onBackupSelected()
     qDebug() << "MainWindow::onBackupSelected()" << QThread::currentThreadId();
 
     int index = m_backupSelectorUI->currentSelection();
+    if (index < 0) {
+        return;
+    }
+
     QString origin = m_backupListModel->backupList().at(index).origin;
     m_snapshotListModel->investigate(origin);
     m_filesystemInfo->setFile(origin);

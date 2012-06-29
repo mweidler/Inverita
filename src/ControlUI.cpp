@@ -41,13 +41,13 @@ ControlUI::ControlUI(QWidget *parent) : QWidget(parent)
     m_btnCreate = new QToolButton(this);
     m_btnCreate->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     m_btnCreate->setText(tr("Create new backup snapshot"));
-    m_btnCreate->setIcon(QIcon(":/images/Copy-icon.png"));
+    m_btnCreate->setIcon(QIcon(":/images/copy-icon.png"));
     m_btnCreate->setIconSize(QSize(64, 64));
 
     m_btnVerify = new QToolButton(this);
     m_btnVerify->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     m_btnVerify->setText(tr("Verify last backup with origin"));
-    m_btnVerify->setIcon(QIcon(":/images/Verify-icon.png"));
+    m_btnVerify->setIcon(QIcon(":/images/verify-icon.png"));
     m_btnVerify->setIconSize(QSize(64, 64));
 
     QHBoxLayout *hboxlayout = new QHBoxLayout;
