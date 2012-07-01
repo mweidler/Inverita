@@ -47,8 +47,8 @@ public:
     void setSizeOfFiles(qint64 count);
 
 protected:
-    int  m_files;
-    int  m_totalSize;
+    qint64  m_files;
+    qint64  m_totalSize;
 };
 
 #endif
