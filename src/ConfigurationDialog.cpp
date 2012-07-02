@@ -91,10 +91,18 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     locationLayout->addWidget(m_targetEdit);
     locationLayout->addWidget(m_buttonChange);
 
+    QLabel *seperator5 = new QLabel;
+    seperator5->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+    QLabel *encryptText = new QLabel(tr("Backup snapshots can be stored encrypted on the backup location."));
+    m_encryptBackup = new QCheckBox(tr("&Encrypt backup snapshots using 'encfs'"));
+
     QVBoxLayout *targetVLayout = new QVBoxLayout;
     targetVLayout->setAlignment(Qt::AlignTop);
     targetVLayout->addWidget(targetText);
     targetVLayout->addLayout(locationLayout);
+    targetVLayout->addWidget(seperator5);
+    targetVLayout->addWidget(encryptText);
+    targetVLayout->addWidget(m_encryptBackup);
 
     QPixmap pixmap(":/images/drive-icon.png");
     QLabel *labelImage = new QLabel;

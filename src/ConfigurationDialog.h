@@ -48,6 +48,7 @@ public slots:
     void onSave();
 
 private:
+    QCheckBox     *m_encryptBackup;
     QCheckBox     *m_verifyAfterBackup;
     QCheckBox     *m_verifyHash;
     QCheckBox     *m_verifyDate;
