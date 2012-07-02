@@ -32,9 +32,7 @@
  */
 BackupListModel::BackupListModel(QObject *parent) : QAbstractListModel(parent)
 {
-    m_list.clear();
-
-    connect(this, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(onDataChanged()));
+   clear();
 }
 
 
@@ -42,31 +40,9 @@ BackupListModel::BackupListModel(QObject *parent) : QAbstractListModel(parent)
  */
 BackupListModel::~BackupListModel()
 {
-    m_list.clear();
+    clear();
 }
 
-/*! \return the backup list
- */
-BackupList BackupListModel::backupList()
-{
-    return m_list;
-}
-
-
-bool BackupListModel::setData(const QModelIndex &index, const QVariant &value, int role)
-{
-    if (index.isValid() && role == Qt::EditRole) {
-
-        BackupEntry entry;
-        entry.origin = value.toString();
-
-        m_list.replace(index.row(), entry);
-        emit dataChanged(index, index);
-        return true;
-    }
-
-    return false;
-}
 
 QVariant BackupListModel::data(const QModelIndex &index, int role) const
 {
@@ -74,12 +50,12 @@ QVariant BackupListModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    if (index.row() >= m_list.size()) {
+    if (index.row() >= this->size()) {
         return QVariant();
     }
 
     if (role == Qt::DisplayRole || role == Qt::EditRole) {
-        return m_list.at(index.row()).origin;
+        return this->at(index.row()).origin;
     } else {
         return QVariant();
     }
@@ -87,39 +63,19 @@ QVariant BackupListModel::data(const QModelIndex &index, int role) const
 
 int BackupListModel::rowCount(const QModelIndex & /*parent*/) const
 {
-    return m_list.size();
+    return this->size();
 }
 
-bool BackupListModel::insertRows(int position, int rows, const QModelIndex & /*parent*/)
+
+/*! Appends a new BackupEntry in the model list.
+ *
+ * \param the new BackupEntry to be inserted
+ */
+void BackupListModel::appendEntry(const BackupEntry &entry)
 {
-    beginInsertRows(QModelIndex(), position, position + rows - 1);
-
-    for (int row = 0; row < rows; ++row) {
-        qDebug() << "BackupList insert: " << position;
-
-        BackupEntry entry;
-        m_list.insert(position, entry);
-    }
-
-    endInsertRows();
-    return true;
-}
-
-bool BackupListModel::removeRows(int position, int rows, const QModelIndex & /*parent*/)
-{
-    beginRemoveRows(QModelIndex(), position, position + rows - 1);
-
-    for (int row = 0; row < rows; ++row) {
-        m_list.removeAt(position);
-    }
-
-    endRemoveRows();
-    return true;
-}
-
-void BackupListModel::onDataChanged()
-{
-    qDebug() <<  "onDataChanged called";
+    beginResetModel();
+    this->append(entry);
+    endResetModel();
     Save();
 }
 
@@ -130,22 +86,24 @@ void BackupListModel::onDataChanged()
  */
 int BackupListModel::Load(const QString &organization)
 {
-    m_list.clear();
+    this->clear();
 
     QSettings settings(organization);
 
+    beginResetModel();
     int size = settings.beginReadArray("Backups");
     for (int i = 0; i < size; ++i) {
         settings.setArrayIndex(i);
         BackupEntry entry;
         entry.origin = settings.value("origin").toString();
-        m_list.append(entry);
+        this->append(entry);
     }
     settings.endArray();
+    endResetModel();
 
     m_organization = organization;
 
-    return m_list.size();
+    return this->size();
 }
 
 
@@ -153,15 +111,7 @@ int BackupListModel::Load(const QString &organization)
  */
 void BackupListModel::Save()
 {
-    QSettings settings(m_organization);
-
-    settings.beginWriteArray("Backups");
-    for (int i = 0; i < m_list.size(); ++i) {
-        qDebug() << "Write BackupList " << i << " in  " << m_organization;
-        settings.setArrayIndex(i);
-        settings.setValue("origin", m_list[i].origin);
-    }
-    settings.endArray();
+    SaveAs(m_organization);
 }
 
 
@@ -174,10 +124,10 @@ void BackupListModel::SaveAs(const QString &organization)
     QSettings settings(organization);
 
     settings.beginWriteArray("Backups");
-    for (int i = 0; i < m_list.size(); ++i) {
+    for (int i = 0; i < this->size(); ++i) {
         qDebug() << "Write BackupList" <<  i;
         settings.setArrayIndex(i);
-        settings.setValue("origin", m_list[i].origin);
+        settings.setValue("origin", this->at(i).origin);
     }
     settings.endArray();
 }

@@ -40,7 +40,7 @@ class BackupSelectorUI : public QWidget
     Q_OBJECT
 
 public:
-    BackupSelectorUI(QAbstractListModel *model, QWidget *parent = 0);
+    BackupSelectorUI(BackupListModel *model, QWidget *parent = 0);
     ~BackupSelectorUI();
 
     int currentSelection();
@@ -58,6 +58,7 @@ protected slots:
 
 protected:
     QComboBox *m_choice;
+    BackupListModel *m_model;
 };
 
 #endif

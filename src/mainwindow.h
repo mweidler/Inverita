@@ -65,6 +65,7 @@ public slots:
 
 protected slots:
     void cancelProgress();
+    void reload();
 
 private:
     void createActions();
@@ -102,6 +103,7 @@ private:
     ProgressDialog       *m_progressValidateDialog;
     ProgressDialog       *m_progressVerifyDialog;
     Configuration        m_config;
+    QString              m_backupLocation;
 };
 
 #endif // HEADER_MAINWINDOW_INC

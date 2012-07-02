@@ -31,8 +31,9 @@
 
 /*! Create a new BackupSelectorUI component with GUI elements
  */
-BackupSelectorUI::BackupSelectorUI(QAbstractListModel *model, QWidget *parent) : QWidget(parent)
+BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QWidget(parent)
 {
+    m_model = model;
     m_choice = new QComboBox();
     m_choice->setModel(model);
     m_choice->setCurrentIndex(0);
@@ -90,11 +91,10 @@ void BackupSelectorUI::appendChoiceUnique(const QString &filepath)
         }
     }
 
-    int count = m_choice->model()->rowCount();
-    m_choice->model()->insertRow(count);
-    QModelIndex index = m_choice->model()->index(count, 0);
-    m_choice->model()->setData(index, filepath);
-    m_choice->setCurrentIndex(count);
+    BackupEntry entry;
+    entry.origin = filepath;
+    m_model->appendEntry(entry);
+    m_choice->setCurrentIndex(m_model->size());
 }
 
 

@@ -101,7 +101,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_progressVerifyDialog->setWindowTitle(tr("Verifying latest backup..."));
 
     connect(m_backupSelectorUI, SIGNAL(backupSelected()), this, SLOT(onBackupSelected()));
-    connect(m_snapshotListUI, SIGNAL(reload()), this, SLOT(onBackupSelected()));
+    connect(m_snapshotListUI, SIGNAL(reload()), this, SLOT(reload()));
     connect(m_snapshotListUI, SIGNAL(deleteBackup()), this, SLOT(onDeleteBackup()));
     connect(m_snapshotListUI, SIGNAL(validateBackup()), this, SLOT(onValidateBackup()));
 
@@ -197,7 +197,27 @@ void MainWindow::onBackupFailed()
 
     m_progressBackupDialog->hide();
     m_progressEraseDialog->hide();
-    onBackupSelected();
+    reload();
+}
+
+
+void MainWindow::reload()
+{
+    qDebug() << "MainWindow::reload()";
+
+    m_snapshotListModel->investigate(m_backupLocation);
+    m_filesystemInfo->setFile(m_backupLocation);
+    m_backupEngine->select(m_backupLocation);
+    m_verifyEngine->select(m_backupLocation);
+    m_driveCapacityWatcher->select(m_backupLocation);
+
+    if (m_config.Load(m_backupLocation + "/inverita.conf")) {
+        updateLatestLink(m_backupLocation);
+        m_controlUI->setEnabledButtons(ControlUI::CreateButton, true);
+        m_controlUI->setEnabledButtons(ControlUI::VerifyButton, (m_snapshotListModel->size() > 0));
+    } else {
+        m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
+    }
 }
 
 
@@ -210,22 +230,10 @@ void MainWindow::onBackupSelected()
         return;
     }
 
-    QString origin = m_backupListModel->backupList().at(index).origin;
-    m_snapshotListModel->investigate(origin);
-    m_filesystemInfo->setFile(origin);
-    m_backupEngine->select(origin);
-    m_verifyEngine->select(origin);
-    m_driveCapacityWatcher->select(origin);
-
-    if (m_config.Load(origin + "/inverita.conf")) {
-        updateLatestLink(origin);
-        m_controlUI->setEnabledButtons(ControlUI::CreateButton, true);
-        m_controlUI->setEnabledButtons(ControlUI::VerifyButton, (m_snapshotListModel->size() > 0));
-    } else {
-        m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
-    }
+    m_backupLocation = m_backupListModel->at(index).origin;
+    qDebug() << "Selected" << m_backupLocation;
+    reload();
 }
-
 
 void MainWindow::onStartBackup()
 {
@@ -238,7 +246,7 @@ void MainWindow::onBackupFinished()
 {
     qDebug() << "onBackupFinished";
     m_driveCapacityWatcher->setAutoDeleteEnabled(false);
-    onBackupSelected();
+    reload();
 }
 
 
@@ -264,26 +272,18 @@ void MainWindow::cancelProgress()
 
 void MainWindow::onDeleteBackup()
 {
-    int index = m_backupSelectorUI->currentSelection();
-    QString origin = m_backupListModel->backupList().at(index).origin;
-
-    index = m_snapshotListUI->currentSelection();
+    int index = m_snapshotListUI->currentSelection();
     QString name = m_snapshotListModel->at(index).name();
-    m_eraseEngine->select(origin + "/" + name);
+    m_eraseEngine->select(m_backupLocation + "/" + name);
     emit deleteBackup();
 }
 
 
 void MainWindow::onValidateBackup()
 {
-    int index = m_backupSelectorUI->currentSelection();
-    // TODO: is backupList() needed of can I directly access at(index)?
-    //       see also in onDeleteBackup. NO! Inherit BackupListModel from BackupList
-    QString origin = m_backupListModel->backupList().at(index).origin;
-
-    index = m_snapshotListUI->currentSelection();
+    int index = m_snapshotListUI->currentSelection();
     QString name = m_snapshotListModel->at(index).name();
-    m_validateEngine->select(origin + "/" + name);
+    m_validateEngine->select(m_backupLocation + "/" + name);
     emit validateBackup();
 }
 

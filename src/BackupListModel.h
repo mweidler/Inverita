@@ -42,42 +42,29 @@ typedef struct BackupEntry {
 
 /*! Base type storage definition
  */
-typedef QList<BackupEntry> BackupList;
+typedef QList<BackupEntry> BaseBackupList;
 typedef QListIterator<BackupEntry> BackupListIterator;
 
 
 /*! Container class for storing and handling validation information.
  */
-class BackupListModel : public QAbstractListModel
+class BackupListModel : public BaseBackupList, public QAbstractListModel
 {
-    Q_OBJECT
-
 public:
     BackupListModel(QObject *parent = 0);
     virtual ~BackupListModel();
 
-    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+    // model<->view handling
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
-    bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex());
-    bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex());
-
-    void setBackupList(const BackupList &list);
-    BackupList backupList();
-
+    void appendEntry(const BackupEntry &entry);
     int Load(const QString &organization);
     void Save();
     void SaveAs(const QString &organization);
 
-public slots:
-    void onDataChanged();
-
-protected:
-
 private:
-    BackupList m_list;
-    QString    m_organization;
+    QString m_organization;
 };
 
 #endif // ! HEADER_BACKUPLISTMODEL_INC
