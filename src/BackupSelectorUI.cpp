@@ -25,7 +25,7 @@
 
 #include "BackupSelectorUI.h"
 #include "ConfigurationDialog.h"
-
+#include <QInputDialog>
 #include <QFileDialog>
 
 
@@ -66,7 +66,7 @@ BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QW
     hboxlayout->addLayout(controlLayout);
     this->setLayout(hboxlayout);
 
-    connect(m_choice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(backupSelected()));
+    connect(m_choice, SIGNAL(currentIndexChanged(int)), this, SLOT(onChange()));
     connect(btnConf, SIGNAL(clicked()), this, SLOT(onConfigure()));
 }
 
@@ -75,25 +75,59 @@ BackupSelectorUI::~BackupSelectorUI()
 
 }
 
-int BackupSelectorUI::currentSelection()
+const BackupEntry BackupSelectorUI::currentBackup()
 {
-    return m_choice->currentIndex();
+    return m_currentBackup;
 }
 
 
-void BackupSelectorUI::appendChoiceUnique(const QString &filepath)
+void BackupSelectorUI::unmountEncfs()
+{
+    QDir dir;
+    if (dir.exists("/tmp/encfsinverita")) {
+        system("fusermount -u /tmp/encfsinverita");
+        dir.remove("/tmp/encfsinverita");
+    }
+}
+
+
+void BackupSelectorUI::mountEncfs(const QString &origin)
+{
+    m_currentBackup.origin = origin;
+    m_currentBackup.encrypted = false;
+    m_currentBackup.password = "";
+    m_currentBackup.location = origin;
+
+    if (QFile::exists(origin + "/" + ".encfs6.xml")) {
+        m_currentBackup.encrypted = true;
+
+        QInputDialog passwordDialog(this);
+        passwordDialog.setLabelText(tr("Please enter the password"));
+        passwordDialog.setMinimumSize(640, 480);
+        if (passwordDialog.exec() == QDialog::Accepted) {
+            m_currentBackup.password = passwordDialog.textValue();
+            m_currentBackup.location = "/tmp/encfsinverita";
+            QDir dir;
+            dir.mkpath(m_currentBackup.location);
+            QString sysstring = "echo \"" + m_currentBackup.password + "\" | encfs -S " + m_currentBackup.origin + " " + m_currentBackup.location;
+            system(sysstring.toUtf8().data());
+        }
+    }
+}
+
+
+void BackupSelectorUI::appendChoiceUnique(BackupEntry entry)
 {
     // do not store a duplicate item
     for (int i = 0; i < m_choice->count(); i++) {
-        if (m_choice->itemText(i).compare(filepath) == 0) {
+        if (m_choice->itemText(i).compare(entry.origin) == 0) {
             m_choice->setCurrentIndex(i);
             return;
         }
     }
 
-    BackupEntry entry;
-    entry.origin = filepath;
     m_model->appendEntry(entry);
+    m_model->Save();
     m_choice->setCurrentIndex(m_model->size());
 }
 
@@ -103,13 +137,16 @@ void BackupSelectorUI::onSelect()
     QFileDialog filedialog(this);
     filedialog.setWindowTitle(tr("Select an existing backup configuration..."));
     filedialog.setFileMode(QFileDialog::ExistingFile);
-    filedialog.setNameFilter("inverita.conf");
+    filedialog.setNameFilter("inverita.conf .encfs6.xml");
     if (filedialog.exec() == QDialog::Rejected) {
         return;
     }
 
     QFileInfo fileinfo(filedialog.selectedFiles()[0]);
-    appendChoiceUnique(fileinfo.absolutePath());
+    QString origin = fileinfo.absolutePath();
+    mountEncfs(origin);
+
+    appendChoiceUnique(m_currentBackup);
     emit backupSelected();
 }
 
@@ -123,31 +160,48 @@ void BackupSelectorUI::onNew()
         return;
     }
 
-    QString newLocation = configDialog.location();
-    config.Save(newLocation + "/" + "inverita.conf");
+    QString origin = configDialog.location();
+    mountEncfs(origin);
+    config.Save(m_currentBackup.location + "/" + "inverita.conf");
 
-    appendChoiceUnique(newLocation);
+    appendChoiceUnique(m_currentBackup);
     emit backupSelected();
 }
 
 
 void BackupSelectorUI::onConfigure()
 {
-    QString currentLocation = m_choice->currentText();
+    QString origin = m_choice->currentText();
+    mountEncfs(origin);
 
     Configuration config;
-    config.Load(currentLocation + "/" + "inverita.conf");
+    config.Load(m_currentBackup.location + "/" + "inverita.conf");
 
     ConfigurationDialog configDialog(config, this);
-    configDialog.setWindowTitle(tr("Configuring backup") + "' " + currentLocation + "'");
-    configDialog.setLocation(currentLocation);
+    configDialog.setWindowTitle(tr("Configuring backup") + "' " + origin + "'");
+    configDialog.setLocation(m_currentBackup.location);
     if (configDialog.exec() != QDialog::Accepted) {
         return;
     }
 
-    QString newLocation = configDialog.location();
-    config.Save(newLocation + "/" + "inverita.conf");
+    QString newOrigin = configDialog.location();
+    if (origin.compare(newOrigin) != 0) {
+        unmountEncfs();
+        mountEncfs(newOrigin);
+    }
 
-    appendChoiceUnique(newLocation);
+    config.Save(m_currentBackup.location + "/" + "inverita.conf");
+
+    appendChoiceUnique(m_currentBackup);
+    emit backupSelected();
+}
+
+void BackupSelectorUI::onChange()
+{
+    unmountEncfs();
+
+    QString origin = m_choice->currentText();
+    mountEncfs(origin);
+
     emit backupSelected();
 }

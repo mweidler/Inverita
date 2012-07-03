@@ -96,6 +96,8 @@ int BackupListModel::Load(const QString &organization)
         settings.setArrayIndex(i);
         BackupEntry entry;
         entry.origin = settings.value("origin").toString();
+        entry.encrypted = settings.value("encrypted", false).toBool();
+        entry.password = settings.value("password").toString();
         this->append(entry);
     }
     settings.endArray();
@@ -128,6 +130,8 @@ void BackupListModel::SaveAs(const QString &organization)
         qDebug() << "Write BackupList" <<  i;
         settings.setArrayIndex(i);
         settings.setValue("origin", this->at(i).origin);
+        settings.setValue("encrypted", this->at(i).encrypted);
+        settings.setValue("password", this->at(i).password);
     }
     settings.endArray();
 }

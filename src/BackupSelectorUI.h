@@ -43,22 +43,27 @@ public:
     BackupSelectorUI(BackupListModel *model, QWidget *parent = 0);
     ~BackupSelectorUI();
 
-    int currentSelection();
+    const BackupEntry currentBackup();
+
+    void unmountEncfs();
+    void mountEncfs(const QString &origin);
 
 signals:
     void backupSelected();
 
 protected:
-    void appendChoiceUnique(const QString &filepath);
+    void appendChoiceUnique(BackupEntry entry);
 
 protected slots:
     void onSelect();
     void onNew();
     void onConfigure();
+    void onChange();
 
 protected:
     QComboBox *m_choice;
     BackupListModel *m_model;
+    BackupEntry m_currentBackup;
 };
 
 #endif

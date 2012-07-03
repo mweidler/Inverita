@@ -154,6 +154,7 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     layout->addWidget(buttonBox);
     this->setLayout(layout);
 
+    m_encryptBackup->setChecked(m_config.encryptSnapshots());
     m_verifyAfterBackup->setChecked(m_config.verifyAfterBackup());
     m_verifyHash->setChecked(m_config.verifyHash());
     m_verifyDate->setChecked(m_config.verifyTime());
@@ -212,6 +213,7 @@ void ConfigurationDialog::onSave()
         return;
     }
 
+    m_config.setEncryptSnapshots(m_encryptBackup->isChecked());
     m_config.setVerifyAfterBackup(m_verifyAfterBackup->isChecked());
     m_config.setVerifyHash(m_verifyHash->isChecked());
     m_config.setVerifySize(m_verifySize->isChecked());

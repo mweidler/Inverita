@@ -225,12 +225,12 @@ void MainWindow::onBackupSelected()
 {
     qDebug() << "MainWindow::onBackupSelected()" << QThread::currentThreadId();
 
-    int index = m_backupSelectorUI->currentSelection();
-    if (index < 0) {
+    BackupEntry entry = m_backupSelectorUI->currentBackup();
+    if (entry.location.isEmpty()) {
         return;
     }
 
-    m_backupLocation = m_backupListModel->at(index).origin;
+    m_backupLocation = entry.location;
     qDebug() << "Selected" << m_backupLocation;
     reload();
 }

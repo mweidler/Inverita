@@ -38,6 +38,7 @@ void Configuration::reset()
 {
     m_includePaths.clear();
     m_excludePatterns.clear();
+    m_encryptSnapshots = false;
     m_verifyAfterBackup = true;
     m_verifyHash   = true;
     m_verifyTime   = true;

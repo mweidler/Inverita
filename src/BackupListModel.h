@@ -35,8 +35,10 @@
 /*! Container for meta information and hash value.
  */
 typedef struct BackupEntry {
-    QString     origin;
-    int         files;
+    QString  origin;
+    bool     encrypted;
+    QString  password;
+    QString  location;
 } BackupEntry;
 
 
