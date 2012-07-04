@@ -38,7 +38,6 @@ void Configuration::reset()
 {
     m_includePaths.clear();
     m_excludePatterns.clear();
-    m_encryptSnapshots = false;
     m_verifyAfterBackup = true;
     m_verifyHash   = true;
     m_verifyTime   = true;
@@ -98,7 +97,6 @@ bool Configuration::Load(QString filename)
     }
     settings.endArray();
 
-    m_encryptSnapshots  = settings.value("OPTIONS/EncryptSnapshots", false).toBool();
     m_verifyAfterBackup = settings.value("OPTIONS/VerifyAfterBackup", true).toBool();
     m_verifyHash        = settings.value("OPTIONS/VerifyHash", true).toBool();
     m_verifyTime        = settings.value("OPTIONS/VerifyTime", true).toBool();
@@ -138,7 +136,6 @@ void Configuration::Save(QString filename)
     }
     settings.endArray();
 
-    settings.setValue("OPTIONS/EncryptSnapshots",  m_encryptSnapshots);
     settings.setValue("OPTIONS/VerifyAfterBackup", m_verifyAfterBackup);
     settings.setValue("OPTIONS/VerifyHash",        m_verifyHash);
     settings.setValue("OPTIONS/VerifyTime",        m_verifyTime);
@@ -229,15 +226,4 @@ void Configuration::setMaximumBackups(int count)
 {
     m_maxBackups = count;
 }
-
-bool  Configuration::encryptSnapshots()
-{
-    return m_encryptSnapshots;
-}
-
-void Configuration::setEncryptSnapshots(bool enable)
-{
-    m_encryptSnapshots = enable;
-}
-
 

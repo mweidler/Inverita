@@ -27,10 +27,8 @@
 
 #include "ApplicationException.h"
 
-//#i//nclude <QtCore>
 #include <QString>
 #include <QStringList>
-
 
 
 class Configuration : public QObject
@@ -67,14 +65,10 @@ public:
     int  maximumBackups();
     void setMaximumBackups(int count);
 
-    bool encryptSnapshots();
-    void setEncryptSnapshots(bool enable);
-
     bool Load(QString filename);
     void Save(QString filename);
 
 protected:
-    bool           m_encryptSnapshots;
     QStringList    m_includePaths;
     QStringList    m_excludePatterns;
     bool           m_verifyAfterBackup;

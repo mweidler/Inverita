@@ -43,10 +43,10 @@ public:
     BackupSelectorUI(BackupListModel *model, QWidget *parent = 0);
     ~BackupSelectorUI();
 
-    const BackupEntry currentBackup();
-
+    int  currentSelection();
+    bool isEnfcsDirectory(const QString &path);
     void unmountEncfs();
-    void mountEncfs(const QString &origin);
+    void mountEncfs(int index);
 
 signals:
     void backupSelected();
@@ -63,7 +63,6 @@ protected slots:
 protected:
     QComboBox *m_choice;
     BackupListModel *m_model;
-    BackupEntry m_currentBackup;
 };
 
 #endif

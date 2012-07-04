@@ -32,7 +32,7 @@
  */
 BackupListModel::BackupListModel(QObject *parent) : QAbstractListModel(parent)
 {
-   clear();
+    clear();
 }
 
 
@@ -55,7 +55,11 @@ QVariant BackupListModel::data(const QModelIndex &index, int role) const
     }
 
     if (role == Qt::DisplayRole || role == Qt::EditRole) {
-        return this->at(index.row()).origin;
+        QString content = this->at(index.row()).origin;
+        if (content.compare(this->at(index.row()).location) != 0) {
+            content += " (" + tr("encrypted") + ")";
+        }
+        return content;
     } else {
         return QVariant();
     }
@@ -71,12 +75,29 @@ int BackupListModel::rowCount(const QModelIndex & /*parent*/) const
  *
  * \param the new BackupEntry to be inserted
  */
-void BackupListModel::appendEntry(const BackupEntry &entry)
+int BackupListModel::setEntry(const BackupEntry &entry)
 {
+    int i;
+    bool found = false;
+
     beginResetModel();
-    this->append(entry);
+    for (i = 0; i < this->size(); i++) {
+        if (this->at(i).origin.compare(entry.origin) == 0) {
+            this->replace(i, entry);
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        this->append(entry);
+    }
+
     endResetModel();
+
     Save();
+
+    return i;
 }
 
 
@@ -96,8 +117,9 @@ int BackupListModel::Load(const QString &organization)
         settings.setArrayIndex(i);
         BackupEntry entry;
         entry.origin = settings.value("origin").toString();
-        entry.encrypted = settings.value("encrypted", false).toBool();
+        entry.location = settings.value("location").toString();
         entry.password = settings.value("password").toString();
+
         this->append(entry);
     }
     settings.endArray();
@@ -130,7 +152,7 @@ void BackupListModel::SaveAs(const QString &organization)
         qDebug() << "Write BackupList" <<  i;
         settings.setArrayIndex(i);
         settings.setValue("origin", this->at(i).origin);
-        settings.setValue("encrypted", this->at(i).encrypted);
+        settings.setValue("location", this->at(i).location);
         settings.setValue("password", this->at(i).password);
     }
     settings.endArray();

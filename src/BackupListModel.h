@@ -36,7 +36,6 @@
  */
 typedef struct BackupEntry {
     QString  origin;
-    bool     encrypted;
     QString  password;
     QString  location;
 } BackupEntry;
@@ -60,7 +59,7 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
-    void appendEntry(const BackupEntry &entry);
+    int setEntry(const BackupEntry &entry);
     int Load(const QString &organization);
     void Save();
     void SaveAs(const QString &organization);

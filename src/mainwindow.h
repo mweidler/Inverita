@@ -63,6 +63,9 @@ public slots:
     void onValidateBackup();
     void onBackupFailed();
 
+protected:
+    void closeEvent(QCloseEvent *event);
+
 protected slots:
     void cancelProgress();
     void reload();

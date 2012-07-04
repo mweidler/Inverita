@@ -148,8 +148,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     // center application window on the current screen
     QRect desktopRect = QApplication::desktop()->availableGeometry(this);
     move(desktopRect.center() - rect().center());
-
-    onBackupSelected();
 }
 
 
@@ -159,6 +157,14 @@ MainWindow::~MainWindow()
 {
 
 }
+
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    m_backupSelectorUI->unmountEncfs();
+    QMainWindow::closeEvent(event);
+}
+
 
 /*! Is called if the user selects the "application about" in the menu.
  */
@@ -225,11 +231,12 @@ void MainWindow::onBackupSelected()
 {
     qDebug() << "MainWindow::onBackupSelected()" << QThread::currentThreadId();
 
-    BackupEntry entry = m_backupSelectorUI->currentBackup();
-    if (entry.location.isEmpty()) {
+    int idx = m_backupSelectorUI->currentSelection();
+    if (idx < 0) {
         return;
     }
 
+    BackupEntry entry = m_backupListModel->at(idx);
     m_backupLocation = entry.location;
     qDebug() << "Selected" << m_backupLocation;
     reload();
