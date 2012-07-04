@@ -28,9 +28,6 @@
 #include "BackupListModel.h"
 
 #include <QComboBox>
-#include <QLabel>
-#include <QBoxLayout>
-#include <QPushButton>
 
 /*!
  * Create a new BackupSelectorUI component with GUI elements
@@ -50,9 +47,6 @@ public:
 
 signals:
     void backupSelected();
-
-protected:
-    void appendChoiceUnique(BackupEntry entry);
 
 protected slots:
     void onSelect();

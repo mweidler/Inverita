@@ -80,7 +80,7 @@ int BackupListModel::setEntry(const BackupEntry &entry)
     int i;
     bool found = false;
 
-    beginResetModel();
+//    beginResetModel();
     for (i = 0; i < this->size(); i++) {
         if (this->at(i).origin.compare(entry.origin) == 0) {
             this->replace(i, entry);
@@ -93,7 +93,7 @@ int BackupListModel::setEntry(const BackupEntry &entry)
         this->append(entry);
     }
 
-    endResetModel();
+//    endResetModel();
 
     Save();
 
