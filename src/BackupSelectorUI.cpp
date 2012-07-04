@@ -180,7 +180,7 @@ void BackupSelectorUI::onSelect()
     QFileDialog filedialog(this);
     filedialog.setWindowTitle(tr("Select an existing backup configuration..."));
     filedialog.setFileMode(QFileDialog::ExistingFile);
-    filedialog.setFilter(QDir::AllEntries | QDir::Hidden);
+    //filedialog.setFilter(QDir::AllEntries | QDir::Hidden);
     filedialog.setNameFilter("inverita.conf .encfs*");
     if (filedialog.exec() == QDialog::Rejected) {
         return;
@@ -225,7 +225,7 @@ void BackupSelectorUI::onNew()
     config.Save(entry.location + "/" + "inverita.conf");
     unmountEncfs();
 
-    m_choice->setCurrentIndex(index); // causes a currentIndexChanged event
+     m_choice->setCurrentIndex(index); // causes a currentIndexChanged event
 }
 
 
@@ -266,7 +266,7 @@ void BackupSelectorUI::onConfigure()
 
 void BackupSelectorUI::onChange()
 {
-    qDebug() << "BackupSelectorUI::onChange()";
+    qDebug() << "BackupSelectorUI::onChange()" << m_choice->currentIndex();
     if (m_choice->currentIndex() >= 0) {
         unmountEncfs();
         mountEncfs(m_choice->currentIndex());
