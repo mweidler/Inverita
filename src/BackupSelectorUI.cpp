@@ -132,10 +132,18 @@ void BackupSelectorUI::mountEncfs(int index)
         QInputDialog passwordDialog(this);
         passwordDialog.setLabelText(tr("Please enter the password"));
         passwordDialog.setMinimumSize(640, 480);
-        if (entry.password.isEmpty() && passwordDialog.exec() == QDialog::Accepted) {
-            entry.password = passwordDialog.textValue();
-            appendChoiceUnique(entry);
+        if (entry.password.isEmpty()) {
+            if (passwordDialog.exec() == QDialog::Accepted) {
+               entry.password = passwordDialog.textValue();
+               appendChoiceUnique(entry);
+            }
         }
+
+        if (entry.password.isEmpty()) {
+            return;
+        }
+
+        qDebug() << entry.origin << entry.location << entry.password;
 
         QDir dir;
         dir.mkpath(entry.location);
@@ -147,7 +155,7 @@ void BackupSelectorUI::mountEncfs(int index)
         encfs.closeWriteChannel();
         encfs.waitForFinished();
 
-        QByteArray result = encfs.readAll();
+        QByteArray result = encfs.readAllStandardError(); //readAll();
         int rc = encfs.exitCode();
 
         if (rc != 0) {
