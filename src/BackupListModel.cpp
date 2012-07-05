@@ -158,6 +158,9 @@ void BackupListModel::SaveAs(const QString &organization)
     }
     settings.endArray();
 
+    // TODO: do not save location to disk. Handle corrent location path on opening
+    //       Save encryption flag to display corrent encryption status in combobox
+
     // ensure proper security of the configuration file
     QFile::setPermissions(settings.fileName(), QFile::ReadOwner | QFile::WriteOwner);
 }
