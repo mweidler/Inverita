@@ -80,22 +80,21 @@ int BackupListModel::setEntry(const BackupEntry &entry)
     int i;
     bool found = false;
 
-    // TODO: check, if there is a beginChangeModel
-    //beginResetModel();
     for (i = 0; i < this->size(); i++) {
         if (this->at(i).origin.compare(entry.origin) == 0) {
             this->replace(i, entry);
             found = true;
+            QModelIndex index = this->index(i);
+            dataChanged(index, index);
             break;
         }
     }
 
     if (!found) {
-        beginInsertRows(QModelIndex(), i-1, i);
+        beginInsertRows(QModelIndex(), i, i);
         this->append(entry);
         endInsertRows();
     }
-    //endResetModel();
 
     Save();
 

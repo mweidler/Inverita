@@ -28,6 +28,7 @@
 #include "BackupListModel.h"
 
 #include <QComboBox>
+#include <QPushButton>
 
 /*!
  * Create a new BackupSelectorUI component with GUI elements
@@ -56,6 +57,7 @@ protected slots:
 
 protected:
     QComboBox *m_choice;
+    QPushButton *m_btnConf;
     BackupListModel *m_model;
 };
 

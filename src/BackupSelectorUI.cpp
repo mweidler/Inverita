@@ -31,7 +31,7 @@
 #include <QMessageBox>
 #include <QLabel>
 #include <QBoxLayout>
-#include <QPushButton>
+
 
 /*! Create a new BackupSelectorUI component with GUI elements
  */
@@ -40,19 +40,20 @@ BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QW
     m_model = model;
     m_choice = new QComboBox();
     m_choice->setModel(model);
-    m_choice->setCurrentIndex(0);
+    m_choice->setCurrentIndex(-1);
 
     QLabel *labelCurrentBackup = new QLabel(tr("Select your backup (target and configuration) you want to work with or<br>"
                                             "open an existing backup or create a new backup from the menu.") + "<br><br>" +
                                             tr("Your current backup target:")
                                            );
 
-    QPushButton *btnConf   = new QPushButton(tr("Configure"));
-    btnConf->setIcon(QIcon::fromTheme("preferences-desktop"));
+    m_btnConf = new QPushButton(tr("Configure"));
+    m_btnConf->setIcon(QIcon::fromTheme("preferences-desktop"));
+    m_btnConf->setEnabled(false);
 
     QHBoxLayout *choiceLayout = new QHBoxLayout;
     choiceLayout->addWidget(m_choice, 1);
-    choiceLayout->addWidget(btnConf);
+    choiceLayout->addWidget(m_btnConf);
 
     QVBoxLayout *controlLayout = new QVBoxLayout;
     controlLayout->setAlignment(Qt::AlignCenter);
@@ -71,7 +72,7 @@ BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QW
     this->setLayout(hboxlayout);
 
     connect(m_choice, SIGNAL(currentIndexChanged(int)), this, SLOT(onChange()));
-    connect(btnConf, SIGNAL(clicked()), this, SLOT(onConfigure()));
+    connect(m_btnConf, SIGNAL(clicked()), this, SLOT(onConfigure()));
 }
 
 BackupSelectorUI::~BackupSelectorUI()
@@ -267,6 +268,7 @@ void BackupSelectorUI::onConfigure()
 void BackupSelectorUI::onChange()
 {
     qDebug() << "BackupSelectorUI::onChange()" << m_choice->currentIndex();
+    m_btnConf->setEnabled(m_choice->currentIndex() >= 0 ? true:false);
     if (m_choice->currentIndex() >= 0) {
         unmountEncfs();
         mountEncfs(m_choice->currentIndex());
