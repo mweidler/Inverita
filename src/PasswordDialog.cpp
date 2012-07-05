@@ -30,22 +30,28 @@
 #include <QPushButton>
 #include <QDialogButtonBox>
 
+
+/*! Constructs a new password dialog object.
+ */
 PasswordDialog::PasswordDialog(QWidget *parent) : QDialog(parent)
 {
-    m_passwordEdit = new QLineEdit();
-    QLabel *verifyText = new QLabel(tr("The contents of this backup is encrypted with a individual password.\n"
-                                       "Please enter the password to access this backup.")
-                                    );
+    QLabel *labelDescription =
+        new QLabel(tr("The contents of this backup are encrypted using an individual password.\n"
+                      "Please enter this password to get access.")
+                  );
 
-    QPixmap pixmap(":/images/backup-icon.png");
     QLabel *labelImage = new QLabel;
-    labelImage->setPixmap(pixmap);
-
+    labelImage->setPixmap(QIcon::fromTheme("dialog-password").pixmap(48, 48));
 
     QHBoxLayout *descriptionLayout = new QHBoxLayout;
     descriptionLayout->setAlignment(Qt::AlignLeft);
     descriptionLayout->addWidget(labelImage);
-    descriptionLayout->addWidget(verifyText);
+    descriptionLayout->addSpacerItem(new QSpacerItem(10, 0));
+    descriptionLayout->addWidget(labelDescription);
+
+    m_passwordEdit = new QLineEdit();
+    m_showPassword = new QCheckBox(tr("Show password"));
+    m_rememberPassword = new QCheckBox(tr("Remember password"));
 
     QHBoxLayout *passwordLayout = new QHBoxLayout;
     passwordLayout->setAlignment(Qt::AlignLeft);
@@ -58,44 +64,85 @@ PasswordDialog::PasswordDialog(QWidget *parent) : QDialog(parent)
     buttonBox->button(QDialogButtonBox::Ok)->setIcon(QIcon::fromTheme("ok"));
     buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QIcon::fromTheme("stop"));
 
-    QVBoxLayout *verifyLayout = new QVBoxLayout;
-    verifyLayout->setAlignment(Qt::AlignTop);
-    m_showPassword = new QCheckBox(tr("Show password"));
-    m_rememberPassword = new QCheckBox(tr("Remember password"));
-    verifyLayout->addLayout(descriptionLayout);
-    verifyLayout->addLayout(passwordLayout);
-    verifyLayout->addWidget(m_showPassword);
-    verifyLayout->addWidget(m_rememberPassword);
-    verifyLayout->addWidget(buttonBox);
-    this->setLayout(verifyLayout);
+    QVBoxLayout *masterLayout = new QVBoxLayout;
+    masterLayout->setAlignment(Qt::AlignTop);
+    masterLayout->setMargin(20);
+    masterLayout->addLayout(descriptionLayout);
+    masterLayout->addSpacerItem(new QSpacerItem(0, 20));
+    masterLayout->addLayout(passwordLayout);
+    masterLayout->addSpacerItem(new QSpacerItem(0, 10));
+    masterLayout->addWidget(m_showPassword);
+    masterLayout->addWidget(m_rememberPassword);
+    masterLayout->addWidget(buttonBox);
+    this->setLayout(masterLayout);
 
-    m_showPassword->setChecked(true);
+    m_showPassword->setChecked(false);
     m_rememberPassword->setChecked(false);
+    adjustEchoMode();
 
+    connect(m_showPassword, SIGNAL(stateChanged(int)), this, SLOT(adjustEchoMode()));
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
     setWindowTitle(tr("Password required"));
-    setMinimumSize(300, 200);
-    //resize(620, 480);
+    setMinimumSize(600, 250);
 }
 
+
+/*! Destructor
+ */
 PasswordDialog::~PasswordDialog()
 {
 
 }
 
-QString PasswordDialog::password()
+
+/*! \return the password entered by the user.
+ */
+QString PasswordDialog::password() const
 {
     return m_passwordEdit->text();
 }
 
+
+/*! Set the password presented to the user in the edit field
+ *
+ * \param password the password to be presented
+ */
 void PasswordDialog::setPassword(const QString &password)
 {
     m_passwordEdit->setText(password);
 }
 
-bool PasswordDialog::rememberPassword()
+
+/*! Informs if the user wants the password to be stored in the configuration.
+ *
+ * \return true, if the password should be stored, otherwise false
+ */
+bool PasswordDialog::rememberPassword() const
 {
     return m_rememberPassword->isChecked();
+}
+
+
+/*! Set, if the password should be stored in the configuration
+ *
+ * \param checked is true, if password should be stored, otherwise false
+ */
+void PasswordDialog::setRememberPassword(bool checked)
+{
+    m_rememberPassword->setChecked(checked);
+}
+
+
+/*! Toggels the echo mode of the password edit field in dependency if the password
+ *  should be displayed.
+ */
+void PasswordDialog::adjustEchoMode()
+{
+    if (m_showPassword->isChecked()) {
+        m_passwordEdit->setEchoMode(QLineEdit::Normal);
+    } else {
+        m_passwordEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
+    }
 }

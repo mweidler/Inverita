@@ -29,6 +29,9 @@
 #include <QCheckBox>
 #include <QLineEdit>
 
+
+/*! Password edit dialog for encrypted backups
+ */
 class PasswordDialog : public QDialog
 {
     Q_OBJECT
@@ -37,9 +40,13 @@ public:
     PasswordDialog(QWidget *parent);
     ~PasswordDialog();
 
-    QString password();
+    QString password() const;
     void setPassword(const QString &password);
-    bool rememberPassword();
+    bool rememberPassword() const;
+    void setRememberPassword(bool checked);
+
+public slots:
+    void adjustEchoMode();
 
 private:
     QLineEdit  *m_passwordEdit;

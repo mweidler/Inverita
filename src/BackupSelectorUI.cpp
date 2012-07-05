@@ -117,17 +117,23 @@ void BackupSelectorUI::mountEncfs(int index)
 
     if (isEnfcsDirectory(entry.origin)) {
         unmountEncfs();
-        PasswordDialog passwordDialog(this);
-        if (entry.password.isEmpty()) {
-            if (passwordDialog.exec() == QDialog::Accepted) {
-               entry.password = passwordDialog.password();
-               m_model->setEntry(entry);
-            }
-        }
 
-        if (entry.password.isEmpty()) {
+        QString currentPassword = entry.password;
+        PasswordDialog passwordDialog(this);
+        passwordDialog.setPassword(currentPassword);
+        passwordDialog.setRememberPassword(!currentPassword.isEmpty());
+        if (passwordDialog.exec() == QDialog::Rejected) {
             return;
         }
+
+        currentPassword = passwordDialog.password();
+        if (passwordDialog.rememberPassword()) {
+            entry.password = currentPassword;
+        } else {
+            entry.password.clear();
+        }
+
+        m_model->setEntry(entry);
 
         setCursor(Qt::WaitCursor);
 
@@ -225,7 +231,7 @@ void BackupSelectorUI::onNew()
     config.Save(entry.location + "/" + "inverita.conf");
     unmountEncfs();
 
-     m_choice->setCurrentIndex(index); // causes a currentIndexChanged event
+    m_choice->setCurrentIndex(index); // causes a currentIndexChanged event
 }
 
 
@@ -257,9 +263,8 @@ void BackupSelectorUI::onConfigure()
         unmountEncfs();
 
         m_choice->setCurrentIndex(index); // causes a currentIndexChanged event
-    }
-    else {
-      config.Save(entry.location + "/" + "inverita.conf");
+    } else {
+        config.Save(entry.location + "/" + "inverita.conf");
     }
 }
 
@@ -267,7 +272,7 @@ void BackupSelectorUI::onConfigure()
 void BackupSelectorUI::onChange()
 {
     qDebug() << "BackupSelectorUI::onChange()" << m_choice->currentIndex();
-    m_btnConf->setEnabled(m_choice->currentIndex() >= 0 ? true:false);
+    m_btnConf->setEnabled(m_choice->currentIndex() >= 0 ? true : false);
     if (m_choice->currentIndex() >= 0) {
         unmountEncfs();
         mountEncfs(m_choice->currentIndex());
