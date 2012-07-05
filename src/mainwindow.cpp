@@ -221,8 +221,12 @@ void MainWindow::reload()
         updateLatestLink(m_backupLocation);
         m_controlUI->setEnabledButtons(ControlUI::CreateButton, true);
         m_controlUI->setEnabledButtons(ControlUI::VerifyButton, (m_snapshotListModel->size() > 0));
+        m_backupSelectorUI->setEnableConfiguration(true);
+        m_snapshotListUI->setEnableReload(true);
     } else {
         m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
+        m_backupSelectorUI->setEnableConfiguration(false);
+        m_snapshotListUI->setEnableReload(false);
     }
 }
 
@@ -231,13 +235,14 @@ void MainWindow::onBackupSelected()
 {
     qDebug() << "MainWindow::onBackupSelected()" << QThread::currentThreadId();
 
+    m_backupLocation = "/tmp";
+
     int idx = m_backupSelectorUI->currentSelection();
-    if (idx < 0) {
-        return;
+    if (idx >= 0) {
+        BackupEntry entry = m_backupListModel->at(idx);
+        m_backupLocation = entry.location;
     }
 
-    BackupEntry entry = m_backupListModel->at(idx);
-    m_backupLocation = entry.location;
     qDebug() << "Selected" << m_backupLocation;
     reload();
 }

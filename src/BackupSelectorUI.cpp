@@ -81,9 +81,16 @@ BackupSelectorUI::~BackupSelectorUI()
 
 }
 
+
 int BackupSelectorUI::currentSelection()
 {
     return m_choice->currentIndex();
+}
+
+
+void BackupSelectorUI::setEnableConfiguration(bool enabled)
+{
+    m_btnConf->setEnabled(enabled);
 }
 
 
@@ -111,19 +118,28 @@ void BackupSelectorUI::unmountEncfs()
 }
 
 
-void BackupSelectorUI::mountEncfs(int index)
+bool BackupSelectorUI::mountEncfs(int index)
 {
     BackupEntry entry = m_model->at(index);
 
-    if (isEnfcsDirectory(entry.origin)) {
-        unmountEncfs();
+    unmountEncfs();
 
+    if (!isEnfcsDirectory(entry.origin)) {
+        QDir dir;
+        if (dir.exists(entry.origin)) {
+            return true;
+        }
+        return false;
+    }
+
+    int rc = -1;
+    while (rc != 0) {
         QString currentPassword = entry.password;
         PasswordDialog passwordDialog(this);
         passwordDialog.setPassword(currentPassword);
         passwordDialog.setRememberPassword(!currentPassword.isEmpty());
         if (passwordDialog.exec() == QDialog::Rejected) {
-            return;
+            return false;
         }
 
         currentPassword = passwordDialog.password();
@@ -142,25 +158,31 @@ void BackupSelectorUI::mountEncfs(int index)
 
         QProcess encfs;
         encfs.start("encfs", QStringList() << "-S" <<  entry.origin << entry.location);
-        encfs.waitForStarted();
-        encfs.write(entry.password.toUtf8());
-        encfs.closeWriteChannel();
-        encfs.waitForFinished();
+        if (encfs.waitForStarted()) {
+            encfs.write(currentPassword.toUtf8());
+            encfs.closeWriteChannel();
+            encfs.waitForFinished();
+        } else {
+            QMessageBox::critical(0, tr("'encfs' can not be started"), encfs.errorString());
+        }
 
         unsetCursor();
 
         QByteArray resultStdOut = encfs.readAllStandardOutput();
         QByteArray resultStdErr = encfs.readAllStandardError();
-        int rc = encfs.exitCode();
+        rc = encfs.exitCode();
 
         if (rc != 0) {
-            QString msg = tr("The encrypted backup target can not be opened") + ":\n" + entry.origin + "\n\n" +
+            QString msg = tr("The encrypted backup can not be accessed") + ":\n" + entry.origin + "\n\n" +
                           QString::fromLocal8Bit(resultStdOut) +
                           QString::fromLocal8Bit(resultStdErr) + "\n" +
                           QString("encfs code: %1").arg(rc);
-            QMessageBox::critical(0, tr("INVERITA backup target error"), msg);
+            QMessageBox::critical(0, tr("Backup access error"), msg);
+            dir.rmdir(entry.location);
         }
     }
+
+    return true;
 }
 
 
@@ -185,17 +207,15 @@ void BackupSelectorUI::onSelect()
 {
     QFileDialog filedialog(this);
     filedialog.setWindowTitle(tr("Select an existing backup configuration..."));
-    filedialog.setFileMode(QFileDialog::ExistingFile);
-    //filedialog.setFilter(QDir::AllEntries | QDir::Hidden);
-    filedialog.setNameFilter("inverita.conf .encfs*");
+    filedialog.setFileMode(QFileDialog::Directory);
+    filedialog.setDirectory(QDir::homePath());
+    filedialog.setOption(QFileDialog::ShowDirsOnly, true);
     if (filedialog.exec() == QDialog::Rejected) {
         return;
     }
 
-    QFileInfo fileinfo(filedialog.selectedFiles()[0]);
-
     BackupEntry entry;
-    entry.origin = fileinfo.absolutePath();
+    entry.origin = filedialog.selectedFiles()[0];
     entry.location = entry.origin;
     entry.password.clear();
 
@@ -249,6 +269,7 @@ void BackupSelectorUI::onConfigure()
         return;
     }
 
+    // TODO: test this
     QString newOrigin = configDialog.location();
     if (entry.origin.compare(newOrigin) != 0) {
         entry.origin = newOrigin;
@@ -272,10 +293,13 @@ void BackupSelectorUI::onConfigure()
 void BackupSelectorUI::onChange()
 {
     qDebug() << "BackupSelectorUI::onChange()" << m_choice->currentIndex();
-    m_btnConf->setEnabled(m_choice->currentIndex() >= 0 ? true : false);
+
     if (m_choice->currentIndex() >= 0) {
         unmountEncfs();
-        mountEncfs(m_choice->currentIndex());
+        if (mountEncfs(m_choice->currentIndex()) == false) {
+            m_choice->setCurrentIndex(-1);
+        }
+
         emit backupSelected();
     }
 }

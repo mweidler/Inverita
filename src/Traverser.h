@@ -63,11 +63,12 @@ public:
     virtual void onLink(const QString &absoluteFilePath, const QString &linkName);
     virtual void onOther(const QString &absoluteFilePath);
 
+    void traverse();
+
 signals:
     void report(QString message);
 
 public slots:
-    void traverse();  //TODO: ist this really a slot?
     void abort();
 
 protected:

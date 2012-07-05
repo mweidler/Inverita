@@ -157,4 +157,7 @@ void BackupListModel::SaveAs(const QString &organization)
         settings.setValue("password", this->at(i).password);
     }
     settings.endArray();
+
+    // ensure proper security of the configuration file
+    QFile::setPermissions(settings.fileName(), QFile::ReadOwner | QFile::WriteOwner);
 }

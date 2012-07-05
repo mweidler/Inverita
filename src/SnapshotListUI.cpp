@@ -52,6 +52,7 @@ SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QF
     m_buttonDelete->setEnabled(false);
     m_buttonReload = new QPushButton(tr("Reload"));
     m_buttonReload->setIcon(QIcon::fromTheme("reload"));
+    m_buttonReload->setEnabled(false);
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
     buttonLayout->setAlignment(Qt::AlignRight);
@@ -80,6 +81,11 @@ SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QF
 SnapshotListUI::~SnapshotListUI()
 {
 
+}
+
+void SnapshotListUI::setEnableReload(bool enable)
+{
+    m_buttonReload->setEnabled(enable);
 }
 
 int SnapshotListUI::currentSelection()

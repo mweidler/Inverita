@@ -44,7 +44,8 @@ public:
     int  currentSelection();
     bool isEnfcsDirectory(const QString &path);
     void unmountEncfs();
-    void mountEncfs(int index);
+    bool mountEncfs(int index);
+    void setEnableConfiguration(bool enabled);
 
 signals:
     void backupSelected();

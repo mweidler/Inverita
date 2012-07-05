@@ -35,6 +35,7 @@ public:
     SnapshotListUI(QAbstractTableModel *model, QWidget *parent = 0);
     ~SnapshotListUI();
 
+    void setEnableReload(bool enable);
     int currentSelection();
 
 signals:

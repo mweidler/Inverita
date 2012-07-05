@@ -66,7 +66,7 @@ PasswordDialog::PasswordDialog(QWidget *parent) : QDialog(parent)
 
     QVBoxLayout *masterLayout = new QVBoxLayout;
     masterLayout->setAlignment(Qt::AlignTop);
-    masterLayout->setMargin(20);
+    masterLayout->setContentsMargins(20, 20, 20, 20);
     masterLayout->addLayout(descriptionLayout);
     masterLayout->addSpacerItem(new QSpacerItem(0, 20));
     masterLayout->addLayout(passwordLayout);
@@ -76,6 +76,8 @@ PasswordDialog::PasswordDialog(QWidget *parent) : QDialog(parent)
     masterLayout->addWidget(buttonBox);
     this->setLayout(masterLayout);
 
+    buttonBox->button(QDialogButtonBox::Ok)->setAutoDefault(true);
+    buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
     m_showPassword->setChecked(false);
     m_rememberPassword->setChecked(false);
     adjustEchoMode();

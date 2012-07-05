@@ -61,7 +61,7 @@ void Traverser::addIncludes(QString &absolutePath)
 
 /*! Add a list of directories (paths) to the list to be traversed.
  */
-void  Traverser::addIncludes(QStringList &absolutePaths)
+void Traverser::addIncludes(QStringList &absolutePaths)
 {
     m_basePaths.append(absolutePaths);
 }
