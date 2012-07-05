@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     DriveCapacityWatcher.cpp \
     Snapshot.cpp \
     SnapshotListUI.cpp \
-    SnapshotListModel.cpp
+    SnapshotListModel.cpp \
+    PasswordDialog.cpp
 
 HEADERS  += mainwindow.h \
     BackupSelectorUI.h \
@@ -76,5 +77,6 @@ HEADERS  += mainwindow.h \
     DriveCapacityWatcher.h \
     Snapshot.h \
     SnapshotListUI.h \
-    SnapshotListModel.h
+    SnapshotListModel.h \
+    PasswordDialog.h
 

@@ -25,7 +25,8 @@
 
 #include "BackupSelectorUI.h"
 #include "ConfigurationDialog.h"
-#include <QInputDialog>
+#include "PasswordDialog.h"
+
 #include <QFileDialog>
 #include <QProcess>
 #include <QMessageBox>
@@ -116,12 +117,10 @@ void BackupSelectorUI::mountEncfs(int index)
 
     if (isEnfcsDirectory(entry.origin)) {
         unmountEncfs();
-        QInputDialog passwordDialog(this);
-        passwordDialog.setLabelText(tr("Please enter the password"));
-        passwordDialog.setMinimumSize(640, 480);
+        PasswordDialog passwordDialog(this);
         if (entry.password.isEmpty()) {
             if (passwordDialog.exec() == QDialog::Accepted) {
-               entry.password = passwordDialog.textValue();
+               entry.password = passwordDialog.password();
                m_model->setEntry(entry);
             }
         }
