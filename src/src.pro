@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     Snapshot.cpp \
     SnapshotListUI.cpp \
     SnapshotListModel.cpp \
-    PasswordDialog.cpp
+    PasswordDialog.cpp \
+    Backup.cpp
 
 HEADERS  += mainwindow.h \
     BackupSelectorUI.h \
@@ -78,5 +79,6 @@ HEADERS  += mainwindow.h \
     Snapshot.h \
     SnapshotListUI.h \
     SnapshotListModel.h \
-    PasswordDialog.h
+    PasswordDialog.h \
+    Backup.h
 
