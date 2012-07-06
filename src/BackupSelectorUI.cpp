@@ -33,6 +33,8 @@
 #include <QLabel>
 #include <QBoxLayout>
 
+#define MOUNTPOINT QDir::homePath() + "/" + "inverita-backup"
+
 
 /*! Create a new BackupSelectorUI component with GUI elements
  */
@@ -96,7 +98,7 @@ void BackupSelectorUI::setEnableConfiguration(bool enabled)
 
 void BackupSelectorUI::unmountEncfs()
 {
-    QDir dir("/tmp/encfsinverita");
+    QDir dir(MOUNTPOINT);
     if (dir.exists()) {
         QProcess encfs;
         encfs.start("fusermount", QStringList() << "-u" << dir.absolutePath());
@@ -149,6 +151,8 @@ bool BackupSelectorUI::mountEncfs(int index)
             entry.password.clear();
         }
 
+        entry.encrypted = 1;
+        entry.location = QString(MOUNTPOINT);
         m_model->setEntry(entry);
 
         setCursor(Qt::WaitCursor);
@@ -163,7 +167,11 @@ bool BackupSelectorUI::mountEncfs(int index)
             encfs.closeWriteChannel();
             encfs.waitForFinished();
         } else {
-            QMessageBox::critical(0, tr("'encfs' can not be started"), encfs.errorString());
+            QString msg = tr("Encryption software 'encfs' could not be started:\n\n") +
+                          "'" + encfs.errorString() + "'\n\n" +
+                          tr("Please verify, if 'encfs' is installed properly and try again.");
+            QMessageBox::critical(0, tr("Encryption software missing"), msg);
+            return false;
         }
 
         unsetCursor();
@@ -216,11 +224,13 @@ void BackupSelectorUI::onSelect()
 
     BackupEntry entry;
     entry.origin = filedialog.selectedFiles()[0];
-    entry.location = entry.origin;
+    entry.encrypted = 0;
     entry.password.clear();
+    entry.location = entry.origin;
 
     if (isEnfcsDirectory(entry.origin)) {
-        entry.location = QString("/tmp/encfsinverita");
+        entry.encrypted = 1;
+        entry.location = QString(MOUNTPOINT);
     }
 
     int index = m_model->setEntry(entry);
@@ -239,11 +249,13 @@ void BackupSelectorUI::onNew()
 
     BackupEntry entry;
     entry.origin = configDialog.location();
+    entry.encrypted = 0;
     entry.location = entry.origin;
     entry.password.clear();
 
     if (isEnfcsDirectory(entry.origin)) {
-        entry.location = QString("/tmp/encfsinverita");
+        entry.encrypted = 1;
+        entry.location = QString(MOUNTPOINT);
     }
 
     int index = m_model->setEntry(entry);
@@ -275,7 +287,7 @@ void BackupSelectorUI::onConfigure()
         entry.origin = newOrigin;
         entry.location = entry.origin;
         if (isEnfcsDirectory(entry.origin)) {
-            entry.location = QString("/tmp/encfsinverita");
+            entry.location = QString(MOUNTPOINT);
         }
 
         int index = m_model->setEntry(entry);
