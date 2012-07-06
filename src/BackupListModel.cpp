@@ -118,8 +118,9 @@ int BackupListModel::Load(const QString &organization)
         settings.setArrayIndex(i);
         BackupEntry entry;
         entry.origin = settings.value("origin").toString();
-        entry.location = settings.value("location").toString();
+        entry.encrypted = settings.value("encrypted").toInt();
         entry.password = settings.value("password").toString();
+        entry.location = entry.origin;
 
         this->append(entry);
     }
@@ -150,16 +151,13 @@ void BackupListModel::SaveAs(const QString &organization)
 
     settings.beginWriteArray("Backups");
     for (int i = 0; i < this->size(); ++i) {
-        qDebug() << "Write BackupList" <<  i;
+        const BackupEntry &entry = this->at(i);
         settings.setArrayIndex(i);
-        settings.setValue("origin", this->at(i).origin);
-        settings.setValue("location", this->at(i).location);
-        settings.setValue("password", this->at(i).password);
+        settings.setValue("origin", entry.origin);
+        settings.setValue("encrypted", entry.encrypted);
+        settings.setValue("password", entry.password);
     }
     settings.endArray();
-
-    // TODO: do not save location to disk. Handle corrent location path on opening
-    //       Save encryption flag to display corrent encryption status in combobox
 
     // ensure proper security of the configuration file
     QFile::setPermissions(settings.fileName(), QFile::ReadOwner | QFile::WriteOwner);
