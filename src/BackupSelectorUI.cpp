@@ -174,7 +174,7 @@ bool BackupSelectorUI::mountEncfs(int index)
             return false;
         }
 
-        unsetCursor();
+        setCursor(Qt::ArrowCursor);
 
         QByteArray resultStdOut = encfs.readAllStandardOutput();
         QByteArray resultStdErr = encfs.readAllStandardError();
