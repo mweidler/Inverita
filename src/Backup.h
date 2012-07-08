@@ -25,18 +25,18 @@
 #ifndef HEADER_BACKUP_INC
 #define HEADER_BACKUP_INC
 
-#include <QtCore>
 #include <QString>
 #include <QByteArray>
+#include <QObject>
 
 
 /*! Container class for storing backup information.
  */
-class Backup : public QObject
+class Backup// : public QObject
 {
-    Q_OBJECT
-
 public:
+    //Q_OBJECT
+
     enum Encryption { NotEncrypted = 0, EncFSEncrypted, TruecryptEncrypted };
     enum Status { Failed = 0, CouldNotStarted, Success };
 
@@ -53,8 +53,7 @@ public:
     void setEncryption(const Encryption encrypt);
 
     QString location() const;
-    // TODO: remove this method again:
-    void setLocation(const QString &location);
+    void setLocation(const QString &location);     // TODO: remove this method again
 
     QString errorString() const;
     int error() const;

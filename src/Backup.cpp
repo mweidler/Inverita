@@ -25,11 +25,14 @@
 
 #include "Backup.h"
 
+#include <QDir>
+#include <QProcess>
 
 /*! Constructs a new backup.
  */
 Backup::Backup()
 {
+    m_isOpen = false;
     m_encryption = Backup::NotEncrypted;
 }
 
