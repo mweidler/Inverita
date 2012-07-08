@@ -38,7 +38,6 @@ typedef struct BackupEntry {
     QString  origin;
     int      encrypted;
     QString  password;
-    QString  location;
 } BackupEntry;
 
 

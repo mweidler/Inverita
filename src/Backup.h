@@ -41,6 +41,7 @@ public:
     enum Status { Failed = 0, CouldNotStarted, Success };
 
     Backup();
+    Backup(const QString &origin);
     virtual ~Backup();
 
     QString origin() const;
@@ -53,7 +54,6 @@ public:
     void setEncryption(const Encryption encrypt);
 
     QString location() const;
-    void setLocation(const QString &location);     // TODO: remove this method again
 
     QString errorString() const;
     int error() const;
@@ -62,8 +62,9 @@ public:
     Status close();
     bool isOpen() const;
 
-private:
     Encryption detectEncryption() const;
+
+private:
     QString findUsableMountPoint() const;
 
 private:

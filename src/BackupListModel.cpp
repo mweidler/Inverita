@@ -55,8 +55,9 @@ QVariant BackupListModel::data(const QModelIndex &index, int role) const
     }
 
     if (role == Qt::DisplayRole || role == Qt::EditRole) {
-        QString content = this->at(index.row()).origin;
-        if (content.compare(this->at(index.row()).location) != 0) {
+        BackupEntry entry = this->at(index.row());
+        QString content = entry.origin;
+        if (entry.encrypted) {
             content += " (" + tr("encrypted") + ")";
         }
         return content;
@@ -120,7 +121,6 @@ int BackupListModel::Load(const QString &organization)
         entry.origin = settings.value("origin").toString();
         entry.encrypted = settings.value("encrypted").toInt();
         entry.password = settings.value("password").toString();
-        entry.location = entry.origin;
 
         this->append(entry);
     }

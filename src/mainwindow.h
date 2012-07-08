@@ -39,6 +39,7 @@
 #include "DriveCapacityUI.h"
 #include "ProgressDialog.h"
 #include "DriveCapacityWatcher.h"
+#include "Backup.h"
 
 class MainWindow : public QMainWindow
 {
@@ -63,6 +64,10 @@ public slots:
     void onValidateBackup();
     void onBackupFailed();
 
+    void onNewBackup();
+    void onSelectBackup();
+    void onConfigure();
+
 protected:
     void closeEvent(QCloseEvent *event);
 
@@ -73,7 +78,7 @@ protected slots:
 private:
     void createActions();
     void createMenus();
-    void updateLatestLink(QString &absolutePath);
+    void updateLatestLink(QString absolutePath);
 
     QMenu   *backupMenu;
     QMenu   *helpMenu;
@@ -106,7 +111,7 @@ private:
     ProgressDialog       *m_progressValidateDialog;
     ProgressDialog       *m_progressVerifyDialog;
     Configuration        m_config;
-    QString              m_backupLocation;
+    Backup               m_currentBackup;
 };
 
 #endif // HEADER_MAINWINDOW_INC

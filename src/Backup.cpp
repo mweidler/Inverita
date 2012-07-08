@@ -37,6 +37,13 @@ Backup::Backup()
 }
 
 
+Backup::Backup(const QString &origin)
+{
+    m_isOpen = false;
+    m_encryption = Backup::NotEncrypted;
+    m_origin = origin;
+}
+
 /*! Destructor
  */
 Backup::~Backup()
@@ -78,13 +85,6 @@ QString Backup::location() const
 {
    return m_location;
 }
-
-// TODO: remove this method again
-void Backup::setLocation(const QString &location)
-{
-   m_location = location;
-}
-
 
 bool Backup::isOpen() const
 {
