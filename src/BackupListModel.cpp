@@ -56,22 +56,23 @@ QVariant BackupListModel::data(const QModelIndex &index, int role) const
 
     BackupEntry entry = this->at(index.row());
     switch (role) {
-      case Qt::DecorationRole:
-          return entry.encrypted ? QIcon::fromTheme("lock") : QIcon::fromTheme("folder");
-          break;
+        case Qt::DecorationRole:
+            return entry.encrypted ? QIcon::fromTheme("encrypted") : QIcon::fromTheme("folder");
+            break;
 
-      case Qt::DisplayRole:
-      case Qt::EditRole:
-          if (!entry.label.isEmpty()) {
-             return entry.label + " (" + entry.origin + ")";
-          }
-          return entry.origin;
-          break;
+        case Qt::DisplayRole:
+        case Qt::EditRole:
+            if (!entry.label.isEmpty()) {
+                return entry.origin + " (" + entry.label + ")";
+            }
+            return entry.origin;
+            break;
 
-      default:
-          return QVariant();
-          break;
+        default:
+            break;
     }
+
+    return QVariant();
 }
 
 

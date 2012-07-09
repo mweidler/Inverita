@@ -180,29 +180,19 @@ void MainWindow::about()
 
 void MainWindow::onBackupFailed()
 {
-    qDebug() << "onBackupFailed";
-    QString failure = m_backupEngine->failureHint();
+    QString msg = tr("A critical error during backup execution has occured:\n\n");
+    msg += m_backupEngine->failureHint() + "\n";
+    msg += tr("Make sure, you have proper privileges to write to the\n"
+              "backup medium. If this error occurs for the first time\n"
+              "on a long time used backup medium, please consider to\n"
+              "replace this medium with a new one.\n\n"
 
-    QString msg =
-        tr(
-            "A critical error during backup execution has occured:\n\n"
-        );
+              "Due to backup integrity, this backup snapshot with all\n"
+              "contained folders and files should be deleted manually.\n"
+              "Please try to solve the problem and restart the backup."
+             );
 
-    msg += failure;
-    msg += "\n";
-
-    msg += tr(
-               "Make sure, you have proper privileges to write to the\n"
-               "backup medium. If this error occurs for the first time\n"
-               "on a long time used backup medium, please consider to\n"
-               "replace this medium with a new one.\n\n"
-
-               "Due to backup integrity, this backup snapshot with all\n"
-               "contained folders and files should be deleted manually.\n"
-               "Please try to solve the problem and restart the backup."
-           );
-
-    QMessageBox::critical(0, tr("INVERITA execution error"), msg);
+    QMessageBox::critical(this, tr("Backup execution error"), msg);
 
     m_progressBackupDialog->hide();
     m_progressEraseDialog->hide();
@@ -236,20 +226,23 @@ void MainWindow::reload()
 
 void MainWindow::closeCurrentBackup()
 {
-    Backup::Status status = m_currentBackup.close();
-
-    if (status == Backup::Failed) {
+    while (m_currentBackup.close() == Backup::Failed) {
         QString msg = tr("The backup target can not be closed") + ":\n" +
-                      m_currentBackup.location() + "\n\n" +
+                      m_currentBackup.origin() + "\n\n" +
                       m_currentBackup.errorString() + "\n";
-        QMessageBox::critical(0, tr("Backup access error"), msg);
+        if (QMessageBox::critical(this, tr("Backup access error"), msg,
+                                  QMessageBox::Ignore | QMessageBox::Retry, QMessageBox::Retry) == QMessageBox::Ignore) {
+            break;
+        }
     }
 }
 
-void MainWindow::openCurrentBackup(BackupEntry entry)
+
+Backup::Status MainWindow::openCurrentBackup(BackupEntry entry)
 {
     Backup::Status status = Backup::Failed;
     m_currentBackup = Backup(entry.origin);
+    m_currentBackup.setLabel(entry.label);
 
     while (status != Backup::Success) {
         if (m_currentBackup.detectEncryption() != Backup::NotEncrypted) {
@@ -259,7 +252,7 @@ void MainWindow::openCurrentBackup(BackupEntry entry)
             passwordDialog.setPassword(currentPassword);
             passwordDialog.setRememberPassword(!currentPassword.isEmpty());
             if (passwordDialog.exec() == QDialog::Rejected) {
-                return;
+                break;
             }
 
             currentPassword = passwordDialog.password();
@@ -276,27 +269,32 @@ void MainWindow::openCurrentBackup(BackupEntry entry)
         }
 
         QString msg;
-        setCursor(Qt::WaitCursor);
+        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
         status = m_currentBackup.open();
-        setCursor(Qt::ArrowCursor);
-        switch (status) {
-            case Backup::CouldNotStarted:
-                msg = tr("Encryption software 'encfs' could not be started:\n\n") +
-                      "'" + m_currentBackup.errorString() + "'\n\n" +
-                      tr("Please verify, if 'encfs' is installed properly and try again.");
-                QMessageBox::critical(0, tr("Encryption software missing"), msg);
-                break;
-            case Backup::Failed:
-                msg = tr("The encrypted backup can not be accessed") + ":\n" +
-                      m_currentBackup.origin() + "\n\n" +
-                      m_currentBackup.errorString();
-                QMessageBox::critical(0, tr("Backup access error"), msg);
-                break;
+        QApplication::restoreOverrideCursor();
 
-            default:
+        if (status == Backup::CouldNotStarted) {
+            msg = tr("Encryption software 'encfs' could not be started:\n\n") +
+                  "'" + m_currentBackup.errorString() + "'\n\n" +
+                  tr("Please verify, if 'encfs' is installed properly and try again.");
+            if (QMessageBox::critical(this, tr("Encryption software missing"), msg,
+                                      QMessageBox::Cancel | QMessageBox::Retry, QMessageBox::Cancel) == QMessageBox::Cancel) {
                 break;
+            }
+        }
+
+        if (status == Backup::Failed) {
+            msg = tr("The encrypted backup can not be accessed") + ":\n" +
+                  m_currentBackup.origin() + "\n\n" +
+                  m_currentBackup.errorString();
+            if (QMessageBox::critical(this, tr("Backup access error"), msg,
+                                      QMessageBox::Cancel | QMessageBox::Retry, QMessageBox::Retry) == QMessageBox::Cancel) {
+                break;
+            }
         }
     }
+
+    return status;
 }
 
 
@@ -311,11 +309,9 @@ void MainWindow::onBackupSelected()
 
     if (entry.origin != m_currentBackup.origin()) {
         closeCurrentBackup();
-        openCurrentBackup(entry);
-        // TODO: if ( != Backup::Success) {
-        //    m_backupSelectorUI->select(-1);
-       // }
-        qDebug() << "Selected" << m_currentBackup.location();
+        if (openCurrentBackup(entry) != Backup::Success) {
+            m_backupSelectorUI->select(-1);
+        }
         reload();
     }
 }
@@ -413,16 +409,19 @@ void MainWindow::onMenuNewBackup()
     }
 
     BackupEntry entry;
+    entry.label = configDialog.label();
     entry.origin = configDialog.location();
     entry.encrypted = (int)Backup::detectEncryption(entry.origin);
     entry.password.clear();
 
     closeCurrentBackup();
-    openCurrentBackup(entry);
-    config.Save(m_currentBackup.location() + "/" + "inverita.conf");
-
-    int index = m_backupListModel->setEntry(entry);
-    m_backupSelectorUI->select(index); // causes a currentIndexChanged event
+    if (openCurrentBackup(entry) == Backup::Success) {
+        config.Save(m_currentBackup.location() + "/" + "inverita.conf");
+        int index = m_backupListModel->setEntry(entry);
+        m_backupSelectorUI->select(index); // causes a currentIndexChanged event
+    } else {
+        m_backupSelectorUI->select(-1);
+    }
 
     reload();
 }
@@ -460,28 +459,33 @@ void MainWindow::onConfigure()
 
     ConfigurationDialog configDialog(config, this);
     configDialog.setWindowTitle(tr("Configuring backup") + "' " + m_currentBackup.origin() + "'");
+    configDialog.setLabel(m_currentBackup.label());
     configDialog.setLocation(m_currentBackup.origin());
     if (configDialog.exec() != QDialog::Accepted) {
-       return;
-    }
-
-    QString newOrigin = configDialog.location();
-    if (m_currentBackup.origin() == newOrigin) {
-       config.Save(m_currentBackup.location() + "/" + "inverita.conf");
-       return;
+        return;
     }
 
     BackupEntry entry;
+    entry.label = configDialog.label();
     entry.origin = configDialog.location();
     entry.encrypted = (int)Backup::detectEncryption(entry.origin);
-    entry.password.clear();
+    entry.password = m_currentBackup.password();
+
+    QString newOrigin = configDialog.location();
+    if (m_currentBackup.origin() == newOrigin) {
+        config.Save(m_currentBackup.location() + "/" + "inverita.conf");
+        m_backupListModel->setEntry(entry);
+        return;
+    }
 
     closeCurrentBackup();
-    openCurrentBackup(entry);
-    config.Save(m_currentBackup.location() + "/" + "inverita.conf");
-
-    int index = m_backupListModel->setEntry(entry);
-    m_backupSelectorUI->select(index); // causes a currentIndexChanged event
+    if (openCurrentBackup(entry) == Backup::Success) {
+        config.Save(m_currentBackup.location() + "/" + "inverita.conf");
+        int index = m_backupListModel->setEntry(entry);
+        m_backupSelectorUI->select(index); // causes a currentIndexChanged event
+    } else {
+        m_backupSelectorUI->select(-1);
+    }
 
     reload();
 }

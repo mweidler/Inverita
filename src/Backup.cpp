@@ -51,6 +51,16 @@ Backup::~Backup()
 
 }
 
+QString Backup::label() const
+{
+    return m_label;
+}
+
+void Backup::setLabel(const QString &label)
+{
+    m_label = label;
+}
+
 QString Backup::origin() const
 {
     return m_origin;

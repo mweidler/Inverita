@@ -42,6 +42,8 @@ public:
 
     QString location() const;
     void setLocation(const QString &location);
+    QString label() const;
+    void setLabel(const QString &label);
 
 public slots:
     void onChangeButton();
@@ -56,6 +58,7 @@ private:
     QCheckBox     *m_limitBackups;
     QSpinBox      *m_numberBackups;
     QLineEdit     *m_targetEdit;
+    QLineEdit     *m_targetLabelEdit;
     QPushButton   *m_buttonChange;
     Configuration &m_config;
 };

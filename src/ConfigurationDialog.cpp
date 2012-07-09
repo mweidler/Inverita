@@ -39,6 +39,8 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
                                        "Your current backup target:<br>"
                                       ));
 
+    QLabel *targetLabelText = new QLabel(tr("Give your backup a short label, like 'home backup' or 'dropbox'."));
+
     QString includeText = tr("The list below defines the coverage of your backup. With each entry,<br>"
                              "you specify a directory that will be included in your backup,<br>"
                              "e.g. <i>/data</i> or <i>/home/user</i>");
@@ -52,9 +54,11 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     QLabel *seperator1 = new QLabel;
     QLabel *seperator2 = new QLabel;
     QLabel *seperator3 = new QLabel;
+    QLabel *seperator4 = new QLabel;
     seperator1->setFrameStyle(QFrame::HLine | QFrame::Sunken);
     seperator2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
     seperator3->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+    seperator4->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 
     QLabel *verifyText = new QLabel(tr("Backups can be verified after backup or on individual request."));
     m_verifyAfterBackup = new QCheckBox(tr("&Verify snapshot after each new creation"));
@@ -91,10 +95,18 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     locationLayout->addWidget(m_targetEdit);
     locationLayout->addWidget(m_buttonChange);
 
+    QHBoxLayout *targetLabelLayout = new QHBoxLayout;
+    m_targetLabelEdit = new QLineEdit();
+    targetLabelLayout->addWidget(new QLabel(tr("Label:")));
+    targetLabelLayout->addWidget(m_targetLabelEdit);
+
     QVBoxLayout *targetVLayout = new QVBoxLayout;
     targetVLayout->setAlignment(Qt::AlignTop);
     targetVLayout->addWidget(targetText);
     targetVLayout->addLayout(locationLayout);
+    targetVLayout->addWidget(seperator4);
+    targetVLayout->addWidget(targetLabelText);
+    targetVLayout->addLayout(targetLabelLayout);
 
     QPixmap pixmap(":/images/drive-icon.png");
     QLabel *labelImage = new QLabel;
@@ -175,6 +187,16 @@ QString ConfigurationDialog::location() const
 void ConfigurationDialog::setLocation(const QString &location)
 {
     m_targetEdit->setText(location);
+}
+
+QString ConfigurationDialog::label() const
+{
+    return m_targetLabelEdit->text();
+}
+
+void ConfigurationDialog::setLabel(const QString &label)
+{
+    m_targetLabelEdit->setText(label);
 }
 
 void ConfigurationDialog::onChangeButton()

@@ -72,7 +72,7 @@ protected:
     void closeEvent(QCloseEvent *event);
 
     void closeCurrentBackup();
-    void openCurrentBackup(BackupEntry entry);
+    Backup::Status openCurrentBackup(BackupEntry entry);
 
 protected slots:
     void cancelProgress();

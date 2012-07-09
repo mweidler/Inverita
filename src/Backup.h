@@ -44,6 +44,9 @@ public:
     Backup(const QString &origin);
     virtual ~Backup();
 
+    QString label() const;
+    void setLabel(const QString &label);
+
     QString origin() const;
     void setOrigin(const QString &origin);
 
@@ -69,6 +72,7 @@ private:
     QString findUsableMountPoint() const;
 
 private:
+    QString    m_label;
     QString    m_origin;
     QString    m_password;
     Encryption m_encryption;
