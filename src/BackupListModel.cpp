@@ -54,17 +54,26 @@ QVariant BackupListModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    if (role == Qt::DisplayRole || role == Qt::EditRole) {
-        BackupEntry entry = this->at(index.row());
-        QString content = entry.origin;
-        if (entry.encrypted) {
-            content += " (" + tr("encrypted") + ")";
-        }
-        return content;
-    } else {
-        return QVariant();
+    BackupEntry entry = this->at(index.row());
+    switch (role) {
+      case Qt::DecorationRole:
+          return entry.encrypted ? QIcon::fromTheme("lock") : QIcon::fromTheme("folder");
+          break;
+
+      case Qt::DisplayRole:
+      case Qt::EditRole:
+          if (!entry.label.isEmpty()) {
+             return entry.label + " (" + entry.origin + ")";
+          }
+          return entry.origin;
+          break;
+
+      default:
+          return QVariant();
+          break;
     }
 }
+
 
 int BackupListModel::rowCount(const QModelIndex & /*parent*/) const
 {
@@ -118,6 +127,7 @@ int BackupListModel::Load(const QString &organization)
     for (int i = 0; i < size; ++i) {
         settings.setArrayIndex(i);
         BackupEntry entry;
+        entry.label = settings.value("label").toString();
         entry.origin = settings.value("origin").toString();
         entry.encrypted = settings.value("encrypted").toInt();
         entry.password = settings.value("password").toString();
@@ -153,6 +163,7 @@ void BackupListModel::SaveAs(const QString &organization)
     for (int i = 0; i < this->size(); ++i) {
         const BackupEntry &entry = this->at(i);
         settings.setArrayIndex(i);
+        settings.setValue("label", entry.label);
         settings.setValue("origin", entry.origin);
         settings.setValue("encrypted", entry.encrypted);
         settings.setValue("password", entry.password);
