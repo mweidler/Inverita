@@ -63,6 +63,7 @@ public:
     bool isOpen() const;
 
     Encryption detectEncryption() const;
+    static Encryption detectEncryption(const QString &origin);
 
 private:
     QString findUsableMountPoint() const;

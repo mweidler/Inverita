@@ -53,12 +53,12 @@ Backup::~Backup()
 
 QString Backup::origin() const
 {
-   return m_origin;
+    return m_origin;
 }
 
 void Backup::setOrigin(const QString &origin)
 {
-   m_origin = origin;
+    m_origin = origin;
 }
 
 QString Backup::password() const
@@ -78,32 +78,39 @@ Backup::Encryption Backup::encryption() const
 
 void Backup::setEncryption(const Encryption encrypt)
 {
-   m_encryption = encrypt;
+    m_encryption = encrypt;
 }
 
 QString Backup::location() const
 {
-   return m_location;
+    return m_location;
 }
 
 bool Backup::isOpen() const
 {
-   return m_isOpen;
+    return m_isOpen;
 }
 
 QString Backup::errorString() const
 {
-   return m_errorString;
+    return m_errorString;
 }
 
 int Backup::error() const
 {
-   return m_rc;
+    return m_rc;
 }
+
 
 Backup::Encryption Backup::detectEncryption() const
 {
-    QDir dir(m_origin);
+    return detectEncryption(m_origin);
+}
+
+
+Backup::Encryption Backup::detectEncryption(const QString &origin)
+{
+    QDir dir(origin);
     dir.setFilter(QDir::Hidden | QDir::Files);
     QFileInfoList filelist = dir.entryInfoList();
 
@@ -164,8 +171,8 @@ Backup::Status Backup::open()
             m_rc = process.exitCode();
 
             if (m_rc != 0) {
-              dir.rmdir(m_location);
-              return Backup::Failed;
+                dir.rmdir(m_location);
+                return Backup::Failed;
             }
             break;
 
@@ -184,7 +191,7 @@ Backup::Status Backup::close()
     QDir dir;
 
     if (!isOpen()) {
-       return Backup::Success;
+        return Backup::Success;
     }
 
     switch (m_encryption) {
@@ -200,7 +207,7 @@ Backup::Status Backup::close()
             m_rc = process.exitCode();
 
             if (m_rc != 0) {
-               return Backup::Failed;
+                return Backup::Failed;
             }
 
             dir.rmdir(m_location);

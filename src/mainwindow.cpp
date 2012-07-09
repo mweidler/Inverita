@@ -238,10 +238,10 @@ void MainWindow::closeCurrentBackup()
 {
     Backup::Status status = m_currentBackup.close();
 
-    if ( status == Backup::Failed) {
+    if (status == Backup::Failed) {
         QString msg = tr("The backup target can not be closed") + ":\n" +
-                        m_currentBackup.location() + "\n\n" +
-                        m_currentBackup.errorString() + "\n";
+                      m_currentBackup.location() + "\n\n" +
+                      m_currentBackup.errorString() + "\n";
         QMessageBox::critical(0, tr("Backup access error"), msg);
     }
 }
@@ -252,7 +252,7 @@ void MainWindow::openCurrentBackup(BackupEntry entry)
     m_currentBackup = Backup(entry.origin);
 
     while (status != Backup::Success) {
-         if (m_currentBackup.detectEncryption() != Backup::NotEncrypted) {
+        if (m_currentBackup.detectEncryption() != Backup::NotEncrypted) {
 
             QString currentPassword = entry.password;
             PasswordDialog passwordDialog(this);
@@ -282,38 +282,39 @@ void MainWindow::openCurrentBackup(BackupEntry entry)
         switch (status) {
             case Backup::CouldNotStarted:
                 msg = tr("Encryption software 'encfs' could not be started:\n\n") +
-                         "'" + m_currentBackup.errorString() + "'\n\n" +
-                         tr("Please verify, if 'encfs' is installed properly and try again.");
+                      "'" + m_currentBackup.errorString() + "'\n\n" +
+                      tr("Please verify, if 'encfs' is installed properly and try again.");
                 QMessageBox::critical(0, tr("Encryption software missing"), msg);
                 break;
             case Backup::Failed:
                 msg = tr("The encrypted backup can not be accessed") + ":\n" +
-                         m_currentBackup.origin() + "\n\n" +
-                         m_currentBackup.errorString();
+                      m_currentBackup.origin() + "\n\n" +
+                      m_currentBackup.errorString();
                 QMessageBox::critical(0, tr("Backup access error"), msg);
                 break;
 
             default:
                 break;
-         }
+        }
     }
 }
 
 
 void MainWindow::onBackupSelected()
 {
-    qDebug() << "MainWindow::onBackupSelected()" << QThread::currentThreadId();
-
-    int idx = m_backupSelectorUI->currentSelection();
-    if (idx < 0) {
+    int selection = m_backupSelectorUI->currentSelection();
+    if (selection < 0) {
         return;
     }
 
-    BackupEntry entry = m_backupListModel->at(idx);
+    BackupEntry entry = m_backupListModel->at(selection);
 
     if (entry.origin != m_currentBackup.origin()) {
         closeCurrentBackup();
         openCurrentBackup(entry);
+        // TODO: if ( != Backup::Success) {
+        //    m_backupSelectorUI->select(-1);
+       // }
         qDebug() << "Selected" << m_currentBackup.location();
         reload();
     }
@@ -413,13 +414,8 @@ void MainWindow::onMenuNewBackup()
 
     BackupEntry entry;
     entry.origin = configDialog.location();
-    entry.encrypted = 0;
+    entry.encrypted = (int)Backup::detectEncryption(entry.origin);
     entry.password.clear();
-
-    Backup backup(entry.origin);
-    if (backup.detectEncryption() != Backup::NotEncrypted) {
-        entry.encrypted = 1;
-    }
 
     closeCurrentBackup();
     openCurrentBackup(entry);
@@ -448,14 +444,14 @@ void MainWindow::onMenuSelectBackup()
     entry.encrypted = 0;
     entry.password.clear();
 
-    Backup backup(entry.origin);
-    if (backup.detectEncryption() != Backup::NotEncrypted) {
+    if (Backup::detectEncryption(entry.origin) != Backup::NotEncrypted) {
         entry.encrypted = 1;
     }
 
     int index = m_backupListModel->setEntry(entry);
     m_backupSelectorUI->select(index); // causes a currentIndexChanged event
 }
+
 
 void MainWindow::onConfigure()
 {
@@ -465,11 +461,29 @@ void MainWindow::onConfigure()
     ConfigurationDialog configDialog(config, this);
     configDialog.setWindowTitle(tr("Configuring backup") + "' " + m_currentBackup.origin() + "'");
     configDialog.setLocation(m_currentBackup.origin());
-    if (configDialog.exec() == QDialog::Accepted) {
-        config.Save(m_currentBackup.location() + "/" + "inverita.conf");
+    if (configDialog.exec() != QDialog::Accepted) {
+       return;
     }
 
-    // TODO: handle changed location
+    QString newOrigin = configDialog.location();
+    if (m_currentBackup.origin() == newOrigin) {
+       config.Save(m_currentBackup.location() + "/" + "inverita.conf");
+       return;
+    }
+
+    BackupEntry entry;
+    entry.origin = configDialog.location();
+    entry.encrypted = (int)Backup::detectEncryption(entry.origin);
+    entry.password.clear();
+
+    closeCurrentBackup();
+    openCurrentBackup(entry);
+    config.Save(m_currentBackup.location() + "/" + "inverita.conf");
+
+    int index = m_backupListModel->setEntry(entry);
+    m_backupSelectorUI->select(index); // causes a currentIndexChanged event
+
+    reload();
 }
 
 
