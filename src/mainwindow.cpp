@@ -307,7 +307,7 @@ void MainWindow::onBackupSelected()
 
     BackupEntry entry = m_backupListModel->at(selection);
 
-    if (entry.origin != m_currentBackup.origin()) {
+    if (entry.origin != m_currentBackup.origin() || m_currentBackup.isOpen() == false) {
         closeCurrentBackup();
         if (openCurrentBackup(entry) != Backup::Success) {
             m_backupSelectorUI->select(-1);
