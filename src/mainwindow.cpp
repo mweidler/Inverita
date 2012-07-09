@@ -164,7 +164,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    m_currentBackup.close();
+    closeCurrentBackup();
     QMainWindow::closeEvent(event);
 }
 
@@ -234,74 +234,91 @@ void MainWindow::reload()
 }
 
 
+void MainWindow::closeCurrentBackup()
+{
+    Backup::Status status = m_currentBackup.close();
+
+    if ( status == Backup::Failed) {
+        QString msg = tr("The backup target can not be closed") + ":\n" +
+                        m_currentBackup.location() + "\n\n" +
+                        m_currentBackup.errorString() + "\n";
+        QMessageBox::critical(0, tr("Backup access error"), msg);
+    }
+}
+
+void MainWindow::openCurrentBackup(BackupEntry entry)
+{
+    Backup::Status status = Backup::Failed;
+    m_currentBackup = Backup(entry.origin);
+
+    while (status != Backup::Success) {
+         if (m_currentBackup.detectEncryption() != Backup::NotEncrypted) {
+
+            QString currentPassword = entry.password;
+            PasswordDialog passwordDialog(this);
+            passwordDialog.setPassword(currentPassword);
+            passwordDialog.setRememberPassword(!currentPassword.isEmpty());
+            if (passwordDialog.exec() == QDialog::Rejected) {
+                return;
+            }
+
+            currentPassword = passwordDialog.password();
+            if (passwordDialog.rememberPassword()) {
+                entry.password = currentPassword;
+            } else {
+                entry.password.clear();
+            }
+
+            m_currentBackup.setPassword(currentPassword);
+
+            entry.encrypted = 1;
+            m_backupListModel->setEntry(entry);
+        }
+
+        QString msg;
+        setCursor(Qt::WaitCursor);
+        status = m_currentBackup.open();
+        setCursor(Qt::ArrowCursor);
+        switch (status) {
+            case Backup::CouldNotStarted:
+                msg = tr("Encryption software 'encfs' could not be started:\n\n") +
+                         "'" + m_currentBackup.errorString() + "'\n\n" +
+                         tr("Please verify, if 'encfs' is installed properly and try again.");
+                QMessageBox::critical(0, tr("Encryption software missing"), msg);
+                break;
+            case Backup::Failed:
+                msg = tr("The encrypted backup can not be accessed") + ":\n" +
+                         m_currentBackup.origin() + "\n\n" +
+                         m_currentBackup.errorString();
+                QMessageBox::critical(0, tr("Backup access error"), msg);
+                break;
+
+            default:
+                break;
+         }
+    }
+}
+
+
 void MainWindow::onBackupSelected()
 {
     qDebug() << "MainWindow::onBackupSelected()" << QThread::currentThreadId();
 
     int idx = m_backupSelectorUI->currentSelection();
-    if (idx >= 0) {
-        BackupEntry entry = m_backupListModel->at(idx);
-        Backup::Status status = Backup::Failed;
-        if (m_currentBackup.close() == Backup::Failed) {
-            QString msg = tr("The backup target can not be closed") + ":\n" +
-                            m_currentBackup.location() + "\n\n" +
-                            m_currentBackup.errorString() + "\n";
-            QMessageBox::critical(0, tr("Backup access error"), msg);
-            return;
-        }
-
-        while (status != Backup::Success) {
-            m_currentBackup = Backup(entry.origin);
-            if (m_currentBackup.detectEncryption() != Backup::NotEncrypted) {
-
-                QString currentPassword = entry.password;
-                PasswordDialog passwordDialog(this);
-                passwordDialog.setPassword(currentPassword);
-                passwordDialog.setRememberPassword(!currentPassword.isEmpty());
-                if (passwordDialog.exec() == QDialog::Rejected) {
-                    return;
-                }
-
-                currentPassword = passwordDialog.password();
-                if (passwordDialog.rememberPassword()) {
-                    entry.password = currentPassword;
-                } else {
-                    entry.password.clear();
-                }
-
-                m_currentBackup.setPassword(currentPassword);
-
-                entry.encrypted = 1;
-                m_backupListModel->setEntry(entry);
-            }
-
-            QString msg;
-            setCursor(Qt::WaitCursor);
-            status = m_currentBackup.open();
-            setCursor(Qt::ArrowCursor);
-            switch (status) {
-                case Backup::CouldNotStarted:
-                    msg = tr("Encryption software 'encfs' could not be started:\n\n") +
-                             "'" + m_currentBackup.errorString() + "'\n\n" +
-                             tr("Please verify, if 'encfs' is installed properly and try again.");
-                    QMessageBox::critical(0, tr("Encryption software missing"), msg);
-                    break;
-                case Backup::Failed:
-                    msg = tr("The encrypted backup can not be accessed") + ":\n" +
-                             m_currentBackup.origin() + "\n\n" +
-                             m_currentBackup.errorString();
-                    QMessageBox::critical(0, tr("Backup access error"), msg);
-                    break;
-
-                default:
-                    break;
-             }
-        }
+    if (idx < 0) {
+        return;
     }
 
-    qDebug() << "Selected" << m_currentBackup.location();
-    reload();
+    BackupEntry entry = m_backupListModel->at(idx);
+
+    if (entry.origin != m_currentBackup.origin()) {
+        closeCurrentBackup();
+        openCurrentBackup(entry);
+        qDebug() << "Selected" << m_currentBackup.location();
+        reload();
+    }
 }
+
 
 void MainWindow::onStartBackup()
 {
@@ -385,7 +402,7 @@ void MainWindow::updateLatestLink(QString absolutePath)
 }
 
 
-void MainWindow::onNewBackup()
+void MainWindow::onMenuNewBackup()
 {
     Configuration config;
     ConfigurationDialog configDialog(config, this);
@@ -404,17 +421,18 @@ void MainWindow::onNewBackup()
         entry.encrypted = 1;
     }
 
-    // TODO this does not work, open encryption first
-    int index = m_backupListModel->setEntry(entry);
-    //mountEncfs(index);
-    config.Save(backup.location() + "/" + "inverita.conf");
-    //unmountEncfs();
+    closeCurrentBackup();
+    openCurrentBackup(entry);
+    config.Save(m_currentBackup.location() + "/" + "inverita.conf");
 
+    int index = m_backupListModel->setEntry(entry);
     m_backupSelectorUI->select(index); // causes a currentIndexChanged event
+
+    reload();
 }
 
 
-void MainWindow::onSelectBackup()
+void MainWindow::onMenuSelectBackup()
 {
     QFileDialog filedialog(this);
     filedialog.setWindowTitle(tr("Select an existing backup configuration..."));
@@ -446,10 +464,12 @@ void MainWindow::onConfigure()
 
     ConfigurationDialog configDialog(config, this);
     configDialog.setWindowTitle(tr("Configuring backup") + "' " + m_currentBackup.origin() + "'");
-    configDialog.setLocation(m_currentBackup.location());
+    configDialog.setLocation(m_currentBackup.origin());
     if (configDialog.exec() == QDialog::Accepted) {
         config.Save(m_currentBackup.location() + "/" + "inverita.conf");
     }
+
+    // TODO: handle changed location
 }
 
 
@@ -462,14 +482,14 @@ void MainWindow::createActions()
     createBackupAct->setIconVisibleInMenu(true);
     createBackupAct->setIcon(QIcon::fromTheme("document-new"));
     createBackupAct->setShortcut(Qt::ALT | Qt::Key_N);
-    connect(createBackupAct, SIGNAL(triggered()), this, SLOT(onNewBackup()));
+    connect(createBackupAct, SIGNAL(triggered()), this, SLOT(onMenuNewBackup()));
 
     selectBackupAct = new QAction(tr("Select existing backup..."), this);
     selectBackupAct->setStatusTip(tr("Select an existing backup configuration"));
     selectBackupAct->setIconVisibleInMenu(true);
     selectBackupAct->setIcon(QIcon::fromTheme("document-open"));
     selectBackupAct->setShortcut(Qt::ALT | Qt::Key_S);
-    connect(selectBackupAct, SIGNAL(triggered()), this, SLOT(onSelectBackup()));
+    connect(selectBackupAct, SIGNAL(triggered()), this, SLOT(onMenuSelectBackup()));
 
     exitAct = new QAction(tr("Exit"), this);
     exitAct->setStatusTip(tr("Exit application"));

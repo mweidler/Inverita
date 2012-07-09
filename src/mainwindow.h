@@ -64,12 +64,15 @@ public slots:
     void onValidateBackup();
     void onBackupFailed();
 
-    void onNewBackup();
-    void onSelectBackup();
+    void onMenuNewBackup();
+    void onMenuSelectBackup();
     void onConfigure();
 
 protected:
     void closeEvent(QCloseEvent *event);
+
+    void closeCurrentBackup();
+    void openCurrentBackup(BackupEntry entry);
 
 protected slots:
     void cancelProgress();
