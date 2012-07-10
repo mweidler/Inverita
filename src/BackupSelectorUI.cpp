@@ -70,9 +70,7 @@ BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QW
     mainlayout->addLayout(controlLayout);
     this->setLayout(mainlayout);
 
-    // TODO: backupSelected should have a "int" parameter of the index.
-    connect(m_choice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(backupSelected()));
-    // TODO: rename configure to configureBackup
+    connect(m_choice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(backupSelected(int)));
     connect(m_btnConf, SIGNAL(clicked()), this, SIGNAL(configure()));
 }
 

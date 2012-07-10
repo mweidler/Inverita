@@ -46,7 +46,7 @@ public:
     void setEnableConfiguration(bool enabled);
 
 signals:
-    void backupSelected();
+    void backupSelected(int selection);
     void configure();
 
 protected:

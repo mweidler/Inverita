@@ -102,7 +102,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_progressVerifyDialog = new ProgressDialog(m_verifyEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
     m_progressVerifyDialog->setWindowTitle(tr("Verifying latest backup..."));
 
-    connect(m_backupSelectorUI, SIGNAL(backupSelected()), this, SLOT(onBackupSelected()));
+    connect(m_backupSelectorUI, SIGNAL(backupSelected(int)), this, SLOT(onBackupSelected(int)));
     connect(m_backupSelectorUI, SIGNAL(configure()), this, SLOT(onConfigure()));
     connect(m_snapshotListUI, SIGNAL(reload()), this, SLOT(reload()));
     connect(m_snapshotListUI, SIGNAL(deleteBackup()), this, SLOT(onDeleteBackup()));
@@ -298,9 +298,8 @@ Backup::Status MainWindow::openCurrentBackup(BackupEntry entry)
 }
 
 
-void MainWindow::onBackupSelected()
+void MainWindow::onBackupSelected(int selection)
 {
-    int selection = m_backupSelectorUI->currentSelection();
     if (selection < 0) {
         return;
     }
