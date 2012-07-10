@@ -87,8 +87,7 @@ QWidget *ConfigurationDialog::constructTargetTab()
                                        "<u>Attention:</u> If you change an existing backup location to<br>"
                                        " another location, a new backup will be created on the new<br>"
                                        "location. Your existing backup and snapshots will not be<br>"
-                                       "copied to the new location and reside on the old location.<br><br><br>"
-                                       "Your current backup target:"
+                                       "copied to the new location and reside on the old location."
                                       ));
 
     QPixmap pixmap(":/images/drive-icon.png");
@@ -106,6 +105,10 @@ QWidget *ConfigurationDialog::constructTargetTab()
     locationLayout->addWidget(m_targetEdit);
     locationLayout->addWidget(m_buttonChange);
 
+    QVBoxLayout *targetLayout = new QVBoxLayout;
+    targetLayout->addWidget(new QLabel(tr("Your current backup target:")));
+    targetLayout->addLayout(locationLayout);
+
     QLabel *separator = new QLabel;
     separator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 
@@ -113,12 +116,13 @@ QWidget *ConfigurationDialog::constructTargetTab()
 
     QHBoxLayout *labelLayout = new QHBoxLayout;
     m_targetLabelEdit = new QLineEdit();
-    labelLayout->addWidget(new QLabel(tr("Label:")));
+    labelLayout->addWidget(new QLabel(tr("Backup label:")));
     labelLayout->addWidget(m_targetLabelEdit);
 
     QVBoxLayout *targetVLayout = new QVBoxLayout;
-    targetVLayout->addLayout(descriptionLayout);//TODO: check, if stretching makes sense here
-    targetVLayout->addLayout(locationLayout);
+    targetVLayout->addLayout(descriptionLayout);
+    targetVLayout->addSpacerItem(new QSpacerItem(0,20));
+    targetVLayout->addLayout(targetLayout);
     targetVLayout->addWidget(separator);
     targetVLayout->addWidget(labelText);
     targetVLayout->addLayout(labelLayout);

@@ -75,7 +75,7 @@ protected:
     Backup::Status openCurrentBackup(BackupEntry entry);
 
 protected slots:
-    void cancelProgress();
+    void abortProgress();
     void reload();
 
 private:
