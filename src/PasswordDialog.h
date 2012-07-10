@@ -42,6 +42,7 @@ public:
 
     QString password() const;
     void setPassword(const QString &password);
+
     bool rememberPassword() const;
     void setRememberPassword(bool checked);
 

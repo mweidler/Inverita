@@ -25,10 +25,10 @@
 #ifndef HEADER_SNAPSHOT_INC
 #define HEADER_SNAPSHOT_INC
 
-
 #include "SnapshotMetaInfo.h"
 
 #include <QDateTime>
+
 
 /*! Container class for storing snapshot data
  */
@@ -44,22 +44,22 @@ public:
     void reset();
 
     QDateTime modificationTime() const;
-    void  setModificationTime(QDateTime modificationTime);
+    void setModificationTime(const QDateTime &modificationTime);
 
     QString origin() const;
-    void  setOrigin(QString origin);
+    void setOrigin(const QString &origin);
 
     QString location() const;
-    void  setLocation(QString location);
+    void setLocation(const QString &location);
 
     QString name() const;
-    void  setName(QString name);
+    void setName(const QString &name);
 
     SnapshotStatus status() const;
-    void  setStatus(SnapshotStatus status);
+    void setStatus(SnapshotStatus status);
 
     SnapshotMetaInfo metaInfo() const;
-    void setMetaInfo(SnapshotMetaInfo &metainfo);
+    void setMetaInfo(const SnapshotMetaInfo &metainfo);
 
 protected:
     QDateTime        m_execution;

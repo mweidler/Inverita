@@ -336,8 +336,12 @@ void MainWindow::onBackupAborted()
 {
     qDebug() << "onBackupAborted";
     m_driveCapacityWatcher->setAutoDeleteEnabled(false);
+    reload();
 }
 
+// TODO: think of cancel- and abort-naming. Also in Progress dialog
+
+// TODO: check default button focus in ProgressDialog
 
 void MainWindow::cancelProgress()
 {

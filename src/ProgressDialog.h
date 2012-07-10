@@ -25,6 +25,8 @@
 #ifndef HEADER_PROGRESSDIALOG_INC
 #define HEADER_PROGRESSDIALOG_INC
 
+#include "WorkerEngine.h"
+
 #include <QDialog>
 #include <QProgressBar>
 #include <QLabel>
@@ -33,8 +35,6 @@
 #include <QDialogButtonBox>
 #include <QList>
 #include <QDateTime>
-
-#include "WorkerEngine.h"
 
 
 /*! Dialog class presenting progress information to the user
@@ -63,15 +63,16 @@ protected:
     void closeEvent(QCloseEvent *event);
 
 private:
-    WorkerEngine     *m_model;
-    QList<QLabel *>  m_labelList;
-    QProgressBar     *m_progressBar;
-    QLabel           *m_labelRemaining;
-    int              m_previousCurrentTask;
-    QTimer           *m_timer;
-    QTextEdit        *m_textArea;
-    QDialogButtonBox *m_buttonBox;
+    WorkerEngine        *m_model;
+    QProgressBar        *m_progressBar;
+    QLabel              *m_labelRemaining;
+    QTimer              *m_timer;
+    QTextEdit           *m_textArea;
+    QDialogButtonBox    *m_buttonBox;
+
     QList<WorkerStatus> m_statusHistory;
+    QList<QLabel *>     m_labelList;
+    int                 m_previousCurrentTask;
 };
 
 #endif

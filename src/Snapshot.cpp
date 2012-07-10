@@ -23,18 +23,26 @@
  */
 
 
-#include <QtCore>
+#include "Snapshot.h"
+
+// TODO: Optimize headers
+#include <QtCore> 
 #include <QString>
 #include <QStringList>
 
-#include "Snapshot.h"
 
-
+/*! Constructs a new snapshot object.
+ */
 Snapshot::Snapshot()
 {
     reset();
 }
 
+
+/*! Copy constructor: constructs a new snapshot object from another one.
+ *
+ * \param other the other snapshot object
+ */
 Snapshot::Snapshot(const Snapshot &other) : QObject()
 {
     m_execution = other.m_execution;
@@ -45,6 +53,11 @@ Snapshot::Snapshot(const Snapshot &other) : QObject()
     m_metaInfo = other.m_metaInfo;
 }
 
+
+/*! Assignment operator. Assigns the contents of the other object to this one.
+ *
+ * \param other the other snapshot object
+ */
 Snapshot &Snapshot::operator= (const Snapshot &other)
 {
     m_execution = other.m_execution;
@@ -57,6 +70,10 @@ Snapshot &Snapshot::operator= (const Snapshot &other)
     return *this;
 }
 
+
+/*! Reset all internal data structures. The object is now in the same state,
+ *  as if it has been just created.
+ */
 void Snapshot::reset()
 {
     m_execution = QDateTime::currentDateTime();
@@ -67,62 +84,107 @@ void Snapshot::reset()
     m_metaInfo.reset();
 }
 
+
+/*! \return the modification time of the snapshot
+ */
 QDateTime Snapshot::modificationTime() const
 {
     return m_execution;
 }
 
-void  Snapshot::setModificationTime(QDateTime modificationTime)
+
+void  Snapshot::setModificationTime(const QDateTime &modificationTime)
 {
     m_execution = modificationTime;
 }
 
+
+/*! \return the origin (location on physical storage) of the snapshot
+ */
 QString Snapshot::origin() const
 {
     return m_origin;
 }
 
-void  Snapshot::setOrigin(QString origin)
+
+/*! Set the origin (location on physical storage) of the snapshot
+ *
+ * \param origin the origin to be set to the snapshot
+ */
+void  Snapshot::setOrigin(const QString &origin)
 {
     m_origin = origin;
 }
 
+
+/*! \return the location (logical location, can me mapped through encryption) of the snapshot
+ */
 QString Snapshot::location() const
 {
     return m_location;
 }
 
-void Snapshot::setLocation(QString location)
+
+/*! Set the location of the snapshot
+ *
+ * \param location the location to be set to the snapshot
+ */
+void Snapshot::setLocation(const QString &location)
 {
     m_location = location;
 }
 
+
+/*! \return the name of the snapshot. This is usually the directory name of the snapshot on the drive.
+ */
 QString Snapshot::name() const
 {
     return m_name;
 }
 
-void  Snapshot::setName(QString name)
+
+/*! Set the name of the snapshot
+ *
+ * \param name the name to be set to the snapshot
+ */
+void  Snapshot::setName(const QString &name)
 {
     m_name = name;
 }
 
+
+/*! \return the status of the snapshot (valid, invalid, ...)
+ */
 Snapshot::SnapshotStatus Snapshot::status() const
 {
     return m_status;
 }
 
+
+/*! Set the status of the snapshot
+ *
+ * \param status the snapshot status to be set to the snapshot
+ */
 void  Snapshot::setStatus(SnapshotStatus status)
 {
     m_status = status;
 }
 
+
+/*! \return the meta info of the snapshot (see SnapshotMetaInfo for details)
+ */
 SnapshotMetaInfo Snapshot::metaInfo() const
 {
     return m_metaInfo;
 }
 
-void Snapshot::setMetaInfo(SnapshotMetaInfo &metainfo)
+
+/*! Set the meta info of the snapshot
+ *
+ * \param metainfo the metainfo to be set to the snapshot
+ */
+void Snapshot::setMetaInfo(const SnapshotMetaInfo &metainfo)
 {
     m_metaInfo = metainfo;
 }
+

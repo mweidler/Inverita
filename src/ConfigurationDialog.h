@@ -25,13 +25,18 @@
 #ifndef HEADER_CONFIGURATIONDIALOG_INC
 #define HEADER_CONFIGURATIONDIALOG_INC
 
+#include "Configuration.h"
+
 #include <QDialog>
 #include <QCheckBox>
 #include <QSpinBox>
 
-#include "Configuration.h"
 
-
+/*! Configuration dialog for setting various backup parameters, like
+ *  - location and label
+ *  - includes and exludes
+ *  - options
+ */
 class ConfigurationDialog : public QDialog
 {
     Q_OBJECT

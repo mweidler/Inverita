@@ -30,8 +30,8 @@
 #include <QComboBox>
 #include <QPushButton>
 
-/*!
- * Create a new BackupSelectorUI component with GUI elements
+
+/*! Create a new BackupSelectorUI component with GUI elements
  */
 class BackupSelectorUI : public QWidget
 {

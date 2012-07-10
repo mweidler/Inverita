@@ -23,15 +23,17 @@
  */
 
 
+#include "SignatureMap.h"
+
+// TODO: check includes
 #include <QtCore>
 #include <QFile>
 
-#include "SignatureMap.h"
+// TODO: is include really needed?
 #include "Utilities.h"
 
 
-
-/*! Default constructor
+/*! Constructs a new signature map object
  */
 SignatureMap::SignatureMap()
 {
@@ -39,18 +41,24 @@ SignatureMap::SignatureMap()
 }
 
 
-void SignatureMap::Load(QString filename)
+/*! Load the contents of an signature file
+ *
+ * \param filename the filename of the signature file to load
+ *
+ * \return true, if successful loaded contents from file, otherwise false
+ */
+bool SignatureMap::Load(const QString &filename)
 {
     this->clear();
 
     QFile file(filename);
     int success = file.open(QIODevice::ReadOnly);
     if (!success) {
-        return;
+        return false;
     }
 
     for (;;) {
-        QByteArray line = file.readLine();
+        QByteArray line = file.readLine();  // TODO: check from UTF8?
         if (line.size() == 0) {
             break;
         }
@@ -70,12 +78,21 @@ void SignatureMap::Load(QString filename)
 
         this->insert(path, hash);
     }
+
+    return true;
 }
 
 
-void SignatureMap::Save(QString filename)
+/*! Saved the contents of this signature map to a signature file.
+ *
+ * \param filename the filename of the signature file to save
+ *
+ * \return true, if successful saved contents to file, otherwise false
+ */
+bool SignatureMap::Save(const QString &filename) const
 {
     QFile target(filename);
+
     int success = target.open(QIODevice::WriteOnly);
     if (success) {
         SignatureMapIterator iter(*this);
@@ -83,9 +100,11 @@ void SignatureMap::Save(QString filename)
             iter.next();
             target.write(iter.value());
             target.write(" *");   // binary flag
-            target.write(iter.key().toAscii());
+            target.write(iter.key().toAscii()); // TODO: check if better UTF8?
             target.write("\n");
         }
     }
+
+    return success;
 }
 

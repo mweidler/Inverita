@@ -33,15 +33,20 @@
 typedef QHash<QString, QByteArray> Signature;
 typedef QHashIterator<QString, QByteArray> SignatureMapIterator;
 
-/*!
+
+/*! Signature container
+ *
+ * The signature is compatible to a FIPS-180-1 compliant SHA-1 implementation.
+ * This means, that the signatures can be validated by common standard tools,
+ * e.g. sha1sum -c <signaturefile>.
  */
 class SignatureMap : public Signature
 {
 public:
     SignatureMap();
 
-    void Load(QString filename);
-    void Save(QString filename);
+    bool Load(const QString &filename);
+    bool Save(const QString &filename) const;
 
 protected:
 };

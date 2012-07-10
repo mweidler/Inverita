@@ -24,6 +24,7 @@
 
 #include "ProgressDialog.h"
 
+// TODO: optimize includes
 #include <QtCore>
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -130,7 +131,7 @@ void ProgressDialog::display(QString message)
 }
 
 
-/*! Sigals the user, that the job has finished and the dialog can be closed by the user.
+/*! Signals the user, that the job has finished and the dialog can be closed by the user.
  */
 void ProgressDialog::finalize()
 {
@@ -143,6 +144,10 @@ void ProgressDialog::finalize()
 }
 
 
+/*! Is called, if the dialog is shown to the user
+ *
+ * \param event the show event
+ */
 void ProgressDialog::showEvent(QShowEvent *event)
 {
     m_buttonBox->button(QDialogButtonBox::Ok)->hide();
@@ -157,6 +162,10 @@ void ProgressDialog::showEvent(QShowEvent *event)
 }
 
 
+/*! Is called, if the dialog is about to close
+ *
+ * \param event the close event
+ */
 void ProgressDialog::closeEvent(QCloseEvent *event)
 {
     m_timer->stop();
@@ -164,7 +173,7 @@ void ProgressDialog::closeEvent(QCloseEvent *event)
 }
 
 
-/*! Update infos in the progress dialog.
+/*! Update infos in the progress dialog
  */
 void ProgressDialog::update()
 {

@@ -24,14 +24,15 @@
 
 
 #include "BackupSelectorUI.h"
-#include "ConfigurationDialog.h"
-#include "PasswordDialog.h"
 
 #include <QLabel>
 #include <QBoxLayout>
 
 
 /*! Create a new BackupSelectorUI component with GUI elements
+ *
+ * \param model the underlying backup list model (displayed in combobox)
+ * \param parent the parent GUI element of this widget
  */
 BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QWidget(parent)
 {
@@ -40,10 +41,10 @@ BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QW
     m_choice->setModel(model);
     m_choice->setCurrentIndex(-1);
 
-    QLabel *labelCurrentBackup = new QLabel(tr("Select your backup (target and configuration) you want to work with or<br>"
-                                            "open an existing backup or create a new backup from the menu.") + "<br><br>" +
-                                            tr("Your current backup target:")
-                                           );
+    QLabel *description = new QLabel(tr("Select your backup (target and configuration) you want to work with or<br>"
+                                        "open an existing backup or create a new backup from the menu.") + "<br><br>" +
+                                     tr("Your current backup target:")
+                                    );
 
     m_btnConf = new QPushButton(tr("Configure"));
     m_btnConf->setIcon(QIcon::fromTheme("preferences-desktop"));
@@ -55,7 +56,7 @@ BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QW
 
     QVBoxLayout *controlLayout = new QVBoxLayout;
     controlLayout->setAlignment(Qt::AlignCenter);
-    controlLayout->addWidget(labelCurrentBackup);
+    controlLayout->addWidget(description);
     controlLayout->addLayout(choiceLayout);
 
     QPixmap pixmap(":/images/backup-icon.png");
@@ -63,34 +64,49 @@ BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QW
     QLabel *labelImage = new QLabel;
     labelImage->setPixmap(pixmap);
 
-    QHBoxLayout *hboxlayout = new QHBoxLayout;
-    hboxlayout->addWidget(labelImage);
-    hboxlayout->addSpacerItem(new QSpacerItem(20, 0));
-    hboxlayout->addLayout(controlLayout);
-    this->setLayout(hboxlayout);
+    QHBoxLayout *mainlayout = new QHBoxLayout;
+    mainlayout->addWidget(labelImage);
+    mainlayout->addSpacerItem(new QSpacerItem(20, 0));
+    mainlayout->addLayout(controlLayout);
+    this->setLayout(mainlayout);
 
+    // TODO: backupSelected should have a "int" parameter of the index.
     connect(m_choice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(backupSelected()));
+    // TODO: rename configure to configureBackup
     connect(m_btnConf, SIGNAL(clicked()), this, SIGNAL(configure()));
 }
 
+
+/*! Destructor
+ */
 BackupSelectorUI::~BackupSelectorUI()
 {
 
 }
 
 
+/*! Select the given index in the combobox selector.
+ *
+ * This forces a currentIndexChanged event and results in reload of whole parameters.
+ */
 void BackupSelectorUI::select(int index)
 {
     return m_choice->setCurrentIndex(index);
 }
 
 
+/*! \return the index of the current selection in the combobox
+ */
 int BackupSelectorUI::currentSelection()
 {
     return m_choice->currentIndex();
 }
 
 
+/*! Controls if the config button is enabled and the user can configure the backup.
+ *
+ * The button should only be enabled, if a valid backup is opened.
+ */
 void BackupSelectorUI::setEnableConfiguration(bool enabled)
 {
     m_btnConf->setEnabled(enabled);

@@ -27,6 +27,8 @@
 #include "ConfigurationListUI.h"
 
 
+/*! Constructs a new configuration dialog object.
+ */
 ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) : QDialog(parent), m_config(model)
 {
     QTabWidget *tabWidget = new QTabWidget(parent);
@@ -48,6 +50,8 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     layout->addWidget(buttonBox);
     this->setLayout(layout);
 
+    buttonBox->button(QDialogButtonBox::Save)->setAutoDefault(true);
+    buttonBox->button(QDialogButtonBox::Save)->setDefault(true);
     m_verifyAfterBackup->setChecked(m_config.verifyAfterBackup());
     m_verifyHash->setChecked(m_config.verifyHash());
     m_verifyDate->setChecked(m_config.verifyTime());
@@ -64,12 +68,17 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     resize(620, 480);
 }
 
+
+/*! Destructor
+ */
 ConfigurationDialog::~ConfigurationDialog()
 {
 
 }
 
 
+/*! Construct the configuration tab for target configuration.
+ */
 QWidget *ConfigurationDialog::constructTargetTab()
 {
     QLabel *targetText = new QLabel(tr("The backup target specifies the location, where the backup<br>"
@@ -97,60 +106,64 @@ QWidget *ConfigurationDialog::constructTargetTab()
     locationLayout->addWidget(m_targetEdit);
     locationLayout->addWidget(m_buttonChange);
 
-    QLabel *seperator = new QLabel;
-    seperator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+    QLabel *separator = new QLabel;
+    separator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 
-    QLabel *labelText = new QLabel(tr("Give your backup a short label, like 'home backup' or 'dropbox'."));
+    QLabel *labelText = new QLabel(tr("You can give your backup a short label, like 'home backup' or 'dropbox'."));
 
     QHBoxLayout *labelLayout = new QHBoxLayout;
     m_targetLabelEdit = new QLineEdit();
     labelLayout->addWidget(new QLabel(tr("Label:")));
     labelLayout->addWidget(m_targetLabelEdit);
 
-    QWidget *pageTarget = new QWidget();
     QVBoxLayout *targetVLayout = new QVBoxLayout;
-    targetVLayout->addLayout(descriptionLayout);
+    targetVLayout->addLayout(descriptionLayout);//TODO: check, if stretching makes sense here
     targetVLayout->addLayout(locationLayout);
-    targetVLayout->addWidget(seperator);
+    targetVLayout->addWidget(separator);
     targetVLayout->addWidget(labelText);
     targetVLayout->addLayout(labelLayout);
+
+    QWidget *pageTarget = new QWidget();
     pageTarget->setLayout(targetVLayout);
 
     return pageTarget;
 }
 
+
+/*! Construct the configuration tab for includes configuration.
+ */
 QWidget *ConfigurationDialog::constructIncludesTab()
 {
-    QString includeText = tr("The list below defines the coverage of your backup. With each entry,<br>"
+    QString description = tr("The list below defines the coverage of your backup. With each entry,<br>"
                              "you specify a directory that will be included in your backup,<br>"
                              "e.g. <i>/data</i> or <i>/home/user</i>");
 
-    ConfigurationListUI *includeListUI = new ConfigurationListUI(m_config.GetIncludes(), ConfigurationListUI::DIRECTORY, includeText, this);
-
-    return includeListUI;
-
+    return new ConfigurationListUI(m_config.GetIncludes(), ConfigurationListUI::DIRECTORY, description, this);
 }
 
+
+/*! Construct the configuration tab for excludes configuration.
+ */
 QWidget *ConfigurationDialog::constructExcludesTab()
 {
-    QString excludeText = tr("The patterns below specify all files/directories that will be excluded from<br>"
+    QString description = tr("The patterns below specify all files/directories that will be excluded from<br>"
                              "the backup, e.g. <i>/data/temp</i> will exclude the whole directrory,<br>"
                              "<i>test*</i> will exclude all files beginning with 'test'");
 
-    ConfigurationListUI *excludeListUI = new ConfigurationListUI(m_config.GetExcludes(), ConfigurationListUI::PATTERN,   excludeText, this);
-
-    return excludeListUI;
+    return new ConfigurationListUI(m_config.GetExcludes(), ConfigurationListUI::PATTERN, description, this);
 }
 
 
+/*! Construct the configuration tab for options configuration.
+ */
 QWidget *ConfigurationDialog::constructOptionsTab()
 {
-    QLabel *seperator1 = new QLabel;
-    QLabel *seperator2 = new QLabel;
-    QLabel *seperator3 = new QLabel;
-    seperator1->setFrameStyle(QFrame::HLine | QFrame::Sunken);
-    seperator2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
-    seperator3->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+    QLabel *separator1 = new QLabel;
+    QLabel *separator2 = new QLabel;
+    QLabel *separator3 = new QLabel;
+    separator1->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+    separator2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+    separator3->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 
     QLabel *verifyText = new QLabel(tr("Backups can be verified after backup or on individual request."));
     m_verifyAfterBackup = new QCheckBox(tr("&Verify snapshot after each new creation"));
@@ -180,45 +193,64 @@ QWidget *ConfigurationDialog::constructOptionsTab()
     limitLayout->addWidget(m_numberBackups);
     limitLayout->addWidget(trailingText);
 
-
-    QWidget *pageOptions = new QWidget;
     QVBoxLayout *optionsLayout = new QVBoxLayout;
     optionsLayout->addWidget(verifyText);
     optionsLayout->addWidget(m_verifyAfterBackup);
-    optionsLayout->addWidget(seperator1);
+    optionsLayout->addWidget(separator1);
     optionsLayout->addWidget(verifyLabel);
     optionsLayout->addLayout(verifyLayout);
-    optionsLayout->addWidget(seperator2);
+    optionsLayout->addWidget(separator2);
     optionsLayout->addWidget(purgeText);
     optionsLayout->addWidget(m_purgeBackups);
-    optionsLayout->addWidget(seperator3);
+    optionsLayout->addWidget(separator3);
     optionsLayout->addWidget(limitText);
     optionsLayout->addLayout(limitLayout);
+
+    QWidget *pageOptions = new QWidget;
     pageOptions->setLayout(optionsLayout);
 
     return pageOptions;
 }
 
+
+/*! \returns the location entered in the location edit field.
+ */
 QString ConfigurationDialog::location() const
 {
     return m_targetEdit->text();
 }
 
+
+/*! Sets the given location to the location edit field.
+ *
+ * \param location the new location to be set into the edit field
+ */
 void ConfigurationDialog::setLocation(const QString &location)
 {
     m_targetEdit->setText(location);
 }
 
+
+/*! \returns the label entered in the label edit field.
+ */
 QString ConfigurationDialog::label() const
 {
     return m_targetLabelEdit->text();
 }
 
+
+/*! Sets the given label to the label edit field.
+ *
+ * \param label the new label to be set into the edit field
+ */
 void ConfigurationDialog::setLabel(const QString &label)
 {
     m_targetLabelEdit->setText(label);
 }
 
+
+/*! Is called when the user presses the change "location button" on the target tab.
+ */
 void ConfigurationDialog::onChangeButton()
 {
     QFileDialog filedialog(this);
@@ -235,6 +267,8 @@ void ConfigurationDialog::onChangeButton()
 }
 
 
+/*! Is called when the user presses the change "Save button" of this dialog.
+ */
 void ConfigurationDialog::onSave()
 {
     if (!QFile::exists(location())) {

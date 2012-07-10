@@ -50,7 +50,7 @@ PasswordDialog::PasswordDialog(QWidget *parent) : QDialog(parent)
     descriptionLayout->addWidget(labelDescription);
 
     m_passwordEdit = new QLineEdit();
-    m_showPassword = new QCheckBox(tr("Show password"));
+    m_showPassword = new QCheckBox(tr("Show password unmasked"));
     m_rememberPassword = new QCheckBox(tr("Remember password"));
 
     QHBoxLayout *passwordLayout = new QHBoxLayout;
