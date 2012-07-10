@@ -50,6 +50,12 @@ public slots:
     void onSave();
 
 private:
+    QWidget *constructTargetTab();
+    QWidget *constructIncludesTab();
+    QWidget *constructExcludesTab();
+    QWidget *constructOptionsTab();
+
+private:
     QCheckBox     *m_verifyAfterBackup;
     QCheckBox     *m_verifyHash;
     QCheckBox     *m_verifyDate;

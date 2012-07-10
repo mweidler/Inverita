@@ -29,121 +29,11 @@
 
 ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) : QDialog(parent), m_config(model)
 {
-    QLabel *targetText = new QLabel(tr("The backup target specifies the location, where the backup<br>"
-                                       "data will be stored on. This can be any path mounted on<br>"
-                                       "your computer, e.g. <i>/media/usbdrive</i> or <i>/data/backup</i><br><br>"
-                                       "<u>Attention:</u> If you change an existing backup location to<br>"
-                                       " another location, a new backup will be created on the new<br>"
-                                       "location. Your existing backup and snapshots will not be<br>"
-                                       "copied to the new location and reside on the old location.<br><br><br>"
-                                       "Your current backup target:<br>"
-                                      ));
-
-    QLabel *targetLabelText = new QLabel(tr("Give your backup a short label, like 'home backup' or 'dropbox'."));
-
-    QString includeText = tr("The list below defines the coverage of your backup. With each entry,<br>"
-                             "you specify a directory that will be included in your backup,<br>"
-                             "e.g. <i>/data</i> or <i>/home/user</i>");
-    QString excludeText = tr("The patterns below specify all files/directories that will be excluded from<br>"
-                             "the backup, e.g. <i>/data/temp</i> will exclude the whole directrory,<br>"
-                             "<i>test*</i> will exclude all files beginning with 'test'");
-
-    ConfigurationListUI *includeListUI = new ConfigurationListUI(m_config.GetIncludes(), ConfigurationListUI::DIRECTORY, includeText, this);
-    ConfigurationListUI *excludeListUI = new ConfigurationListUI(m_config.GetExcludes(), ConfigurationListUI::PATTERN,   excludeText, this);
-
-    QLabel *seperator1 = new QLabel;
-    QLabel *seperator2 = new QLabel;
-    QLabel *seperator3 = new QLabel;
-    QLabel *seperator4 = new QLabel;
-    seperator1->setFrameStyle(QFrame::HLine | QFrame::Sunken);
-    seperator2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
-    seperator3->setFrameStyle(QFrame::HLine | QFrame::Sunken);
-    seperator4->setFrameStyle(QFrame::HLine | QFrame::Sunken);
-
-    QLabel *verifyText = new QLabel(tr("Backups can be verified after backup or on individual request."));
-    m_verifyAfterBackup = new QCheckBox(tr("&Verify snapshot after each new creation"));
-    QLabel *verifyLabel = new QLabel(tr("On verification, verify backup snapshot including..."));
-
-    QVBoxLayout *verifyLayout = new QVBoxLayout;
-    verifyLayout->setContentsMargins(50, 0, 0, 0);
-    m_verifyHash = new QCheckBox(tr("Content checksum (SHA1 hash)"));
-    m_verifyDate = new QCheckBox(tr("Date and time"));
-    m_verifySize = new QCheckBox(tr("File size"));
-    verifyLayout->addWidget(m_verifyHash);
-    verifyLayout->addWidget(m_verifyDate);
-    verifyLayout->addWidget(m_verifySize);
-
-    QLabel *purgeText = new QLabel(tr("On low drive space, the oldest backups can be deleted automatically."));
-    m_purgeBackups = new QCheckBox(tr("&Delete oldest backups on low drive space"));
-
-    QLabel *limitText = new QLabel(tr("The number of historical backups can be limited."));
-    QHBoxLayout *limitLayout = new QHBoxLayout;
-    m_limitBackups = new QCheckBox(tr("&Keep up to"));
-    m_numberBackups = new QSpinBox;
-    m_numberBackups->setMaximum(50);
-    m_numberBackups->setMinimum(1);
-    QLabel *trailingText = new QLabel(tr("previous backups"));
-    limitLayout->setAlignment(Qt::AlignLeft);
-    limitLayout->addWidget(m_limitBackups);
-    limitLayout->addWidget(m_numberBackups);
-    limitLayout->addWidget(trailingText);
-
-    QHBoxLayout *locationLayout = new QHBoxLayout;
-    m_targetEdit = new QLineEdit();
-    m_buttonChange = new QPushButton(tr("Change"));
-    m_buttonChange->setIcon(QIcon::fromTheme("fileopen"));
-    locationLayout->addWidget(m_targetEdit);
-    locationLayout->addWidget(m_buttonChange);
-
-    QHBoxLayout *targetLabelLayout = new QHBoxLayout;
-    m_targetLabelEdit = new QLineEdit();
-    targetLabelLayout->addWidget(new QLabel(tr("Label:")));
-    targetLabelLayout->addWidget(m_targetLabelEdit);
-
-    QVBoxLayout *targetVLayout = new QVBoxLayout;
-    targetVLayout->setAlignment(Qt::AlignTop);
-    targetVLayout->addWidget(targetText);
-    targetVLayout->addLayout(locationLayout);
-    targetVLayout->addWidget(seperator4);
-    targetVLayout->addWidget(targetLabelText);
-    targetVLayout->addLayout(targetLabelLayout);
-
-    QPixmap pixmap(":/images/drive-icon.png");
-    QLabel *labelImage = new QLabel;
-    labelImage->setPixmap(pixmap);
-    QVBoxLayout *labelLayout = new QVBoxLayout;
-    labelLayout->setAlignment(Qt::AlignTop);
-    labelLayout->addWidget(labelImage);
-
-    QWidget *pageTarget = new QWidget;
-    QHBoxLayout *targetLayout = new QHBoxLayout;
-    targetLayout->setAlignment(Qt::AlignTop);
-    targetLayout->addLayout(targetVLayout);
-    targetLayout->addLayout(labelLayout);
-    pageTarget->setLayout(targetLayout);
-
-
-    QWidget *pageOptions = new QWidget;
-    QVBoxLayout *optionsLayout = new QVBoxLayout;
-    optionsLayout->addWidget(verifyText);
-    optionsLayout->addWidget(m_verifyAfterBackup);
-    optionsLayout->addWidget(seperator1);
-    optionsLayout->addWidget(verifyLabel);
-    optionsLayout->addLayout(verifyLayout);
-    optionsLayout->addWidget(seperator2);
-    optionsLayout->addWidget(purgeText);
-    optionsLayout->addWidget(m_purgeBackups);
-    optionsLayout->addWidget(seperator3);
-    optionsLayout->addWidget(limitText);
-    optionsLayout->addLayout(limitLayout);
-    pageOptions->setLayout(optionsLayout);
-
-    // create the final tab
     QTabWidget *tabWidget = new QTabWidget(parent);
-    tabWidget->addTab(pageTarget, tr("Target"));
-    tabWidget->addTab(includeListUI, tr("Includes"));
-    tabWidget->addTab(excludeListUI, tr("Excludes"));
-    tabWidget->addTab(pageOptions, tr("Options"));
+    tabWidget->addTab(constructTargetTab(), tr("Target"));
+    tabWidget->addTab(constructIncludesTab(), tr("Includes"));
+    tabWidget->addTab(constructExcludesTab(), tr("Excludes"));
+    tabWidget->addTab(constructOptionsTab(), tr("Options"));
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox();
     buttonBox->addButton(QDialogButtonBox::Save);
@@ -177,6 +67,136 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
 ConfigurationDialog::~ConfigurationDialog()
 {
 
+}
+
+
+QWidget *ConfigurationDialog::constructTargetTab()
+{
+    QLabel *targetText = new QLabel(tr("The backup target specifies the location, where the backup<br>"
+                                       "data will be stored on. This can be any path mounted on<br>"
+                                       "your computer, e.g. <i>/media/usbdrive</i> or <i>/data/backup</i><br><br>"
+                                       "<u>Attention:</u> If you change an existing backup location to<br>"
+                                       " another location, a new backup will be created on the new<br>"
+                                       "location. Your existing backup and snapshots will not be<br>"
+                                       "copied to the new location and reside on the old location.<br><br><br>"
+                                       "Your current backup target:"
+                                      ));
+
+    QPixmap pixmap(":/images/drive-icon.png");
+    QLabel *labelImage = new QLabel;
+    labelImage->setPixmap(pixmap);
+
+    QHBoxLayout *descriptionLayout = new QHBoxLayout;
+    descriptionLayout->addWidget(targetText);
+    descriptionLayout->addWidget(labelImage, 1, Qt::AlignRight | Qt::AlignTop);
+
+    QHBoxLayout *locationLayout = new QHBoxLayout;
+    m_targetEdit = new QLineEdit();
+    m_buttonChange = new QPushButton(tr("Change"));
+    m_buttonChange->setIcon(QIcon::fromTheme("fileopen"));
+    locationLayout->addWidget(m_targetEdit);
+    locationLayout->addWidget(m_buttonChange);
+
+    QLabel *seperator = new QLabel;
+    seperator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+
+    QLabel *labelText = new QLabel(tr("Give your backup a short label, like 'home backup' or 'dropbox'."));
+
+    QHBoxLayout *labelLayout = new QHBoxLayout;
+    m_targetLabelEdit = new QLineEdit();
+    labelLayout->addWidget(new QLabel(tr("Label:")));
+    labelLayout->addWidget(m_targetLabelEdit);
+
+    QWidget *pageTarget = new QWidget();
+    QVBoxLayout *targetVLayout = new QVBoxLayout;
+    targetVLayout->addLayout(descriptionLayout);
+    targetVLayout->addLayout(locationLayout);
+    targetVLayout->addWidget(seperator);
+    targetVLayout->addWidget(labelText);
+    targetVLayout->addLayout(labelLayout);
+    pageTarget->setLayout(targetVLayout);
+
+    return pageTarget;
+}
+
+QWidget *ConfigurationDialog::constructIncludesTab()
+{
+    QString includeText = tr("The list below defines the coverage of your backup. With each entry,<br>"
+                             "you specify a directory that will be included in your backup,<br>"
+                             "e.g. <i>/data</i> or <i>/home/user</i>");
+
+    ConfigurationListUI *includeListUI = new ConfigurationListUI(m_config.GetIncludes(), ConfigurationListUI::DIRECTORY, includeText, this);
+
+    return includeListUI;
+
+}
+
+QWidget *ConfigurationDialog::constructExcludesTab()
+{
+    QString excludeText = tr("The patterns below specify all files/directories that will be excluded from<br>"
+                             "the backup, e.g. <i>/data/temp</i> will exclude the whole directrory,<br>"
+                             "<i>test*</i> will exclude all files beginning with 'test'");
+
+    ConfigurationListUI *excludeListUI = new ConfigurationListUI(m_config.GetExcludes(), ConfigurationListUI::PATTERN,   excludeText, this);
+
+    return excludeListUI;
+}
+
+
+QWidget *ConfigurationDialog::constructOptionsTab()
+{
+    QLabel *seperator1 = new QLabel;
+    QLabel *seperator2 = new QLabel;
+    QLabel *seperator3 = new QLabel;
+    seperator1->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+    seperator2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+    seperator3->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+
+    QLabel *verifyText = new QLabel(tr("Backups can be verified after backup or on individual request."));
+    m_verifyAfterBackup = new QCheckBox(tr("&Verify snapshot after each new creation"));
+    QLabel *verifyLabel = new QLabel(tr("On verification, verify backup snapshot including..."));
+
+    QVBoxLayout *verifyLayout = new QVBoxLayout;
+    verifyLayout->setContentsMargins(50, 0, 0, 0);
+    m_verifyHash = new QCheckBox(tr("Content checksum (SHA1 hash)"));
+    m_verifyDate = new QCheckBox(tr("Date and time"));
+    m_verifySize = new QCheckBox(tr("File size"));
+    verifyLayout->addWidget(m_verifyHash);
+    verifyLayout->addWidget(m_verifyDate);
+    verifyLayout->addWidget(m_verifySize);
+
+    QLabel *purgeText = new QLabel(tr("On low drive space, the oldest backups can be deleted automatically."));
+    m_purgeBackups = new QCheckBox(tr("&Delete oldest backups on low drive space"));
+
+    QLabel *limitText = new QLabel(tr("The number of historical backups can be limited."));
+    QHBoxLayout *limitLayout = new QHBoxLayout;
+    m_limitBackups = new QCheckBox(tr("&Keep up to"));
+    m_numberBackups = new QSpinBox;
+    m_numberBackups->setMaximum(50);
+    m_numberBackups->setMinimum(1);
+    QLabel *trailingText = new QLabel(tr("previous backups"));
+    limitLayout->setAlignment(Qt::AlignLeft);
+    limitLayout->addWidget(m_limitBackups);
+    limitLayout->addWidget(m_numberBackups);
+    limitLayout->addWidget(trailingText);
+
+
+    QWidget *pageOptions = new QWidget;
+    QVBoxLayout *optionsLayout = new QVBoxLayout;
+    optionsLayout->addWidget(verifyText);
+    optionsLayout->addWidget(m_verifyAfterBackup);
+    optionsLayout->addWidget(seperator1);
+    optionsLayout->addWidget(verifyLabel);
+    optionsLayout->addLayout(verifyLayout);
+    optionsLayout->addWidget(seperator2);
+    optionsLayout->addWidget(purgeText);
+    optionsLayout->addWidget(m_purgeBackups);
+    optionsLayout->addWidget(seperator3);
+    optionsLayout->addWidget(limitText);
+    optionsLayout->addLayout(limitLayout);
+    pageOptions->setLayout(optionsLayout);
+
+    return pageOptions;
 }
 
 QString ConfigurationDialog::location() const
