@@ -26,20 +26,22 @@
 #define HEADER_MAINWINDOW_INC
 
 #include <QMainWindow>
-#include "BackupListModel.h"
+
 #include "BackupSelectorUI.h"
-#include "SnapshotListModel.h"
 #include "SnapshotListUI.h"
+#include "DriveCapacityUI.h"
 #include "ControlUI.h"
+#include "BackupListModel.h"
+#include "SnapshotListModel.h"
+#include "FilesystemInfo.h"
 #include "BackupEngine.h"
 #include "EraseEngine.h"
 #include "ValidateEngine.h"
 #include "VerifyEngine.h"
-#include "FilesystemInfo.h"
-#include "DriveCapacityUI.h"
 #include "ProgressDialog.h"
 #include "DriveCapacityWatcher.h"
 #include "Backup.h"
+
 
 class MainWindow : public QMainWindow
 {

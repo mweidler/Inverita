@@ -121,7 +121,7 @@ QWidget *ConfigurationDialog::constructTargetTab()
 
     QVBoxLayout *targetVLayout = new QVBoxLayout;
     targetVLayout->addLayout(descriptionLayout);
-    targetVLayout->addSpacerItem(new QSpacerItem(0,20));
+    targetVLayout->addSpacerItem(new QSpacerItem(0, 20));
     targetVLayout->addLayout(targetLayout);
     targetVLayout->addWidget(separator);
     targetVLayout->addWidget(labelText);
