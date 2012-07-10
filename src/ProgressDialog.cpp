@@ -24,10 +24,9 @@
 
 #include "ProgressDialog.h"
 
-// TODO: optimize includes
-#include <QtCore>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QDebug>
 
 
 /*! Constructs a new Progress Dialog object with UI elements

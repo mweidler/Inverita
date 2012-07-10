@@ -27,15 +27,11 @@
 
 #include "Snapshot.h"
 
-// TODO: optimize includes
-#include <QtCore>
 #include <QString>
 #include <QStringList>
 #include <QList>
 #include <QListIterator>
-#include <QFileInfo>
 #include <QAbstractTableModel>
-#include <sys/stat.h>
 
 
 /*! Base type storage definition

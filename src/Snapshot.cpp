@@ -25,8 +25,6 @@
 
 #include "Snapshot.h"
 
-// TODO: Optimize headers
-#include <QtCore> 
 #include <QString>
 #include <QStringList>
 

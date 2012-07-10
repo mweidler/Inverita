@@ -26,6 +26,8 @@
 #include "DriveCapacityWatcher.h"
 #include "Utilities.h"
 
+#include <QDebug>
+
 
 /*! Constructs a new drivespace watcher object.
  */

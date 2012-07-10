@@ -25,12 +25,7 @@
 
 #include "SignatureMap.h"
 
-// TODO: check includes
-#include <QtCore>
 #include <QFile>
-
-// TODO: is include really needed?
-#include "Utilities.h"
 
 
 /*! Constructs a new signature map object
@@ -58,7 +53,7 @@ bool SignatureMap::Load(const QString &filename)
     }
 
     for (;;) {
-        QByteArray line = file.readLine();  // TODO: check from UTF8?
+        QByteArray line = file.readLine();
         if (line.size() == 0) {
             break;
         }
@@ -100,7 +95,7 @@ bool SignatureMap::Save(const QString &filename) const
             iter.next();
             target.write(iter.value());
             target.write(" *");   // binary flag
-            target.write(iter.key().toAscii()); // TODO: check if better UTF8?
+            target.write(iter.key().toUtf8());
             target.write("\n");
         }
     }

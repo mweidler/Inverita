@@ -27,6 +27,9 @@
 #include "SnapshotMetaInfo.h"
 #include "Utilities.h"
 
+#include <QDir>
+#include <QDebug>
+
 
 /*! Constructs a new backup history list object
  *
@@ -37,7 +40,7 @@ SnapshotListModel::SnapshotListModel(QObject *parent) : QAbstractTableModel(pare
     clear();
 
     m_headerLabels << tr("Name") << tr("Last modified") << tr("Files") <<
-                      tr("Size") << tr("Execution status");
+                   tr("Size") << tr("Execution status");
 }
 
 
@@ -103,7 +106,6 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
         }
     }
 
-//TODO: better switch handling? Assign value to a common string and convert to QVariant at the end?
     if (role == Qt::DisplayRole) {
         switch (index.column()) {
             case 0:
@@ -165,7 +167,7 @@ void SnapshotListModel::investigate(const QString &origin)
 
     QFileInfoList list = dir.entryInfoList();
     for (int i = 0; i < list.size(); i++) {
-        QFileInfo fileInfo = list.at(i);  // TODO: here const QFileInfo &
+        const QFileInfo &fileInfo = list.at(i);
 
         qDebug() << "Investigate" << fileInfo.absoluteFilePath() << fileInfo.fileName();
 
