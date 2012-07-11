@@ -39,8 +39,8 @@ SnapshotListModel::SnapshotListModel(QObject *parent) : QAbstractTableModel(pare
 {
     clear();
 
-    m_headerLabels << tr("Name") << tr("Last modified") << tr("Files") <<
-                   tr("Size") << tr("Execution status");
+    m_headerLabels << tr("No.") << tr("Name") << tr("Last modified") <<
+                      tr("Files") << tr("Size") << tr("Execution status");
 }
 
 
@@ -81,7 +81,7 @@ QVariant SnapshotListModel::headerData(int section, Qt::Orientation orientation,
     }
 
     if (role == Qt::TextAlignmentRole) {
-        if (section == 2 || section == 3) {
+        if (section == 0 || section == 3 || section == 4) {
             return QVariant(Qt::AlignRight);
         } else {
             return QVariant(Qt::AlignLeft);
@@ -99,7 +99,7 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
     const Snapshot &snapshot = this->at(index.row());
 
     if (role == Qt::TextAlignmentRole) {
-        if (index.column() == 2 || index.column() == 3) {
+        if (index.column() == 0 || index.column() == 3 || index.column() == 4) {
             return QVariant(Qt::AlignRight);
         } else {
             return QVariant(Qt::AlignLeft);
@@ -109,28 +109,32 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
     if (role == Qt::DisplayRole) {
         switch (index.column()) {
             case 0:
-                return QVariant(snapshot.name());
+                return QVariant(index.row()+1);
                 break;
 
             case 1:
-                return QVariant(snapshot.modificationTime().toString(Qt::SystemLocaleLongDate));
+                return QVariant(snapshot.name());
                 break;
 
             case 2:
+                return QVariant(snapshot.modificationTime().toString(Qt::SystemLocaleLongDate));
+                break;
+
+            case 3:
                 if (snapshot.metaInfo().numberOfFiles() == 0) {
                     return QString(tr("Unknown"));
                 }
                 return QVariant(snapshot.metaInfo().numberOfFiles());
                 break;
 
-            case 3:
+            case 4:
                 if (snapshot.metaInfo().sizeOfFiles() == 0) {
                     return QString(tr("Unknown"));
                 }
                 return ScaleToSiPrefix(snapshot.metaInfo().sizeOfFiles());
                 break;
 
-            case 4:
+            case 5:
                 if (snapshot.status() == Snapshot::Valid) {
                     return tr("Valid");
                 }

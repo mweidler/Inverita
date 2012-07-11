@@ -78,6 +78,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     QVBoxLayout *vlayout = new QVBoxLayout;
     vlayout->setAlignment(Qt::AlignTop);
     vlayout->addWidget(labelImage);
+    vlayout->addSpacerItem(new QSpacerItem(0, 40));
     vlayout->addWidget(labelGpl);
 
     QHBoxLayout *hlayout = new QHBoxLayout;
