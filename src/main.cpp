@@ -35,10 +35,18 @@
  */
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
+
+    QTranslator qtTranslator;
+    qtTranslator.load("qt_" + QLocale::system().name());
+    app.installTranslator(&qtTranslator);
+
+    QTranslator appTranslator;
+    appTranslator.load("inverita_" + QLocale::system().name());
+    app.installTranslator(&appTranslator);
 
     MainWindow w;
     w.show();
 
-    return a.exec();
+    return app.exec();
 }

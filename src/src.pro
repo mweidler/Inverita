@@ -41,7 +41,6 @@ SOURCES += main.cpp\
     DriveCapacityUI.cpp \
     ProgressDialog.cpp \
     ConfigurationDialog.cpp \
-    DriveCapacityWatcher.cpp \
     Snapshot.cpp \
     SnapshotListUI.cpp \
     SnapshotListModel.cpp \
@@ -75,7 +74,6 @@ HEADERS  += mainwindow.h \
     AbstractDriveCapacityModel.h \
     ProgressDialog.h \
     ConfigurationDialog.h \
-    DriveCapacityWatcher.h \
     Snapshot.h \
     SnapshotListUI.h \
     SnapshotListModel.h \

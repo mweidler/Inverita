@@ -39,7 +39,6 @@
 #include "ValidateEngine.h"
 #include "VerifyEngine.h"
 #include "ProgressDialog.h"
-#include "DriveCapacityWatcher.h"
 #include "Backup.h"
 
 
@@ -98,6 +97,7 @@ private:
     SnapshotListModel *m_snapshotListModel;
     SnapshotListUI    *m_snapshotListUI;
 
+    QTimer               *m_timer;
     FilesystemInfo       *m_filesystemInfo;
     DriveCapacityUI      *m_driveCapacityUI;
     ControlUI            *m_controlUI;
@@ -109,8 +109,6 @@ private:
     QThread              *m_validateThread;
     VerifyEngine         *m_verifyEngine;
     QThread              *m_verifyThread;
-    DriveCapacityWatcher *m_driveCapacityWatcher;
-    QThread              *m_driveWatchThread;
     ProgressDialog       *m_progressBackupDialog;
     ProgressDialog       *m_progressEraseDialog;
     ProgressDialog       *m_progressValidateDialog;

@@ -75,6 +75,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     createActions();
     createMenus();
 
+    m_timer = new QTimer(this);
+    m_timer->setInterval(5000);  // for filesystem capacity update
+
     // The Worker engine should run in its own tread to not
     // block the main event queue.
     m_backupEngine = new BackupEngine();
@@ -96,11 +99,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_verifyThread = new QThread;
     m_verifyEngine->moveToThread(m_verifyThread);
     m_verifyThread->start(QThread::IdlePriority);
-
-    m_driveCapacityWatcher = new DriveCapacityWatcher(m_filesystemInfo, m_snapshotListModel, &m_config);
-    m_driveWatchThread = new QThread;
-    m_driveCapacityWatcher->moveToThread(m_verifyThread);
-    m_driveWatchThread->start(QThread::LowPriority); // must have higher priority than backup execution
 
     m_progressBackupDialog = new ProgressDialog(m_backupEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
     m_progressBackupDialog->setWindowTitle(tr("Creating new backup snapshot..."));
@@ -145,10 +143,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(m_verifyEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
     connect(m_verifyEngine, SIGNAL(report(QString)), m_progressVerifyDialog, SLOT(display(QString)));
 
-    connect(m_driveCapacityWatcher, SIGNAL(finished()), this, SLOT(onBackupFinished()));
-    connect(m_driveCapacityWatcher, SIGNAL(failed()), this, SLOT(onBackupFailed()));
+    connect(m_timer, SIGNAL(timeout()), m_filesystemInfo, SLOT(refresh()));
 
     m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
+    m_timer->start();
 
     QIcon appicon(QPixmap(":/images/backup-icon.png"));
     setWindowIcon(appicon);
@@ -217,7 +215,6 @@ void MainWindow::reload()
     m_filesystemInfo->setFile(m_currentBackup.location());
     m_backupEngine->select(m_currentBackup.location());
     m_verifyEngine->select(m_currentBackup.location());
-    m_driveCapacityWatcher->select(m_currentBackup.location());
 
     if (m_config.load(m_currentBackup.location() + "/inverita.conf")) {
         updateLatestLink(m_currentBackup.location());
@@ -328,15 +325,12 @@ void MainWindow::onBackupSelected(int selection)
 void MainWindow::onStartBackup()
 {
     qDebug() << "onStartBackup";
-    m_driveCapacityWatcher->setAutoDeleteEnabled(true);
 }
 
 
 void MainWindow::onBackupFinished()
 {
     qDebug() << "onBackupFinished";
-    m_driveCapacityWatcher->watch();
-    m_driveCapacityWatcher->setAutoDeleteEnabled(false);
     reload();
 }
 
@@ -344,7 +338,6 @@ void MainWindow::onBackupFinished()
 void MainWindow::onBackupAborted()
 {
     qDebug() << "onBackupAborted";
-    m_driveCapacityWatcher->setAutoDeleteEnabled(false);
     reload();
 }
 

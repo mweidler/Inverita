@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Inverita Personal Backup
+GenericName=Inverita Personal Backup
+Exec=inverita
+Icon=inverita
+Terminal=false
+Categories=Utility
+Encoding=UTF-8

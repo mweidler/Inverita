@@ -26,6 +26,8 @@
 #include "BackupEngine.h"
 #include "SnapshotMetaInfo.h"
 #include "Utilities.h"
+#include "FilesystemInfo.h"
+#include "SnapshotListModel.h"
 
 #include <QDebug>
 
@@ -36,9 +38,11 @@ BackupEngine::BackupEngine()
 {
     reset();
 
-    m_descriptions << tr("1. Analyzing backup content") <<
-                   tr("2. Creating new backup snapshot") <<
-                   tr("3. Verifying generated backup snapshot");
+    m_descriptions << tr("1. Checking drive space") <<
+                   tr("2. Analyzing backup content") <<
+                   tr("3. Creating new backup snapshot") <<
+                   tr("4. Verifying generated backup snapshot") <<
+                   tr("5. Removing obsolete backup snapshots");
 
     // traverser and engine can emit report signals to the progress dialog
     connect(&m_validateTraverser, SIGNAL(report(QString)), this, SIGNAL(report(QString)));
@@ -94,6 +98,7 @@ void BackupEngine::start()
     m_scanTraverser.reset();
     m_copyTraverser.reset();
     m_validateTraverser.reset();
+    m_eraseTraverser.reset();
     emit started();
 
     QString timestamp = QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss");
@@ -103,14 +108,20 @@ void BackupEngine::start()
         m_config.load(m_backupRootPath + "/inverita.conf");
 
         m_currentTask = 0;
-        scanDirectories();
+        checkDriveSpace();
         m_currentTask = 1;
+        scanDirectories();
+        m_currentTask = 2;
         executeBackup(timestamp);
 
         if (m_config.verifyAfterBackup()) {
-            m_currentTask = 2;
+            m_currentTask = 3;
             validateBackup(timestamp);
         }
+
+        m_currentTask = 4;
+        checkOvercharge();
+
         m_currentTask = -1; // disable highlighted task
 
     } catch (ApplicationException &e) {
@@ -144,6 +155,57 @@ void BackupEngine::abort()
     m_scanTraverser.abort();
     m_copyTraverser.abort();
     m_validateTraverser.abort();
+}
+
+
+void BackupEngine::checkDriveSpace()
+{
+    if (!m_config.autoDeleteBackups()) {
+        return;
+    }
+
+    FilesystemInfo filesystem(m_backupRootPath);
+    SnapshotListModel snapshotList;
+    snapshotList.investigate(m_backupRootPath);
+
+    for (int i = 0; i < snapshotList.count() && filesystem.capacity() > 0.07; i++) {
+        deleteSnapshot(m_backupRootPath + "/" + snapshotList[i].name());
+        filesystem.refresh();
+    }
+}
+
+
+void BackupEngine::checkOvercharge()
+{
+    if (!m_config.limitBackups()) {
+       return;
+    }
+
+    SnapshotListModel snapshotList;
+    snapshotList.investigate(m_backupRootPath);
+
+    int overcharge = snapshotList.count() - m_config.maximumBackups() ;
+
+    for (int i = 0; i < overcharge; i++) {
+        deleteSnapshot(m_backupRootPath + "/" + snapshotList[i].name());
+        emit report(tr("Backup snapshot deleted du to overcharge: ") + snapshotList[i].name());
+    }
+}
+
+
+void BackupEngine::deleteSnapshot(QString snapshotName)
+{
+    qDebug() << "BackupEngine::deleteSnapshot" << snapshotName;
+
+    m_eraseTraverser.reset();
+    m_eraseTraverser.addIncludes(snapshotName);
+
+    // remove metainfo and signatures of the snapshot "manually" to
+    // invalidate whole snapshot. They were not counted on meta data creation.
+    QFile::remove(snapshotName + "/" + "metainfo");
+    QFile::remove(snapshotName + "/" + "signatures");
+
+    m_eraseTraverser.traverse();
 }
 
 

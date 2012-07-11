@@ -29,6 +29,7 @@
 #include <QStringList>
 
 #include "Configuration.h"
+#include "EraseTraverser.h"
 #include "ScanTraverser.h"
 #include "CopyTraverser.h"
 #include "ValidateTraverser.h"
@@ -53,15 +54,20 @@ public slots:
     void abort();
 
 protected:
+    void checkDriveSpace();
     void scanDirectories();
     void executeBackup(QString &timestamp);
     void validateBackup(QString &timestamp);
+    void checkOvercharge();
+
+    void deleteSnapshot(QString snapshotName);
 
 protected:
     QString           m_backupRootPath;
     Configuration     m_config;
     QString           m_latestBackup;
     QString           m_currentBackup;
+    EraseTraverser    m_eraseTraverser;
     ScanTraverser     m_scanTraverser;
     CopyTraverser     m_copyTraverser;
     ValidateTraverser m_validateTraverser;
