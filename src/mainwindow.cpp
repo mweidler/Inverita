@@ -116,30 +116,29 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(m_snapshotListUI, SIGNAL(validateBackup()), this, SLOT(onValidateBackup()));
 
     connect(m_controlUI, SIGNAL(startBackup()), m_backupEngine, SLOT(start()));
-    connect(m_controlUI, SIGNAL(startBackup()), this, SLOT(onStartBackup()));
     connect(m_progressBackupDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(m_backupEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
-    connect(m_backupEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
+    connect(m_backupEngine, SIGNAL(finished()), this, SLOT(reload()));
+    connect(m_backupEngine, SIGNAL(aborted()), this, SLOT(reload()));
     connect(m_backupEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
     connect(m_backupEngine, SIGNAL(report(QString)), m_progressBackupDialog, SLOT(display(QString)));
 
     connect(this, SIGNAL(deleteBackup()), m_eraseEngine, SLOT(start()));
     connect(m_progressEraseDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(m_eraseEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
-    connect(m_eraseEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
+    connect(m_eraseEngine, SIGNAL(finished()), this, SLOT(reload()));
+    connect(m_eraseEngine, SIGNAL(aborted()), this, SLOT(reload()));
     connect(m_eraseEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
 
     connect(this, SIGNAL(validateBackup()), m_validateEngine, SLOT(start()));
     connect(m_progressValidateDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(m_validateEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
-    connect(m_validateEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
+    connect(m_validateEngine, SIGNAL(finished()), this, SLOT(reload()));
+    connect(m_validateEngine, SIGNAL(aborted()), this, SLOT(reload()));
     connect(m_validateEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
     connect(m_validateEngine, SIGNAL(report(QString)), m_progressValidateDialog, SLOT(display(QString)));
 
     connect(m_controlUI, SIGNAL(startVerify()), m_verifyEngine, SLOT(start()));
     connect(m_progressVerifyDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(m_verifyEngine, SIGNAL(finished()), this, SLOT(onBackupFinished()));
-    connect(m_verifyEngine, SIGNAL(aborted()), this, SLOT(onBackupAborted()));
+    connect(m_verifyEngine, SIGNAL(finished()), this, SLOT(reload()));
+    connect(m_verifyEngine, SIGNAL(aborted()), this, SLOT(reload()));
     connect(m_verifyEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
     connect(m_verifyEngine, SIGNAL(report(QString)), m_progressVerifyDialog, SLOT(display(QString)));
 
@@ -319,26 +318,6 @@ void MainWindow::onBackupSelected(int selection)
         }
         reload();
     }
-}
-
-
-void MainWindow::onStartBackup()
-{
-    qDebug() << "onStartBackup";
-}
-
-
-void MainWindow::onBackupFinished()
-{
-    qDebug() << "onBackupFinished";
-    reload();
-}
-
-
-void MainWindow::onBackupAborted()
-{
-    qDebug() << "onBackupAborted";
-    reload();
 }
 
 

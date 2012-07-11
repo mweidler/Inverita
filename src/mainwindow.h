@@ -57,10 +57,8 @@ signals:
 
 public slots:
     void about();
+    void reload();
     void onBackupSelected(int selection);
-    void onStartBackup();
-    void onBackupFinished();
-    void onBackupAborted();
     void onDeleteBackup();
     void onValidateBackup();
     void onBackupFailed();
@@ -77,7 +75,6 @@ protected:
 
 protected slots:
     void abortProgress();
-    void reload();
 
 private:
     void createActions();
@@ -97,24 +94,24 @@ private:
     SnapshotListModel *m_snapshotListModel;
     SnapshotListUI    *m_snapshotListUI;
 
-    QTimer               *m_timer;
-    FilesystemInfo       *m_filesystemInfo;
-    DriveCapacityUI      *m_driveCapacityUI;
-    ControlUI            *m_controlUI;
-    BackupEngine         *m_backupEngine;
-    QThread              *m_backupThread;
-    EraseEngine          *m_eraseEngine;
-    QThread              *m_eraseThread;
-    ValidateEngine       *m_validateEngine;
-    QThread              *m_validateThread;
-    VerifyEngine         *m_verifyEngine;
-    QThread              *m_verifyThread;
-    ProgressDialog       *m_progressBackupDialog;
-    ProgressDialog       *m_progressEraseDialog;
-    ProgressDialog       *m_progressValidateDialog;
-    ProgressDialog       *m_progressVerifyDialog;
-    Configuration        m_config;
-    Backup               m_currentBackup;
+    QTimer            *m_timer;
+    FilesystemInfo    *m_filesystemInfo;
+    DriveCapacityUI   *m_driveCapacityUI;
+    ControlUI         *m_controlUI;
+    BackupEngine      *m_backupEngine;
+    QThread           *m_backupThread;
+    EraseEngine       *m_eraseEngine;
+    QThread           *m_eraseThread;
+    ValidateEngine    *m_validateEngine;
+    QThread           *m_validateThread;
+    VerifyEngine      *m_verifyEngine;
+    QThread           *m_verifyThread;
+    ProgressDialog    *m_progressBackupDialog;
+    ProgressDialog    *m_progressEraseDialog;
+    ProgressDialog    *m_progressValidateDialog;
+    ProgressDialog    *m_progressVerifyDialog;
+    Configuration     m_config;
+    Backup            m_currentBackup;
 };
 
 #endif // HEADER_MAINWINDOW_INC
