@@ -61,9 +61,9 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
     int setEntry(const BackupEntry &entry);
-    int Load(const QString &organization);
-    void Save();
-    void SaveAs(const QString &organization);
+    int load(const QString &organization);
+    void save();
+    void saveAs(const QString &organization);
 
 private:
     QString m_organization;

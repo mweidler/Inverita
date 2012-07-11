@@ -25,7 +25,10 @@
 #ifndef HEADER_SNAPSHOTLISTUI_INC
 #define HEADER_SNAPSHOTLISTUI_INC
 
-#include <QtGui>
+#include <QTableView>
+#include <QPushButton>
+#include <QStyledItemDelegate>
+
 
 class SnapshotListUI : public QFrame
 {
@@ -44,9 +47,9 @@ signals:
     void reload();
 
 public slots:
-    void OnItemSelected();
-    void OnValidate();
-    void OnDelete();
+    void onItemSelected();
+    void onValidate();
+    void onDelete();
 
 protected:
     QTableView  *m_tableView;

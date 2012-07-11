@@ -38,46 +38,46 @@ public:
 
     void reset();
 
-    QStringList &GetIncludes();
-    void        AddInclude(QString include);
+    QStringList &includes();
+    void addInclude(const QString &include);
 
-    QStringList &GetExcludes();
-    void        AddExclude(QString exclude);
+    QStringList &excludes();
+    void  addExclude(const QString &exclude);
 
-    bool verifyAfterBackup();
+    bool verifyAfterBackup() const;
     void setVerifyAfterBackup(bool enable);
 
-    bool verifyHash();
+    bool verifyHash() const;
     void setVerifyHash(bool enable);
 
-    bool verifyTime();
+    bool verifyTime() const;
     void setVerifyTime(bool enable);
 
-    bool verifySize();
+    bool verifySize() const;
     void setVerifySize(bool enable);
 
-    bool autoDeleteBackups();
+    bool autoDeleteBackups() const;
     void setAutoDeleteBackups(bool enable);
 
-    bool limitBackups();
+    bool limitBackups() const;
     void setLimitBackups(bool enable);
 
-    int  maximumBackups();
+    int  maximumBackups() const;
     void setMaximumBackups(int count);
 
-    bool Load(QString filename);
-    void Save(QString filename);
+    bool load(const QString &filename);
+    void save(const QString &filename) const;
 
 protected:
-    QStringList    m_includePaths;
-    QStringList    m_excludePatterns;
-    bool           m_verifyAfterBackup;
-    bool           m_verifyHash;
-    bool           m_verifyTime;
-    bool           m_verifySize;
-    bool           m_autoDeleteBackups;
-    bool           m_limitBackups;
-    int            m_maxBackups;
+    QStringList m_includePaths;
+    QStringList m_excludePatterns;
+    bool        m_verifyAfterBackup;
+    bool        m_verifyHash;
+    bool        m_verifyTime;
+    bool        m_verifySize;
+    bool        m_autoDeleteBackups;
+    bool        m_limitBackups;
+    int         m_maxBackups;
 };
 
 #endif

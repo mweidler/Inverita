@@ -25,6 +25,10 @@
 #include "ConfigurationListUI.h"
 
 #include <QInputDialog>
+#include <QLabel>
+#include <QBoxLayout>
+#include <QDialogButtonBox>
+#include <QFileDialog>
 
 
 ConfigurationListUI::ConfigurationListUI(QStringList &list, ConfigurationListMode mode, QString &description, QWidget *parent) : QWidget(parent), m_list(list)
@@ -51,22 +55,22 @@ ConfigurationListUI::ConfigurationListUI(QStringList &list, ConfigurationListMod
 
     m_listView = new QListView();
     m_listView->setModel(m_listModel);
-    m_listLayout = new QVBoxLayout;
-    m_listLayout->setMargin(10);
-    m_listLayout->setSpacing(20);
-    m_listLayout->addWidget(descriptionLabel);
-    m_listLayout->addWidget(m_listView);
-    m_listLayout->addWidget(modificationButtons);
-    this->setLayout(m_listLayout);
+    QVBoxLayout *listLayout = new QVBoxLayout;
+    listLayout->setMargin(10);
+    listLayout->setSpacing(20);
+    listLayout->addWidget(descriptionLabel);
+    listLayout->addWidget(m_listView);
+    listLayout->addWidget(modificationButtons);
+    this->setLayout(listLayout);
 
-    connect(m_listView, SIGNAL(clicked(QModelIndex)), this, SLOT(OnItemSeleced()));
+    connect(m_listView, SIGNAL(clicked(QModelIndex)), this, SLOT(onItemSeleced()));
     if (mode == DIRECTORY) {
-        connect(m_buttonAdd, SIGNAL(clicked()), this, SLOT(OnAddDirectory()));
+        connect(m_buttonAdd, SIGNAL(clicked()), this, SLOT(onAddDirectory()));
     } else {
-        connect(m_buttonAdd, SIGNAL(clicked()), this, SLOT(OnAddPattern()));
+        connect(m_buttonAdd, SIGNAL(clicked()), this, SLOT(onAddPattern()));
     }
 
-    connect(m_buttonRemove, SIGNAL(clicked()), this, SLOT(OnRemove()));
+    connect(m_buttonRemove, SIGNAL(clicked()), this, SLOT(onRemove()));
 }
 
 ConfigurationListUI::~ConfigurationListUI()
@@ -74,12 +78,12 @@ ConfigurationListUI::~ConfigurationListUI()
 
 }
 
-void ConfigurationListUI::OnItemSeleced()
+void ConfigurationListUI::onItemSeleced()
 {
     m_buttonRemove->setEnabled(true);
 }
 
-void ConfigurationListUI::OnAddDirectory()
+void ConfigurationListUI::onAddDirectory()
 {
     QFileDialog filedialog(this);
     filedialog.setFileMode(QFileDialog::Directory);
@@ -96,7 +100,7 @@ void ConfigurationListUI::OnAddDirectory()
     m_list = m_listModel->stringList();
 }
 
-void ConfigurationListUI::OnAddPattern()
+void ConfigurationListUI::onAddPattern()
 {
     QInputDialog inputdialog(this);
     inputdialog.setLabelText(tr("Please enter a exclude pattern"));
@@ -113,114 +117,9 @@ void ConfigurationListUI::OnAddPattern()
     m_list = m_listModel->stringList();
 }
 
-void ConfigurationListUI::OnRemove()
+void ConfigurationListUI::onRemove()
 {
     m_listModel->removeRow(m_listView->currentIndex().row());
     m_list = m_listModel->stringList();
-    fprintf(stderr, "Debug: %d\n", m_list.size());
 }
 
-#if 0
-void ConfigurationUI::OnIncludeSelected(wxListEvent &event)
-{
-    m_selectedIncludeItemIdx = event.GetIndex();
-    buttonRemoveInclude->Enable();
-}
-
-void ConfigurationUI::OnIncludeDeSelected(wxListEvent &WXUNUSED(event))
-{
-    buttonRemoveInclude->Disable();
-}
-
-void ConfigurationUI::OnExcludeSelected(wxListEvent &event)
-{
-    m_selectedExcludeItemIdx = event.GetIndex();
-    buttonRemoveExclude->Enable();
-}
-
-void ConfigurationUI::OnExcludeDeSelected(wxListEvent &WXUNUSED(event))
-{
-    buttonRemoveExclude->Disable();
-}
-
-void ConfigurationUI::OnIncludeEdited(wxListEvent &WXUNUSED(event))
-{
-    m_includesList->SetColumnWidth(0, m_includesList->GetClientSize().GetWidth());
-}
-
-void ConfigurationUI::OnExcludeEdited(wxListEvent &WXUNUSED(event))
-{
-    m_excludesList->SetColumnWidth(0, m_includesList->GetClientSize().GetWidth());
-}
-
-void ConfigurationUI::OnAddInclude(wxCommandEvent &WXUNUSED(event))
-{
-    wxDirDialog dialog(this, _("Choose a directory"), _("/"), wxDD_DEFAULT_STYLE | wxDD_DIR_MUST_EXIST);
-
-    if (dialog.ShowModal() == wxID_OK) {
-        m_config.GetIncludes().Add(dialog.GetPath());
-        m_includesList->InsertItem(m_excludesList->GetItemCount(), dialog.GetPath());
-    }
-}
-
-void ConfigurationUI::OnAddExclude(wxCommandEvent &WXUNUSED(event))
-{
-    wxTextEntryDialog dialog(this, _("Please enter a file pattern to be excluded,\ne.g. */lost+found/*"), _("Exclude pattern"));
-
-    if (dialog.ShowModal() == wxID_OK) {
-        m_config.GetExcludes().Add(dialog.GetValue());
-        m_excludesList->InsertItem(m_excludesList->GetItemCount(), dialog.GetValue());
-    }
-}
-
-void ConfigurationUI::OnRemoveInclude(wxCommandEvent &WXUNUSED(event))
-{
-    m_config.GetIncludes().RemoveAt(m_selectedIncludeItemIdx);
-    m_includesList->DeleteItem(m_selectedIncludeItemIdx);
-}
-
-void ConfigurationUI::OnRemoveExclude(wxCommandEvent &WXUNUSED(event))
-{
-    m_config.GetExcludes().RemoveAt(m_selectedExcludeItemIdx);
-    m_excludesList->DeleteItem(m_selectedExcludeItemIdx);
-}
-
-void ConfigurationUI::OnVerifyToggeled(wxCommandEvent &WXUNUSED(event))
-{
-    if (m_verify->IsChecked()) {
-        m_verifyHash->Enable();
-        m_verifyDate->Enable();
-        m_verifySize->Enable();
-    } else {
-        m_verifyHash->Disable();
-        m_verifyDate->Disable();
-        m_verifySize->Disable();
-    }
-}
-
-void ConfigurationUI::OnSave(wxCommandEvent &WXUNUSED(event))
-{
-    int verification = 0;
-
-    if (m_verify->GetValue()) {
-        verification |= VERIFY_ENABLED;
-    }
-    if (m_verifyHash->GetValue()) {
-        verification |= VERIFY_CONTENT;
-    }
-    if (m_verifySize->GetValue()) {
-        verification |= VERIFY_SIZE;
-    }
-    if (m_verifyDate->GetValue()) {
-        verification |= VERIFY_TIME;
-    }
-
-    m_config.SetVerification(verification);
-    m_config.SetBackupPurgeAllowed(m_purgeBackups->GetValue());
-    m_config.SetBackupRestricted(m_limitBackups->GetValue());
-    m_config.SetBackupRestriction(m_numberBackups->GetValue());
-
-    EndModal(wxID_SAVE);
-    Close(TRUE);
-}
-#endif

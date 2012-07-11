@@ -31,6 +31,15 @@
 #include "ConfigurationDialog.h"
 #include "PasswordDialog.h"
 
+#include <QBoxLayout>
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QMessageBox>
+#include <QFileDialog>
+#include <QAction>
+#include <QMenuBar>
+
+
 /*! Constructs a new mainwindow objects and initializes the user interface.
  *
  * \param parent the parent UI element
@@ -43,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_filesystemInfo = new FilesystemInfo();
 
     m_backupListModel = new BackupListModel(this);
-    m_backupListModel->Load("inverita");
+    m_backupListModel->load("inverita");
     m_backupSelectorUI = new BackupSelectorUI(m_backupListModel, this);
 
     m_snapshotListModel = new SnapshotListModel(this);
@@ -210,7 +219,7 @@ void MainWindow::reload()
     m_verifyEngine->select(m_currentBackup.location());
     m_driveCapacityWatcher->select(m_currentBackup.location());
 
-    if (m_config.Load(m_currentBackup.location() + "/inverita.conf")) {
+    if (m_config.load(m_currentBackup.location() + "/inverita.conf")) {
         updateLatestLink(m_currentBackup.location());
         m_controlUI->setEnabledButtons(ControlUI::CreateButton, true);
         m_controlUI->setEnabledButtons(ControlUI::VerifyButton, (m_snapshotListModel->size() > 0));
@@ -416,7 +425,7 @@ void MainWindow::onMenuNewBackup()
 
     closeCurrentBackup();
     if (openCurrentBackup(entry) == Backup::Success) {
-        config.Save(m_currentBackup.location() + "/" + "inverita.conf");
+        config.save(m_currentBackup.location() + "/" + "inverita.conf");
         int index = m_backupListModel->setEntry(entry);
         m_backupSelectorUI->select(index); // causes a currentIndexChanged event
     } else {
@@ -455,7 +464,7 @@ void MainWindow::onMenuSelectBackup()
 void MainWindow::onConfigure()
 {
     Configuration config;
-    config.Load(m_currentBackup.location() + "/" + "inverita.conf");
+    config.load(m_currentBackup.location() + "/" + "inverita.conf");
 
     ConfigurationDialog configDialog(config, this);
     configDialog.setWindowTitle(tr("Configuring backup") + "' " + m_currentBackup.origin() + "'");
@@ -473,14 +482,14 @@ void MainWindow::onConfigure()
 
     QString newOrigin = configDialog.location();
     if (m_currentBackup.origin() == newOrigin) {
-        config.Save(m_currentBackup.location() + "/" + "inverita.conf");
+        config.save(m_currentBackup.location() + "/" + "inverita.conf");
         m_backupListModel->setEntry(entry);
         return;
     }
 
     closeCurrentBackup();
     if (openCurrentBackup(entry) == Backup::Success) {
-        config.Save(m_currentBackup.location() + "/" + "inverita.conf");
+        config.save(m_currentBackup.location() + "/" + "inverita.conf");
         int index = m_backupListModel->setEntry(entry);
         m_backupSelectorUI->select(index); // causes a currentIndexChanged event
     } else {

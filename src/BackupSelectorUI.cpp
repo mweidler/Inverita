@@ -87,17 +87,9 @@ BackupSelectorUI::~BackupSelectorUI()
  *
  * This forces a currentIndexChanged event and results in reload of whole parameters.
  */
-void BackupSelectorUI::select(int index)
+void BackupSelectorUI::select(int selection)
 {
-    return m_choice->setCurrentIndex(index);
-}
-
-
-/*! \return the index of the current selection in the combobox
- */
-int BackupSelectorUI::currentSelection()
-{
-    return m_choice->currentIndex();
+    return m_choice->setCurrentIndex(selection);
 }
 
 

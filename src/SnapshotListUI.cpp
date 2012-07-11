@@ -24,6 +24,12 @@
 
 #include "SnapshotListUI.h"
 
+#include <QLabel>
+#include <QHeaderView>
+#include <QBoxLayout>
+#include <QDateTime>
+
+
 SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QFrame(parent)
 {
     QLabel *description = new QLabel(tr("Backup snapshots"));
@@ -72,9 +78,9 @@ SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QF
 
     setFrameStyle(QFrame::StyledPanel);
 
-    connect(m_tableView, SIGNAL(clicked(QModelIndex)), this, SLOT(OnItemSelected()));
-    connect(m_buttonValidate, SIGNAL(clicked()), this, SLOT(OnValidate()));
-    connect(m_buttonDelete, SIGNAL(clicked()), this, SLOT(OnDelete()));
+    connect(m_tableView, SIGNAL(clicked(QModelIndex)), this, SLOT(onItemSelected()));
+    connect(m_buttonValidate, SIGNAL(clicked()), this, SLOT(onValidate()));
+    connect(m_buttonDelete, SIGNAL(clicked()), this, SLOT(onDelete()));
     connect(m_buttonReload, SIGNAL(clicked()), this, SIGNAL(reload()));
 }
 
@@ -93,20 +99,20 @@ int SnapshotListUI::currentSelection()
     return m_tableView->currentIndex().row();
 }
 
-void SnapshotListUI::OnItemSelected()
+void SnapshotListUI::onItemSelected()
 {
     m_buttonValidate->setEnabled(true);
     m_buttonDelete->setEnabled(true);
 }
 
-void SnapshotListUI::OnValidate()
+void SnapshotListUI::onValidate()
 {
     emit validateBackup();
     m_buttonValidate->setEnabled(false);
     m_buttonDelete->setEnabled(false);
 }
 
-void SnapshotListUI::OnDelete()
+void SnapshotListUI::onDelete()
 {
     emit deleteBackup();
     m_buttonValidate->setEnabled(false);

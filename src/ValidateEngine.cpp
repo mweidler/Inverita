@@ -67,12 +67,12 @@ void ValidateEngine::start()
     emit started();
 
     try {
-        m_metaInfo.Load(m_snapshotName + "/" + "metainfo") ;
+        m_metaInfo.load(m_snapshotName + "/" + "metainfo") ;
         m_validateTraverser.addIncludes(m_snapshotName);
         m_validateTraverser.addExcludes("metainfo");
         m_validateTraverser.addExcludes("signatures");
         m_validateTraverser.setBackupPath(m_snapshotName);
-        m_validateTraverser.signatures().Load(m_snapshotName + "/signatures");
+        m_validateTraverser.signatures().load(m_snapshotName + "/signatures");
         m_validateTraverser.traverse();
         m_validateTraverser.summary();
         m_currentTask = -1; // disable highlighted task

@@ -54,7 +54,7 @@ void SnapshotMetaInfo::reset()
     m_totalSize = 0;
 }
 
-bool SnapshotMetaInfo::Load(QString filename)
+bool SnapshotMetaInfo::load(QString filename)
 {
     reset();
 
@@ -81,7 +81,7 @@ bool SnapshotMetaInfo::Load(QString filename)
 }
 
 
-void SnapshotMetaInfo::Save(QString filename)
+void SnapshotMetaInfo::save(QString filename)
 {
     QSettings settings(filename,  QSettings::IniFormat);
     if (settings.status() != QSettings::NoError) {

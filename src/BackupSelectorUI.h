@@ -41,8 +41,7 @@ public:
     BackupSelectorUI(BackupListModel *model, QWidget *parent = 0);
     ~BackupSelectorUI();
 
-    void select(int index);
-    int  currentSelection();
+    void select(int selection);
     void setEnableConfiguration(bool enabled);
 
 signals:
@@ -50,8 +49,8 @@ signals:
     void configure();
 
 protected:
-    QComboBox *m_choice;
-    QPushButton *m_btnConf;
+    QComboBox       *m_choice;
+    QPushButton     *m_btnConf;
     BackupListModel *m_model;
 };
 

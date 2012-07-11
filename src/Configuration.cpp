@@ -47,27 +47,27 @@ void Configuration::reset()
     m_maxBackups   = 40;
 }
 
-QStringList &Configuration::GetIncludes()
+QStringList &Configuration::includes()
 {
     return m_includePaths;
 }
 
-void Configuration::AddInclude(QString include)
+void Configuration::addInclude(const QString &include)
 {
     m_includePaths.append(include);
 }
 
-QStringList &Configuration::GetExcludes()
+QStringList &Configuration::excludes()
 {
     return m_excludePatterns;
 }
 
-void Configuration::AddExclude(QString exclude)
+void Configuration::addExclude(const QString &exclude)
 {
     m_excludePatterns.append(exclude);
 }
 
-bool Configuration::Load(QString filename)
+bool Configuration::load(const QString &filename)
 {
     reset();
 
@@ -110,7 +110,7 @@ bool Configuration::Load(QString filename)
 }
 
 
-void Configuration::Save(QString filename)
+void Configuration::save(const QString &filename) const
 {
     QSettings settings(filename,  QSettings::IniFormat);
     if (settings.status() != QSettings::NoError) {
@@ -153,7 +153,7 @@ void Configuration::Save(QString filename)
     }
 }
 
-bool Configuration::verifyAfterBackup()
+bool Configuration::verifyAfterBackup() const
 {
     return m_verifyAfterBackup;
 }
@@ -164,7 +164,7 @@ void Configuration::setVerifyAfterBackup(bool enable)
 }
 
 
-bool Configuration::verifyHash()
+bool Configuration::verifyHash() const
 {
     return m_verifyHash;
 }
@@ -174,7 +174,7 @@ void Configuration::setVerifyHash(bool enable)
     m_verifyHash = enable;
 }
 
-bool Configuration::verifyTime()
+bool Configuration::verifyTime() const
 {
     return m_verifyTime;
 }
@@ -185,7 +185,7 @@ void Configuration::setVerifyTime(bool enable)
 }
 
 
-bool Configuration::verifySize()
+bool Configuration::verifySize() const
 {
     return m_verifySize;
 }
@@ -196,7 +196,7 @@ void Configuration::setVerifySize(bool enable)
 }
 
 
-bool Configuration::autoDeleteBackups()
+bool Configuration::autoDeleteBackups() const
 {
     return m_autoDeleteBackups;
 }
@@ -207,7 +207,7 @@ void Configuration::setAutoDeleteBackups(bool enable)
 }
 
 
-bool Configuration::limitBackups()
+bool Configuration::limitBackups() const
 {
     return m_limitBackups;
 }
@@ -217,7 +217,7 @@ void Configuration::setLimitBackups(bool enable)
     m_limitBackups = enable;
 }
 
-int  Configuration::maximumBackups()
+int  Configuration::maximumBackups() const
 {
     return m_maxBackups;
 }

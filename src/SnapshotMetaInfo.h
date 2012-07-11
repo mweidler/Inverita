@@ -37,8 +37,8 @@ public:
     SnapshotMetaInfo &operator= (const SnapshotMetaInfo &other);
 
     void reset();
-    bool Load(QString filename);
-    void Save(QString filename);
+    bool load(QString filename);
+    void save(QString filename);
 
     qint64 numberOfFiles() const;
     void setNumberOfFiles(qint64 count);
@@ -47,8 +47,8 @@ public:
     void setSizeOfFiles(qint64 count);
 
 protected:
-    qint64  m_files;
-    qint64  m_totalSize;
+    qint64 m_files;
+    qint64 m_totalSize;
 };
 
 #endif

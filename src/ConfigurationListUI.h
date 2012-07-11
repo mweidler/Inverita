@@ -25,16 +25,9 @@
 #ifndef HEADER_CONFIGURATIONLISTUI_INC
 #define HEADER_CONFIGURATIONLISTUI_INC
 
-
 #include <QStringListModel>
-#include <QLabel>
-#include <QBoxLayout>
 #include <QListView>
-#include <QLineEdit>
 #include <QPushButton>
-#include <QDialogButtonBox>
-#include <QFileDialog>
-#include <QMessageBox>
 
 
 class ConfigurationListUI : public QWidget
@@ -51,20 +44,17 @@ public:
     ~ConfigurationListUI();
 
 public slots:
-    void OnItemSeleced();
-    void OnAddDirectory();
-    void OnAddPattern();
-    void OnRemove();
-
-protected:
+    void onItemSeleced();
+    void onAddDirectory();
+    void onAddPattern();
+    void onRemove();
 
 private:
-    QStringList  &m_list;
+    QStringList      &m_list;
     QStringListModel *m_listModel;
-    QListView *m_listView;
-    QVBoxLayout  *m_listLayout;
-    QPushButton  *m_buttonAdd;
-    QPushButton  *m_buttonRemove;
+    QListView        *m_listView;
+    QPushButton      *m_buttonAdd;
+    QPushButton      *m_buttonRemove;
 };
 
 #endif

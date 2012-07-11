@@ -27,6 +27,7 @@
 
 #include "Traverser.h"
 
+
 /*! Determine number and size of files of a directory recursively.
  */
 class ScanTraverser : public Traverser

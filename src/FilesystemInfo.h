@@ -22,12 +22,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #ifndef HEADER_FILESYSTEMINFO_INC
 #define HEADER_FILESYSTEMINFO_INC
 
 #include "AbstractDriveCapacityModel.h"
-
 #include <sys/vfs.h>
 
 

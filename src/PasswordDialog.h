@@ -50,9 +50,9 @@ public slots:
     void adjustEchoMode();
 
 private:
-    QLineEdit  *m_passwordEdit;
-    QCheckBox  *m_showPassword;
-    QCheckBox  *m_rememberPassword;
+    QLineEdit *m_passwordEdit;
+    QCheckBox *m_showPassword;
+    QCheckBox *m_rememberPassword;
 };
 
 #endif

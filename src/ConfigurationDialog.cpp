@@ -26,6 +26,14 @@
 #include "ConfigurationDialog.h"
 #include "ConfigurationListUI.h"
 
+#include <QDialogButtonBox>
+#include <QBoxLayout>
+#include <QWidget>
+#include <QLabel>
+#include <QLineEdit>
+#include <QFileDialog>
+#include <QMessageBox>
+
 
 /*! Constructs a new configuration dialog object.
  */
@@ -142,7 +150,7 @@ QWidget *ConfigurationDialog::constructIncludesTab()
                              "you specify a directory that will be included in your backup,<br>"
                              "e.g. <i>/data</i> or <i>/home/user</i>");
 
-    return new ConfigurationListUI(m_config.GetIncludes(), ConfigurationListUI::DIRECTORY, description, this);
+    return new ConfigurationListUI(m_config.includes(), ConfigurationListUI::DIRECTORY, description, this);
 }
 
 
@@ -154,7 +162,7 @@ QWidget *ConfigurationDialog::constructExcludesTab()
                              "the backup, e.g. <i>/data/temp</i> will exclude the whole directrory,<br>"
                              "<i>test*</i> will exclude all files beginning with 'test'");
 
-    return new ConfigurationListUI(m_config.GetExcludes(), ConfigurationListUI::PATTERN, description, this);
+    return new ConfigurationListUI(m_config.excludes(), ConfigurationListUI::PATTERN, description, this);
 }
 
 

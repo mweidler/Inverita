@@ -100,7 +100,7 @@ void BackupEngine::start()
 
     try {
         m_config.reset();
-        m_config.Load(m_backupRootPath + "/inverita.conf");
+        m_config.load(m_backupRootPath + "/inverita.conf");
 
         m_currentTask = 0;
         scanDirectories();
@@ -152,8 +152,8 @@ void BackupEngine::abort()
  */
 void BackupEngine::scanDirectories()
 {
-    m_scanTraverser.addIncludes(m_config.GetIncludes());
-    m_scanTraverser.addExcludes(m_config.GetExcludes());
+    m_scanTraverser.addIncludes(m_config.includes());
+    m_scanTraverser.addExcludes(m_config.excludes());
     m_scanTraverser.traverse();
 }
 
@@ -176,18 +176,18 @@ void BackupEngine::executeBackup(QString &timestamp)
 
     dir.mkpath(currentBackup);
 
-    m_copyTraverser.addIncludes(m_config.GetIncludes());
-    m_copyTraverser.addExcludes(m_config.GetExcludes());
+    m_copyTraverser.addIncludes(m_config.includes());
+    m_copyTraverser.addExcludes(m_config.excludes());
     m_copyTraverser.setPreviousBackupPath(previousBackup);
     m_copyTraverser.setCurrentBackupPath(currentBackup);
-    m_copyTraverser.previousSignatures().Load(previousBackup + "/" + "signatures");
+    m_copyTraverser.previousSignatures().load(previousBackup + "/" + "signatures");
     m_copyTraverser.traverse();
-    m_copyTraverser.currentSignatures().Save(currentBackup + "/" + "signatures");
+    m_copyTraverser.currentSignatures().save(currentBackup + "/" + "signatures");
 
     m_metaInfo.reset();
     m_metaInfo.setNumberOfFiles(m_copyTraverser.totalFiles());
     m_metaInfo.setSizeOfFiles(m_copyTraverser.totalSize());
-    m_metaInfo.Save(currentBackup + "/" + "metainfo");
+    m_metaInfo.save(currentBackup + "/" + "metainfo");
 }
 
 
@@ -204,7 +204,7 @@ void BackupEngine::validateBackup(QString &timestamp)
     m_validateTraverser.addExcludes("metainfo");
     m_validateTraverser.addExcludes("signatures");
     m_validateTraverser.setBackupPath(snapshotName);
-    m_validateTraverser.signatures().Load(snapshotName + "/signatures");
+    m_validateTraverser.signatures().load(snapshotName + "/signatures");
     m_validateTraverser.traverse();
     m_validateTraverser.summary();
 }

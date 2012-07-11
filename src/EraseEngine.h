@@ -26,7 +26,6 @@
 #define HEADER_ERASEENGINE_INC
 
 #include <QString>
-#include <QStringList>
 
 #include "WorkerEngine.h"
 #include "EraseTraverser.h"

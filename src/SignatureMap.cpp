@@ -42,7 +42,7 @@ SignatureMap::SignatureMap()
  *
  * \return true, if successful loaded contents from file, otherwise false
  */
-bool SignatureMap::Load(const QString &filename)
+bool SignatureMap::load(const QString &filename)
 {
     this->clear();
 
@@ -84,7 +84,7 @@ bool SignatureMap::Load(const QString &filename)
  *
  * \return true, if successful saved contents to file, otherwise false
  */
-bool SignatureMap::Save(const QString &filename) const
+bool SignatureMap::save(const QString &filename) const
 {
     QFile target(filename);
 

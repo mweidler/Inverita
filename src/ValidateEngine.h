@@ -25,11 +25,10 @@
 #ifndef HEADER_VALIDATEENGINE_INC
 #define HEADER_VALIDATEENGINE_INC
 
-#include <QString>
-
 #include "WorkerEngine.h"
 #include "ValidateTraverser.h"
 #include "SnapshotMetaInfo.h"
+
 
 class ValidateEngine : public WorkerEngine
 {
@@ -46,9 +45,9 @@ public slots:
     void abort();
 
 protected:
-    QString            m_snapshotName;
-    ValidateTraverser  m_validateTraverser;
-    SnapshotMetaInfo   m_metaInfo;
+    QString           m_snapshotName;
+    ValidateTraverser m_validateTraverser;
+    SnapshotMetaInfo  m_metaInfo;
 };
 
 #endif

@@ -25,12 +25,12 @@
 #ifndef HEADER_WORKERENGINE_INC
 #define HEADER_WORKERENGINE_INC
 
+#include "ApplicationException.h"
+
 #include <QObject>
 #include <QString>
 #include <QStringList>
 #include <QDateTime>
-
-#include "ApplicationException.h"
 
 
 /*! Container for meta information
@@ -77,10 +77,11 @@ protected:
     void buildFailureHint(ApplicationException &e);
 
 protected:
-    int         m_currentTask;
     QStringList m_descriptions;
-    bool        m_abort;
     QString     m_failureHint;
+    int         m_currentTask;
+    bool        m_abort;
+
 };
 
 #endif

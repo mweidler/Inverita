@@ -65,18 +65,18 @@ void VerifyEngine::start()
     QString empty;
     QString currentBackup = SearchLatestBackupDir(m_backupRootPath);
     m_config.reset();
-    m_config.Load(m_backupRootPath + "/inverita.conf");
+    m_config.load(m_backupRootPath + "/inverita.conf");
     m_validateTraverser.reset();
     emit started();
 
     try {
-        m_metaInfo.Load(currentBackup + "/" + "metainfo") ;
-        m_validateTraverser.addIncludes(m_config.GetIncludes());
-        m_validateTraverser.addExcludes(m_config.GetExcludes());
+        m_metaInfo.load(currentBackup + "/" + "metainfo") ;
+        m_validateTraverser.addIncludes(m_config.includes());
+        m_validateTraverser.addExcludes(m_config.excludes());
         m_validateTraverser.addExcludes("metainfo");
         m_validateTraverser.addExcludes("signatures");
         m_validateTraverser.setBackupPath(empty);
-        m_validateTraverser.signatures().Load(currentBackup + "/signatures");
+        m_validateTraverser.signatures().load(currentBackup + "/signatures");
         m_validateTraverser.traverse();
         m_validateTraverser.summary();
         m_currentTask = -1; // disable highlighted task

@@ -107,7 +107,7 @@ int BackupListModel::setEntry(const BackupEntry &entry)
         endInsertRows();
     }
 
-    Save();
+    save();
 
     return i;
 }
@@ -117,7 +117,7 @@ int BackupListModel::setEntry(const BackupEntry &entry)
  *
  * \param organization the organisation/filename for the configuration storage
  */
-int BackupListModel::Load(const QString &organization)
+int BackupListModel::load(const QString &organization)
 {
     this->clear();
 
@@ -146,9 +146,9 @@ int BackupListModel::Load(const QString &organization)
 
 /*! Write selector choice content to config file.
  */
-void BackupListModel::Save()
+void BackupListModel::save()
 {
-    SaveAs(m_organization);
+    saveAs(m_organization);
 }
 
 
@@ -156,7 +156,7 @@ void BackupListModel::Save()
  *
  * \param organization the organisation/filename for the configuration storage
  */
-void BackupListModel::SaveAs(const QString &organization)
+void BackupListModel::saveAs(const QString &organization)
 {
     QSettings settings(organization);
 

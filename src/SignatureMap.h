@@ -45,8 +45,8 @@ class SignatureMap : public Signature
 public:
     SignatureMap();
 
-    bool Load(const QString &filename);
-    bool Save(const QString &filename) const;
+    bool load(const QString &filename);
+    bool save(const QString &filename) const;
 
 protected:
 };

@@ -25,12 +25,11 @@
 #ifndef HEADER_VERIFYENGINE_INC
 #define HEADER_VERIFYENGINE_INC
 
-#include <QString>
-
 #include "WorkerEngine.h"
 #include "ValidateTraverser.h"
 #include "SnapshotMetaInfo.h"
 #include "Configuration.h"
+
 
 class VerifyEngine : public WorkerEngine
 {
@@ -47,10 +46,10 @@ public slots:
     void abort();
 
 protected:
-    QString            m_backupRootPath;
-    Configuration      m_config;
-    ValidateTraverser  m_validateTraverser;
-    SnapshotMetaInfo   m_metaInfo;
+    QString           m_backupRootPath;
+    Configuration     m_config;
+    ValidateTraverser m_validateTraverser;
+    SnapshotMetaInfo  m_metaInfo;
 };
 
 #endif
