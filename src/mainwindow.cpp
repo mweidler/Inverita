@@ -335,6 +335,7 @@ void MainWindow::onStartBackup()
 void MainWindow::onBackupFinished()
 {
     qDebug() << "onBackupFinished";
+    m_driveCapacityWatcher->watch();
     m_driveCapacityWatcher->setAutoDeleteEnabled(false);
     reload();
 }

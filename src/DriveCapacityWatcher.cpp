@@ -82,6 +82,7 @@ void DriveCapacityWatcher::select(const QString &backupPath)
 
 void DriveCapacityWatcher::setAutoDeleteEnabled(bool autoDelete)
 {
+    qDebug() << "DriveCapacityWatcher::setAutoDeleteEnabled" << autoDelete;
     m_autoDeleteEnabled = autoDelete;
 }
 
@@ -92,21 +93,30 @@ void DriveCapacityWatcher::setAutoDeleteEnabled(bool autoDelete)
  */
 void DriveCapacityWatcher::watch()
 {
+    qDebug() << "Watching";
+
     if (!m_autoDeleteEnabled) {
         return;
     }
 
-    if ((m_config->autoDeleteBackups() && m_capacityModel->capacity() < 0.05) ||
-        (m_config->limitBackups() && m_snapshotListModel->count() > m_config->maximumBackups())
-       ) {
+    qDebug() << "Enabled";
+
+    if (m_config->autoDeleteBackups() && m_capacityModel->capacity() < 0.05) {
         deleteSnapshot(m_backupRootPath + "/" + m_snapshotListModel->at(0).name());
-        return;
+    }
+
+    qDebug() << m_config->limitBackups() << m_snapshotListModel->count() << m_config->maximumBackups();
+
+    if (m_config->limitBackups() && m_snapshotListModel->count() > m_config->maximumBackups()) {
+        deleteSnapshot(m_backupRootPath + "/" + m_snapshotListModel->at(0).name());
     }
 }
 
 
 void DriveCapacityWatcher::deleteSnapshot(QString snapshotName)
 {
+    qDebug() << "Should delete" << snapshotName;
+
     m_eraseTraverser.reset();
     m_eraseTraverser.addIncludes(snapshotName);
 
