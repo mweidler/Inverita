@@ -178,9 +178,9 @@ QWidget *ConfigurationDialog::constructOptionsTab()
     separator2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
     separator3->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 
-    QLabel *verifyText = new QLabel(tr("Backups can be verified after backup or on individual request."));
-    m_verifyAfterBackup = new QCheckBox(tr("&Verify snapshot after each new creation"));
-    QLabel *verifyLabel = new QLabel(tr("On verification, verify backup snapshot including..."));
+    QLabel *verifyText = new QLabel(tr("Backup snapshots can be verified after creation or on individual request."));
+    m_verifyAfterBackup = new QCheckBox(tr("&Verify backup snapshots automatically after creation"));
+    QLabel *verifyLabel = new QLabel(tr("On verification, verify each file of the backup snapshot by..."));
 
     QVBoxLayout *verifyLayout = new QVBoxLayout;
     verifyLayout->setContentsMargins(50, 0, 0, 0);
