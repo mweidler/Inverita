@@ -37,12 +37,14 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    //TODO: How to determine the translation path?
     QTranslator qtTranslator;
-    qtTranslator.load("qt_" + QLocale::system().name());
+    bool rc = qtTranslator.load("/usr/share/qt4/translations/qt_" + QLocale::system().name());
+    qDebug() << "Qt translation loaded:" << rc;
     app.installTranslator(&qtTranslator);
 
     QTranslator appTranslator;
-    appTranslator.load("inverita_" + QLocale::system().name());
+    rc = appTranslator.load("inverita_" + QLocale::system().name());
     app.installTranslator(&appTranslator);
 
     MainWindow w;

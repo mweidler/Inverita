@@ -11,6 +11,8 @@ TEMPLATE = app
 MOC_DIR = ../mocs
 OBJECTS_DIR = ../objs
 
+TRANSLATIONS = ../inverita_de.ts
+
 RESOURCES += \
         ../resources.qrc
 
