@@ -50,12 +50,6 @@ public:
     bool verifyHash() const;
     void setVerifyHash(bool enable);
 
-    bool verifyTime() const;
-    void setVerifyTime(bool enable);
-
-    bool verifySize() const;
-    void setVerifySize(bool enable);
-
     bool autoDeleteBackups() const;
     void setAutoDeleteBackups(bool enable);
 
@@ -64,9 +58,6 @@ public:
 
     bool limitBackups() const;
     void setLimitBackups(bool enable);
-
-    //TODO: check usage of Q_PROPERTY
-    //Q_PROPERTY(QString objectName READ objectName WRITE setObjectName)
 
     int  maximumBackups() const;
     void setMaximumBackups(int count);
@@ -79,8 +70,6 @@ protected:
     QStringList m_excludePatterns;
     bool        m_verifyAfterBackup;
     bool        m_verifyHash;
-    bool        m_verifyTime;
-    bool        m_verifySize;
     bool        m_autoDeleteBackups;
     int         m_spareCapacity;
     bool        m_limitBackups;

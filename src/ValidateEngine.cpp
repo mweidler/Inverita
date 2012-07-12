@@ -64,6 +64,7 @@ void ValidateEngine::start()
 {
     reset();
     m_validateTraverser.reset();
+    //TODO: set hash compare to traverser
     emit started();
 
     try {

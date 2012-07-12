@@ -2,6 +2,5 @@
 [W] Be aware of the options
 [ ] Error dialog, if config file can not be saved (loaded?)
 [ ] Check file format of backup drive
-[ ] Do not inherit DriveCapacityWatcher from Worker ?
 [ ] Rename mainwindow to InveritaWindow
 [ ] Sort snapshot list in reverse order (show latest snapshot in pos 0). Handle BackupVerification correctly.

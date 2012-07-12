@@ -62,8 +62,6 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     buttonBox->button(QDialogButtonBox::Save)->setDefault(true);
     m_verifyAfterBackup->setChecked(m_config.verifyAfterBackup());
     m_verifyHash->setChecked(m_config.verifyHash());
-    m_verifyDate->setChecked(m_config.verifyTime());
-    m_verifySize->setChecked(m_config.verifySize());
     m_purgeBackups->setChecked(m_config.autoDeleteBackups());
     m_spareCapacity->setValue(m_config.spareCapacity());
     m_limitBackups->setChecked(m_config.limitBackups());
@@ -73,8 +71,8 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(onSave()));
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
-    setMinimumSize(620, 480);
-    resize(620, 480);
+    setMinimumSize(620, 470);
+    resize(620, 470);
 }
 
 
@@ -180,16 +178,10 @@ QWidget *ConfigurationDialog::constructOptionsTab()
 
     QLabel *verifyText = new QLabel(tr("Backup snapshots can be verified after creation or on individual request."));
     m_verifyAfterBackup = new QCheckBox(tr("&Verify backup snapshots automatically after creation"));
-    QLabel *verifyLabel = new QLabel(tr("On verification, verify each file of the backup snapshot by..."));
-
-    QVBoxLayout *verifyLayout = new QVBoxLayout;
-    verifyLayout->setContentsMargins(50, 0, 0, 0);
-    m_verifyHash = new QCheckBox(tr("Content checksum (SHA1 hash)"));
-    m_verifyDate = new QCheckBox(tr("Date and time"));
-    m_verifySize = new QCheckBox(tr("File size"));
-    verifyLayout->addWidget(m_verifyHash);
-    verifyLayout->addWidget(m_verifyDate);
-    verifyLayout->addWidget(m_verifySize);
+    QLabel *hashText = new QLabel(tr("Backup snaphot verification ensures the consistency of the content\n"
+                                     "signatures to the corresponding files, and ensures that all files exist.\n"
+                                     "For performance reasons, the signature recomputation can be left out."));
+    m_verifyHash = new QCheckBox(tr("Recompute content signatures on verification (recommended)"));
 
     QLabel *purgeText = new QLabel(tr("On low drive space, the oldest backup snapshots can be deleted automatically."));
     QHBoxLayout *purgeLayout = new QHBoxLayout;
@@ -197,7 +189,7 @@ QWidget *ConfigurationDialog::constructOptionsTab()
     m_spareCapacity = new QSpinBox;
     m_spareCapacity->setMaximum(15);
     m_spareCapacity->setMinimum(5);
-    QLabel *purgeTrailingText = new QLabel(tr("percent."));
+    QLabel *purgeTrailingText = new QLabel(tr("percent"));
     purgeLayout->setAlignment(Qt::AlignLeft);
     purgeLayout->addWidget(m_purgeBackups);
     purgeLayout->addWidget(m_spareCapacity);
@@ -219,8 +211,8 @@ QWidget *ConfigurationDialog::constructOptionsTab()
     optionsLayout->addWidget(verifyText);
     optionsLayout->addWidget(m_verifyAfterBackup);
     optionsLayout->addWidget(separator1);
-    optionsLayout->addWidget(verifyLabel);
-    optionsLayout->addLayout(verifyLayout);
+    optionsLayout->addWidget(hashText);
+    optionsLayout->addWidget(m_verifyHash);
     optionsLayout->addWidget(separator2);
     optionsLayout->addWidget(purgeText);
     optionsLayout->addLayout(purgeLayout);
@@ -304,8 +296,6 @@ void ConfigurationDialog::onSave()
 
     m_config.setVerifyAfterBackup(m_verifyAfterBackup->isChecked());
     m_config.setVerifyHash(m_verifyHash->isChecked());
-    m_config.setVerifySize(m_verifySize->isChecked());
-    m_config.setVerifyTime(m_verifyDate->isChecked());
     m_config.setAutoDeleteBackups(m_purgeBackups->isChecked());
     m_config.setLimitBackups(m_limitBackups->isChecked());
     m_config.setMaximumBackups(m_numberBackups->value());

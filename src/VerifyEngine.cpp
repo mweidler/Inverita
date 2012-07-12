@@ -34,7 +34,7 @@ VerifyEngine::VerifyEngine()
 
     m_descriptions << tr("Verifying all items of the selected backup");
 
-    // tarverser and engine can emit report signals to the progress dialog
+    // traverser and engine can emit report signals to the progress dialog
     connect(&m_validateTraverser, SIGNAL(report(QString)), this, SIGNAL(report(QString)));
 }
 
@@ -67,6 +67,7 @@ void VerifyEngine::start()
     m_config.reset();
     m_config.load(m_backupRootPath + "/inverita.conf");
     m_validateTraverser.reset();
+    //TODO: set hash compare to traverser
     emit started();
 
     try {

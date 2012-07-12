@@ -40,8 +40,6 @@ void Configuration::reset()
     m_excludePatterns.clear();
     m_verifyAfterBackup = true;
     m_verifyHash   = true;
-    m_verifyTime   = true;
-    m_verifySize   = true;
     m_autoDeleteBackups = true;
     m_limitBackups = true;
     m_maxBackups   = 40;
@@ -99,9 +97,6 @@ bool Configuration::load(const QString &filename)
 
     m_verifyAfterBackup = settings.value("OPTIONS/VerifyAfterBackup", true).toBool();
     m_verifyHash        = settings.value("OPTIONS/VerifyHash", true).toBool();
-    m_verifyTime        = settings.value("OPTIONS/VerifyTime", true).toBool();
-    m_verifySize        = settings.value("OPTIONS/VerifySize", true).toBool();
-
     m_autoDeleteBackups = settings.value("OPTIONS/AutoDeleteBackups", true).toBool();
     m_spareCapacity     = settings.value("OPTIONS/SpareCapacity", 7).toInt();
     m_limitBackups      = settings.value("OPTIONS/LimitBackups", true).toBool();
@@ -139,9 +134,6 @@ void Configuration::save(const QString &filename) const
 
     settings.setValue("OPTIONS/VerifyAfterBackup", m_verifyAfterBackup);
     settings.setValue("OPTIONS/VerifyHash",        m_verifyHash);
-    settings.setValue("OPTIONS/VerifyTime",        m_verifyTime);
-    settings.setValue("OPTIONS/VerifySize",        m_verifySize);
-
     settings.setValue("OPTIONS/AutoDeleteBackups", m_autoDeleteBackups);
     settings.setValue("OPTIONS/SpareCapacity",     m_spareCapacity);
     settings.setValue("OPTIONS/LimitBackups",      m_limitBackups);
@@ -175,28 +167,6 @@ void Configuration::setVerifyHash(bool enable)
 {
     m_verifyHash = enable;
 }
-
-bool Configuration::verifyTime() const
-{
-    return m_verifyTime;
-}
-
-void Configuration::setVerifyTime(bool enable)
-{
-    m_verifyTime = enable;
-}
-
-
-bool Configuration::verifySize() const
-{
-    return m_verifySize;
-}
-
-void Configuration::setVerifySize(bool enable)
-{
-    m_verifySize = enable;
-}
-
 
 bool Configuration::autoDeleteBackups() const
 {

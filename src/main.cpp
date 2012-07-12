@@ -22,6 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "version.h"
 #include "mainwindow.h"
 #include <QApplication>
 
@@ -37,14 +38,15 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    //TODO: How to determine the translation path?
+    QApplication::setApplicationName("inverita");
+    QApplication::setApplicationVersion(QString(INVERITA_COMMIT_VERSION));
+
     QTranslator qtTranslator;
-    bool rc = qtTranslator.load("/usr/share/qt4/translations/qt_" + QLocale::system().name());
-    qDebug() << "Qt translation loaded:" << rc;
+    qtTranslator.load(QLocale::system(), "qt", "_", QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     app.installTranslator(&qtTranslator);
 
     QTranslator appTranslator;
-    rc = appTranslator.load("inverita_" + QLocale::system().name());
+    appTranslator.load(QApplication::applicationName() + "_" + QLocale::system().name());
     app.installTranslator(&appTranslator);
 
     MainWindow w;
