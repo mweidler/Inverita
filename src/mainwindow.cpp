@@ -526,3 +526,6 @@ void MainWindow::createMenus()
     helpMenu->addAction(aboutAct);
     helpMenu->addAction(aboutQtAct);
 }
+
+//TODO: check usage of copy constructor, why
+//      Q_DISABLE_COPY(MyClass) of all QObjects

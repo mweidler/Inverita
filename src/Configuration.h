@@ -65,6 +65,9 @@ public:
     bool limitBackups() const;
     void setLimitBackups(bool enable);
 
+    //TODO: check usage of Q_PROPERTY
+    //Q_PROPERTY(QString objectName READ objectName WRITE setObjectName)
+
     int  maximumBackups() const;
     void setMaximumBackups(int count);
 
