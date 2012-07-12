@@ -164,10 +164,10 @@ void BackupEngine::checkDriveSpace()
         return;
     }
 
-    qreal spare = m_config.spareCapacity() / 100.0;
     FilesystemInfo filesystem(m_backupRootPath);
     SnapshotListModel snapshotList;
     snapshotList.investigate(m_backupRootPath);
+    qreal spare = m_config.spareCapacity() / 100.0;
 
     for (int i = 0; (i < snapshotList.count()) && (filesystem.capacity() < spare); i++) {
         deleteSnapshot(m_backupRootPath + "/" + snapshotList[i].name());
@@ -184,7 +184,6 @@ void BackupEngine::checkOvercharge()
 
     SnapshotListModel snapshotList;
     snapshotList.investigate(m_backupRootPath);
-
     int overcharge = snapshotList.count() - m_config.maximumBackups() ;
 
     for (int i = 0; i < overcharge; i++) {
