@@ -40,6 +40,7 @@ public:
     SignatureMap &signatures();
     void setBackupPath(QString &absolutePath);
     void summary();
+    void setVerifyHash(bool enable);
 
 public:
     virtual void onFile(const QString &absoluteFilePath);
@@ -56,6 +57,7 @@ protected:
     int          m_sizeOfBackupPath;
     char         m_fileBuffer[4096]; //!< buffer for file copying
     SignatureMap m_signatures;       //!< hash signatures of all files in current backup
+    bool         m_verifyHash;
 };
 
 #endif

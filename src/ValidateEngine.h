@@ -38,13 +38,14 @@ public:
     ValidateEngine();
 
     WorkerStatus status();
-    void select(const QString &snapshotName);
+    void select(const QString &backupRootPath, const QString &snapshotName);
 
 public slots:
     void start();
     void abort();
 
 protected:
+    QString           m_backupRootPath;
     QString           m_snapshotName;
     ValidateTraverser m_validateTraverser;
     SnapshotMetaInfo  m_metaInfo;

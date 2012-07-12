@@ -57,6 +57,12 @@ void ValidateTraverser::setBackupPath(QString &path)
 }
 
 
+void ValidateTraverser::setVerifyHash(bool enable)
+{
+    m_verifyHash = enable;
+}
+
+
 void ValidateTraverser::summary()
 {
     QString msg = tr("%1 files checked, %2 errors found.") + "<br><br>";
@@ -78,6 +84,10 @@ void ValidateTraverser::summary()
 
     if (m_totalErrors) {
         corrupted = true;
+    }
+
+    if (!m_verifyHash) {
+        emit report(tr("WARNING: Content signatures not verified (disabled).") + "<br>");
     }
 
     if (corrupted) {
@@ -140,13 +150,19 @@ void ValidateTraverser::onFile(const QString &absoluteFilePath)
 
     qDebug() << "Validate onFile" << absoluteFilePath << key;
 
-    previousHash = m_signatures.value(key);
-    hashFile(absoluteFilePath, currentHash);
+    if (m_verifyHash) {
+        previousHash = m_signatures.value(key);
+        hashFile(absoluteFilePath, currentHash);
 
-    if (previousHash != currentHash) {
-        emit report(absoluteFilePath + " has beed modified.<br>");
-        m_totalErrors++;
+        if (previousHash != currentHash) {
+            emit report(absoluteFilePath + " has beed modified.<br>");
+            m_totalErrors++;
+        }
+    } else {
+        QFile file(absoluteFilePath);
+        m_totalSize += file.size();
     }
+
 
     m_signatures.remove(key);
     m_totalFiles++;

@@ -51,8 +51,9 @@ WorkerStatus ValidateEngine::status()
 }
 
 
-void ValidateEngine::select(const QString &snapshotName)
+void ValidateEngine::select(const QString &backupRootPath, const QString &snapshotName)
 {
+    m_backupRootPath = backupRootPath;
     m_snapshotName = snapshotName;
     qDebug() << "Validate snapshot selected: " << m_snapshotName;
 }
@@ -63,17 +64,20 @@ void ValidateEngine::select(const QString &snapshotName)
 void ValidateEngine::start()
 {
     reset();
+    Configuration config;
+    config.load(m_backupRootPath + "/inverita.conf");
     m_validateTraverser.reset();
-    //TODO: set hash compare to traverser
+    m_validateTraverser.setVerifyHash(config.verifyHash());
+    QString snapshotName = m_backupRootPath + "/" + m_snapshotName;
     emit started();
 
     try {
-        m_metaInfo.load(m_snapshotName + "/" + "metainfo") ;
-        m_validateTraverser.addIncludes(m_snapshotName);
+        m_metaInfo.load(snapshotName + "/" + "metainfo") ;
+        m_validateTraverser.addIncludes(snapshotName);
         m_validateTraverser.addExcludes("metainfo");
         m_validateTraverser.addExcludes("signatures");
-        m_validateTraverser.setBackupPath(m_snapshotName);
-        m_validateTraverser.signatures().load(m_snapshotName + "/signatures");
+        m_validateTraverser.setBackupPath(snapshotName);
+        m_validateTraverser.signatures().load(snapshotName + "/signatures");
         m_validateTraverser.traverse();
         m_validateTraverser.summary();
         m_currentTask = -1; // disable highlighted task

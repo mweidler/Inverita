@@ -347,7 +347,7 @@ void MainWindow::onValidateBackup()
 {
     int index = m_snapshotListUI->currentSelection();
     QString name = m_snapshotListModel->at(index).name();
-    m_validateEngine->select(m_currentBackup.location() + "/" + name);
+    m_validateEngine->select(m_currentBackup.location(), name);
     emit validateBackup();
 }
 

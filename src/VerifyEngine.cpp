@@ -67,7 +67,7 @@ void VerifyEngine::start()
     m_config.reset();
     m_config.load(m_backupRootPath + "/inverita.conf");
     m_validateTraverser.reset();
-    //TODO: set hash compare to traverser
+    m_validateTraverser.setVerifyHash(m_config.verifyHash());
     emit started();
 
     try {
