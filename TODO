@@ -1,6 +1,5 @@
-[ ] test AutoDeleteSnapshot: delete from 5%, until 10% capacity reached again
-[W] Be aware of the options
+[ ] test AutoDeleteSnapshot: delete to reach spare
 [ ] Error dialog, if config file can not be saved (loaded?)
 [ ] Check file format of backup drive
 [ ] Rename mainwindow to InveritaWindow
-[ ] Sort snapshot list in reverse order (show latest snapshot in pos 0). Handle BackupVerification correctly.
+
