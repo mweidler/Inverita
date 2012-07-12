@@ -103,6 +103,7 @@ bool Configuration::load(const QString &filename)
     m_verifySize        = settings.value("OPTIONS/VerifySize", true).toBool();
 
     m_autoDeleteBackups = settings.value("OPTIONS/AutoDeleteBackups", true).toBool();
+    m_spareCapacity     = settings.value("OPTIONS/SpareCapacity", 7).toInt();
     m_limitBackups      = settings.value("OPTIONS/LimitBackups", true).toBool();
     m_maxBackups        = settings.value("OPTIONS/MaxBackups", 40).toInt();
 
@@ -142,6 +143,7 @@ void Configuration::save(const QString &filename) const
     settings.setValue("OPTIONS/VerifySize",        m_verifySize);
 
     settings.setValue("OPTIONS/AutoDeleteBackups", m_autoDeleteBackups);
+    settings.setValue("OPTIONS/SpareCapacity",     m_spareCapacity);
     settings.setValue("OPTIONS/LimitBackups",      m_limitBackups);
     settings.setValue("OPTIONS/MaxBackups",        m_maxBackups);
 
@@ -204,6 +206,16 @@ bool Configuration::autoDeleteBackups() const
 void Configuration::setAutoDeleteBackups(bool enable)
 {
     m_autoDeleteBackups = enable;
+}
+
+int Configuration::spareCapacity() const
+{
+    return m_spareCapacity;
+}
+
+void Configuration::setSpareCapacity(int spare)
+{
+    m_spareCapacity = spare;
 }
 
 

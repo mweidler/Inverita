@@ -66,6 +66,7 @@ private:
     QCheckBox     *m_verifyDate;
     QCheckBox     *m_verifySize;
     QCheckBox     *m_purgeBackups;
+    QSpinBox      *m_spareCapacity;
     QCheckBox     *m_limitBackups;
     QSpinBox      *m_numberBackups;
     QLineEdit     *m_targetEdit;

@@ -59,6 +59,9 @@ public:
     bool autoDeleteBackups() const;
     void setAutoDeleteBackups(bool enable);
 
+    int  spareCapacity() const;
+    void setSpareCapacity(int spare);
+
     bool limitBackups() const;
     void setLimitBackups(bool enable);
 
@@ -76,6 +79,7 @@ protected:
     bool        m_verifyTime;
     bool        m_verifySize;
     bool        m_autoDeleteBackups;
+    int         m_spareCapacity;
     bool        m_limitBackups;
     int         m_maxBackups;
 };

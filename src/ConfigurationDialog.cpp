@@ -65,6 +65,7 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     m_verifyDate->setChecked(m_config.verifyTime());
     m_verifySize->setChecked(m_config.verifySize());
     m_purgeBackups->setChecked(m_config.autoDeleteBackups());
+    m_spareCapacity->setValue(m_config.spareCapacity());
     m_limitBackups->setChecked(m_config.limitBackups());
     m_numberBackups->setValue(m_config.maximumBackups());
 
@@ -190,16 +191,25 @@ QWidget *ConfigurationDialog::constructOptionsTab()
     verifyLayout->addWidget(m_verifyDate);
     verifyLayout->addWidget(m_verifySize);
 
-    QLabel *purgeText = new QLabel(tr("On low drive space, the oldest backups can be deleted automatically."));
-    m_purgeBackups = new QCheckBox(tr("&Delete oldest backups on low drive space"));
+    QLabel *purgeText = new QLabel(tr("On low drive space, the oldest backup snapshots can be deleted automatically."));
+    QHBoxLayout *purgeLayout = new QHBoxLayout;
+    m_purgeBackups = new QCheckBox(tr("&Delete oldest backup snapshots until free capacity reaches"));
+    m_spareCapacity = new QSpinBox;
+    m_spareCapacity->setMaximum(15);
+    m_spareCapacity->setMinimum(5);
+    QLabel *purgeTrailingText = new QLabel(tr("percent."));
+    purgeLayout->setAlignment(Qt::AlignLeft);
+    purgeLayout->addWidget(m_purgeBackups);
+    purgeLayout->addWidget(m_spareCapacity);
+    purgeLayout->addWidget(purgeTrailingText);
 
-    QLabel *limitText = new QLabel(tr("The number of historical backups can be limited."));
+    QLabel *limitText = new QLabel(tr("The number of backup snapshots can be limited."));
     QHBoxLayout *limitLayout = new QHBoxLayout;
     m_limitBackups = new QCheckBox(tr("&Keep up to"));
     m_numberBackups = new QSpinBox;
     m_numberBackups->setMaximum(50);
     m_numberBackups->setMinimum(1);
-    QLabel *trailingText = new QLabel(tr("previous backups"));
+    QLabel *trailingText = new QLabel(tr("backup snapshots and delete the oldest ones"));
     limitLayout->setAlignment(Qt::AlignLeft);
     limitLayout->addWidget(m_limitBackups);
     limitLayout->addWidget(m_numberBackups);
@@ -213,7 +223,7 @@ QWidget *ConfigurationDialog::constructOptionsTab()
     optionsLayout->addLayout(verifyLayout);
     optionsLayout->addWidget(separator2);
     optionsLayout->addWidget(purgeText);
-    optionsLayout->addWidget(m_purgeBackups);
+    optionsLayout->addLayout(purgeLayout);
     optionsLayout->addWidget(separator3);
     optionsLayout->addWidget(limitText);
     optionsLayout->addLayout(limitLayout);
@@ -299,6 +309,7 @@ void ConfigurationDialog::onSave()
     m_config.setAutoDeleteBackups(m_purgeBackups->isChecked());
     m_config.setLimitBackups(m_limitBackups->isChecked());
     m_config.setMaximumBackups(m_numberBackups->value());
+    m_config.setSpareCapacity(m_spareCapacity->value());
 
     accept();
 }

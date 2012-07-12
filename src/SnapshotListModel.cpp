@@ -40,7 +40,7 @@ SnapshotListModel::SnapshotListModel(QObject *parent) : QAbstractTableModel(pare
     clear();
 
     m_headerLabels << tr("No.") << tr("Name") << tr("Last modified") <<
-                      tr("Files") << tr("Size") << tr("Execution status");
+                   tr("Files") << tr("Size") << tr("Execution status");
 }
 
 
@@ -109,7 +109,7 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
     if (role == Qt::DisplayRole) {
         switch (index.column()) {
             case 0:
-                return QVariant(index.row()+1);
+                return QVariant(index.row() + 1);
                 break;
 
             case 1:

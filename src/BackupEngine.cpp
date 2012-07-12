@@ -164,11 +164,12 @@ void BackupEngine::checkDriveSpace()
         return;
     }
 
+    qreal spare = m_config.spareCapacity() / 100.0;
     FilesystemInfo filesystem(m_backupRootPath);
     SnapshotListModel snapshotList;
     snapshotList.investigate(m_backupRootPath);
 
-    for (int i = 0; i < snapshotList.count() && filesystem.capacity() > 0.07; i++) {
+    for (int i = 0; (i < snapshotList.count()) && (filesystem.capacity() < spare); i++) {
         deleteSnapshot(m_backupRootPath + "/" + snapshotList[i].name());
         filesystem.refresh();
     }
@@ -178,7 +179,7 @@ void BackupEngine::checkDriveSpace()
 void BackupEngine::checkOvercharge()
 {
     if (!m_config.limitBackups()) {
-       return;
+        return;
     }
 
     SnapshotListModel snapshotList;
@@ -188,7 +189,7 @@ void BackupEngine::checkOvercharge()
 
     for (int i = 0; i < overcharge; i++) {
         deleteSnapshot(m_backupRootPath + "/" + snapshotList[i].name());
-        emit report(tr("Backup snapshot deleted du to overcharge: ") + snapshotList[i].name());
+        emit report(tr("Backup snapshot deleted due to overcharge: ") + snapshotList[i].name());
     }
 }
 
