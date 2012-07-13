@@ -88,14 +88,16 @@ ConfigurationDialog::~ConfigurationDialog()
  */
 QWidget *ConfigurationDialog::constructTargetTab()
 {
-    QLabel *targetText = new QLabel(tr("The backup target specifies the location, where the backup<br>"
-                                       "data will be stored on. This can be any path mounted on<br>"
-                                       "your computer, e.g. <i>/media/usbdrive</i> or <i>/data/backup</i><br><br>"
-                                       "<u>Attention:</u> If you change an existing backup location to<br>"
-                                       " another location, a new backup will be created on the new<br>"
-                                       "location. Your existing backup and snapshots will not be<br>"
-                                       "copied to the new location and reside on the old location."
-                                      ));
+    QLabel *targetText = new QLabel(tr(
+                                        "The backup storage specifies the location, where backup<br>"
+                                        "data will be stored. You can choose every pathname which is<br>"
+                                        " accessible from your computer, e.g. <i>/media/usbdrive</i> or<br>"
+                                        "<i>/data/backup</i><br><br>"
+                                        "<u>Attention:</u> If you change an existing backup storage to<br>"
+                                        "another location, a new backup will be created on the new<br>"
+                                        "location. Your existing backup and snapshots will not be<br>"
+                                        "copied to the new location and reside on the old location."
+                                    ));
 
     QPixmap pixmap(":/images/drive-icon.png");
     QLabel *labelImage = new QLabel;
@@ -108,18 +110,18 @@ QWidget *ConfigurationDialog::constructTargetTab()
     QHBoxLayout *locationLayout = new QHBoxLayout;
     m_targetEdit = new QLineEdit();
     m_buttonChange = new QPushButton(tr("Change"));
-    m_buttonChange->setIcon(QIcon::fromTheme("fileopen"));
+    m_buttonChange->setIcon(QIcon::fromTheme("fileopen")); //TODO: folder?
     locationLayout->addWidget(m_targetEdit);
     locationLayout->addWidget(m_buttonChange);
 
     QVBoxLayout *targetLayout = new QVBoxLayout;
-    targetLayout->addWidget(new QLabel(tr("Your current backup target:")));
+    targetLayout->addWidget(new QLabel(tr("Current backup storage:")));
     targetLayout->addLayout(locationLayout);
 
     QLabel *separator = new QLabel;
     separator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 
-    QLabel *labelText = new QLabel(tr("You can give your backup a short label, like 'home backup' or 'dropbox'."));
+    QLabel *labelText = new QLabel(tr("You can give your backup a short label, like <i>Home-Backup</i> or <i>Dropbox</i>."));
 
     QHBoxLayout *labelLayout = new QHBoxLayout;
     m_targetLabelEdit = new QLineEdit();
@@ -145,8 +147,7 @@ QWidget *ConfigurationDialog::constructTargetTab()
  */
 QWidget *ConfigurationDialog::constructIncludesTab()
 {
-    QString description = tr("The list below defines the coverage of your backup. With each entry,<br>"
-                             "you specify a directory that will be included in your backup,<br>"
+    QString description = tr("The list below shows all directories that comprises your backup,<br>"
                              "e.g. <i>/data</i> or <i>/home/user</i>");
 
     return new ConfigurationListUI(m_config.includes(), ConfigurationListUI::DIRECTORY, description, this);
@@ -157,9 +158,9 @@ QWidget *ConfigurationDialog::constructIncludesTab()
  */
 QWidget *ConfigurationDialog::constructExcludesTab()
 {
-    QString description = tr("The patterns below specify all files/directories that will be excluded from<br>"
-                             "the backup, e.g. <i>/data/temp</i> will exclude the whole directrory,<br>"
-                             "<i>test*</i> will exclude all files beginning with 'test'");
+    QString description = tr("The list below shows all file/directory-patterns that will be excluded<br>"
+                             "from the backup, e.g. <i>/data/temp</i> will exclude the whole directory,<br>"
+                             "<i>test*</i> will exclude all items beginning with 'test'");
 
     return new ConfigurationListUI(m_config.excludes(), ConfigurationListUI::PATTERN, description, this);
 }
@@ -178,12 +179,12 @@ QWidget *ConfigurationDialog::constructOptionsTab()
 
     QLabel *verifyText = new QLabel(tr("Backup snapshots can be verified after creation or on individual request."));
     m_verifyAfterBackup = new QCheckBox(tr("&Verify backup snapshots automatically after creation"));
-    QLabel *hashText = new QLabel(tr("Backup snaphot verification ensures the consistency of the content\n"
-                                     "signatures to the corresponding files, and ensures that all files exist.\n"
-                                     "For performance reasons, the signature recomputation can be left out."));
-    m_verifyHash = new QCheckBox(tr("Recompute content signatures on verification (recommended)"));
+    QLabel *hashText = new QLabel(tr("Backup snaphot verification ensures the consistency of the signatures to\n"
+                                     "the corresponding files, and ensures that all files exist. For performance\n"
+                                     "reasons, the signature recomputation can be left out."));
+    m_verifyHash = new QCheckBox(tr("Recompute signatures on verification (recommended)"));
 
-    QLabel *purgeText = new QLabel(tr("On low drive space, the oldest backup snapshots can be deleted automatically."));
+    QLabel *purgeText = new QLabel(tr("At low drive space, the oldest backup snapshots can be deleted automatically."));
     QHBoxLayout *purgeLayout = new QHBoxLayout;
     m_purgeBackups = new QCheckBox(tr("&Delete oldest backup snapshots until free capacity reaches"));
     m_spareCapacity = new QSpinBox;
