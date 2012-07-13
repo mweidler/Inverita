@@ -40,7 +40,7 @@
 ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) : QDialog(parent), m_config(model)
 {
     QTabWidget *tabWidget = new QTabWidget(parent);
-    tabWidget->addTab(constructTargetTab(), tr("Target"));
+    tabWidget->addTab(constructStorageTab(), tr("Storage"));
     tabWidget->addTab(constructIncludesTab(), tr("Includes"));
     tabWidget->addTab(constructExcludesTab(), tr("Excludes"));
     tabWidget->addTab(constructOptionsTab(), tr("Options"));
@@ -84,11 +84,11 @@ ConfigurationDialog::~ConfigurationDialog()
 }
 
 
-/*! Construct the configuration tab for target configuration.
+/*! Construct the configuration tab for storage configuration.
  */
-QWidget *ConfigurationDialog::constructTargetTab()
+QWidget *ConfigurationDialog::constructStorageTab()
 {
-    QLabel *targetText = new QLabel(tr(
+    QLabel *storageText = new QLabel(tr(
                                         "The backup storage specifies the location, where backup<br>"
                                         "data will be stored. You can choose every pathname which is<br>"
                                         " accessible from your computer, e.g. <i>/media/usbdrive</i> or<br>"
@@ -104,19 +104,19 @@ QWidget *ConfigurationDialog::constructTargetTab()
     labelImage->setPixmap(pixmap);
 
     QHBoxLayout *descriptionLayout = new QHBoxLayout;
-    descriptionLayout->addWidget(targetText);
+    descriptionLayout->addWidget(storageText);
     descriptionLayout->addWidget(labelImage, 1, Qt::AlignRight | Qt::AlignTop);
 
     QHBoxLayout *locationLayout = new QHBoxLayout;
-    m_targetEdit = new QLineEdit();
+    m_storageEdit = new QLineEdit();
     m_buttonChange = new QPushButton(tr("Change"));
     m_buttonChange->setIcon(QIcon::fromTheme("fileopen"));
-    locationLayout->addWidget(m_targetEdit);
+    locationLayout->addWidget(m_storageEdit);
     locationLayout->addWidget(m_buttonChange);
 
-    QVBoxLayout *targetLayout = new QVBoxLayout;
-    targetLayout->addWidget(new QLabel(tr("Current backup storage:")));
-    targetLayout->addLayout(locationLayout);
+    QVBoxLayout *storageLayout = new QVBoxLayout;
+    storageLayout->addWidget(new QLabel(tr("Current backup storage:")));
+    storageLayout->addLayout(locationLayout);
 
     QLabel *separator = new QLabel;
     separator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
@@ -124,22 +124,22 @@ QWidget *ConfigurationDialog::constructTargetTab()
     QLabel *labelText = new QLabel(tr("You can give your backup a short label, like <i>Home-Backup</i> or <i>Dropbox</i>."));
 
     QHBoxLayout *labelLayout = new QHBoxLayout;
-    m_targetLabelEdit = new QLineEdit();
+    m_storageLabelEdit = new QLineEdit();
     labelLayout->addWidget(new QLabel(tr("Backup label:")));
-    labelLayout->addWidget(m_targetLabelEdit);
+    labelLayout->addWidget(m_storageLabelEdit);
 
-    QVBoxLayout *targetVLayout = new QVBoxLayout;
-    targetVLayout->addLayout(descriptionLayout);
-    targetVLayout->addSpacerItem(new QSpacerItem(0, 20));
-    targetVLayout->addLayout(targetLayout);
-    targetVLayout->addWidget(separator);
-    targetVLayout->addWidget(labelText);
-    targetVLayout->addLayout(labelLayout);
+    QVBoxLayout *storageVLayout = new QVBoxLayout;
+    storageVLayout->addLayout(descriptionLayout);
+    storageVLayout->addSpacerItem(new QSpacerItem(0, 20));
+    storageVLayout->addLayout(storageLayout);
+    storageVLayout->addWidget(separator);
+    storageVLayout->addWidget(labelText);
+    storageVLayout->addLayout(labelLayout);
 
-    QWidget *pageTarget = new QWidget();
-    pageTarget->setLayout(targetVLayout);
+    QWidget *pageStorage = new QWidget();
+    pageStorage->setLayout(storageVLayout);
 
-    return pageTarget;
+    return pageStorage;
 }
 
 
@@ -232,7 +232,7 @@ QWidget *ConfigurationDialog::constructOptionsTab()
  */
 QString ConfigurationDialog::location() const
 {
-    return m_targetEdit->text();
+    return m_storageEdit->text();
 }
 
 
@@ -242,7 +242,7 @@ QString ConfigurationDialog::location() const
  */
 void ConfigurationDialog::setLocation(const QString &location)
 {
-    m_targetEdit->setText(location);
+    m_storageEdit->setText(location);
 }
 
 
@@ -250,7 +250,7 @@ void ConfigurationDialog::setLocation(const QString &location)
  */
 QString ConfigurationDialog::label() const
 {
-    return m_targetLabelEdit->text();
+    return m_storageLabelEdit->text();
 }
 
 
@@ -260,25 +260,25 @@ QString ConfigurationDialog::label() const
  */
 void ConfigurationDialog::setLabel(const QString &label)
 {
-    m_targetLabelEdit->setText(label);
+    m_storageLabelEdit->setText(label);
 }
 
 
-/*! Is called when the user presses the change "location button" on the target tab.
+/*! Is called when the user presses the change "location button" on the storage tab.
  */
 void ConfigurationDialog::onChangeButton()
 {
     QFileDialog filedialog(this);
     filedialog.setWindowTitle(tr("Select a new backup location..."));
     filedialog.setFileMode(QFileDialog::Directory);
-    filedialog.setDirectory(m_targetEdit->text());
+    filedialog.setDirectory(m_storageEdit->text());
     filedialog.setOption(QFileDialog::ShowDirsOnly, true);
     if (filedialog.exec() == QDialog::Rejected) {
         return;
     }
 
     QString dirname = filedialog.selectedFiles()[0];
-    m_targetEdit->setText(dirname);
+    m_storageEdit->setText(dirname);
 }
 
 
@@ -288,9 +288,9 @@ void ConfigurationDialog::onSave()
 {
     if (!QFile::exists(location())) {
         QMessageBox::critical(this,
-                              tr("Backup target does not exist"),
-                              tr("The backup target you have specified does not exist.\n"
-                                 "Please choose another target location.")
+                              tr("Backup storage does not exist"),
+                              tr("The backup storage you have specified does not exist.\n"
+                                 "Please choose another storage.")
                              );
         return;
     }

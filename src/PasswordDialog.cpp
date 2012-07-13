@@ -55,7 +55,7 @@ PasswordDialog::PasswordDialog(QWidget *parent) : QDialog(parent)
 
     QHBoxLayout *passwordLayout = new QHBoxLayout;
     passwordLayout->setAlignment(Qt::AlignLeft);
-    passwordLayout->addWidget(new QLabel(tr("Password:")));
+    passwordLayout->addWidget(new QLabel(tr("Backup password:")));
     passwordLayout->addWidget(m_passwordEdit);
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox();

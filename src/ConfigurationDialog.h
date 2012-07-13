@@ -55,7 +55,7 @@ public slots:
     void onSave();
 
 private:
-    QWidget *constructTargetTab();
+    QWidget *constructStorageTab();
     QWidget *constructIncludesTab();
     QWidget *constructExcludesTab();
     QWidget *constructOptionsTab();
@@ -67,8 +67,8 @@ private:
     QSpinBox      *m_spareCapacity;
     QCheckBox     *m_limitBackups;
     QSpinBox      *m_numberBackups;
-    QLineEdit     *m_targetEdit;
-    QLineEdit     *m_targetLabelEdit;
+    QLineEdit     *m_storageEdit;
+    QLineEdit     *m_storageLabelEdit;
     QPushButton   *m_buttonChange;
     Configuration &m_config;
 };
