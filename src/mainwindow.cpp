@@ -213,7 +213,6 @@ void MainWindow::reload()
     QString location = Backup::instance().location();
     m_snapshotListModel->investigate(location);
     m_filesystemInfo->setFile(location);
-    m_backupEngine->select(location);
 
     if (m_config.load(location + "/inverita.conf")) {
         updateLatestLink(location);

@@ -28,6 +28,7 @@
 #include "Utilities.h"
 #include "FilesystemInfo.h"
 #include "SnapshotListModel.h"
+#include "Backup.h"
 
 #include <QDebug>
 
@@ -76,17 +77,6 @@ WorkerStatus BackupEngine::status()
 }
 
 
-/*! Is called each time a new backup has selected (by the user)
- *  to inform the engine of a new backup root path.
- *
- * \param backupPath the new backup root path
- */
-void BackupEngine::select(const QString &backupPath)
-{
-    m_backupRootPath = backupPath;
-}
-
-
 /*! This slot is called each time, the "Create Backup" button is pressed
  *  by the user and a new backup shall be created.
  *
@@ -105,7 +95,7 @@ void BackupEngine::start()
 
     try {
         m_config.reset();
-        m_config.load(m_backupRootPath + "/inverita.conf");
+        m_config.load(Backup::instance().location() + "/inverita.conf");
 
         m_currentTask = 0;
         checkDriveSpace();
@@ -164,13 +154,13 @@ void BackupEngine::checkDriveSpace()
         return;
     }
 
-    FilesystemInfo filesystem(m_backupRootPath);
+    FilesystemInfo filesystem(Backup::instance().location());
     SnapshotListModel snapshotList;
-    snapshotList.investigate(m_backupRootPath);
+    snapshotList.investigate(Backup::instance().location());
     qreal spare = m_config.spareCapacity() / 100.0;
 
     for (int i = 0; (i < snapshotList.count()) && (filesystem.capacity() < spare); i++) {
-        deleteSnapshot(m_backupRootPath + "/" + snapshotList[i].name());
+        deleteSnapshot(Backup::instance().location() + "/" + snapshotList[i].name());
         filesystem.refresh();
     }
 }
@@ -183,11 +173,11 @@ void BackupEngine::checkOvercharge()
     }
 
     SnapshotListModel snapshotList;
-    snapshotList.investigate(m_backupRootPath);
+    snapshotList.investigate(Backup::instance().location());
     int overcharge = snapshotList.count() - m_config.maximumBackups() ;
 
     for (int i = 0; i < overcharge; i++) {
-        deleteSnapshot(m_backupRootPath + "/" + snapshotList[i].name());
+        deleteSnapshot(Backup::instance().location() + "/" + snapshotList[i].name());
         emit report(tr("Backup snapshot deleted due to overcharge: ") + snapshotList[i].name());
     }
 }
@@ -227,8 +217,8 @@ void BackupEngine::scanDirectories()
  */
 void BackupEngine::executeBackup(QString &timestamp)
 {
-    QString previousBackup = SearchLatestBackupDir(m_backupRootPath);
-    QString currentBackup = m_backupRootPath + "/" + "@" + timestamp;
+    QString previousBackup = SearchLatestBackupDir(Backup::instance().location());
+    QString currentBackup = Backup::instance().location() + "/" + "@" + timestamp;
     QDir dir;
 
     // ensure, that the new directory of the new snapshot does not exist
@@ -260,7 +250,7 @@ void BackupEngine::executeBackup(QString &timestamp)
  */
 void BackupEngine::validateBackup(QString &timestamp)
 {
-    QString snapshotName = m_backupRootPath + "/" + "@" + timestamp;
+    QString snapshotName = Backup::instance().location() + "/" + "@" + timestamp;
 
     m_validateTraverser.addIncludes(snapshotName);
     m_validateTraverser.addExcludes("metainfo");

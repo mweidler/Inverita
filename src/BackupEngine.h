@@ -47,7 +47,6 @@ public:
     BackupEngine();
 
     WorkerStatus status();
-    void select(const QString &backupPath);
 
 public slots:
     void start();
@@ -63,7 +62,6 @@ protected:
     void deleteSnapshot(QString snapshotName);
 
 protected:
-    QString           m_backupRootPath;
     Configuration     m_config;
     QString           m_latestBackup;
     QString           m_currentBackup;
