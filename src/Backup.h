@@ -25,24 +25,28 @@
 #ifndef HEADER_BACKUP_INC
 #define HEADER_BACKUP_INC
 
+#include "Configuration.h"
+
 #include <QString>
 #include <QByteArray>
-#include <QObject>
 
 
 /*! Container class for storing backup information.
+ *
+ * Backup is implemented as Singleton.
  */
-class Backup// : public QObject
+class Backup
 {
-public:
-    //Q_OBJECT
-
-    enum Encryption { NotEncrypted = 0, EncFSEncrypted, TruecryptEncrypted };
-    enum Status { Failed = 0, CouldNotStarted, Success };
-
+private:
     Backup();
     Backup(const QString &origin);
     virtual ~Backup();
+
+public:
+    enum Encryption { NotEncrypted = 0, EncFSEncrypted, TruecryptEncrypted };
+    enum Status { Failed = 0, CouldNotStarted, Success };
+
+    static Backup &instance();
 
     QString label() const;
     void setLabel(const QString &label);
@@ -61,9 +65,12 @@ public:
     QString errorString() const;
     int error() const;
 
+    void use(const QString &origin);
     Status open();
     Status close();
     bool isOpen() const;
+
+    Configuration &config();
 
     Encryption detectEncryption() const;
     static Encryption detectEncryption(const QString &origin);
@@ -72,14 +79,15 @@ private:
     QString findUsableMountPoint() const;
 
 private:
-    QString    m_label;
-    QString    m_origin;
-    QString    m_password;
-    Encryption m_encryption;
-    QString    m_location;
-    bool       m_isOpen;
-    QString    m_errorString;
-    int        m_rc;
+    QString       m_label;
+    QString       m_origin;
+    QString       m_password;
+    Encryption    m_encryption;
+    QString       m_location;
+    bool          m_isOpen;
+    QString       m_errorString;
+    int           m_rc;
+    Configuration m_config;
 };
 
 #endif

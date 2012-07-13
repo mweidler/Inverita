@@ -51,6 +51,25 @@ Backup::~Backup()
 
 }
 
+Backup &Backup::instance()
+{
+    static Backup backup;
+    return backup;
+}
+
+void Backup::use(const QString &origin)
+{
+    m_isOpen = false;
+    m_encryption = Backup::NotEncrypted;
+    m_origin = origin;
+}
+
+
+Configuration &Backup::config()
+{
+    return m_config;
+}
+
 QString Backup::label() const
 {
     return m_label;
@@ -192,6 +211,10 @@ Backup::Status Backup::open()
     }
 
     m_isOpen = true;
+
+    m_config.reset();
+    m_config.load(m_location + "/inverita.conf");
+
     return Backup::Success;
 }
 

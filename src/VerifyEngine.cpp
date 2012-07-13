@@ -25,6 +25,7 @@
 
 #include "VerifyEngine.h"
 #include "Utilities.h"
+#include "Backup.h"
 
 #include <QDebug>
 
@@ -50,30 +51,23 @@ WorkerStatus VerifyEngine::status()
 }
 
 
-void VerifyEngine::select(const QString &backupPath)
-{
-    m_backupRootPath = backupPath;
-    qDebug() << "Verify selected: " << m_backupRootPath;
-}
-
-
 // slot called each time, the "Start Backup" button is pressed
 // Attention: this will run in a different thread scope
 void VerifyEngine::start()
 {
     reset();
     QString empty;
-    QString currentBackup = SearchLatestBackupDir(m_backupRootPath);
-    m_config.reset();
-    m_config.load(m_backupRootPath + "/inverita.conf");
+    Backup &backup = Backup::instance();
+
+    QString currentBackup = SearchLatestBackupDir(backup.location());
     m_validateTraverser.reset();
-    m_validateTraverser.setVerifyHash(m_config.verifyHash());
+    m_validateTraverser.setVerifyHash(backup.config().verifyHash());
     emit started();
 
     try {
         m_metaInfo.load(currentBackup + "/" + "metainfo") ;
-        m_validateTraverser.addIncludes(m_config.includes());
-        m_validateTraverser.addExcludes(m_config.excludes());
+        m_validateTraverser.addIncludes(backup.config().includes());
+        m_validateTraverser.addExcludes(backup.config().excludes());
         m_validateTraverser.addExcludes("metainfo");
         m_validateTraverser.addExcludes("signatures");
         m_validateTraverser.setBackupPath(empty);

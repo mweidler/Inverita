@@ -111,7 +111,6 @@ private:
     ProgressDialog    *m_progressValidateDialog;
     ProgressDialog    *m_progressVerifyDialog;
     Configuration     m_config;
-    Backup            m_currentBackup;
 };
 
 #endif // HEADER_MAINWINDOW_INC

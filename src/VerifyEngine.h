@@ -28,7 +28,6 @@
 #include "WorkerEngine.h"
 #include "ValidateTraverser.h"
 #include "SnapshotMetaInfo.h"
-#include "Configuration.h"
 
 
 class VerifyEngine : public WorkerEngine
@@ -39,15 +38,12 @@ public:
     VerifyEngine();
 
     WorkerStatus status();
-    void select(const QString &backupPath);
 
 public slots:
     void start();
     void abort();
 
 protected:
-    QString           m_backupRootPath;
-    Configuration     m_config;
     ValidateTraverser m_validateTraverser;
     SnapshotMetaInfo  m_metaInfo;
 };
