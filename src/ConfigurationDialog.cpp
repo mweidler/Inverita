@@ -110,7 +110,7 @@ QWidget *ConfigurationDialog::constructTargetTab()
     QHBoxLayout *locationLayout = new QHBoxLayout;
     m_targetEdit = new QLineEdit();
     m_buttonChange = new QPushButton(tr("Change"));
-    m_buttonChange->setIcon(QIcon::fromTheme("fileopen")); //TODO: folder?
+    m_buttonChange->setIcon(QIcon::fromTheme("fileopen"));
     locationLayout->addWidget(m_targetEdit);
     locationLayout->addWidget(m_buttonChange);
 
