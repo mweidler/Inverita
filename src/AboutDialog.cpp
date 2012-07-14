@@ -29,6 +29,8 @@
 #include <QBoxLayout>
 #include <QDialogButtonBox>
 #include <QLabel>
+#include <QApplication>
+#include <QIcon>
 
 
 /*! Constructs a new AboutDialog object with UI elements
@@ -64,9 +66,8 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 
     QLabel *labelAboutText = new QLabel(text.arg(INVERITA_COMMIT_VERSION).arg(qVersion()));
 
-    QPixmap pixmap(":/images/backup-icon.png");
     QLabel *labelImage = new QLabel;
-    labelImage->setPixmap(pixmap);
+    labelImage->setPixmap(QApplication::windowIcon().pixmap(96,96));
 
     QPixmap gplpixmap(":/images/gplv3.png");
     QLabel *labelGpl = new QLabel;

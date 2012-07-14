@@ -40,6 +40,8 @@ int main(int argc, char *argv[])
 
     QApplication::setApplicationName("inverita");
     QApplication::setApplicationVersion(QString(INVERITA_COMMIT_VERSION));
+    QApplication::setWindowIcon(QIcon::fromTheme(QApplication::applicationName(),
+                                QIcon(":/images/backup-icon.png")));
 
     QTranslator qtTranslator;
     qtTranslator.load(QLocale::system(), "qt", "_", QLibraryInfo::location(QLibraryInfo::TranslationsPath));

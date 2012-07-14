@@ -147,10 +147,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
     m_timer->start();
 
-    QIcon appicon(QPixmap(":/images/backup-icon.png"));
-    setWindowIcon(appicon);
     setWindowTitle(tr("INVERITA Personal Backup"));
-
     setMinimumSize(750, 600);
     resize(750, 600);
 

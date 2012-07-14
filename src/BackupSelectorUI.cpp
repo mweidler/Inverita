@@ -27,7 +27,7 @@
 
 #include <QLabel>
 #include <QBoxLayout>
-
+#include <QApplication>
 
 /*! Create a new BackupSelectorUI component with GUI elements
  *
@@ -41,10 +41,10 @@ BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QW
     m_choice->setModel(model);
     m_choice->setCurrentIndex(-1);
 
-    QLabel *description = new QLabel(tr("Select your backup (target and configuration) you want to work with or<br>"
-                                        "open an existing backup or create a new backup from the menu.") + "<br><br>" +
-                                     tr("Your current backup target:")
-                                    );
+    QLabel *description = new QLabel(
+                tr("Select your backup (storage and configuration) you want to work with or<br>"
+                    "open an existing backup or create a new backup from the menu.")
+                  );
 
     m_btnConf = new QPushButton(tr("Configure"));
     m_btnConf->setIcon(QIcon::fromTheme("preferences-desktop"));
@@ -57,12 +57,11 @@ BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QW
     QVBoxLayout *controlLayout = new QVBoxLayout;
     controlLayout->setAlignment(Qt::AlignCenter);
     controlLayout->addWidget(description);
+    controlLayout->addWidget(new QLabel(tr("Your current backup:")));
     controlLayout->addLayout(choiceLayout);
 
-    QPixmap pixmap(":/images/backup-icon.png");
-    //QIcon icon = QIcon::fromTheme("deja-dup").pixmap(96,96);
     QLabel *labelImage = new QLabel;
-    labelImage->setPixmap(pixmap);
+    labelImage->setPixmap(QApplication::windowIcon().pixmap(96,96));
 
     QHBoxLayout *mainlayout = new QHBoxLayout;
     mainlayout->addWidget(labelImage);
