@@ -103,13 +103,24 @@ void ConfigurationListUI::onAddDirectory()
 void ConfigurationListUI::onAddPattern()
 {
     QInputDialog inputdialog(this);
-    inputdialog.setLabelText(tr("Please enter a exclude pattern"));
-    inputdialog.setMinimumSize(640, 480);
+    inputdialog.setWindowTitle(tr("Exclude pattern"));
+    inputdialog.setLabelText(tr(
+                               "Please enter a glob pattern, like <b>Work?.txt</b>, <b>*.txt</b>, <b>Trash</b>, or <b>lost+found</b>,<br>"
+                               "where '?' matches one character and '*' matches any number of characters.<br><br>"
+                               "Any file or directory that matches one of the patterns<br>"
+                               "will be excluded from the backup.<br>"
+                                ));
+    inputdialog.setMinimumSize(400, 200);
+    inputdialog.resize(400, 200);
     if (inputdialog.exec() == QDialog::Rejected) {
         return;
     }
 
     QString pattern = inputdialog.textValue();
+    if (pattern.isEmpty()) {
+        return;
+    }
+
     int count = m_listModel->rowCount();
     m_listModel->insertRow(count);
     QModelIndex index = m_listModel->index(count);
