@@ -42,9 +42,9 @@ BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QW
     m_choice->setCurrentIndex(-1);
 
     QLabel *description = new QLabel(
-                tr("Select your backup (storage and configuration) you want to work with or<br>"
-                    "open an existing backup or create a new backup from the menu.")
-                  );
+        tr("Select your backup (storage and configuration) you want to work with or<br>"
+           "open an existing backup or create a new backup from the menu.")
+    );
 
     m_btnConf = new QPushButton(tr("Configure"));
     m_btnConf->setIcon(QIcon::fromTheme("preferences-desktop"));
@@ -61,7 +61,7 @@ BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QW
     controlLayout->addLayout(choiceLayout);
 
     QLabel *labelImage = new QLabel;
-    labelImage->setPixmap(QApplication::windowIcon().pixmap(96,96));
+    labelImage->setPixmap(QApplication::windowIcon().pixmap(96, 96));
 
     QHBoxLayout *mainlayout = new QHBoxLayout;
     mainlayout->addWidget(labelImage);

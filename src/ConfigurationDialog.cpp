@@ -89,15 +89,15 @@ ConfigurationDialog::~ConfigurationDialog()
 QWidget *ConfigurationDialog::constructStorageTab()
 {
     QLabel *storageText = new QLabel(tr(
-                                        "The backup storage specifies the location, where backup<br>"
-                                        "data will be stored. You can choose every pathname which is<br>"
-                                        " accessible from your computer, e.g. <i>/media/usbdrive</i> or<br>"
-                                        "<i>/data/backup</i><br><br>"
-                                        "<u>Attention:</u> If you change an existing backup storage to<br>"
-                                        "another location, a new backup will be created on the new<br>"
-                                        "location. Your existing backup and snapshots will not be<br>"
-                                        "copied to the new location and reside on the old location."
-                                    ));
+                                         "The backup storage specifies the location, where backup<br>"
+                                         "data will be stored. You can choose every pathname which is<br>"
+                                         " accessible from your computer, e.g. <i>/media/usbdrive</i> or<br>"
+                                         "<i>/data/backup</i><br><br>"
+                                         "<u>Attention:</u> If you change an existing backup storage to<br>"
+                                         "another location, a new backup will be created on the new<br>"
+                                         "location. Your existing backup and snapshots will not be<br>"
+                                         "copied to the new location and reside on the old location."
+                                     ));
 
     QPixmap pixmap(":/images/drive-icon.png");
     QLabel *labelImage = new QLabel;

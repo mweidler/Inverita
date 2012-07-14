@@ -67,7 +67,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     QLabel *labelAboutText = new QLabel(text.arg(INVERITA_COMMIT_VERSION).arg(qVersion()));
 
     QLabel *labelImage = new QLabel;
-    labelImage->setPixmap(QApplication::windowIcon().pixmap(96,96));
+    labelImage->setPixmap(QApplication::windowIcon().pixmap(96, 96));
 
     QPixmap gplpixmap(":/images/gplv3.png");
     QLabel *labelGpl = new QLabel;
