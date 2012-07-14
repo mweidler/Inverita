@@ -70,8 +70,7 @@ bool SignatureMap::load(const QString &filename)
 
         QByteArray hash = line.mid(0, firstblank);
         QByteArray path = line.mid(firstblank + 2, endofline - firstblank - 2);
-
-        this->insert(path, hash);
+        this->insert(QString::fromUtf8(path), hash);
     }
 
     return true;
