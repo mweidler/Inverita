@@ -211,8 +211,12 @@ void MainWindow::reload()
     qDebug() << "MainWindow::reload()";
 
     QString location = Backup::instance().location();
-    m_snapshotListModel->investigate(location);
-    m_filesystemInfo->setFile(location);
+    if (Backup::instance().isOpen()) {
+        m_snapshotListModel->investigate(location);
+        m_filesystemInfo->setFile(location);
+    } else {
+        m_snapshotListModel->clear();
+    }
 
     if (m_config.load(location + "/inverita.conf")) {
         updateLatestLink(location);
