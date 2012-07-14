@@ -83,22 +83,22 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_backupEngine = new BackupEngine();
     m_backupThread = new QThread;
     m_backupEngine->moveToThread(m_backupThread);
-    m_backupThread->start(QThread::IdlePriority);
+    m_backupThread->start(QThread::LowestPriority);
 
     m_eraseEngine = new EraseEngine();
     m_eraseThread = new QThread;
     m_eraseEngine->moveToThread(m_eraseThread);
-    m_eraseThread->start(QThread::IdlePriority);
+    m_eraseThread->start(QThread::LowestPriority);
 
     m_validateEngine = new ValidateEngine();
     m_validateThread = new QThread;
     m_validateEngine->moveToThread(m_validateThread);
-    m_validateThread->start(QThread::IdlePriority);
+    m_validateThread->start(QThread::LowestPriority);
 
     m_verifyEngine = new VerifyEngine();
     m_verifyThread = new QThread;
     m_verifyEngine->moveToThread(m_verifyThread);
-    m_verifyThread->start(QThread::IdlePriority);
+    m_verifyThread->start(QThread::LowestPriority);
 
     m_progressBackupDialog = new ProgressDialog(m_backupEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
     m_progressBackupDialog->setWindowTitle(tr("Creating new backup snapshot..."));
