@@ -51,10 +51,12 @@ protected:
     void drawLegend(QPainter &painter, qint64 free, qint64 used);
 
 protected:
-    QRect  m_pieChartRect; //!< the rectangle where the pie chart is painted in
-    QRect  m_legendRect;   //!< the rectangle where the legend is painted in
-    QColor m_freeColor;    //!< color used for the free space visualization
-    QColor m_usedColor;    //!< color used for the used space visualization
+    QRect  m_pieChartRect;    //!< the rectangle where the pie chart is painted in
+    QRect  m_legendRect;      //!< the rectangle where the legend is painted in
+    QColor m_freeColor;       //!< color used for the free space visualization
+    QColor m_lightFreeColor;
+    QColor m_usedColor;       //!< color used for the used space visualization
+    QColor m_lightUsedColor;
     AbstractDriveCapacityModel *m_model; //!< the model containing drive space information
 };
 

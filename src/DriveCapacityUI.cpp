@@ -161,19 +161,28 @@ void DriveCapacityUI::drawLegend(QPainter &painter, qint64 free, qint64 used)
  */
 void DriveCapacityUI::paintEvent(QPaintEvent * /* event */)
 {
-    static const QColor lightFreeColor(200, 250, 200);
-    static const QColor lightUsedColor(250, 200, 200);
-
     QPainter painter(this);
     painter.setRenderHints(QPainter::Antialiasing, true);
     painter.setBackgroundMode(Qt::TransparentMode);
+
+    if (m_model->freeCapacity() == 0 && m_model->usedCapacity() == 0) {
+        m_lightFreeColor = this->palette().color(QPalette::Normal, QPalette::Light);
+        m_lightUsedColor =  m_lightFreeColor;
+        m_freeColor =  this->palette().color(QPalette::Normal, QPalette::Window);
+        m_usedColor =  m_freeColor;
+    } else {
+        m_lightFreeColor = QColor(200, 250, 200);
+        m_lightUsedColor = QColor(250, 200, 200);
+        m_freeColor = QColor(0, 235, 100);
+        m_usedColor = QColor(235, 0, 0);
+    }
 
     m_pieChartRect.setRect(11, 11, 120, 120);
     m_legendRect.setRect(130, 15, 100, 100);
 
     qreal capacity = m_model->capacity();
-    drawElement(painter, 0, capacity, lightFreeColor, m_freeColor);
-    drawElement(painter, capacity, 1.0 - capacity, lightUsedColor, m_usedColor);
+    drawElement(painter, 0, capacity, m_lightFreeColor, m_freeColor);
+    drawElement(painter, capacity, 1.0 - capacity, m_lightUsedColor, m_usedColor);
 
     drawLegend(painter, m_model->freeCapacity(), m_model->usedCapacity());
 }
