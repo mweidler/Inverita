@@ -27,7 +27,6 @@
 #include "Utilities.h"
 #include "sha1.h"
 
-#include <QDebug>
 #include <QDateTime>
 #include <QDir>
 
@@ -87,9 +86,6 @@ bool CopyTraverser::compareFiles(QString &newfilename, QString &reffilename)
 {
     QFileInfo refInfo(reffilename);
     QFileInfo newInfo(newfilename);
-
-    qDebug() << "new file:"  << newInfo.lastModified() <<
-             "reference:"  << refInfo.lastModified();
 
     if (newInfo.lastModified() != refInfo.lastModified()) {
         return false;
@@ -172,14 +168,10 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
     QString previous = m_previousBackupPath + absoluteFilePath;
     QByteArray hash;
 
-    qDebug() << "onFile" << source << target << previous;
-
     /* If a previous backup already exists and there is already exactly the same file,
      * we create a hard link on this file instead of creating/copying a new file.
      */
     if (m_previousBackupPath.size() && compareFiles(source, previous)) {
-        qDebug() << "linking " << previous << target;
-
         int rc = link(previous.toUtf8().data(), target.toUtf8().data());
         if (rc == -1) {
             ApplicationException e;
@@ -190,15 +182,12 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
 
         // take hash from previous backup
         hash = m_previousSignatures.value(source);
-        qDebug() << "link sig:" << source << hash;
         m_currentSignatures.insert(source, hash);
 
         QFile target(source);
         m_totalSize += target.size();
 
     } else {
-        qDebug() << "copy" << source << target;
-
         bool success = copyFile(source, target, hash);
         if (!success) {
             ApplicationException e;
@@ -209,7 +198,6 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
 
         // hash has been generated during copy
         m_currentSignatures.insert(source, hash);
-        qDebug() << "Hash:" << hash;
 
         int rc = CopyMeta(source, target);
         if (rc == -1) {
@@ -293,7 +281,6 @@ void CopyTraverser::onLink(const QString &absoluteFilePath, const QString &linkN
 
     QString source1 = absoluteFilePath;
     QString target1 = m_currentBackupPath + absoluteFilePath;
-    qDebug() << "LinkSync:" << source1 << target1;
 
     rc = CopyMeta(source1, target1);
     if (rc == -1) {
@@ -309,8 +296,7 @@ void CopyTraverser::onLink(const QString &absoluteFilePath, const QString &linkN
  *
  *  \param absoluteFilePath the absolute path to the file system item
  */
-void CopyTraverser::onOther(const QString &absoluteFilePath)
+void CopyTraverser::onOther(const QString &/*absoluteFilePath*/)
 {
     // do nothing
-    qDebug() << "Mirror: other:" << absoluteFilePath;
 }

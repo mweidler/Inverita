@@ -364,8 +364,6 @@ void MainWindow::onValidateBackup()
  */
 void MainWindow::updateLatestLink(QString absolutePath)
 {
-    qDebug() << "updateLatestLink" << absolutePath;
-
     QString linkPath = absolutePath + "/latest";
     QString linkName;
     if (QFile::exists(linkPath)) {
@@ -374,13 +372,11 @@ void MainWindow::updateLatestLink(QString absolutePath)
 
     if (m_snapshotListModel->isEmpty()) {
         QFile::remove(linkPath);
-        qDebug() << "latest link removed";
     } else {
         QString newName = m_snapshotListModel->last().name();
         if (linkName != newName) {
             QFile::remove(linkPath);
             QFile::link(newName, linkPath);
-            qDebug() << "latest link set to " << newName;
         }
     }
 }
