@@ -256,6 +256,7 @@ void BackupEngine::validateBackup(QString &timestamp)
     m_validateTraverser.addExcludes("metainfo");
     m_validateTraverser.addExcludes("signatures");
     m_validateTraverser.setBackupPath(snapshotName);
+    m_validateTraverser.setVerifyHash(m_config.verifyHash());
     m_validateTraverser.signatures().load(snapshotName + "/signatures");
     m_validateTraverser.traverse();
     m_validateTraverser.summary();
