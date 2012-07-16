@@ -215,6 +215,8 @@ Backup::Status Backup::open()
     m_config.reset();
     m_config.load(m_location + "/inverita.conf");
 
+    // TODO: if not opened, then present dialog and create a new config.
+
     return Backup::Success;
 }
 
