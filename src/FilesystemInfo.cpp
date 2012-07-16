@@ -34,7 +34,7 @@
  */
 FilesystemInfo::FilesystemInfo()
 {
-    setFile(".");
+    reset();
 }
 
 
@@ -59,6 +59,13 @@ FilesystemInfo::FilesystemInfo(const QString &file)
 void FilesystemInfo::setFile(const QString &file)
 {
     m_absolutePath = file;
+    refresh();
+}
+
+
+void FilesystemInfo::reset()
+{
+    m_absolutePath.clear();
     refresh();
 }
 

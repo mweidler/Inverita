@@ -41,6 +41,7 @@ public:
     FilesystemInfo();
     FilesystemInfo(const QString &file);
     void setFile(const QString &file);
+    void reset();
 
     FilesystemType filesystemType();
     qreal capacity();

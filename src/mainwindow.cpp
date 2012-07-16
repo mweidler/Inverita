@@ -213,6 +213,7 @@ void MainWindow::reload()
         m_filesystemInfo->setFile(location);
     } else {
         m_snapshotListModel->clear();
+        m_filesystemInfo->reset();
     }
 
     if (m_config.load(location + "/inverita.conf")) {
