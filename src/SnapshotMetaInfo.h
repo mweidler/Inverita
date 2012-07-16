@@ -46,9 +46,13 @@ public:
     qint64 sizeOfFiles() const;
     void setSizeOfFiles(qint64 count);
 
+    bool isValid() const;
+    void setValid(bool valid);
+
 protected:
     qint64 m_files;
     qint64 m_totalSize;
+    bool   m_isValid;
 };
 
 #endif

@@ -122,26 +122,24 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
 
             case 3:
                 if (snapshot.metaInfo().numberOfFiles() == 0) {
-                    return QString(tr("Unknown"));
+                    return tr("Unknown");
                 }
                 return QVariant(snapshot.metaInfo().numberOfFiles());
                 break;
 
             case 4:
                 if (snapshot.metaInfo().sizeOfFiles() == 0) {
-                    return QString(tr("Unknown"));
+                    return tr("Unknown");
                 }
                 return ScaleToSiPrefix(snapshot.metaInfo().sizeOfFiles());
                 break;
 
             case 5:
-                if (snapshot.status() == Snapshot::Valid) {
+                if (snapshot.metaInfo().isValid()) {
                     return tr("Valid");
-                }
-                if (snapshot.status() == Snapshot::Invalid) {
+                } else {
                     return tr("Invalid");
                 }
-                return QString(tr("Unknown"));
                 break;
 
             default:
@@ -188,9 +186,6 @@ void SnapshotListModel::investigate(const QString &origin)
         SnapshotMetaInfo metaInfo;
         if (metaInfo.load(fileInfo.absoluteFilePath() + "/" + "metainfo")) {
             snapshot.setMetaInfo(metaInfo);
-            snapshot.setStatus(Snapshot::Valid);
-        } else {
-            snapshot.setStatus(Snapshot::Invalid);
         }
 
         this->append(snapshot);

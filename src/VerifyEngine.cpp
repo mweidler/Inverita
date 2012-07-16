@@ -75,6 +75,8 @@ void VerifyEngine::start()
         m_validateTraverser.traverse();
         m_validateTraverser.summary();
         m_currentTask = -1; // disable highlighted task
+        m_metaInfo.setValid(m_validateTraverser.totalErrors() == 0);
+        m_metaInfo.save(currentBackup + "/" + "metainfo");
     } catch (ApplicationException &e) {
         buildFailureHint(e);
         emit failed();

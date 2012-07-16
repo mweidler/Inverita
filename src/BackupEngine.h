@@ -34,7 +34,6 @@
 #include "CopyTraverser.h"
 #include "ValidateTraverser.h"
 #include "WorkerEngine.h"
-#include "SnapshotMetaInfo.h"
 
 
 /*! Handles the whole job of creating a new backup snapshot.
@@ -69,7 +68,6 @@ protected:
     ScanTraverser     m_scanTraverser;
     CopyTraverser     m_copyTraverser;
     ValidateTraverser m_validateTraverser;
-    SnapshotMetaInfo  m_metaInfo;
 };
 
 #endif

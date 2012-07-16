@@ -47,7 +47,6 @@ Snapshot::Snapshot(const Snapshot &other) : QObject()
     m_origin = other.m_origin;
     m_location = other.m_location;
     m_name = other.m_name;
-    m_status = other.m_status;
     m_metaInfo = other.m_metaInfo;
 }
 
@@ -62,7 +61,6 @@ Snapshot &Snapshot::operator= (const Snapshot &other)
     m_origin = other.m_origin;
     m_location = other.m_location;
     m_name = other.m_name;
-    m_status = other.m_status;
     m_metaInfo = other.m_metaInfo;
 
     return *this;
@@ -78,7 +76,6 @@ void Snapshot::reset()
     m_origin.clear();
     m_location.clear();
     m_name.clear();
-    m_status = Snapshot::Invalid;
     m_metaInfo.reset();
 }
 
@@ -148,24 +145,6 @@ QString Snapshot::name() const
 void  Snapshot::setName(const QString &name)
 {
     m_name = name;
-}
-
-
-/*! \return the status of the snapshot (valid, invalid, ...)
- */
-Snapshot::SnapshotStatus Snapshot::status() const
-{
-    return m_status;
-}
-
-
-/*! Set the status of the snapshot
- *
- * \param status the snapshot status to be set to the snapshot
- */
-void  Snapshot::setStatus(SnapshotStatus status)
-{
-    m_status = status;
 }
 
 

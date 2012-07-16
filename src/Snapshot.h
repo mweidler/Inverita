@@ -35,8 +35,6 @@
 class Snapshot : public QObject
 {
 public:
-    enum SnapshotStatus { Invalid, Valid };
-
     Snapshot();
     Snapshot(const Snapshot &other);
     Snapshot &operator= (const Snapshot &other);
@@ -55,9 +53,6 @@ public:
     QString name() const;
     void setName(const QString &name);
 
-    SnapshotStatus status() const;
-    void setStatus(SnapshotStatus status);
-
     SnapshotMetaInfo metaInfo() const;
     void setMetaInfo(const SnapshotMetaInfo &metainfo);
 
@@ -66,7 +61,6 @@ protected:
     QString          m_origin;
     QString          m_location;
     QString          m_name;
-    SnapshotStatus   m_status;
     SnapshotMetaInfo m_metaInfo;
 };
 

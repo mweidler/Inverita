@@ -236,10 +236,11 @@ void BackupEngine::executeBackup(QString &timestamp)
     m_copyTraverser.traverse();
     m_copyTraverser.currentSignatures().save(currentBackup + "/" + "signatures");
 
-    m_metaInfo.reset();
-    m_metaInfo.setNumberOfFiles(m_copyTraverser.totalFiles());
-    m_metaInfo.setSizeOfFiles(m_copyTraverser.totalSize());
-    m_metaInfo.save(currentBackup + "/" + "metainfo");
+    SnapshotMetaInfo metaInfo;
+    metaInfo.setNumberOfFiles(m_copyTraverser.totalFiles());
+    metaInfo.setSizeOfFiles(m_copyTraverser.totalSize());
+    metaInfo.setValid(m_copyTraverser.totalErrors() == 0);
+    metaInfo.save(currentBackup + "/" + "metainfo");
 }
 
 
@@ -260,4 +261,9 @@ void BackupEngine::validateBackup(QString &timestamp)
     m_validateTraverser.signatures().load(snapshotName + "/signatures");
     m_validateTraverser.traverse();
     m_validateTraverser.summary();
+
+    SnapshotMetaInfo metaInfo;
+    metaInfo.load(snapshotName + "/" + "metainfo");
+    metaInfo.setValid(m_validateTraverser.totalErrors() == 0);
+    metaInfo.save(snapshotName + "/" + "metainfo");
 }

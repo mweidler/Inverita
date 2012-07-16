@@ -38,12 +38,14 @@ SnapshotMetaInfo::SnapshotMetaInfo(const SnapshotMetaInfo &other) : QObject()
 {
     m_files = other.m_files;
     m_totalSize = other.m_totalSize;
+    m_isValid = other.m_isValid;
 }
 
 SnapshotMetaInfo &SnapshotMetaInfo::operator= (const SnapshotMetaInfo &other)
 {
     m_files = other.m_files;
     m_totalSize = other.m_totalSize;
+    m_isValid = other.m_isValid;
 
     return *this;
 }
@@ -52,6 +54,7 @@ void SnapshotMetaInfo::reset()
 {
     m_files = 0;
     m_totalSize = 0;
+    m_isValid = false;
 }
 
 bool SnapshotMetaInfo::load(QString filename)
@@ -72,6 +75,7 @@ bool SnapshotMetaInfo::load(QString filename)
 
     m_files = (qint64)settings.value("TotalFiles", 0).toLongLong();
     m_totalSize = (qint64)settings.value("TotalSize", 0).toLongLong();
+    m_isValid = settings.value("Valid", 0).toBool();
 
     if (m_files == 0) {
         return false;
@@ -93,6 +97,7 @@ void SnapshotMetaInfo::save(QString filename)
 
     settings.setValue("TotalFiles",  m_files);
     settings.setValue("TotalSize",  m_totalSize);
+    settings.setValue("Valid",  m_isValid);
 
     if (settings.status() != QSettings::NoError) {
         ApplicationException e;
@@ -120,4 +125,14 @@ qint64 SnapshotMetaInfo::sizeOfFiles() const
 void SnapshotMetaInfo::setSizeOfFiles(qint64 count)
 {
     m_totalSize = count;
+}
+
+bool SnapshotMetaInfo::isValid() const
+{
+    return m_isValid;
+}
+
+void SnapshotMetaInfo::setValid(bool valid)
+{
+    m_isValid = valid;
 }
