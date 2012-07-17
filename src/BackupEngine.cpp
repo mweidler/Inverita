@@ -26,6 +26,7 @@
 #include "BackupEngine.h"
 #include "SnapshotMetaInfo.h"
 #include "Utilities.h"
+#include "Configuration.h"
 #include "FilesystemInfo.h"
 #include "SnapshotListModel.h"
 #include "Backup.h"
@@ -64,7 +65,7 @@ WorkerStatus BackupEngine::status()
     qint64 current = m_copyTraverser.totalSize() + m_validateTraverser.totalSize();
 
     // Completion assumption: copying takes the same time as validation.
-    if (m_config.verifyAfterBackup()) {
+    if (Backup::instance().config().verifyAfterBackup()) {
         expected *= 2;
     }
 
@@ -94,9 +95,6 @@ void BackupEngine::start()
     QString timestamp = QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss");
 
     try {
-        m_config.reset();
-        m_config.load(Backup::instance().location() + "/inverita.conf");
-
         m_currentTask = 0;
         checkDriveSpace();
         m_currentTask = 1;
@@ -104,7 +102,7 @@ void BackupEngine::start()
         m_currentTask = 2;
         executeBackup(timestamp);
 
-        if (m_config.verifyAfterBackup()) {
+        if (Backup::instance().config().verifyAfterBackup()) {
             m_currentTask = 3;
             validateBackup(timestamp);
         }
@@ -150,14 +148,14 @@ void BackupEngine::abort()
 
 void BackupEngine::checkDriveSpace()
 {
-    if (!m_config.autoDeleteBackups()) {
+    if (!Backup::instance().config().autoDeleteBackups()) {
         return;
     }
 
     FilesystemInfo filesystem(Backup::instance().location());
     SnapshotListModel snapshotList;
     snapshotList.investigate(Backup::instance().location());
-    qreal spare = m_config.spareCapacity() / 100.0;
+    qreal spare = Backup::instance().config().spareCapacity() / 100.0;
 
     for (int i = 0; (i < snapshotList.count()) && (filesystem.capacity() < spare); i++) {
         deleteSnapshot(Backup::instance().location() + "/" + snapshotList[i].name());
@@ -168,13 +166,13 @@ void BackupEngine::checkDriveSpace()
 
 void BackupEngine::checkOvercharge()
 {
-    if (!m_config.limitBackups()) {
+    if (!Backup::instance().config().limitBackups()) {
         return;
     }
 
     SnapshotListModel snapshotList;
     snapshotList.investigate(Backup::instance().location());
-    int overcharge = snapshotList.count() - m_config.maximumBackups() ;
+    int overcharge = snapshotList.count() - Backup::instance().config().maximumBackups() ;
 
     for (int i = 0; i < overcharge; i++) {
         deleteSnapshot(Backup::instance().location() + "/" + snapshotList[i].name());
@@ -192,8 +190,8 @@ void BackupEngine::deleteSnapshot(QString snapshotName)
 
     // remove metainfo and signatures of the snapshot "manually" to
     // invalidate whole snapshot. They were not counted on meta data creation.
-    QFile::remove(snapshotName + "/" + "metainfo");
-    QFile::remove(snapshotName + "/" + "signatures");
+    QFile::remove(snapshotName + "/metainfo");
+    QFile::remove(snapshotName + "/signatures");
 
     m_eraseTraverser.traverse();
 }
@@ -204,8 +202,8 @@ void BackupEngine::deleteSnapshot(QString snapshotName)
  */
 void BackupEngine::scanDirectories()
 {
-    m_scanTraverser.addIncludes(m_config.includes());
-    m_scanTraverser.addExcludes(m_config.excludes());
+    m_scanTraverser.addIncludes(Backup::instance().config().includes());
+    m_scanTraverser.addExcludes(Backup::instance().config().excludes());
     m_scanTraverser.traverse();
 }
 
@@ -218,7 +216,7 @@ void BackupEngine::scanDirectories()
 void BackupEngine::executeBackup(QString &timestamp)
 {
     QString previousBackup = SearchLatestBackupDir(Backup::instance().location());
-    QString currentBackup = Backup::instance().location() + "/" + "@" + timestamp;
+    QString currentBackup = Backup::instance().location() + "/@" + timestamp;
     QDir dir;
 
     // ensure, that the new directory of the new snapshot does not exist
@@ -228,19 +226,19 @@ void BackupEngine::executeBackup(QString &timestamp)
 
     dir.mkpath(currentBackup);
 
-    m_copyTraverser.addIncludes(m_config.includes());
-    m_copyTraverser.addExcludes(m_config.excludes());
+    m_copyTraverser.addIncludes(Backup::instance().config().includes());
+    m_copyTraverser.addExcludes(Backup::instance().config().excludes());
     m_copyTraverser.setPreviousBackupPath(previousBackup);
     m_copyTraverser.setCurrentBackupPath(currentBackup);
-    m_copyTraverser.previousSignatures().load(previousBackup + "/" + "signatures");
+    m_copyTraverser.previousSignatures().load(previousBackup + "/signatures");
     m_copyTraverser.traverse();
-    m_copyTraverser.currentSignatures().save(currentBackup + "/" + "signatures");
+    m_copyTraverser.currentSignatures().save(currentBackup + "/signatures");
 
     SnapshotMetaInfo metaInfo;
     metaInfo.setNumberOfFiles(m_copyTraverser.totalFiles());
     metaInfo.setSizeOfFiles(m_copyTraverser.totalSize());
     metaInfo.setValid(m_copyTraverser.totalErrors() == 0);
-    metaInfo.save(currentBackup + "/" + "metainfo");
+    metaInfo.save(currentBackup + "/metainfo");
 }
 
 
@@ -251,19 +249,19 @@ void BackupEngine::executeBackup(QString &timestamp)
  */
 void BackupEngine::validateBackup(QString &timestamp)
 {
-    QString snapshotName = Backup::instance().location() + "/" + "@" + timestamp;
+    QString snapshotName = Backup::instance().location() + "/@" + timestamp;
 
     m_validateTraverser.addIncludes(snapshotName);
     m_validateTraverser.addExcludes("metainfo");
     m_validateTraverser.addExcludes("signatures");
     m_validateTraverser.setBackupPath(snapshotName);
-    m_validateTraverser.setVerifyHash(m_config.verifyHash());
+    m_validateTraverser.setVerifyHash(Backup::instance().config().verifyHash());
     m_validateTraverser.signatures().load(snapshotName + "/signatures");
     m_validateTraverser.traverse();
     m_validateTraverser.summary();
 
     SnapshotMetaInfo metaInfo;
-    metaInfo.load(snapshotName + "/" + "metainfo");
+    metaInfo.load(snapshotName + "/metainfo");
     metaInfo.setValid(m_validateTraverser.totalErrors() == 0);
-    metaInfo.save(snapshotName + "/" + "metainfo");
+    metaInfo.save(snapshotName + "/metainfo");
 }

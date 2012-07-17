@@ -28,7 +28,6 @@
 #include <QString>
 #include <QStringList>
 
-#include "Configuration.h"
 #include "EraseTraverser.h"
 #include "ScanTraverser.h"
 #include "CopyTraverser.h"
@@ -61,7 +60,6 @@ protected:
     void deleteSnapshot(QString snapshotName);
 
 protected:
-    Configuration     m_config;
     QString           m_latestBackup;
     QString           m_currentBackup;
     EraseTraverser    m_eraseTraverser;
