@@ -226,6 +226,7 @@ void MainWindow::reload()
         m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
         m_backupSelectorUI->setEnableConfiguration(false);
         m_snapshotListUI->setEnableReload(false);
+        m_backupSelectorUI->select(-1);
     }
 }
 
@@ -391,7 +392,7 @@ void MainWindow::onMenuNewBackup()
 {
     Configuration config;
     ConfigurationDialog configDialog(config, this);
-    configDialog.setWindowTitle(tr("Create new backup configuration"));
+    configDialog.setWindowTitle(tr("Create a new backup"));
     if (configDialog.exec() != QDialog::Accepted) {
         return;
     }
@@ -415,10 +416,10 @@ void MainWindow::onMenuNewBackup()
 }
 
 
-void MainWindow::onMenuSelectBackup()
+void MainWindow::onMenuOpenBackup()
 {
     QFileDialog filedialog(this);
-    filedialog.setWindowTitle(tr("Select an existing backup configuration..."));
+    filedialog.setWindowTitle(tr("Open an existing backup"));
     filedialog.setFileMode(QFileDialog::Directory);
     filedialog.setDirectory(QDir::homePath());
     filedialog.setOption(QFileDialog::ShowDirsOnly, true);
@@ -491,12 +492,12 @@ void MainWindow::createActions()
     createBackupAct->setShortcut(QKeySequence::New);
     connect(createBackupAct, SIGNAL(triggered()), this, SLOT(onMenuNewBackup()));
 
-    selectBackupAct = new QAction(tr("Select existing backup..."), this);
-    selectBackupAct->setStatusTip(tr("Select an existing backup configuration"));
-    selectBackupAct->setIconVisibleInMenu(true);
-    selectBackupAct->setIcon(QIcon::fromTheme("document-open"));
-    selectBackupAct->setShortcut(QKeySequence::Open);
-    connect(selectBackupAct, SIGNAL(triggered()), this, SLOT(onMenuSelectBackup()));
+    openBackupAct = new QAction(tr("Open existing backup..."), this);
+    openBackupAct->setStatusTip(tr("Open an existing backup configuration"));
+    openBackupAct->setIconVisibleInMenu(true);
+    openBackupAct->setIcon(QIcon::fromTheme("document-open"));
+    openBackupAct->setShortcut(QKeySequence::Open);
+    connect(openBackupAct, SIGNAL(triggered()), this, SLOT(onMenuOpenBackup()));
 
     exitAct = new QAction(tr("Exit"), this);
     exitAct->setStatusTip(tr("Exit application"));
@@ -525,7 +526,7 @@ void MainWindow::createMenus()
 {
     backupMenu = menuBar()->addMenu(tr("&Backup"));
     backupMenu->addAction(createBackupAct);
-    backupMenu->addAction(selectBackupAct);
+    backupMenu->addAction(openBackupAct);
     backupMenu->addSeparator();
     backupMenu->addAction(exitAct);
 

@@ -42,7 +42,7 @@ BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QW
     m_choice->setCurrentIndex(-1);
 
     QLabel *description = new QLabel(
-        tr("Select your backup (storage and configuration) you want to work with or<br>"
+        tr("Select a recently used backup from the list below, or<br>"
            "open an existing backup or create a new backup from the menu.")
     );
 

@@ -64,7 +64,7 @@ public slots:
     void onBackupFailed();
 
     void onMenuNewBackup();
-    void onMenuSelectBackup();
+    void onMenuOpenBackup();
     void onConfigure();
 
 protected:
@@ -84,7 +84,7 @@ private:
     QMenu   *backupMenu;
     QMenu   *helpMenu;
     QAction *createBackupAct;
-    QAction *selectBackupAct;
+    QAction *openBackupAct;
     QAction *exitAct;
     QAction *aboutAct;
     QAction *aboutQtAct;
