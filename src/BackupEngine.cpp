@@ -160,7 +160,7 @@ void BackupEngine::checkDriveSpace()
 
     for (int i = 0; (i < snapshotList.count()) && (filesystem.capacity() < spare); i++) {
         deleteSnapshot(Backup::instance().location() + "/" + snapshotList[i].name());
-        emit report(tr("Backup snapshot deleted due to low drive space: ") + snapshotList[i].name());
+        emit report(tr("Old backup snapshot <i>%1</i> has been deleted due to low drive space.").arg(snapshotList[i].name()));
         filesystem.refresh();
     }
 }
@@ -178,7 +178,7 @@ void BackupEngine::checkOvercharge()
 
     for (int i = 0; i < overcharge && !m_abort; i++) {
         deleteSnapshot(Backup::instance().location() + "/" + snapshotList[i].name());
-        emit report(tr("Backup snapshot deleted due to overcharge: ") + snapshotList[i].name());
+        emit report(tr("Old backup snapshot <i>%1</i> has been deleted due to overcharge.").arg(snapshotList[i].name()));
     }
 }
 
@@ -212,7 +212,7 @@ void BackupEngine::scanDirectories()
     m_scanTraverser.addExcludes(Backup::instance().config().excludes());
     m_scanTraverser.traverse();
 
-    QString msg = tr("Backup snapshot will contain %1 in %2 files.");
+    QString msg = tr("Backup snapshot comprises %1 in %2 files.");
     emit report(msg.arg(ScaleToSiPrefix(m_scanTraverser.totalSize())).arg(m_scanTraverser.totalFiles()) + "<br>");
 }
 
@@ -258,7 +258,7 @@ void BackupEngine::executeBackup(QString &timestamp)
         m_copyTraverser.totalErrors() == 0 &&
         m_abort == false) {
         metaInfo.setValid(true);
-        emit report(tr("Backup snapshot created without errors.<br>"));
+        emit report(tr("Backup snapshot created successfully without errors.<br>"));
     }
     metaInfo.save(currentBackup + "/metainfo");
 }
@@ -294,7 +294,6 @@ void BackupEngine::validateBackup(QString &timestamp)
         m_validateTraverser.totalErrors() == 0 &&
         m_abort == false) {
         metaInfo.setValid(true);
-        emit report(tr("Backup snapshot validated without errors.<br>"));
     }
     metaInfo.save(snapshotName + "/metainfo");
 }

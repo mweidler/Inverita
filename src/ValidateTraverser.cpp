@@ -93,7 +93,7 @@ void ValidateTraverser::summary()
     if (corrupted) {
         emit report(tr("WARNING: Backup snapshot is corrupted!") + "<br>");
     } else {
-        emit report(tr("Backup snapshot is valid.") + "<br>");
+        emit report(tr("Backup snapshot is valid.") + "<br><br>");
     }
 }
 
