@@ -317,18 +317,17 @@ void MainWindow::onBackupSelected(int selection)
     Backup &backup = Backup::instance();
     BackupEntry entry = m_backupListModel->at(selection);
 
-    if (entry.origin != backup.origin() || backup.isOpen() == false) {
-        closeCurrentBackup();
-        if (openCurrentBackup(entry) != Backup::Success) {
-            m_backupSelectorUI->select(-1);
-          //  reload(); // TODO: is this necessary
-        } else {
-            //TODO: hier weiter
-            if (QFile::exists(backup.location() +  "/" + "inverita.conf") == false) {
-               onConfigure();
-            }
-        }
+    closeCurrentBackup();
+    if (openCurrentBackup(entry) != Backup::Success) {
+        m_backupSelectorUI->select(-1);
+        return;
     }
+
+    if (QFile::exists(backup.location() + "/inverita.conf") == false) {
+        onConfigure();
+    }
+
+    reload();
 }
 
 
@@ -413,8 +412,6 @@ void MainWindow::onMenuNewBackup()
     } else {
         m_backupSelectorUI->select(-1);
     }
-
-    reload();
 }
 
 
@@ -468,7 +465,7 @@ void MainWindow::onConfigure()
     if (backup.origin() == newOrigin) {
         config.save(backup.location() + "/" + "inverita.conf");
         m_backupListModel->setEntry(entry);
-        reload();
+        reload(); // explicitly reload, because there is no backup change
         return;
     }
 
@@ -480,8 +477,6 @@ void MainWindow::onConfigure()
     } else {
         m_backupSelectorUI->select(-1);
     }
-
-   // reload();
 }
 
 
@@ -493,21 +488,21 @@ void MainWindow::createActions()
     createBackupAct->setStatusTip(tr("Create new backup configuration"));
     createBackupAct->setIconVisibleInMenu(true);
     createBackupAct->setIcon(QIcon::fromTheme("document-new"));
-    createBackupAct->setShortcut(Qt::ALT | Qt::Key_N);
+    createBackupAct->setShortcut(QKeySequence::New);
     connect(createBackupAct, SIGNAL(triggered()), this, SLOT(onMenuNewBackup()));
 
     selectBackupAct = new QAction(tr("Select existing backup..."), this);
     selectBackupAct->setStatusTip(tr("Select an existing backup configuration"));
     selectBackupAct->setIconVisibleInMenu(true);
     selectBackupAct->setIcon(QIcon::fromTheme("document-open"));
-    selectBackupAct->setShortcut(Qt::ALT | Qt::Key_S);
+    selectBackupAct->setShortcut(QKeySequence::Open);
     connect(selectBackupAct, SIGNAL(triggered()), this, SLOT(onMenuSelectBackup()));
 
     exitAct = new QAction(tr("Exit"), this);
     exitAct->setStatusTip(tr("Exit application"));
     exitAct->setIconVisibleInMenu(true);
     exitAct->setIcon(QIcon::fromTheme("exit"));
-    exitAct->setShortcut(Qt::ALT | Qt::Key_F4);
+    exitAct->setShortcut(QKeySequence::Quit);
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
     aboutAct = new QAction(tr("&About..."), this);
@@ -539,5 +534,3 @@ void MainWindow::createMenus()
     helpMenu->addAction(aboutQtAct);
 }
 
-//TODO: check usage of copy constructor, why
-//      Q_DISABLE_COPY(MyClass) of all QObjects
