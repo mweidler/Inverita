@@ -42,8 +42,8 @@ BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QW
     m_choice->setCurrentIndex(-1);
 
     QLabel *description = new QLabel(
-        tr("Select a recently used backup from the list below, or<br>"
-           "open an existing backup or create a new backup from the menu.")
+        tr("Select a recently used backup from the list below, or open an<br>"
+           "existing backup or create a new backup from the backup menu.")
     );
 
     m_btnConf = new QPushButton(tr("Configure"));

@@ -39,10 +39,10 @@ void Configuration::reset()
     m_includePaths.clear();
     m_excludePatterns.clear();
     m_verifyAfterBackup = true;
-    m_verifyHash   = true;
+    m_verifyHash = true;
     m_autoDeleteBackups = true;
     m_limitBackups = true;
-    m_maxBackups   = 40;
+    m_maxBackups = 40;
 }
 
 QStringList &Configuration::includes()

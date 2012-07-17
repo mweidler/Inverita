@@ -27,6 +27,7 @@
 #include "Utilities.h"
 #include <QDebug>
 
+
 /*! Constructs a new erase engine object.
  */
 EraseEngine::EraseEngine()

@@ -140,6 +140,7 @@ void BackupEngine::abort()
 {
     qDebug() << "BackupEngine: abort requested";
     m_abort = true;
+    m_eraseTraverser.abort();
     m_scanTraverser.abort();
     m_copyTraverser.abort();
     m_validateTraverser.abort();
@@ -159,6 +160,7 @@ void BackupEngine::checkDriveSpace()
 
     for (int i = 0; (i < snapshotList.count()) && (filesystem.capacity() < spare); i++) {
         deleteSnapshot(Backup::instance().location() + "/" + snapshotList[i].name());
+        emit report(tr("Backup snapshot deleted due to low drive space: ") + snapshotList[i].name());
         filesystem.refresh();
     }
 }
@@ -174,7 +176,7 @@ void BackupEngine::checkOvercharge()
     snapshotList.investigate(Backup::instance().location());
     int overcharge = snapshotList.count() - Backup::instance().config().maximumBackups() ;
 
-    for (int i = 0; i < overcharge; i++) {
+    for (int i = 0; i < overcharge && !m_abort; i++) {
         deleteSnapshot(Backup::instance().location() + "/" + snapshotList[i].name());
         emit report(tr("Backup snapshot deleted due to overcharge: ") + snapshotList[i].name());
     }
@@ -202,9 +204,16 @@ void BackupEngine::deleteSnapshot(QString snapshotName)
  */
 void BackupEngine::scanDirectories()
 {
+    if (m_abort) {
+        return;
+    }
+
     m_scanTraverser.addIncludes(Backup::instance().config().includes());
     m_scanTraverser.addExcludes(Backup::instance().config().excludes());
     m_scanTraverser.traverse();
+
+    QString msg = tr("Backup snapshot will contain %1 in %2 files.");
+    emit report(msg.arg(ScaleToSiPrefix(m_scanTraverser.totalSize())).arg(m_scanTraverser.totalFiles()) + "<br>");
 }
 
 
@@ -215,6 +224,10 @@ void BackupEngine::scanDirectories()
  */
 void BackupEngine::executeBackup(QString &timestamp)
 {
+    if (m_abort) {
+        return;
+    }
+
     QString previousBackup = SearchLatestBackupDir(Backup::instance().location());
     QString currentBackup = Backup::instance().location() + "/@" + timestamp;
     QDir dir;
@@ -235,9 +248,18 @@ void BackupEngine::executeBackup(QString &timestamp)
     m_copyTraverser.currentSignatures().save(currentBackup + "/signatures");
 
     SnapshotMetaInfo metaInfo;
-    metaInfo.setNumberOfFiles(m_copyTraverser.totalFiles());
-    metaInfo.setSizeOfFiles(m_copyTraverser.totalSize());
-    metaInfo.setValid(m_copyTraverser.totalErrors() == 0);
+    metaInfo.setNumberOfFiles(m_scanTraverser.totalFiles());
+    metaInfo.setSizeOfFiles(m_scanTraverser.totalSize());
+    metaInfo.setValid(false);
+    // set valid flag, if expected data/files could be copied, no errors
+    // occured and the backup was not aborted.
+    if (m_copyTraverser.totalFiles() == m_scanTraverser.totalFiles() &&
+        m_copyTraverser.totalSize() == m_scanTraverser.totalSize() &&
+        m_copyTraverser.totalErrors() == 0 &&
+        m_abort == false) {
+        metaInfo.setValid(true);
+        emit report(tr("Backup snapshot created without errors.<br>"));
+    }
     metaInfo.save(currentBackup + "/metainfo");
 }
 
@@ -249,6 +271,10 @@ void BackupEngine::executeBackup(QString &timestamp)
  */
 void BackupEngine::validateBackup(QString &timestamp)
 {
+    if (m_abort) {
+        return;
+    }
+
     QString snapshotName = Backup::instance().location() + "/@" + timestamp;
 
     m_validateTraverser.addIncludes(snapshotName);
@@ -262,6 +288,13 @@ void BackupEngine::validateBackup(QString &timestamp)
 
     SnapshotMetaInfo metaInfo;
     metaInfo.load(snapshotName + "/metainfo");
-    metaInfo.setValid(m_validateTraverser.totalErrors() == 0);
+    metaInfo.setValid(false);
+    if (m_validateTraverser.totalFiles() == metaInfo.numberOfFiles() &&
+        m_validateTraverser.totalSize() == metaInfo.sizeOfFiles() &&
+        m_validateTraverser.totalErrors() == 0 &&
+        m_abort == false) {
+        metaInfo.setValid(true);
+        emit report(tr("Backup snapshot validated without errors.<br>"));
+    }
     metaInfo.save(snapshotName + "/metainfo");
 }
