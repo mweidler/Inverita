@@ -29,13 +29,14 @@
 
 #include <QString>
 #include <QByteArray>
+#include <QObject>
 
 
 /*! Container class for storing backup information.
  *
  * Backup is implemented as Singleton.
  */
-class Backup
+class Backup : public QObject
 {
 private:
     Backup();

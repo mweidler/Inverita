@@ -176,6 +176,11 @@ Backup::Status Backup::open()
 
     switch (m_encryption) {
         case Backup::NotEncrypted:
+            dir.setPath(m_origin);
+            if (!dir.exists()) {
+                m_errorString = tr("Directory does not exist or is not accessible.");
+                return Backup::Failed;
+            }
             m_location = m_origin;
             break;
 
@@ -211,12 +216,6 @@ Backup::Status Backup::open()
     }
 
     m_isOpen = true;
-
-    m_config.reset();
-    m_config.load(m_location + "/inverita.conf");
-
-    // TODO: if not opened, then present dialog and create a new config.
-
     return Backup::Success;
 }
 

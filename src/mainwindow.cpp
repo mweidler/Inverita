@@ -216,7 +216,7 @@ void MainWindow::reload()
         m_filesystemInfo->reset();
     }
 
-    if (m_config.load(location + "/inverita.conf")) {
+    if (Backup::instance().config().load(location + "/inverita.conf")) {
         updateLatestLink(location);
         m_controlUI->setEnabledButtons(ControlUI::CreateButton, true);
         m_controlUI->setEnabledButtons(ControlUI::VerifyButton, (m_snapshotListModel->size() > 0));
@@ -294,7 +294,7 @@ Backup::Status MainWindow::openCurrentBackup(BackupEntry entry)
         }
 
         if (status == Backup::Failed) {
-            msg = tr("The encrypted backup can not be accessed") + ":\n" +
+            msg = tr("The backup can not be accessed") + ":\n" +
                   backup.origin() + "\n\n" +
                   backup.errorString();
             if (QMessageBox::critical(this, tr("Backup access error"), msg,
@@ -321,8 +321,13 @@ void MainWindow::onBackupSelected(int selection)
         closeCurrentBackup();
         if (openCurrentBackup(entry) != Backup::Success) {
             m_backupSelectorUI->select(-1);
+          //  reload(); // TODO: is this necessary
+        } else {
+            //TODO: hier weiter
+            if (QFile::exists(backup.location() +  "/" + "inverita.conf") == false) {
+               onConfigure();
+            }
         }
-        reload();
     }
 }
 
@@ -463,19 +468,20 @@ void MainWindow::onConfigure()
     if (backup.origin() == newOrigin) {
         config.save(backup.location() + "/" + "inverita.conf");
         m_backupListModel->setEntry(entry);
+        reload();
         return;
     }
 
     closeCurrentBackup();
     if (openCurrentBackup(entry) == Backup::Success) {
-        config.save(backup.location() + "/" + "inverita.conf");
+        config.save(newOrigin + "/" + "inverita.conf");
         int index = m_backupListModel->setEntry(entry);
         m_backupSelectorUI->select(index); // causes a currentIndexChanged event
     } else {
         m_backupSelectorUI->select(-1);
     }
 
-    reload();
+   // reload();
 }
 
 
