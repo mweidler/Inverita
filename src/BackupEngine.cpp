@@ -245,11 +245,12 @@ void BackupEngine::executeBackup(QString &timestamp)
     m_copyTraverser.setCurrentBackupPath(currentBackup);
     m_copyTraverser.previousSignatures().load(previousBackup + "/signatures");
     m_copyTraverser.traverse();
-    m_copyTraverser.currentSignatures().save(currentBackup + "/signatures");
+    QByteArray checksum = m_copyTraverser.currentSignatures().save(currentBackup + "/signatures");
 
     SnapshotMetaInfo metaInfo;
     metaInfo.setNumberOfFiles(m_scanTraverser.totalFiles());
     metaInfo.setSizeOfFiles(m_scanTraverser.totalSize());
+    metaInfo.setChecksum(checksum);
     metaInfo.setValid(false);
     // set valid flag, if expected data/files could be copied, no errors
     // occured and the backup was not aborted.
@@ -259,6 +260,7 @@ void BackupEngine::executeBackup(QString &timestamp)
         m_abort == false) {
         metaInfo.setValid(true);
         emit report(tr("Backup snapshot created successfully without errors.<br>"));
+        emit report(tr("Backup snapshot checksum is '%1'<br>").arg(QString(checksum)));
     }
     metaInfo.save(currentBackup + "/metainfo");
 }

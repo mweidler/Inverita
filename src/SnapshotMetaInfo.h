@@ -27,6 +27,7 @@
 
 #include "ApplicationException.h"
 #include <QString>
+#include <QByteArray>
 #include <QObject>
 
 class SnapshotMetaInfo : public QObject
@@ -40,6 +41,9 @@ public:
     bool load(QString filename);
     void save(QString filename);
 
+    QByteArray checksum() const;
+    void setChecksum(const QByteArray &checksum);
+
     qint64 numberOfFiles() const;
     void setNumberOfFiles(qint64 count);
 
@@ -50,9 +54,10 @@ public:
     void setValid(bool valid);
 
 protected:
-    qint64 m_files;
-    qint64 m_totalSize;
-    bool   m_isValid;
+    qint64     m_files;
+    qint64     m_totalSize;
+    QByteArray m_checksum;
+    bool       m_isValid;
 };
 
 #endif

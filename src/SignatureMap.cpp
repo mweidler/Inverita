@@ -24,6 +24,7 @@
 
 
 #include "SignatureMap.h"
+#include "Checksum.h"
 
 #include <QFile>
 
@@ -42,21 +43,25 @@ SignatureMap::SignatureMap()
  *
  * \return true, if successful loaded contents from file, otherwise false
  */
-bool SignatureMap::load(const QString &filename)
+QByteArray SignatureMap::load(const QString &filename)
 {
     this->clear();
 
     QFile file(filename);
     int success = file.open(QIODevice::ReadOnly);
     if (!success) {
-        return false;
+        return QByteArray();
     }
+
+    Checksum checksum;
 
     for (;;) {
         QByteArray line = file.readLine();
         if (line.size() == 0) {
             break;
         }
+
+        checksum.update(line);
 
         int firstblank = line.indexOf(' ');
         if (firstblank == -1) {
@@ -73,7 +78,7 @@ bool SignatureMap::load(const QString &filename)
         this->insert(QString::fromUtf8(path), hash);
     }
 
-    return true;
+    return checksum.finish();
 }
 
 
@@ -83,22 +88,26 @@ bool SignatureMap::load(const QString &filename)
  *
  * \return true, if successful saved contents to file, otherwise false
  */
-bool SignatureMap::save(const QString &filename) const
+QByteArray SignatureMap::save(const QString &filename)
 {
     QFile target(filename);
+    Checksum checksum;
 
     int success = target.open(QIODevice::WriteOnly);
     if (success) {
         SignatureMapIterator iter(*this);
         while (iter.hasNext()) {
             iter.next();
-            target.write(iter.value());
-            target.write(" *");   // binary flag
-            target.write(iter.key().toUtf8());
-            target.write("\n");
+            QByteArray line;
+            line.append(iter.value());
+            line.append(" *");   // binary flag
+            line.append(iter.key().toUtf8());
+            line.append("\n");
+            checksum.update(line);
+            target.write(line);
         }
     }
 
-    return success;
+    return success ? checksum.finish() : QByteArray();
 }
 

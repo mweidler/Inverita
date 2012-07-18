@@ -40,7 +40,7 @@ SnapshotListModel::SnapshotListModel(QObject *parent) : QAbstractTableModel(pare
     clear();
 
     m_headerLabels << tr("No.") << tr("Name") << tr("Last modified") <<
-                   tr("Files") << tr("Size") << tr("Execution status");
+                   tr("Files") << tr("Size") << tr("Status") << tr("Checksum");
 }
 
 
@@ -117,7 +117,7 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
                 break;
 
             case 2:
-                return QVariant(snapshot.modificationTime().toString(Qt::SystemLocaleLongDate));
+                return QVariant(snapshot.modificationTime().toString(Qt::TextDate));
                 break;
 
             case 3:
@@ -140,6 +140,10 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
                 } else {
                     return tr("Invalid");
                 }
+                break;
+
+            case 6:
+                return QVariant(snapshot.metaInfo().checksum());
                 break;
 
             default:

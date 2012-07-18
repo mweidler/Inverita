@@ -1,5 +1,5 @@
 /*
- * SignatureMap.h
+ * Checksum.h
  *
  * This file is part of INVERITA.
  *
@@ -22,32 +22,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADER_SIGNATUREMAP_INC
-#define HEADER_SIGNATUREMAP_INC
+#ifndef HEADER_CHECKSUM_INC
+#define HEADER_CHECKSUM_INC
 
 #include <QString>
-#include <QHash>
-#include <QHashIterator>
 #include <QByteArray>
-
-typedef QHash<QString, QByteArray> Signature;
-typedef QHashIterator<QString, QByteArray> SignatureMapIterator;
+#include "sha1.h"
 
 
-/*! Signature container
+/*! Checksum
  *
- * The signature is compatible to a FIPS-180-1 compliant SHA-1 implementation.
+ * The checksum is compatible to a FIPS-180-1 compliant SHA-1 implementation.
  * This means, that the signatures can be validated by common standard tools,
  * e.g. sha1sum -c <signaturefile>.
  */
-class SignatureMap : public Signature
+class Checksum
 {
 public:
-    SignatureMap();
+    Checksum();
+    ~Checksum();
 
-    QByteArray load(const QString &filename);
-    QByteArray save(const QString &filename);
+    void reset();
+    void update(QByteArray &buffer);
+    void update(const char *buffer, int size);
+    QByteArray finish();
 
+private:
+    sha1_context ctx;
 };
 
 #endif

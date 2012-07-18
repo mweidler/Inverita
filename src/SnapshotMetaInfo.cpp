@@ -38,6 +38,7 @@ SnapshotMetaInfo::SnapshotMetaInfo(const SnapshotMetaInfo &other) : QObject()
 {
     m_files = other.m_files;
     m_totalSize = other.m_totalSize;
+    m_checksum = other.m_checksum;
     m_isValid = other.m_isValid;
 }
 
@@ -45,6 +46,7 @@ SnapshotMetaInfo &SnapshotMetaInfo::operator= (const SnapshotMetaInfo &other)
 {
     m_files = other.m_files;
     m_totalSize = other.m_totalSize;
+    m_checksum = other.m_checksum;
     m_isValid = other.m_isValid;
 
     return *this;
@@ -54,6 +56,7 @@ void SnapshotMetaInfo::reset()
 {
     m_files = 0;
     m_totalSize = 0;
+    m_checksum.clear();
     m_isValid = false;
 }
 
@@ -75,6 +78,7 @@ bool SnapshotMetaInfo::load(QString filename)
 
     m_files = (qint64)settings.value("TotalFiles", 0).toLongLong();
     m_totalSize = (qint64)settings.value("TotalSize", 0).toLongLong();
+    m_checksum = settings.value("Checksum").toString().toAscii();
     m_isValid = settings.value("Valid", 0).toBool();
 
     if (m_files == 0) {
@@ -97,6 +101,7 @@ void SnapshotMetaInfo::save(QString filename)
 
     settings.setValue("TotalFiles",  m_files);
     settings.setValue("TotalSize",  m_totalSize);
+    settings.setValue("Checksum",  QString(m_checksum));
     settings.setValue("Valid",  m_isValid);
 
     if (settings.status() != QSettings::NoError) {
@@ -105,6 +110,16 @@ void SnapshotMetaInfo::save(QString filename)
         e.setErrorMessage(tr("Error during writing"));
         throw e;
     }
+}
+
+QByteArray SnapshotMetaInfo::checksum() const
+{
+    return m_checksum;
+}
+
+void SnapshotMetaInfo::setChecksum(const QByteArray &checksum)
+{
+    m_checksum = checksum;
 }
 
 qint64 SnapshotMetaInfo::numberOfFiles() const

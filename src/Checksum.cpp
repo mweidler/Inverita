@@ -1,5 +1,5 @@
 /*
- * SignatureMap.h
+ * Checksum.cpp
  *
  * This file is part of INVERITA.
  *
@@ -22,32 +22,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADER_SIGNATUREMAP_INC
-#define HEADER_SIGNATUREMAP_INC
 
-#include <QString>
-#include <QHash>
-#include <QHashIterator>
-#include <QByteArray>
-
-typedef QHash<QString, QByteArray> Signature;
-typedef QHashIterator<QString, QByteArray> SignatureMapIterator;
+#include "Checksum.h"
 
 
-/*! Signature container
- *
- * The signature is compatible to a FIPS-180-1 compliant SHA-1 implementation.
- * This means, that the signatures can be validated by common standard tools,
- * e.g. sha1sum -c <signaturefile>.
+/*! Constructs a new checksum object
  */
-class SignatureMap : public Signature
+Checksum::Checksum()
 {
-public:
-    SignatureMap();
+    reset();
+}
 
-    QByteArray load(const QString &filename);
-    QByteArray save(const QString &filename);
+Checksum::~Checksum()
+{
+    memset(&ctx, 0, sizeof(sha1_context));
+}
 
-};
+void Checksum::reset()
+{
+    sha1_starts(&ctx);
+}
 
-#endif
+void Checksum::update(QByteArray &buffer)
+{
+    sha1_update(&ctx, (const unsigned char *)buffer.constData(), buffer.size());
+}
+
+void Checksum::update(const char *buffer, int size)
+{
+    sha1_update(&ctx, (const unsigned char *)buffer, size);
+}
+
+QByteArray Checksum::finish()
+{
+    QByteArray hashoutput(20, '\0');
+    sha1_finish(&ctx, (unsigned char *)hashoutput.data());
+    return hashoutput.toHex();
+}
