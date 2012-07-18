@@ -70,19 +70,21 @@ void ValidateEngine::start()
     QString snapshotName = m_backupRootPath + "/" + m_snapshotName;
     emit started();
 
+    m_metaInfo.load(snapshotName + "/" + "metainfo") ;
+
     try {
-        m_metaInfo.load(snapshotName + "/" + "metainfo") ;
         m_validateTraverser.addIncludes(snapshotName);
         m_validateTraverser.addExcludes("metainfo");
         m_validateTraverser.addExcludes("signatures");
         m_validateTraverser.setBackupPath(snapshotName);
         m_validateTraverser.signatures().load(snapshotName + "/signatures");
         m_validateTraverser.traverse();
-        m_validateTraverser.summary();
+        m_validateTraverser.summary(m_metaInfo);
         m_currentTask = -1; // disable highlighted task
-        m_metaInfo.setValid(m_validateTraverser.totalErrors() == 0);
         m_metaInfo.save(snapshotName + "/" + "metainfo");
     } catch (ApplicationException &e) {
+        m_metaInfo.setValid(false);
+        m_metaInfo.save(snapshotName + "/" + "metainfo");
         buildFailureHint(e);
         emit failed();
         return;

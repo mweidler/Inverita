@@ -292,15 +292,8 @@ void BackupEngine::validateBackup(QString &timestamp)
         return;
     }
 
-    m_validateTraverser.summary();
-
     SnapshotMetaInfo metaInfo;
     metaInfo.load(snapshotName + "/metainfo");
-    metaInfo.setValid(false);
-    if (m_validateTraverser.totalFiles() == metaInfo.numberOfFiles() &&
-        m_validateTraverser.totalSize() == metaInfo.sizeOfFiles() &&
-        m_validateTraverser.totalErrors() == 0) {
-        metaInfo.setValid(true);
-    }
+    m_validateTraverser.summary(metaInfo);
     metaInfo.save(snapshotName + "/metainfo");
 }

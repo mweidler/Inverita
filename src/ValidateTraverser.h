@@ -27,6 +27,7 @@
 
 #include "Traverser.h"
 #include "SignatureMap.h"
+#include "SnapshotMetaInfo.h"
 
 
 /*! Validates file contents.
@@ -39,7 +40,7 @@ public:
     ValidateTraverser();
     SignatureMap &signatures();
     void setBackupPath(QString &absolutePath);
-    void summary();
+    void summary(SnapshotMetaInfo &metainfo);
 
 public:
     virtual void onFile(const QString &absoluteFilePath);

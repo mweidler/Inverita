@@ -58,36 +58,37 @@ void ValidateTraverser::setBackupPath(QString &path)
 }
 
 
-void ValidateTraverser::summary()
+void ValidateTraverser::summary(SnapshotMetaInfo &metaInfo)
 {
-    QString msg = tr("%1 files checked, %2 errors found.") + "<br><br>";
-    msg = msg.arg(m_totalFiles).arg(m_totalErrors);
-    emit report(msg);
-
-    bool corrupted = false;
-    QList<QString> keys = m_signatures.keys();
-    if (keys.size() > 0) {
-        report(tr("WARNING: The following files are missing in the backup snapshot:") + "<br>");
-        for (int i = 0; i < keys.size(); i++)  {
-            report(keys[i] + "<br>");
-        }
-        emit report("<br>");
-        corrupted = true;
-    } else {
-        emit report(tr("All expected files were found in the backup snapshot.") + "<br>");
+    if (metaInfo.numberOfFiles() != m_totalFiles) {
+        emit report(tr("%1 files expected, but %2 files found.").arg(metaInfo.numberOfFiles()).arg(m_totalFiles) + "<br>");
+        m_totalErrors++;
     }
 
-    if (m_totalErrors) {
-        corrupted = true;
+    if (metaInfo.sizeOfFiles() != m_totalSize) {
+        emit report(tr("%1 bytes expected, but %2 bytes found.<br>").arg(metaInfo.sizeOfFiles()).arg(m_totalSize) + "<br>");
+        m_totalErrors++;
+    }
+
+    QList<QString> keys = m_signatures.keys();
+    if (keys.size() > 0) {
+        report(tr("The following files are missing in the backup snapshot:") + "<br>");
+        for (int i = 0; i < keys.size(); i++)  {
+            emit report(keys[i] + "<br>");
+            m_totalFiles++;
+        }
+        emit report("<br>");
     }
 
     if (Backup::instance().config().verifyHash() == false) {
         emit report(tr("WARNING: Content signatures not verified (disabled).") + "<br>");
     }
 
-    if (corrupted) {
-        emit report(tr("WARNING: Backup snapshot is corrupted!") + "<br>");
+    if (m_totalErrors > 0) {
+        metaInfo.setValid(false);
+        emit report(tr("Backup snapshot invalidated.") + "<br><br>");
     } else {
+        metaInfo.setValid(true);
         emit report(tr("Backup snapshot is valid.") + "<br><br>");
     }
 }
