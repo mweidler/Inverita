@@ -24,7 +24,8 @@
 
 
 #include "ValidateTraverser.h"
-#include "sha1.h"
+#include "Checksum.h"
+#include "Backup.h"
 
 #include <QDebug>
 
@@ -57,12 +58,6 @@ void ValidateTraverser::setBackupPath(QString &path)
 }
 
 
-void ValidateTraverser::setVerifyHash(bool enable)
-{
-    m_verifyHash = enable;
-}
-
-
 void ValidateTraverser::summary()
 {
     QString msg = tr("%1 files checked, %2 errors found.") + "<br><br>";
@@ -86,7 +81,7 @@ void ValidateTraverser::summary()
         corrupted = true;
     }
 
-    if (!m_verifyHash) {
+    if (Backup::instance().config().verifyHash() == false) {
         emit report(tr("WARNING: Content signatures not verified (disabled).") + "<br>");
     }
 
@@ -109,10 +104,9 @@ void ValidateTraverser::summary()
  */
 bool ValidateTraverser::hashFile(const QString &sourcefilename, QByteArray &hash)
 {
+    Checksum checksum;
     qint64 bytesRead;
-    QByteArray hashoutput(20, '\0');
-    sha1_context ctx;
-    bool   success;
+    bool success;
 
     QFile source(sourcefilename);
     success = source.open(QIODevice::ReadOnly);
@@ -120,20 +114,15 @@ bool ValidateTraverser::hashFile(const QString &sourcefilename, QByteArray &hash
         return false;
     }
 
-    sha1_starts(&ctx);
-
     do {
         bytesRead = source.read(m_fileBuffer, sizeof(m_fileBuffer));
 
-        sha1_update(&ctx, (const unsigned char *)m_fileBuffer, bytesRead);
+        checksum.update(m_fileBuffer, bytesRead);
         m_totalSize += bytesRead;
 
     } while (bytesRead == (qint64)sizeof(m_fileBuffer) && !m_abort);
 
-    sha1_finish(&ctx, (unsigned char *)hashoutput.data());
-    hash = hashoutput.toHex();
-    memset(&ctx, 0, sizeof(sha1_context));
-
+    hash = checksum.finish();
     return true;
 }
 
@@ -150,7 +139,7 @@ void ValidateTraverser::onFile(const QString &absoluteFilePath)
 
     qDebug() << "Validate onFile" << absoluteFilePath << key;
 
-    if (m_verifyHash) {
+    if (Backup::instance().config().verifyHash()) {
         previousHash = m_signatures.value(key);
         hashFile(absoluteFilePath, currentHash);
 
@@ -162,7 +151,6 @@ void ValidateTraverser::onFile(const QString &absoluteFilePath)
         QFile file(absoluteFilePath);
         m_totalSize += file.size();
     }
-
 
     m_signatures.remove(key);
     m_totalFiles++;

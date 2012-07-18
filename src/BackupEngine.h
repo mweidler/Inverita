@@ -52,11 +52,10 @@ public slots:
 
 protected:
     void checkDriveSpace();
+    void checkOvercharge();
     void scanDirectories();
     void executeBackup(QString &timestamp);
     void validateBackup(QString &timestamp);
-    void checkOvercharge();
-
     void deleteSnapshot(QString snapshotName);
 
 protected:

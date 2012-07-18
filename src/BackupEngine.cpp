@@ -247,18 +247,21 @@ void BackupEngine::executeBackup(QString &timestamp)
     m_copyTraverser.traverse();
     QByteArray checksum = m_copyTraverser.currentSignatures().save(currentBackup + "/signatures");
 
+    if (m_abort) {
+        return;
+    }
+
     SnapshotMetaInfo metaInfo;
     metaInfo.setNumberOfFiles(m_scanTraverser.totalFiles());
     metaInfo.setSizeOfFiles(m_scanTraverser.totalSize());
-    metaInfo.setChecksum(checksum);
     metaInfo.setValid(false);
     // set valid flag, if expected data/files could be copied, no errors
     // occured and the backup was not aborted.
     if (m_copyTraverser.totalFiles() == m_scanTraverser.totalFiles() &&
         m_copyTraverser.totalSize() == m_scanTraverser.totalSize() &&
-        m_copyTraverser.totalErrors() == 0 &&
-        m_abort == false) {
+        m_copyTraverser.totalErrors() == 0) {
         metaInfo.setValid(true);
+        metaInfo.setChecksum(checksum);
         emit report(tr("Backup snapshot created successfully without errors.<br>"));
         emit report(tr("Backup snapshot checksum is '%1'<br>").arg(QString(checksum)));
     }
@@ -283,9 +286,12 @@ void BackupEngine::validateBackup(QString &timestamp)
     m_validateTraverser.addExcludes("metainfo");
     m_validateTraverser.addExcludes("signatures");
     m_validateTraverser.setBackupPath(snapshotName);
-    m_validateTraverser.setVerifyHash(Backup::instance().config().verifyHash());
     m_validateTraverser.signatures().load(snapshotName + "/signatures");
     m_validateTraverser.traverse();
+    if (m_abort) {
+        return;
+    }
+
     m_validateTraverser.summary();
 
     SnapshotMetaInfo metaInfo;
@@ -293,8 +299,7 @@ void BackupEngine::validateBackup(QString &timestamp)
     metaInfo.setValid(false);
     if (m_validateTraverser.totalFiles() == metaInfo.numberOfFiles() &&
         m_validateTraverser.totalSize() == metaInfo.sizeOfFiles() &&
-        m_validateTraverser.totalErrors() == 0 &&
-        m_abort == false) {
+        m_validateTraverser.totalErrors() == 0) {
         metaInfo.setValid(true);
     }
     metaInfo.save(snapshotName + "/metainfo");

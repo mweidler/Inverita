@@ -40,7 +40,6 @@ public:
     SignatureMap &signatures();
     void setBackupPath(QString &absolutePath);
     void summary();
-    void setVerifyHash(bool enable);
 
 public:
     virtual void onFile(const QString &absoluteFilePath);

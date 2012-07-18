@@ -25,7 +25,7 @@
 
 #include "CopyTraverser.h"
 #include "Utilities.h"
-#include "sha1.h"
+#include "Checksum.h"
 
 #include <QDateTime>
 #include <QDir>
@@ -118,9 +118,8 @@ bool CopyTraverser::compareFiles(QString &newfilename, QString &reffilename)
  */
 bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, QByteArray &hash)
 {
+    Checksum checksum;
     qint64 bytesRead, bytesWritten;
-    QByteArray hashoutput(20, '\0');
-    sha1_context ctx;
     bool success;
 
     QFile source(sourcefilename);
@@ -129,7 +128,6 @@ bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, Q
         return false;
     }
 
-    sha1_starts(&ctx);
     QFile target(targetfilename);
     success = target.open(QIODevice::WriteOnly);
     if (success) {
@@ -137,7 +135,7 @@ bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, Q
             bytesRead = source.read(m_copyBuffer, sizeof(m_copyBuffer));
             bytesWritten = target.write(m_copyBuffer, bytesRead);
 
-            sha1_update(&ctx, (const unsigned char *)m_copyBuffer, bytesRead);
+            checksum.update(m_copyBuffer, bytesRead);
             m_totalSize += bytesWritten;
 
             // e.g. disk full error
@@ -149,10 +147,7 @@ bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, Q
         } while (bytesRead == (qint64)sizeof(m_copyBuffer) && !m_abort);
     }
 
-    sha1_finish(&ctx, (unsigned char *)hashoutput.data());
-    hash = hashoutput.toHex();
-    memset(&ctx, 0, sizeof(sha1_context));
-
+    hash = checksum.finish();
     return true;
 }
 

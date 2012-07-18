@@ -48,7 +48,8 @@ SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QF
     m_tableView->horizontalHeader()->setResizeMode(2, QHeaderView::ResizeToContents);
     m_tableView->horizontalHeader()->setResizeMode(3, QHeaderView::ResizeToContents);
     m_tableView->horizontalHeader()->setResizeMode(4, QHeaderView::ResizeToContents);
-    m_tableView->horizontalHeader()->setStretchLastSection(true);
+    m_tableView->horizontalHeader()->setResizeMode(5, QHeaderView::ResizeToContents);
+    m_tableView->horizontalHeader()->setResizeMode(6, QHeaderView::Stretch);
     m_tableView->show();
 
     m_buttonValidate = new QPushButton(tr("Validate"));

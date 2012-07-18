@@ -61,7 +61,6 @@ void VerifyEngine::start()
 
     QString currentBackup = SearchLatestBackupDir(backup.location());
     m_validateTraverser.reset();
-    m_validateTraverser.setVerifyHash(backup.config().verifyHash());
     emit started();
 
     try {

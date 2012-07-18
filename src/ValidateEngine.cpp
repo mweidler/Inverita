@@ -67,7 +67,6 @@ void ValidateEngine::start()
     Configuration config;
     config.load(m_backupRootPath + "/inverita.conf");
     m_validateTraverser.reset();
-    m_validateTraverser.setVerifyHash(config.verifyHash());
     QString snapshotName = m_backupRootPath + "/" + m_snapshotName;
     emit started();
 
