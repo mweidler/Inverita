@@ -17,7 +17,6 @@ RESOURCES += \
         ../resources.qrc
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     BackupSelectorUI.cpp \
     BackupListModel.cpp \
     Configuration.cpp \
@@ -48,9 +47,10 @@ SOURCES += main.cpp\
     SnapshotListModel.cpp \
     PasswordDialog.cpp \
     Backup.cpp \
-    Checksum.cpp
+    Checksum.cpp \
+    InveritaWindow.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     BackupSelectorUI.h \
     BackupListModel.h \
     Configuration.h \
@@ -82,5 +82,6 @@ HEADERS  += mainwindow.h \
     SnapshotListModel.h \
     PasswordDialog.h \
     Backup.h \
-    Checksum.h
+    Checksum.h \
+    InveritaWindow.h
 

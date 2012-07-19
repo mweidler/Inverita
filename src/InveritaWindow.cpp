@@ -1,5 +1,5 @@
 /*
- * mainwindow.cpp
+ * InveritaWindow.cpp
  *
  * This file is part of INVERITA.
  *
@@ -23,7 +23,7 @@
  */
 
 
-#include "mainwindow.h"
+#include "InveritaWindow.h"
 #include "AboutDialog.h"
 #include "Utilities.h"
 #include "Configuration.h"
@@ -44,7 +44,7 @@
  *
  * \param parent the parent UI element
  */
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
+InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
 {
     QWidget *widget = new QWidget;
     setCentralWidget(widget);
@@ -159,13 +159,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
 /*! Destructor
  */
-MainWindow::~MainWindow()
+InveritaWindow::~InveritaWindow()
 {
 
 }
 
 
-void MainWindow::closeEvent(QCloseEvent *event)
+void InveritaWindow::closeEvent(QCloseEvent *event)
 {
     closeCurrentBackup();
     QMainWindow::closeEvent(event);
@@ -174,14 +174,14 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 /*! Is called if the user selects the "application about" in the menu.
  */
-void MainWindow::about()
+void InveritaWindow::about()
 {
     AboutDialog dialog(this);
     dialog.exec();
 }
 
 
-void MainWindow::onBackupFailed()
+void InveritaWindow::onBackupFailed()
 {
     QString msg = tr("A critical error during backup execution has occured:\n\n");
     msg += m_backupEngine->failureHint() + "\n";
@@ -203,7 +203,7 @@ void MainWindow::onBackupFailed()
 }
 
 
-void MainWindow::onValidationFailed()
+void InveritaWindow::onValidationFailed()
 {
     m_progressValidateDialog->hide();
 
@@ -215,7 +215,7 @@ void MainWindow::onValidationFailed()
 }
 
 
-void MainWindow::onVerificationFailed()
+void InveritaWindow::onVerificationFailed()
 {
     m_progressVerifyDialog->hide();
 
@@ -227,7 +227,7 @@ void MainWindow::onVerificationFailed()
 }
 
 
-void MainWindow::reload()
+void InveritaWindow::reload()
 {
     qDebug() << "MainWindow::reload()";
 
@@ -261,7 +261,7 @@ void MainWindow::reload()
 }
 
 
-void MainWindow::closeCurrentBackup()
+void InveritaWindow::closeCurrentBackup()
 {
     Backup &backup = Backup::instance();
 
@@ -277,7 +277,7 @@ void MainWindow::closeCurrentBackup()
 }
 
 
-Backup::Status MainWindow::openCurrentBackup(BackupEntry entry)
+Backup::Status InveritaWindow::openCurrentBackup(BackupEntry entry)
 {
     Backup::Status status = Backup::Failed;
 
@@ -339,7 +339,7 @@ Backup::Status MainWindow::openCurrentBackup(BackupEntry entry)
 }
 
 
-void MainWindow::onBackupSelected(int selection)
+void InveritaWindow::onBackupSelected(int selection)
 {
     if (selection < 0) {
         return;
@@ -362,7 +362,7 @@ void MainWindow::onBackupSelected(int selection)
 }
 
 
-void MainWindow::abortProgress()
+void InveritaWindow::abortProgress()
 {
     qDebug() << "MainWindow::abortProgress() called";
 
@@ -375,7 +375,7 @@ void MainWindow::abortProgress()
 }
 
 
-void MainWindow::onDeleteBackup()
+void InveritaWindow::onDeleteBackup()
 {
     int index = m_snapshotListUI->currentSelection();
     QString name = m_snapshotListModel->at(index).name();
@@ -384,7 +384,7 @@ void MainWindow::onDeleteBackup()
 }
 
 
-void MainWindow::onValidateBackup()
+void InveritaWindow::onValidateBackup()
 {
     int index = m_snapshotListUI->currentSelection();
     QString name = m_snapshotListModel->at(index).name();
@@ -398,7 +398,7 @@ void MainWindow::onValidateBackup()
  *
  * \param absolutePath to the base backup directory
  */
-void MainWindow::updateLatestLink(QString absolutePath)
+void InveritaWindow::updateLatestLink(QString absolutePath)
 {
     QString linkPath = absolutePath + "/latest";
     QString linkName;
@@ -418,7 +418,7 @@ void MainWindow::updateLatestLink(QString absolutePath)
 }
 
 
-void MainWindow::onMenuNewBackup()
+void InveritaWindow::onMenuNewBackup()
 {
     Configuration config;
     ConfigurationDialog configDialog(config, this);
@@ -446,7 +446,7 @@ void MainWindow::onMenuNewBackup()
 }
 
 
-void MainWindow::onMenuOpenBackup()
+void InveritaWindow::onMenuOpenBackup()
 {
     QFileDialog filedialog(this);
     filedialog.setWindowTitle(tr("Open an existing backup"));
@@ -471,7 +471,7 @@ void MainWindow::onMenuOpenBackup()
 }
 
 
-void MainWindow::onConfigure()
+void InveritaWindow::onConfigure()
 {
     Backup &backup = Backup::instance();
 
@@ -513,7 +513,7 @@ void MainWindow::onConfigure()
 
 /*! Creates the actions for the application menu
  */
-void MainWindow::createActions()
+void InveritaWindow::createActions()
 {
     createBackupAct = new QAction(tr("Create new backup..."), this);
     createBackupAct->setStatusTip(tr("Create new backup configuration"));
@@ -552,7 +552,7 @@ void MainWindow::createActions()
 
 /*! Creates the application menu
  */
-void MainWindow::createMenus()
+void InveritaWindow::createMenus()
 {
     backupMenu = menuBar()->addMenu(tr("&Backup"));
     backupMenu->addAction(createBackupAct);

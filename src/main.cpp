@@ -23,7 +23,7 @@
  */
 
 #include "version.h"
-#include "mainwindow.h"
+#include "InveritaWindow.h"
 #include <QApplication>
 
 
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
     appTranslator.load(QApplication::applicationName() + "_" + QLocale::system().name());
     app.installTranslator(&appTranslator);
 
-    MainWindow w;
+    InveritaWindow w;
     w.show();
 
     return app.exec();

@@ -1,5 +1,5 @@
 /*
- * mainwindow.h
+ * InveritaWindow.h
  *
  * This file is part of INVERITA.
  *
@@ -22,8 +22,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADER_MAINWINDOW_INC
-#define HEADER_MAINWINDOW_INC
+#ifndef HEADER_INVERITAWINDOW_INC
+#define HEADER_INVERITAWINDOW_INC
 
 #include <QMainWindow>
 
@@ -42,13 +42,13 @@
 #include "Backup.h"
 
 
-class MainWindow : public QMainWindow
+class InveritaWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    InveritaWindow(QWidget *parent = 0);
+    ~InveritaWindow();
 
 signals:
     void deleteBackup();
@@ -114,4 +114,4 @@ private:
     ProgressDialog    *m_progressVerifyDialog;
 };
 
-#endif // HEADER_MAINWINDOW_INC
+#endif // HEADER_INVERITAWINDOW_INC
