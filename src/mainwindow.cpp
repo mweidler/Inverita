@@ -235,6 +235,12 @@ void MainWindow::reload()
     if (Backup::instance().isOpen()) {
         m_snapshotListModel->investigate(location);
         m_filesystemInfo->setFile(location);
+        if (m_filesystemInfo->filesystemType() != FilesystemInfo::Ext4) {
+            QString msg = tr("You are using an unsupported filesystem on your backup medium. "
+                             "Currently only 'ext4' filesystems are supported.<br><br>"
+                             "<b>You can continue at your own risk!</b>");
+            QMessageBox::warning(this, tr("Unsupported filesystem warning"), msg);
+        }
     } else {
         m_snapshotListModel->clear();
         m_filesystemInfo->reset();

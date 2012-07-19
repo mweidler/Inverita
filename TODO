@@ -1,5 +1,2 @@
-[ ] Error dialog, if config file can not be saved (loaded?)
-[ ] Check file format of backup drive
 [ ] Rename mainwindow to InveritaWindow
 [ ] Add compression of backup data
-[ ] After opening an backup without config-file, open configuration dialog and add a new config-file
