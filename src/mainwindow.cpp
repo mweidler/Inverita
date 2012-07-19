@@ -132,14 +132,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(m_progressValidateDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
     connect(m_validateEngine, SIGNAL(finished()), this, SLOT(reload()));
     connect(m_validateEngine, SIGNAL(aborted()), this, SLOT(reload()));
-    connect(m_validateEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
+    connect(m_validateEngine, SIGNAL(failed()), this, SLOT(onValidationFailed()));
     connect(m_validateEngine, SIGNAL(report(QString)), m_progressValidateDialog, SLOT(display(QString)));
 
     connect(m_controlUI, SIGNAL(startVerify()), m_verifyEngine, SLOT(start()));
     connect(m_progressVerifyDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
     connect(m_verifyEngine, SIGNAL(finished()), this, SLOT(reload()));
     connect(m_verifyEngine, SIGNAL(aborted()), this, SLOT(reload()));
-    connect(m_verifyEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
+    connect(m_verifyEngine, SIGNAL(failed()), this, SLOT(onVerificationFailed()));
     connect(m_verifyEngine, SIGNAL(report(QString)), m_progressVerifyDialog, SLOT(display(QString)));
 
     connect(m_timer, SIGNAL(timeout()), m_filesystemInfo, SLOT(refresh()));
@@ -199,6 +199,30 @@ void MainWindow::onBackupFailed()
 
     m_progressBackupDialog->hide();
     m_progressEraseDialog->hide();
+    reload();
+}
+
+
+void MainWindow::onValidationFailed()
+{
+    m_progressValidateDialog->hide();
+
+    QString msg = tr("A critical error during validation has occured:\n\n");
+    msg += m_validateEngine->failureHint() + "\n";
+    QMessageBox::critical(this, tr("Snapshot validation error"), msg);
+
+    reload();
+}
+
+
+void MainWindow::onVerificationFailed()
+{
+    m_progressVerifyDialog->hide();
+
+    QString msg = tr("A critical error during verification has occured:\n\n");
+    msg += m_verifyEngine->failureHint() + "\n";
+    QMessageBox::critical(this, tr("Backup verification error"), msg);
+
     reload();
 }
 

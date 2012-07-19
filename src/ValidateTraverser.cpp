@@ -58,7 +58,7 @@ void ValidateTraverser::setBackupPath(QString &path)
 }
 
 
-void ValidateTraverser::summary(SnapshotMetaInfo &metaInfo)
+void ValidateTraverser::evaluate(SnapshotMetaInfo &metaInfo)
 {
     if (metaInfo.numberOfFiles() != m_totalFiles) {
         emit report(tr("%1 files expected, but %2 files found.").arg(metaInfo.numberOfFiles()).arg(m_totalFiles) + "<br>");
@@ -137,8 +137,6 @@ void ValidateTraverser::onFile(const QString &absoluteFilePath)
     QByteArray previousHash;
     QByteArray currentHash;
     QString    key = absoluteFilePath.mid(m_sizeOfBackupPath);
-
-    qDebug() << "Validate onFile" << absoluteFilePath << key;
 
     if (Backup::instance().config().verifyHash()) {
         previousHash = m_signatures.value(key);

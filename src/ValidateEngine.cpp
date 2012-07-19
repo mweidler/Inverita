@@ -71,25 +71,34 @@ void ValidateEngine::start()
     emit started();
 
     m_metaInfo.load(snapshotName + "/" + "metainfo") ;
+    m_validateTraverser.addIncludes(snapshotName);
+    m_validateTraverser.addExcludes("metainfo");
+    m_validateTraverser.addExcludes("signatures");
+    m_validateTraverser.setBackupPath(snapshotName);
 
-    try {
-        m_validateTraverser.addIncludes(snapshotName);
-        m_validateTraverser.addExcludes("metainfo");
-        m_validateTraverser.addExcludes("signatures");
-        m_validateTraverser.setBackupPath(snapshotName);
-        m_validateTraverser.signatures().load(snapshotName + "/signatures");
-        m_validateTraverser.traverse();
-        m_validateTraverser.summary(m_metaInfo);
-        m_currentTask = -1; // disable highlighted task
-        m_metaInfo.save(snapshotName + "/" + "metainfo");
-    } catch (ApplicationException &e) {
+    QByteArray checksum = m_validateTraverser.signatures().load(snapshotName + "/signatures");
+    if (checksum == m_metaInfo.checksum()) {
+        try {
+            m_validateTraverser.traverse();
+            m_validateTraverser.evaluate(m_metaInfo);
+            m_currentTask = -1; // disable highlighted task
+        } catch (ApplicationException &e) {
+            m_metaInfo.setValid(false);
+            m_metaInfo.save(snapshotName + "/" + "metainfo");
+            buildFailureHint(e);
+            emit failed();
+            return;
+        }
+    } else {
+        m_failureHint = tr("The contents of signature file are not trustable because it's checksum does not match the expected checksum.\n"
+                           "A snapshot validation is not possible!\nThe snapshot will be set as 'Invalid'.");
         m_metaInfo.setValid(false);
         m_metaInfo.save(snapshotName + "/" + "metainfo");
-        buildFailureHint(e);
         emit failed();
         return;
     }
 
+    m_metaInfo.save(snapshotName + "/" + "metainfo");
     emit finished();
 }
 

@@ -40,7 +40,7 @@ public:
     ValidateTraverser();
     SignatureMap &signatures();
     void setBackupPath(QString &absolutePath);
-    void summary(SnapshotMetaInfo &metainfo);
+    void evaluate(SnapshotMetaInfo &metainfo);
 
 public:
     virtual void onFile(const QString &absoluteFilePath);

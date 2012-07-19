@@ -62,6 +62,8 @@ public slots:
     void onDeleteBackup();
     void onValidateBackup();
     void onBackupFailed();
+    void onValidationFailed();
+    void onVerificationFailed();
 
     void onMenuNewBackup();
     void onMenuOpenBackup();

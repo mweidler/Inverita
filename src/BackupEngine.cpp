@@ -245,11 +245,11 @@ void BackupEngine::executeBackup(QString &timestamp)
     m_copyTraverser.setCurrentBackupPath(currentBackup);
     m_copyTraverser.previousSignatures().load(previousBackup + "/signatures");
     m_copyTraverser.traverse();
-    QByteArray checksum = m_copyTraverser.currentSignatures().save(currentBackup + "/signatures");
-
     if (m_abort) {
         return;
     }
+
+    QByteArray checksum = m_copyTraverser.currentSignatures().save(currentBackup + "/signatures");
 
     SnapshotMetaInfo metaInfo;
     metaInfo.setNumberOfFiles(m_scanTraverser.totalFiles());
@@ -294,6 +294,6 @@ void BackupEngine::validateBackup(QString &timestamp)
 
     SnapshotMetaInfo metaInfo;
     metaInfo.load(snapshotName + "/metainfo");
-    m_validateTraverser.summary(metaInfo);
+    m_validateTraverser.evaluate(metaInfo);
     metaInfo.save(snapshotName + "/metainfo");
 }
