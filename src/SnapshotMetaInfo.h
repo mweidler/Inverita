@@ -33,6 +33,8 @@
 class SnapshotMetaInfo : public QObject
 {
 public:
+    enum Quality { Unknown, Partial, Complete, Reliable };
+
     SnapshotMetaInfo();
     SnapshotMetaInfo(const SnapshotMetaInfo &other);
     SnapshotMetaInfo &operator= (const SnapshotMetaInfo &other);
@@ -50,14 +52,14 @@ public:
     qint64 sizeOfFiles() const;
     void setSizeOfFiles(qint64 count);
 
-    bool isValid() const;
-    void setValid(bool valid);
+    Quality quality() const;
+    void setQuality(Quality status);
 
 protected:
     qint64     m_files;
     qint64     m_totalSize;
     QByteArray m_checksum;
-    bool       m_isValid;
+    Quality    m_quality;
 };
 
 #endif

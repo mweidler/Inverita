@@ -84,7 +84,7 @@ void VerifyEngine::start()
     } else {
         m_failureHint = tr("The contents of signature file are not trustable because it's checksum does not match the expected checksum.\n"
                            "A backup verification is not possible!\nThe latest snapshot will be set as 'Invalid'.");
-        m_metaInfo.setValid(false);
+        m_metaInfo.setQuality(SnapshotMetaInfo::Unknown);
         m_metaInfo.save(currentBackup + "/" + "metainfo");
         emit failed();
         return;

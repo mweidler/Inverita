@@ -83,7 +83,7 @@ void ValidateEngine::start()
             m_validateTraverser.evaluate(m_metaInfo);
             m_currentTask = -1; // disable highlighted task
         } catch (ApplicationException &e) {
-            m_metaInfo.setValid(false);
+            m_metaInfo.setQuality(SnapshotMetaInfo::Unknown);
             m_metaInfo.save(snapshotName + "/" + "metainfo");
             buildFailureHint(e);
             emit failed();
@@ -92,7 +92,7 @@ void ValidateEngine::start()
     } else {
         m_failureHint = tr("The contents of signature file are not trustable because it's checksum does not match the expected checksum.\n"
                            "A snapshot validation is not possible!\nThe snapshot will be set as 'Invalid'.");
-        m_metaInfo.setValid(false);
+        m_metaInfo.setQuality(SnapshotMetaInfo::Unknown);
         m_metaInfo.save(snapshotName + "/" + "metainfo");
         emit failed();
         return;

@@ -85,10 +85,10 @@ void ValidateTraverser::evaluate(SnapshotMetaInfo &metaInfo)
     }
 
     if (m_totalErrors > 0) {
-        metaInfo.setValid(false);
+        metaInfo.setQuality(SnapshotMetaInfo::Unknown);
         emit report(tr("Backup snapshot invalidated.") + "<br><br>");
     } else {
-        metaInfo.setValid(true);
+        metaInfo.setQuality(SnapshotMetaInfo::Reliable);
         emit report(tr("Backup snapshot is valid.") + "<br><br>");
     }
 }

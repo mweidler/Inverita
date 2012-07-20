@@ -39,8 +39,8 @@ SnapshotListModel::SnapshotListModel(QObject *parent) : QAbstractTableModel(pare
 {
     clear();
 
-    m_headerLabels << tr("No.") << tr("Name") << tr("Last modified") <<
-                   tr("Files") << tr("Size") << tr("Status") << tr("Checksum");
+    m_headerLabels << tr("Name")  <<
+                   tr("Files") << tr("Size") << tr("Last modified") << tr("Status") << tr("Checksum");
 }
 
 
@@ -81,7 +81,7 @@ QVariant SnapshotListModel::headerData(int section, Qt::Orientation orientation,
     }
 
     if (role == Qt::TextAlignmentRole) {
-        if (section == 0 || section == 3 || section == 4) {
+        if (section == 1 || section == 2) {
             return QVariant(Qt::AlignRight);
         } else {
             return QVariant(Qt::AlignLeft);
@@ -99,7 +99,7 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
     const Snapshot &snapshot = this->at(index.row());
 
     if (role == Qt::TextAlignmentRole) {
-        if (index.column() == 0 || index.column() == 3 || index.column() == 4) {
+        if (index.column() == 1 || index.column() == 2) {
             return QVariant(Qt::AlignRight);
         } else {
             return QVariant(Qt::AlignLeft);
@@ -109,40 +109,47 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
     if (role == Qt::DisplayRole) {
         switch (index.column()) {
             case 0:
-                return QVariant(index.row() + 1);
-                break;
-
-            case 1:
                 return QVariant(snapshot.name());
                 break;
 
-            case 2:
-                return QVariant(snapshot.modificationTime().toString(Qt::TextDate));
-                break;
-
-            case 3:
+            case 1:
                 if (snapshot.metaInfo().numberOfFiles() == 0) {
                     return tr("Unknown");
                 }
                 return QVariant(snapshot.metaInfo().numberOfFiles());
                 break;
 
-            case 4:
+            case 2:
                 if (snapshot.metaInfo().sizeOfFiles() == 0) {
                     return tr("Unknown");
                 }
                 return ScaleToSiPrefix(snapshot.metaInfo().sizeOfFiles());
                 break;
 
-            case 5:
-                if (snapshot.metaInfo().isValid()) {
-                    return tr("Valid");
-                } else {
-                    return tr("Invalid");
+            case 3:
+                return QVariant(snapshot.modificationTime().toString(Qt::TextDate));
+                break;
+
+            case 4:
+                switch (snapshot.metaInfo().quality()) {
+                    default:
+                    case SnapshotMetaInfo::Unknown:
+                        return tr("Unknown");
+                        break;
+                    case SnapshotMetaInfo::Partial:
+                        return tr("Partial");
+                        break;
+                    case SnapshotMetaInfo::Complete:
+                        return tr("Complete");
+                        break;
+                    case SnapshotMetaInfo::Reliable:
+                        return tr("Reliable");
+                        break;
+                        break;
                 }
                 break;
 
-            case 6:
+            case 5:
                 return QVariant(snapshot.metaInfo().checksum());
                 break;
 

@@ -39,7 +39,7 @@ SnapshotMetaInfo::SnapshotMetaInfo(const SnapshotMetaInfo &other) : QObject()
     m_files = other.m_files;
     m_totalSize = other.m_totalSize;
     m_checksum = other.m_checksum;
-    m_isValid = other.m_isValid;
+    m_quality = other.m_quality;
 }
 
 SnapshotMetaInfo &SnapshotMetaInfo::operator= (const SnapshotMetaInfo &other)
@@ -47,7 +47,7 @@ SnapshotMetaInfo &SnapshotMetaInfo::operator= (const SnapshotMetaInfo &other)
     m_files = other.m_files;
     m_totalSize = other.m_totalSize;
     m_checksum = other.m_checksum;
-    m_isValid = other.m_isValid;
+    m_quality = other.m_quality;
 
     return *this;
 }
@@ -57,7 +57,7 @@ void SnapshotMetaInfo::reset()
     m_files = 0;
     m_totalSize = 0;
     m_checksum.clear();
-    m_isValid = false;
+    m_quality = Unknown;
 }
 
 bool SnapshotMetaInfo::load(QString filename)
@@ -79,7 +79,19 @@ bool SnapshotMetaInfo::load(QString filename)
     m_files = (qint64)settings.value("TotalFiles", 0).toLongLong();
     m_totalSize = (qint64)settings.value("TotalSize", 0).toLongLong();
     m_checksum = settings.value("Checksum").toString().toAscii();
-    m_isValid = settings.value("Valid", 0).toBool();
+    QString quality = settings.value("Quality", "unknown").toString();
+    if (quality == "unknown") {
+        m_quality = Unknown;
+    }
+    if (quality == "partial") {
+        m_quality = Partial;
+    }
+    if (quality == "complete") {
+        m_quality = Complete;
+    }
+    if (quality == "reliable") {
+        m_quality = Reliable;
+    }
 
     if (m_files == 0) {
         return false;
@@ -102,7 +114,22 @@ void SnapshotMetaInfo::save(QString filename)
     settings.setValue("TotalFiles",  m_files);
     settings.setValue("TotalSize",  m_totalSize);
     settings.setValue("Checksum",  QString(m_checksum));
-    settings.setValue("Valid",  m_isValid);
+    switch (m_quality) {
+        case Unknown:
+            settings.setValue("Quality", QString("unknown"));
+            break;
+        case Partial:
+            settings.setValue("Quality", QString("partial"));
+            break;
+        case Complete:
+            settings.setValue("Quality", QString("complete"));
+            break;
+        case Reliable:
+            settings.setValue("Quality", QString("reliable"));
+            break;
+        default:
+            break;
+    }
 
     if (settings.status() != QSettings::NoError) {
         ApplicationException e;
@@ -142,12 +169,12 @@ void SnapshotMetaInfo::setSizeOfFiles(qint64 count)
     m_totalSize = count;
 }
 
-bool SnapshotMetaInfo::isValid() const
+SnapshotMetaInfo::Quality SnapshotMetaInfo::quality() const
 {
-    return m_isValid;
+    return m_quality;
 }
 
-void SnapshotMetaInfo::setValid(bool valid)
+void SnapshotMetaInfo::setQuality(Quality quality)
 {
-    m_isValid = valid;
+    m_quality = quality;
 }
