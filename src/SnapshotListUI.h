@@ -25,7 +25,7 @@
 #ifndef HEADER_SNAPSHOTLISTUI_INC
 #define HEADER_SNAPSHOTLISTUI_INC
 
-#include <QTableView>
+#include "SnapshotTableView.h"
 #include <QPushButton>
 #include <QStyledItemDelegate>
 
@@ -47,15 +47,16 @@ signals:
     void reload();
 
 public slots:
+    void onSelectionChanged();
     void onItemSelected();
     void onValidate();
     void onDelete();
 
 protected:
-    QTableView  *m_tableView;
-    QPushButton *m_buttonValidate;
-    QPushButton *m_buttonDelete;
-    QPushButton *m_buttonReload;
+    SnapshotTableView *m_tableView;
+    QPushButton       *m_buttonValidate;
+    QPushButton       *m_buttonDelete;
+    QPushButton       *m_buttonReload;
 };
 
 

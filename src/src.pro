@@ -48,7 +48,8 @@ SOURCES += main.cpp\
     PasswordDialog.cpp \
     Backup.cpp \
     Checksum.cpp \
-    InveritaWindow.cpp
+    InveritaWindow.cpp \
+    SnapshotTableView.cpp
 
 HEADERS  += \
     BackupSelectorUI.h \
@@ -83,5 +84,6 @@ HEADERS  += \
     PasswordDialog.h \
     Backup.h \
     Checksum.h \
-    InveritaWindow.h
+    InveritaWindow.h \
+    SnapshotTableView.h
 
