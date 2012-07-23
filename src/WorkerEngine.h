@@ -38,7 +38,8 @@
 typedef struct WorkerStatus {
     QDateTime timestamp;
     qreal     completion;
-    qint64    processed;
+    //  qint64    processed;
+    qint64    transfered;
 } WorkerStatus;
 
 

@@ -205,7 +205,7 @@ void ProgressDialog::update()
     }
 
     if (m_statusHistory.size() >= 20) {
-        qint64 deltaTransfered = m_statusHistory.last().processed - m_statusHistory.first().processed;
+        qint64 deltaTransfered = m_statusHistory.last().transfered - m_statusHistory.first().transfered;
         qint64 deltaTimeMs = m_statusHistory.first().timestamp.msecsTo(m_statusHistory.last().timestamp);
         int transferRate = qRound(deltaTransfered / (deltaTimeMs * 1000.0));
         transferRateInfo = tr("while processing %1 MByte/s").arg(transferRate);
