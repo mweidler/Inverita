@@ -67,9 +67,9 @@ void VerifyEngine::start()
     m_validateTraverser.addIncludes(backup.config().includes());
     m_validateTraverser.addExcludes(backup.config().excludes());
     m_validateTraverser.addExcludes("metainfo");
-    m_validateTraverser.addExcludes("signatures");
+    m_validateTraverser.addExcludes("digests");
     m_validateTraverser.setBackupPath(empty);
-    QByteArray checksum = m_validateTraverser.signatures().load(currentBackup + "/signatures");
+    QByteArray checksum = m_validateTraverser.digests().load(currentBackup + "/digests");
     if (checksum == m_metaInfo.checksum()) {
         try {
 
@@ -82,7 +82,7 @@ void VerifyEngine::start()
             return;
         }
     } else {
-        m_failureHint = tr("The contents of signature file are not trustable because it's checksum does not match the expected checksum.\n"
+        m_failureHint = tr("The contents of digests file are not trustable because it's checksum does not match the expected checksum.\n"
                            "A backup verification is not possible!\nThe latest snapshot will be set as 'Invalid'.");
         m_metaInfo.setQuality(SnapshotMetaInfo::Unknown);
         m_metaInfo.save(currentBackup + "/" + "metainfo");

@@ -1,5 +1,5 @@
 /*
- * SignatureMap.h
+ * DigestsMap.h
  *
  * This file is part of INVERITA.
  *
@@ -22,28 +22,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HEADER_SIGNATUREMAP_INC
-#define HEADER_SIGNATUREMAP_INC
+#ifndef HEADER_DIGESTSMAP_INC
+#define HEADER_DIGESTSMAP_INC
 
 #include <QString>
 #include <QHash>
 #include <QHashIterator>
 #include <QByteArray>
 
-typedef QHash<QString, QByteArray> Signature;
-typedef QHashIterator<QString, QByteArray> SignatureMapIterator;
+typedef QHash<QString, QByteArray> Digests;
+typedef QHashIterator<QString, QByteArray> DigestsMapIterator;
 
 
-/*! Signature container
+/*! Digest container
  *
- * The signature is compatible to a FIPS-180-1 compliant SHA-1 implementation.
- * This means, that the signatures can be validated by common standard tools,
- * e.g. sha1sum -c <signaturefile>.
+ * The digest is compatible to a FIPS-180-1 compliant SHA-1 implementation.
+ * This means, that the digests can be validated by common standard tools,
+ * e.g. sha1sum -c <digestsfile>.
  */
-class SignatureMap : public Signature
+class DigestsMap : public Digests
 {
 public:
-    SignatureMap();
+    DigestsMap();
 
     QByteArray load(const QString &filename);
     QByteArray save(const QString &filename);

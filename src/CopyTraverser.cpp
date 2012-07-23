@@ -42,16 +42,16 @@ CopyTraverser::CopyTraverser()
 }
 
 
-/*! \returns Returns the signatures map.
+/*! \returns Returns the digests map.
  */
-SignatureMap &CopyTraverser::currentSignatures()
+DigestsMap &CopyTraverser::currentDigests()
 {
-    return m_currentSignatures;
+    return m_currentDigests;
 }
 
-SignatureMap &CopyTraverser::previousSignatures()
+DigestsMap &CopyTraverser::previousDigests()
 {
-    return m_previousSignatures;
+    return m_previousDigests;
 }
 
 /*! Set the previous backup path
@@ -113,7 +113,7 @@ bool CopyTraverser::compareFiles(QString &newfilename, QString &reffilename)
  *
  *  \param  sourcefilename the absolute path to the file to be copied
  *  \param  targetfilename the absolute path to the location to be copied
- *  \param  hash           hash signature of the file content
+ *  \param  hash           hash digest of the file content
  *  \return true on success, otherwise false
  */
 bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, QByteArray &hash)
@@ -177,8 +177,8 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
         }
 
         // take hash from previous backup
-        hash = m_previousSignatures.value(source);
-        m_currentSignatures.insert(source, hash);
+        hash = m_previousDigests.value(source);
+        m_currentDigests.insert(source, hash);
 
         QFile target(source);
         m_totalSize += target.size();
@@ -193,7 +193,7 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
         }
 
         // hash has been generated during copy
-        m_currentSignatures.insert(source, hash);
+        m_currentDigests.insert(source, hash);
 
         int rc = CopyMeta(source, target);
         if (rc == -1) {

@@ -190,10 +190,10 @@ void BackupEngine::deleteSnapshot(QString snapshotName)
     m_eraseTraverser.reset();
     m_eraseTraverser.addIncludes(snapshotName);
 
-    // remove metainfo and signatures of the snapshot "manually" to
+    // remove metainfo and digests of the snapshot "manually" to
     // invalidate whole snapshot. They were not counted on meta data creation.
     QFile::remove(snapshotName + "/metainfo");
-    QFile::remove(snapshotName + "/signatures");
+    QFile::remove(snapshotName + "/digests");
 
     m_eraseTraverser.traverse();
 }
@@ -243,9 +243,9 @@ void BackupEngine::executeBackup(QString &timestamp)
     m_copyTraverser.addExcludes(Backup::instance().config().excludes());
     m_copyTraverser.setPreviousBackupPath(previousBackup);
     m_copyTraverser.setCurrentBackupPath(currentBackup);
-    m_copyTraverser.previousSignatures().load(previousBackup + "/signatures");
+    m_copyTraverser.previousDigests().load(previousBackup + "/digests");
     m_copyTraverser.traverse();
-    QByteArray checksum = m_copyTraverser.currentSignatures().save(currentBackup + "/signatures");
+    QByteArray checksum = m_copyTraverser.currentDigests().save(currentBackup + "/digests");
 
     SnapshotMetaInfo metaInfo;
     metaInfo.setNumberOfFiles(m_copyTraverser.totalFiles());
@@ -268,7 +268,7 @@ void BackupEngine::executeBackup(QString &timestamp)
 
 
 /*! Sub job of the backup engine: Validates, if the backup is fully readable and
- *  compares content against hash signatures.
+ *  compares content against hash digests.
  *
  * \param timestamp of the new backup snapshot
  */
@@ -282,9 +282,9 @@ void BackupEngine::validateBackup(QString &timestamp)
 
     m_validateTraverser.addIncludes(snapshotName);
     m_validateTraverser.addExcludes("metainfo");
-    m_validateTraverser.addExcludes("signatures");
+    m_validateTraverser.addExcludes("digests");
     m_validateTraverser.setBackupPath(snapshotName);
-    m_validateTraverser.signatures().load(snapshotName + "/signatures");
+    m_validateTraverser.digests().load(snapshotName + "/digests");
     m_validateTraverser.traverse();
     if (m_abort) {
         return;

@@ -1,5 +1,5 @@
 /*
- * SignatureMap.cpp
+ * DigestsMap.cpp
  *
  * This file is part of INVERITA.
  *
@@ -23,27 +23,27 @@
  */
 
 
-#include "SignatureMap.h"
+#include "DigestsMap.h"
 #include "Checksum.h"
 
 #include <QFile>
 
 
-/*! Constructs a new signature map object
+/*! Constructs a new digest map object
  */
-SignatureMap::SignatureMap()
+DigestsMap::DigestsMap()
 {
     this->clear();
 }
 
 
-/*! Load the contents of an signature file
+/*! Load the contents of an digests file
  *
- * \param filename the filename of the signature file to load
+ * \param filename the filename of the digests file to load
  *
  * \return true, if successful loaded contents from file, otherwise false
  */
-QByteArray SignatureMap::load(const QString &filename)
+QByteArray DigestsMap::load(const QString &filename)
 {
     this->clear();
 
@@ -82,20 +82,20 @@ QByteArray SignatureMap::load(const QString &filename)
 }
 
 
-/*! Saved the contents of this signature map to a signature file.
+/*! Saved the contents of this digests map to a digest file.
  *
- * \param filename the filename of the signature file to save
+ * \param filename the filename of the digest file to save
  *
  * \return true, if successful saved contents to file, otherwise false
  */
-QByteArray SignatureMap::save(const QString &filename)
+QByteArray DigestsMap::save(const QString &filename)
 {
     QFile target(filename);
     Checksum checksum;
 
     int success = target.open(QIODevice::WriteOnly);
     if (success) {
-        SignatureMapIterator iter(*this);
+        DigestsMapIterator iter(*this);
         while (iter.hasNext()) {
             iter.next();
             QByteArray line;

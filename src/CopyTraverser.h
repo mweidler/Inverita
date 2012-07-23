@@ -26,7 +26,7 @@
 #define HEADER_COPYTRAVERSER_INC
 
 #include "Traverser.h"
-#include "SignatureMap.h"
+#include "DigestsMap.h"
 
 
 /*! Copy file system items (file, link, dir, other) from one place to
@@ -38,8 +38,8 @@ class CopyTraverser : public Traverser
 
 public:
     CopyTraverser();
-    SignatureMap &currentSignatures();
-    SignatureMap &previousSignatures();
+    DigestsMap &currentDigests();
+    DigestsMap &previousDigests();
     void setCurrentBackupPath(QString &path);
     void setPreviousBackupPath(QString &path);
 
@@ -55,11 +55,11 @@ protected:
     bool copyFile(QString &sourcefilename, QString &targetfilename, QByteArray &hash);
 
 protected:
-    QString      m_currentBackupPath;   //!< absolute path to the current backup
-    QString      m_previousBackupPath;  //!< absolute path to the previous backup
-    char         m_copyBuffer[4096];    //!< buffer for file copying
-    SignatureMap m_currentSignatures;   //!< hash signatures of all files in current backup
-    SignatureMap m_previousSignatures;  //!< hash signatures of all files in previous backup
+    QString    m_currentBackupPath;  //!< absolute path to the current backup
+    QString    m_previousBackupPath; //!< absolute path to the previous backup
+    char       m_copyBuffer[4096];   //!< buffer for file copying
+    DigestsMap m_currentDigests;     //!< hash digests of all files in current backup
+    DigestsMap m_previousDigests;    //!< hash digests of all files in previous backup
 };
 
 #endif

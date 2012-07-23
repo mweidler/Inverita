@@ -26,7 +26,7 @@
 #define HEADER_VALIDATETRAVERSER_INC
 
 #include "Traverser.h"
-#include "SignatureMap.h"
+#include "DigestsMap.h"
 #include "SnapshotMetaInfo.h"
 
 
@@ -38,7 +38,7 @@ class ValidateTraverser : public Traverser
 
 public:
     ValidateTraverser();
-    SignatureMap &signatures();
+    DigestsMap &digests();
     void setBackupPath(QString &absolutePath);
     void evaluate(SnapshotMetaInfo &metainfo);
 
@@ -56,7 +56,7 @@ protected:
     QString      m_backupPath;       //!< absolute path to the current backup
     int          m_sizeOfBackupPath;
     char         m_fileBuffer[4096]; //!< buffer for file copying
-    SignatureMap m_signatures;       //!< hash signatures of all files in current backup
+    DigestsMap   m_digests;          //!< digests of all files in current backup
     bool         m_verifyHash;
 };
 

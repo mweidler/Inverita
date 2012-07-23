@@ -86,10 +86,10 @@ void EraseEngine::start()
 
     m_metaInfo.load(m_snapshotName + "/" + "metainfo");
 
-    // remove metainfo and signatures of the snapshot "manually" to
+    // remove metainfo and digests of the snapshot "manually" to
     // invalidate whole snapshot. They were not counted on meta data creation.
     QFile::remove(m_snapshotName + "/" + "metainfo");
-    QFile::remove(m_snapshotName + "/" + "signatures");
+    QFile::remove(m_snapshotName + "/" + "digests");
 
     m_eraseTraverser.addIncludes(m_snapshotName);
 

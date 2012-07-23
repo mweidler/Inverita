@@ -32,7 +32,6 @@ SOURCES += main.cpp\
     SnapshotMetaInfo.cpp \
     AboutDialog.cpp \
     sha1.c \
-    SignatureMap.cpp \
     ApplicationException.cpp \
     WorkerEngine.cpp \
     ValidateTraverser.cpp \
@@ -49,7 +48,8 @@ SOURCES += main.cpp\
     Backup.cpp \
     Checksum.cpp \
     InveritaWindow.cpp \
-    SnapshotTableView.cpp
+    SnapshotTableView.cpp \
+    DigestsMap.cpp
 
 HEADERS  += \
     BackupSelectorUI.h \
@@ -67,7 +67,6 @@ HEADERS  += \
     SnapshotMetaInfo.h \
     AboutDialog.h \
     sha1.h \
-    SignatureMap.h \
     ApplicationException.h \
     WorkerEngine.h \
     ValidateTraverser.h \
@@ -85,5 +84,6 @@ HEADERS  += \
     Backup.h \
     Checksum.h \
     InveritaWindow.h \
-    SnapshotTableView.h
+    SnapshotTableView.h \
+    DigestsMap.h
 

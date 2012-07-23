@@ -33,8 +33,8 @@
 /*! Checksum
  *
  * The checksum is compatible to a FIPS-180-1 compliant SHA-1 implementation.
- * This means, that the signatures can be validated by common standard tools,
- * e.g. sha1sum -c <signaturefile>.
+ * This means, that the digests can be validated by common standard tools,
+ * e.g. sha1sum -c <digestsfile>.
  */
 class Checksum
 {

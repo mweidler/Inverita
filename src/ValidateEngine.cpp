@@ -73,10 +73,10 @@ void ValidateEngine::start()
     m_metaInfo.load(snapshotName + "/" + "metainfo") ;
     m_validateTraverser.addIncludes(snapshotName);
     m_validateTraverser.addExcludes("metainfo");
-    m_validateTraverser.addExcludes("signatures");
+    m_validateTraverser.addExcludes("digests");
     m_validateTraverser.setBackupPath(snapshotName);
 
-    QByteArray checksum = m_validateTraverser.signatures().load(snapshotName + "/signatures");
+    QByteArray checksum = m_validateTraverser.digests().load(snapshotName + "/digests");
     if (checksum == m_metaInfo.checksum()) {
         try {
             m_validateTraverser.traverse();
@@ -90,7 +90,7 @@ void ValidateEngine::start()
             return;
         }
     } else {
-        m_failureHint = tr("The contents of signature file are not trustable because it's checksum does not match the expected checksum.\n"
+        m_failureHint = tr("The contents of digests file are not trustable because it's checksum does not match the expected checksum.\n"
                            "A snapshot validation is not possible!\nThe snapshot will be set as 'Invalid'.");
         m_metaInfo.setQuality(SnapshotMetaInfo::Unknown);
         m_metaInfo.save(snapshotName + "/" + "metainfo");

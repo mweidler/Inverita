@@ -37,12 +37,12 @@ ValidateTraverser::ValidateTraverser()
 }
 
 
-/*! \returns Returns the signatures map.
+/*! \returns Returns the digests map.
  *
  */
-SignatureMap &ValidateTraverser::signatures()
+DigestsMap &ValidateTraverser::digests()
 {
-    return m_signatures;
+    return m_digests;
 }
 
 
@@ -70,7 +70,7 @@ void ValidateTraverser::evaluate(SnapshotMetaInfo &metaInfo)
         m_totalErrors++;
     }
 
-    QList<QString> keys = m_signatures.keys();
+    QList<QString> keys = m_digests.keys();
     if (keys.size() > 0) {
         report(tr("The following files are missing in the backup snapshot:") + "<br>");
         for (int i = 0; i < keys.size(); i++)  {
@@ -81,7 +81,7 @@ void ValidateTraverser::evaluate(SnapshotMetaInfo &metaInfo)
     }
 
     if (Backup::instance().config().verifyHash() == false) {
-        emit report(tr("WARNING: Content signatures not verified (disabled).") + "<br>");
+        emit report(tr("WARNING: Content digests not verified (disabled).") + "<br>");
     }
 
     if (m_totalErrors > 0) {
@@ -100,7 +100,7 @@ void ValidateTraverser::evaluate(SnapshotMetaInfo &metaInfo)
  *  Hashing can be aborted by flagging.
  *
  *  \param  sourcefilename the absolute path to the file to be copied
- *  \param  hash           hash signature of the file content
+ *  \param  hash           hash digest of the file content
  *  \return true on success, otherwise false
  */
 bool ValidateTraverser::hashFile(const QString &sourcefilename, QByteArray &hash)
@@ -140,7 +140,7 @@ void ValidateTraverser::onFile(const QString &absoluteFilePath)
     QString    key = absoluteFilePath.mid(m_sizeOfBackupPath);
 
     if (Backup::instance().config().verifyHash()) {
-        previousHash = m_signatures.value(key);
+        previousHash = m_digests.value(key);
         hashFile(absoluteFilePath, currentHash);
 
         if (previousHash != currentHash) {
@@ -152,7 +152,7 @@ void ValidateTraverser::onFile(const QString &absoluteFilePath)
         m_totalSize += file.size();
     }
 
-    m_signatures.remove(key);
+    m_digests.remove(key);
     m_totalFiles++;
 }
 
