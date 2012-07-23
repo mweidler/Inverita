@@ -45,7 +45,7 @@ WorkerStatus ValidateEngine::status()
     WorkerStatus st;
     st.timestamp  = QDateTime::currentDateTime();
     st.completion = ((qreal)m_validateTraverser.totalSize()) / qMax(m_metaInfo.sizeOfFiles(), (qint64)1);
-    st.processed  = m_validateTraverser.totalSize();
+    st.transfered = m_validateTraverser.totalTransfered();
 
     return st;
 }

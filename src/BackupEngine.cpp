@@ -72,7 +72,7 @@ WorkerStatus BackupEngine::status()
     WorkerStatus st;
     st.timestamp  = QDateTime::currentDateTime();
     st.completion = ((qreal)current) / expected;
-    st.processed  = current;
+    st.transfered = m_copyTraverser.totalTransfered() + m_validateTraverser.totalTransfered();
 
     return st;
 }
