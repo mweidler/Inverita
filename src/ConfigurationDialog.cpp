@@ -179,7 +179,7 @@ QWidget *ConfigurationDialog::constructOptionsTab()
 
     QLabel *verifyText = new QLabel(tr("Backup snapshots can be verified after creation or on individual request."));
     m_verifyAfterBackup = new QCheckBox(tr("&Verify backup snapshots automatically after creation"));
-    QLabel *hashText = new QLabel(tr("Backup snaphot verification ensures the consistency of the digests to\n"
+    QLabel *hashText = new QLabel(tr("Backup snapshot verification ensures the consistency of the digests to\n"
                                      "the corresponding files, and ensures that all files exist. For performance\n"
                                      "reasons, the digest recomputation can be left out."));
     m_verifyHash = new QCheckBox(tr("Recompute digests on verification (recommended)"));
