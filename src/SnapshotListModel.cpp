@@ -127,7 +127,7 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
                 break;
 
             case 3:
-                return QVariant(snapshot.modificationTime().toString(Qt::TextDate));
+                return QVariant(snapshot.modificationTime().toString(Qt::DefaultLocaleLongDate));
                 break;
 
             case 4:

@@ -51,6 +51,9 @@ int main(int argc, char *argv[])
     appTranslator.load(QApplication::applicationName() + "_" + QLocale::system().name());
     app.installTranslator(&appTranslator);
 
+    QLocale loc(QLocale::system().language());
+    QLocale::setDefault(loc);
+
     InveritaWindow w;
     w.show();
 

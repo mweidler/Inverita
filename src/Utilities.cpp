@@ -26,6 +26,7 @@
 #include <QtGlobal>
 #include <QString>
 #include <QDir>
+#include <QLocale>
 
 #include "ApplicationException.h"
 
@@ -148,14 +149,14 @@ QString ScaleToSiPrefix(qint64 size)
     }
 
     if (value >= 100) {
-        stringValue.setNum(value, 'f', 0);
+        stringValue = QLocale().toString(value, 'f', 0);
     } else if (value >= 10) {
-        stringValue.setNum(value, 'f', 1);
+        stringValue = QLocale().toString(value, 'f', 1);
     } else {
         if (unitIdx == 0) {
-            stringValue.setNum(value, 'f', 0);
+            stringValue = QLocale().toString(value, 'f', 0);
         } else {
-            stringValue.setNum(value, 'f', 2);
+            stringValue = QLocale().toString(value, 'f', 2);
         }
     }
 
