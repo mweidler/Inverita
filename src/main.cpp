@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     app.installTranslator(&qtTranslator);
 
     QTranslator appTranslator;
-    appTranslator.load(QApplication::applicationName() + "_" + QLocale::system().name());
+    appTranslator.load(":translations/" + QApplication::applicationName() + "_" + QLocale::system().name());
     app.installTranslator(&appTranslator);
 
     QLocale loc(QLocale::system().language());
