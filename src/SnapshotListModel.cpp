@@ -127,7 +127,8 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
                 break;
 
             case 3:
-                return QVariant(snapshot.modificationTime().toString(Qt::DefaultLocaleLongDate));
+                return QVariant(QLocale().dayName(snapshot.modificationTime().date().dayOfWeek()) +
+                       ", " + snapshot.modificationTime().toString(Qt::DefaultLocaleShortDate));
                 break;
 
             case 4:
