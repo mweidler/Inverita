@@ -105,10 +105,6 @@ qreal FilesystemInfo::capacity()
  */
 FilesystemInfo::FilesystemType FilesystemInfo::filesystemType()
 {
-/*    char buffer[200];
-    sprintf(buffer, "Type %lx\n", m_st.f_type);
-    qDebug() << buffer;
-*/
     switch (m_st.f_type) {
         case /*EXT4_SUPER_MAGIC*/ 0xEF53:
             return FilesystemInfo::Ext4;
