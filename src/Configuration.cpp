@@ -34,6 +34,11 @@ Configuration::Configuration()
     reset();
 }
 
+Configuration::~Configuration()
+{
+
+}
+
 void Configuration::reset()
 {
     m_includePaths.clear();

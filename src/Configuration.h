@@ -33,8 +33,11 @@
 
 class Configuration : public QObject
 {
+    Q_OBJECT
+
 public:
     Configuration();
+    ~Configuration();
 
     void reset();
 

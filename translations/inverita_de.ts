@@ -96,13 +96,13 @@
 <context>
     <name>Configuration</name>
     <message>
-        <location filename="../src/Configuration.cpp" line="80"/>
-        <location filename="../src/Configuration.cpp" line="115"/>
+        <location filename="../src/Configuration.cpp" line="85"/>
+        <location filename="../src/Configuration.cpp" line="120"/>
         <source>Can not be opened</source>
         <translation>Kann nicht geöffnet werden</translation>
     </message>
     <message>
-        <location filename="../src/Configuration.cpp" line="145"/>
+        <location filename="../src/Configuration.cpp" line="150"/>
         <source>Error during writing</source>
         <translation>Fehler beim Schreiben</translation>
     </message>
@@ -561,12 +561,14 @@ Please enter this password to get access.</source>
         <source>%1 minute(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/ProgressDialog.cpp" line="225"/>
         <source>%1 second(s)</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -669,7 +671,7 @@ Please enter this password to get access.</source>
     <message>
         <location filename="../src/SnapshotMetaInfo.cpp" line="75"/>
         <source>Can not be opened</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kann nicht geöffnet werden</translation>
     </message>
     <message>
         <location filename="../src/SnapshotMetaInfo.cpp" line="110"/>
@@ -679,7 +681,7 @@ Please enter this password to get access.</source>
     <message>
         <location filename="../src/SnapshotMetaInfo.cpp" line="137"/>
         <source>Error during writing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fehler beim Schreiben</translation>
     </message>
 </context>
 <context>
