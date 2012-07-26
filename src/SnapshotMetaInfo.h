@@ -32,6 +32,8 @@
 
 class SnapshotMetaInfo : public QObject
 {
+    Q_OBJECT
+
 public:
     enum Quality { Unknown, Partial, Complete, Reliable };
 

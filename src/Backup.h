@@ -38,6 +38,8 @@
  */
 class Backup : public QObject
 {
+    Q_OBJECT
+
 private:
     Backup();
     Backup(const QString &origin);
