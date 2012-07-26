@@ -11,7 +11,7 @@
     <message>
         <location filename="../src/AboutDialog.cpp" line="100"/>
         <source>About INVERITA Personal Backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Über INVERITA Personal Backup</translation>
     </message>
 </context>
 <context>
@@ -261,17 +261,17 @@ Please choose another storage.</source>
     <message>
         <location filename="../src/ControlUI.cpp" line="39"/>
         <source>&lt;b&gt;Create&lt;/b&gt; a new backup snapshot or &lt;b&gt;verify&lt;/b&gt; your existing backup.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Neuen Backup snapshot &lt;b&gt;erstellen&lt;/b&gt; oder Backup &lt;b&gt;überprüfen&lt;/b&gt;.</translation>
     </message>
     <message>
         <location filename="../src/ControlUI.cpp" line="43"/>
         <source>Create new backup snapshot</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Neuen Snapshot erstellen</translation>
     </message>
     <message>
         <location filename="../src/ControlUI.cpp" line="49"/>
         <source>Verify last backup with origin</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prüfe Backup gegen Original</translation>
     </message>
 </context>
 <context>
@@ -297,12 +297,12 @@ Please choose another storage.</source>
     <message>
         <location filename="../src/DriveCapacityUI.cpp" line="155"/>
         <source>free</source>
-        <translation type="unfinished"></translation>
+        <translation>frei</translation>
     </message>
     <message>
         <location filename="../src/DriveCapacityUI.cpp" line="156"/>
         <source>used</source>
-        <translation type="unfinished"></translation>
+        <translation>belegt</translation>
     </message>
 </context>
 <context>
@@ -402,121 +402,121 @@ Please try to solve the problem and restart the backup.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="239"/>
+        <location filename="../src/InveritaWindow.cpp" line="242"/>
         <source>Your backup medium has an unsupported filesystem. Only &apos;ext4&apos; filesystems are supported.&lt;br&gt;&lt;br&gt;&lt;b&gt;You can continue at your own risk!&lt;/b&gt;</source>
         <translation type="unfinished">Ihr Backupmedium hat ein nicht unterstütztes Dateisystem. Derzeit wird nur das &apos;ext4&apos; Dateisystem unterstützt.&lt;br&gt;&lt;br&gt;
 &lt;b&gt;Sie können auf eigenes Risiko fortfahren!&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="242"/>
+        <location filename="../src/InveritaWindow.cpp" line="245"/>
         <source>Unsupported filesystem</source>
         <translation type="unfinished">Nicht unterstütztes Dateisystem</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="269"/>
+        <location filename="../src/InveritaWindow.cpp" line="272"/>
         <source>The backup target can not be closed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="272"/>
-        <location filename="../src/InveritaWindow.cpp" line="331"/>
+        <location filename="../src/InveritaWindow.cpp" line="275"/>
+        <location filename="../src/InveritaWindow.cpp" line="334"/>
         <source>Backup access error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="318"/>
+        <location filename="../src/InveritaWindow.cpp" line="321"/>
         <source>Encryption software &apos;encfs&apos; could not be started:
 
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="320"/>
+        <location filename="../src/InveritaWindow.cpp" line="323"/>
         <source>Please verify, if &apos;encfs&apos; is installed properly and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="321"/>
+        <location filename="../src/InveritaWindow.cpp" line="324"/>
         <source>Encryption software missing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="328"/>
+        <location filename="../src/InveritaWindow.cpp" line="331"/>
         <source>The backup can not be accessed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="425"/>
+        <location filename="../src/InveritaWindow.cpp" line="428"/>
         <source>Create a new backup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="452"/>
+        <location filename="../src/InveritaWindow.cpp" line="455"/>
         <source>Open an existing backup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="482"/>
+        <location filename="../src/InveritaWindow.cpp" line="485"/>
         <source>Configuring backup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="518"/>
+        <location filename="../src/InveritaWindow.cpp" line="521"/>
         <source>Create new backup...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="519"/>
+        <location filename="../src/InveritaWindow.cpp" line="522"/>
         <source>Create new backup configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="525"/>
+        <location filename="../src/InveritaWindow.cpp" line="528"/>
         <source>Open existing backup...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="526"/>
+        <location filename="../src/InveritaWindow.cpp" line="529"/>
         <source>Open an existing backup configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="532"/>
+        <location filename="../src/InveritaWindow.cpp" line="535"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="533"/>
+        <location filename="../src/InveritaWindow.cpp" line="536"/>
         <source>Exit application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="539"/>
+        <location filename="../src/InveritaWindow.cpp" line="542"/>
         <source>&amp;About...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="540"/>
+        <location filename="../src/InveritaWindow.cpp" line="543"/>
         <source>Show the application&apos;s About box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="545"/>
+        <location filename="../src/InveritaWindow.cpp" line="548"/>
         <source>About &amp;Qt...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="546"/>
+        <location filename="../src/InveritaWindow.cpp" line="549"/>
         <source>Show the Qt library&apos;s About box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="557"/>
+        <location filename="../src/InveritaWindow.cpp" line="560"/>
         <source>&amp;Backup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="563"/>
+        <location filename="../src/InveritaWindow.cpp" line="566"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
@@ -525,29 +525,28 @@ Please try to solve the problem and restart the backup.</source>
     <name>PasswordDialog</name>
     <message>
         <location filename="../src/PasswordDialog.cpp" line="39"/>
-        <source>The contents of this backup are encrypted using an individual password.
-Please enter this password to get access.</source>
-        <translation type="unfinished"></translation>
+        <source>The contents of this backup are encrypted using an individual password.&lt;br&gt;Please enter this password to get access.</source>
+        <translation>Der Inhalt dieses Backups ist mit einem individuellen Passwort verschlüsselt.&lt;br&gt;Bitte geben Sie dieses Passwort ein.</translation>
     </message>
     <message>
         <location filename="../src/PasswordDialog.cpp" line="53"/>
         <source>Show password unmasked</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige Passwort unmaskiert</translation>
     </message>
     <message>
         <location filename="../src/PasswordDialog.cpp" line="54"/>
         <source>Remember password</source>
-        <translation type="unfinished"></translation>
+        <translation>Passwort merken</translation>
     </message>
     <message>
         <location filename="../src/PasswordDialog.cpp" line="58"/>
         <source>Backup password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Backup Passwort:</translation>
     </message>
     <message>
         <location filename="../src/PasswordDialog.cpp" line="89"/>
         <source>Password required</source>
-        <translation type="unfinished"></translation>
+        <translation>Passwort erforderlich</translation>
     </message>
 </context>
 <context>
@@ -555,36 +554,38 @@ Please enter this password to get access.</source>
     <message>
         <location filename="../src/ProgressDialog.cpp" line="211"/>
         <source>while processing %1 MByte/s</source>
-        <translation type="unfinished"></translation>
+        <translation>, verarbeite %1 MByte/s</translation>
     </message>
     <message numerus="yes">
         <location filename="../src/ProgressDialog.cpp" line="223"/>
         <source>%1 minute(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%1 Minute</numerusform>
+            <numerusform>%1 Minuten</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/ProgressDialog.cpp" line="225"/>
         <source>%1 second(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%1 Sekunde</numerusform>
+            <numerusform>%1 Sekunden</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../src/ProgressDialog.cpp" line="228"/>
         <source>estimated time remaining</source>
-        <translation type="unfinished"></translation>
+        <translation>geschätzte Restzeit</translation>
     </message>
     <message>
         <location filename="../src/ProgressDialog.cpp" line="231"/>
         <source>Please be patient...</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte haben Sie Geduld...</translation>
     </message>
     <message>
         <location filename="../src/ProgressDialog.cpp" line="235"/>
         <source>Finished.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fertig.</translation>
     </message>
 </context>
 <context>
@@ -620,29 +621,29 @@ Please enter this password to get access.</source>
         <translation>Prüfsumme</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="117"/>
-        <location filename="../src/SnapshotListModel.cpp" line="124"/>
-        <location filename="../src/SnapshotListModel.cpp" line="138"/>
+        <location filename="../src/SnapshotListModel.cpp" line="153"/>
+        <location filename="../src/SnapshotListModel.cpp" line="160"/>
+        <location filename="../src/SnapshotListModel.cpp" line="174"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="131"/>
+        <location filename="../src/SnapshotListModel.cpp" line="167"/>
         <source>dd/MM/yyyy hh:mm:ss</source>
         <translation>dd.MM.yyyy hh:mm:ss</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="141"/>
+        <location filename="../src/SnapshotListModel.cpp" line="177"/>
         <source>Partial</source>
         <translation>Teilweise</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="144"/>
+        <location filename="../src/SnapshotListModel.cpp" line="180"/>
         <source>Complete</source>
         <translation>Vollständig</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="147"/>
+        <location filename="../src/SnapshotListModel.cpp" line="183"/>
         <source>Reliable</source>
         <translation>Verlässlich</translation>
     </message>

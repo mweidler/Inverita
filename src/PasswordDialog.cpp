@@ -36,7 +36,7 @@
 PasswordDialog::PasswordDialog(QWidget *parent) : QDialog(parent)
 {
     QLabel *labelDescription =
-        new QLabel(tr("The contents of this backup are encrypted using an individual password.\n"
+        new QLabel(tr("The contents of this backup are encrypted using an individual password.<br>"
                       "Please enter this password to get access.")
                   );
 
