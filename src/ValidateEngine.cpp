@@ -90,8 +90,8 @@ void ValidateEngine::start()
             return;
         }
     } else {
-        m_failureHint = tr("The contents of digests file are not trustable because it's checksum does not match the expected checksum.\n"
-                           "A snapshot validation is not possible!\nThe snapshot will be set as 'Invalid'.");
+        m_failureHint = tr("The contents of digests file are not trustable because it's checksum does not match the expected checksum.<br>"
+                           "A snapshot validation is not possible!<br>The snapshot will be set as 'Invalid'.");
         m_metaInfo.setQuality(SnapshotMetaInfo::Unknown);
         m_metaInfo.save(snapshotName + "/" + "metainfo");
         emit failed();

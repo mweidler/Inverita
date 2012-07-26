@@ -557,19 +557,33 @@ Please try to solve the problem and restart the backup.</source>
         <translation>, verarbeite %1 MByte/s</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="223"/>
         <source>%1 minute(s)</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%1 Minute</numerusform>
             <numerusform>%1 Minuten</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="225"/>
         <source>%1 second(s)</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%1 Sekunde</numerusform>
             <numerusform>%1 Sekunden</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/ProgressDialog.cpp" line="223"/>
+        <source>%n minute(s)</source>
+        <translation>
+            <numerusform>%n Minute</numerusform>
+            <numerusform>%n Minuten</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/ProgressDialog.cpp" line="225"/>
+        <source>%n second(s)</source>
+        <translation>
+            <numerusform>%n Sekunde</numerusform>
+            <numerusform>%n Sekunden</numerusform>
         </translation>
     </message>
     <message>
@@ -623,27 +637,31 @@ Please try to solve the problem and restart the backup.</source>
     <message>
         <location filename="../src/SnapshotListModel.cpp" line="153"/>
         <location filename="../src/SnapshotListModel.cpp" line="160"/>
-        <location filename="../src/SnapshotListModel.cpp" line="174"/>
+        <location filename="../src/SnapshotListModel.cpp" line="173"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="167"/>
-        <source>dd/MM/yyyy hh:mm:ss</source>
-        <translation>dd.MM.yyyy hh:mm:ss</translation>
+        <location filename="../src/SnapshotListModel.cpp" line="166"/>
+        <source>dddd, dd-MMM-yyyy hh:mm:ss</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="177"/>
+        <source>dd/MM/yyyy hh:mm:ss</source>
+        <translation type="obsolete">dd.MM.yyyy hh:mm:ss</translation>
+    </message>
+    <message>
+        <location filename="../src/SnapshotListModel.cpp" line="176"/>
         <source>Partial</source>
         <translation>Teilweise</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="180"/>
+        <location filename="../src/SnapshotListModel.cpp" line="179"/>
         <source>Complete</source>
         <translation>Vollständig</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="183"/>
+        <location filename="../src/SnapshotListModel.cpp" line="182"/>
         <source>Reliable</source>
         <translation>Verlässlich</translation>
     </message>

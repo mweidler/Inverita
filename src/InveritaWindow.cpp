@@ -183,15 +183,14 @@ void InveritaWindow::about()
 
 void InveritaWindow::onBackupFailed()
 {
-    QString msg = tr("A critical error during backup execution has occured:\n\n");
-    msg += m_backupEngine->failureHint() + "\n";
-    msg += tr("Make sure, you have proper privileges to write to the\n"
-              "backup medium. If this error occurs for the first time\n"
-              "on a long time used backup medium, please consider to\n"
-              "replace this medium with a new one.\n\n"
-
-              "Due to backup integrity, this backup snapshot with all\n"
-              "contained folders and files should be deleted manually.\n"
+    QString msg = tr("A critical error during backup execution has occured:") + "<br><br>";
+    msg += m_backupEngine->failureHint() + "<br>";
+    msg += tr("Make sure, you have proper privileges to write to the<br>"
+              "backup medium. If this error occurs for the first time<br>"
+              "on a long time used backup medium, please consider to<br>"
+              "replace this medium with a new one.<br><br>"
+              "Due to backup integrity, this backup snapshot with all<br>"
+              "contained folders and files should be deleted manually.<br>"
               "Please try to solve the problem and restart the backup."
              );
 
@@ -207,8 +206,8 @@ void InveritaWindow::onValidationFailed()
 {
     m_progressValidateDialog->hide();
 
-    QString msg = tr("A critical error during validation has occured:\n\n");
-    msg += m_validateEngine->failureHint() + "\n";
+    QString msg = tr("A critical error during validation has occured:") + "<br><br>";
+    msg += m_validateEngine->failureHint() + "<br>";
     QMessageBox::critical(this, tr("Snapshot validation error"), msg);
 
     reload();
@@ -219,8 +218,8 @@ void InveritaWindow::onVerificationFailed()
 {
     m_progressVerifyDialog->hide();
 
-    QString msg = tr("A critical error during verification has occured:\n\n");
-    msg += m_verifyEngine->failureHint() + "\n";
+    QString msg = tr("A critical error during verification has occured:") + "<br><br>";
+    msg += m_verifyEngine->failureHint() + "<br>";
     QMessageBox::critical(this, tr("Backup verification error"), msg);
 
     reload();
@@ -269,9 +268,9 @@ void InveritaWindow::closeCurrentBackup()
     Backup &backup = Backup::instance();
 
     while (backup.close() == Backup::Failed) {
-        QString msg = tr("The backup target can not be closed") + ":\n" +
-                      backup.origin() + "\n\n" +
-                      backup.errorString() + "\n";
+        QString msg = tr("The backup target can not be closed:") + "<br>" +
+                      backup.origin() + "<br><br>" +
+                      backup.errorString() + "<br>";
         if (QMessageBox::critical(this, tr("Backup access error"), msg,
                                   QMessageBox::Ignore | QMessageBox::Retry, QMessageBox::Retry) == QMessageBox::Ignore) {
             break;
@@ -318,8 +317,8 @@ Backup::Status InveritaWindow::openCurrentBackup(BackupEntry entry)
         QApplication::restoreOverrideCursor();
 
         if (status == Backup::CouldNotStarted) {
-            msg = tr("Encryption software 'encfs' could not be started:\n\n") +
-                  "'" + backup.errorString() + "'\n\n" +
+            msg = tr("Encryption software 'encfs' could not be started:") + "<br><br>" +
+                  "'" + backup.errorString() + "'<br><br>" +
                   tr("Please verify, if 'encfs' is installed properly and try again.");
             if (QMessageBox::critical(this, tr("Encryption software missing"), msg,
                                       QMessageBox::Cancel | QMessageBox::Retry, QMessageBox::Cancel) == QMessageBox::Cancel) {
@@ -328,8 +327,8 @@ Backup::Status InveritaWindow::openCurrentBackup(BackupEntry entry)
         }
 
         if (status == Backup::Failed) {
-            msg = tr("The backup can not be accessed") + ":\n" +
-                  backup.origin() + "\n\n" +
+            msg = tr("The backup can not be accessed:") + "<br>" +
+                  backup.origin() + "<br><br>" +
                   backup.errorString();
             if (QMessageBox::critical(this, tr("Backup access error"), msg,
                                       QMessageBox::Cancel | QMessageBox::Retry, QMessageBox::Retry) == QMessageBox::Cancel) {

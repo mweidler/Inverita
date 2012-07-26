@@ -179,8 +179,8 @@ QWidget *ConfigurationDialog::constructOptionsTab()
 
     QLabel *verifyText = new QLabel(tr("Backup snapshots can be verified after creation or on individual request."));
     m_verifyAfterBackup = new QCheckBox(tr("&Verify backup snapshots automatically after creation"));
-    QLabel *hashText = new QLabel(tr("Backup snapshot verification ensures the consistency of the digests to\n"
-                                     "the corresponding files, and ensures that all files exist. For performance\n"
+    QLabel *hashText = new QLabel(tr("Backup snapshot verification ensures the consistency of the digests to<br>"
+                                     "the corresponding files, and ensures that all files exist. For performance<br>"
                                      "reasons, the digest recomputation can be left out."));
     m_verifyHash = new QCheckBox(tr("Recompute digests on verification (recommended)"));
 
@@ -289,7 +289,7 @@ void ConfigurationDialog::onSave()
     if (!QFile::exists(location())) {
         QMessageBox::critical(this,
                               tr("Backup storage does not exist"),
-                              tr("The backup storage you have specified does not exist.\n"
+                              tr("The backup storage you have specified does not exist.<br>"
                                  "Please choose another storage.")
                              );
         return;

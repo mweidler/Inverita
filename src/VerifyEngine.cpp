@@ -82,8 +82,8 @@ void VerifyEngine::start()
             return;
         }
     } else {
-        m_failureHint = tr("The contents of digests file are not trustable because it's checksum does not match the expected checksum.\n"
-                           "A backup verification is not possible!\nThe latest snapshot will be set as 'Invalid'.");
+        m_failureHint = tr("The contents of digests file are not trustable because it's checksum does not match the expected checksum.<br>"
+                           "A backup verification is not possible!<br>The latest snapshot will be set as 'Invalid'.");
         m_metaInfo.setQuality(SnapshotMetaInfo::Unknown);
         m_metaInfo.save(currentBackup + "/" + "metainfo");
         emit failed();

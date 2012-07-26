@@ -66,6 +66,6 @@ QString WorkerEngine::failureHint()
 void WorkerEngine::buildFailureHint(ApplicationException &e)
 {
     m_failureHint =
-        tr("Causer: ") + e.causer() + "\n" +
-        tr("Error: ") + e.errorMessage() + "\n";
+        tr("Causer: ") + e.causer() + "<br>" +
+        tr("Error: ") + e.errorMessage() + "<br>";
 }
