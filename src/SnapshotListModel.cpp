@@ -70,19 +70,19 @@ bool SnapshotListModel::isEmpty() const
 }
 
 
-const Snapshot& SnapshotListModel::operator[](int i) const
+const Snapshot &SnapshotListModel::operator[](int i) const
 {
     return m_historyList[i];
 }
 
 
-const Snapshot& SnapshotListModel::at(int i) const
+const Snapshot &SnapshotListModel::at(int i) const
 {
     return m_historyList[i];
 }
 
 
-const Snapshot& SnapshotListModel::last() const
+const Snapshot &SnapshotListModel::last() const
 {
     return m_historyList.last();
 }
@@ -164,7 +164,7 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
 
             case 3:
                 return QVariant(QLocale().dayName(snapshot.modificationTime().date().dayOfWeek()) +
-                       ", " + snapshot.modificationTime().toString(tr("dd/MM/yyyy hh:mm:ss")));
+                                ", " + snapshot.modificationTime().toString(tr("dd/MM/yyyy hh:mm:ss")));
                 // DE: "dd.MM.yyyy hh:mm:ss"
                 break;
             case 4:

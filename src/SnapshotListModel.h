@@ -52,9 +52,9 @@ public:
 
     void clear();
     int count() const;
-    const Snapshot& operator[](int i) const;
-    const Snapshot& at(int i) const;
-    const Snapshot& last() const;
+    const Snapshot &operator[](int i) const;
+    const Snapshot &at(int i) const;
+    const Snapshot &last() const;
     bool  isEmpty() const;
 
     // model<->view handling
