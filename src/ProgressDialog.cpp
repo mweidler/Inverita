@@ -220,9 +220,9 @@ void ProgressDialog::update()
         if (remainingHours >= 1) {
             remainingInfo += QString("%1:%2").arg(remainingHours).arg(remainingMinutes, 2, 10, QChar('0'));
         } else if (remainingMinutes >= 1) {
-            remainingInfo += tr("%1 minute(s)", 0, remainingMinutes).arg(remainingMinutes);
+            remainingInfo += tr("%n minute(s)", 0, remainingMinutes).arg(remainingMinutes);
         } else {
-            remainingInfo += tr("%1 second(s)", 0, remainingSeconds).arg(remainingSeconds);
+            remainingInfo += tr("%n second(s)", 0, remainingSeconds).arg(remainingSeconds);
         }
 
         remainingInfo += " " + tr("estimated time remaining") + " ";
