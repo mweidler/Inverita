@@ -1,1 +1,4 @@
 [ ] Add compression of backup data
+[ ] Sort header includes alphabetical
+[ ] Extract low level file operations in a File-Class inherited by QFile
+[ ] Remove empty on-Methods from Traversers
