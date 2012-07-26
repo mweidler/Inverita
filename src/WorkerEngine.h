@@ -53,6 +53,7 @@ class WorkerEngine : public QObject
 
 public:
     WorkerEngine();
+    ~WorkerEngine();
 
     void    reset();
     int     taskCount();

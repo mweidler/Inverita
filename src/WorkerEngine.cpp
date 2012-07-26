@@ -33,6 +33,11 @@ WorkerEngine::WorkerEngine()
     reset();
 }
 
+WorkerEngine::~WorkerEngine()
+{
+
+}
+
 
 /*! Reset the internal state of the worker engine.
  */

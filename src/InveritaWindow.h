@@ -42,6 +42,8 @@
 #include "Backup.h"
 
 
+/*! The Main Window
+ */
 class InveritaWindow : public QMainWindow
 {
     Q_OBJECT
@@ -83,35 +85,38 @@ private:
     void createMenus();
     void updateLatestLink(QString absolutePath);
 
-    QMenu   *backupMenu;
-    QMenu   *helpMenu;
-    QAction *createBackupAct;
-    QAction *openBackupAct;
-    QAction *exitAct;
-    QAction *aboutAct;
-    QAction *aboutQtAct;
+    QMenu   *m_backupMenu;
+    QMenu   *m_helpMenu;
 
-    BackupListModel   *m_backupListModel;
-    BackupSelectorUI  *m_backupSelectorUI;
-    SnapshotListModel *m_snapshotListModel;
-    SnapshotListUI    *m_snapshotListUI;
+    QAction *m_createBackupAction;
+    QAction *m_openBackupAction;
+    QAction *m_exitAction;
+    QAction *m_aboutAction;
+    QAction *m_aboutQtAction;
 
-    QTimer            *m_timer;
-    FilesystemInfo    *m_filesystemInfo;
-    DriveCapacityUI   *m_driveCapacityUI;
-    ControlUI         *m_controlUI;
-    BackupEngine      *m_backupEngine;
-    QThread           *m_backupThread;
-    EraseEngine       *m_eraseEngine;
-    QThread           *m_eraseThread;
-    ValidateEngine    *m_validateEngine;
-    QThread           *m_validateThread;
-    VerifyEngine      *m_verifyEngine;
-    QThread           *m_verifyThread;
     ProgressDialog    *m_progressBackupDialog;
     ProgressDialog    *m_progressEraseDialog;
     ProgressDialog    *m_progressValidateDialog;
     ProgressDialog    *m_progressVerifyDialog;
+
+    BackupSelectorUI  *m_backupSelectorUI;
+    SnapshotListUI    *m_snapshotListUI;
+    DriveCapacityUI   *m_driveCapacityUI;
+    ControlUI         *m_controlUI;
+
+    BackupListModel   *m_backupListModel;
+    SnapshotListModel *m_snapshotListModel;
+
+    QTimer            m_timer;
+    FilesystemInfo    m_filesystemInfo;
+    BackupEngine      m_backupEngine;
+    QThread           m_backupThread;
+    EraseEngine       m_eraseEngine;
+    QThread           m_eraseThread;
+    ValidateEngine    m_validateEngine;
+    QThread           m_validateThread;
+    VerifyEngine      m_verifyEngine;
+    QThread           m_verifyThread;
 };
 
 #endif // HEADER_INVERITAWINDOW_INC

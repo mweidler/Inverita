@@ -49,8 +49,6 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
     QWidget *widget = new QWidget;
     setCentralWidget(widget);
 
-    m_filesystemInfo = new FilesystemInfo();
-
     m_backupListModel = new BackupListModel(this);
     m_backupListModel->load("inverita");
     m_backupSelectorUI = new BackupSelectorUI(m_backupListModel, this);
@@ -58,7 +56,7 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
     m_snapshotListModel = new SnapshotListModel(this);
     m_snapshotListUI = new SnapshotListUI(m_snapshotListModel, this);
 
-    m_driveCapacityUI = new DriveCapacityUI(m_filesystemInfo, this);
+    m_driveCapacityUI = new DriveCapacityUI(&m_filesystemInfo, this);
     m_controlUI = new ControlUI(this);
 
     QHBoxLayout *hlayout = new QHBoxLayout;
@@ -75,38 +73,27 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
     createActions();
     createMenus();
 
-    m_timer = new QTimer(this);
-    m_timer->setInterval(5000);  // for filesystem capacity update
-
-    // The Worker engine should run in its own tread to not
+    // The Worker engine should run in its own thread to not
     // block the main event queue.
-    m_backupEngine = new BackupEngine();
-    m_backupThread = new QThread;
-    m_backupEngine->moveToThread(m_backupThread);
-    m_backupThread->start(QThread::LowestPriority);
+    m_backupEngine.moveToThread(&m_backupThread);
+    m_backupThread.start(QThread::LowestPriority);
 
-    m_eraseEngine = new EraseEngine();
-    m_eraseThread = new QThread;
-    m_eraseEngine->moveToThread(m_eraseThread);
-    m_eraseThread->start(QThread::LowestPriority);
+    m_eraseEngine.moveToThread(&m_eraseThread);
+    m_eraseThread.start(QThread::LowestPriority);
 
-    m_validateEngine = new ValidateEngine();
-    m_validateThread = new QThread;
-    m_validateEngine->moveToThread(m_validateThread);
-    m_validateThread->start(QThread::LowestPriority);
+    m_validateEngine.moveToThread(&m_validateThread);
+    m_validateThread.start(QThread::LowestPriority);
 
-    m_verifyEngine = new VerifyEngine();
-    m_verifyThread = new QThread;
-    m_verifyEngine->moveToThread(m_verifyThread);
-    m_verifyThread->start(QThread::LowestPriority);
+    m_verifyEngine.moveToThread(&m_verifyThread);
+    m_verifyThread.start(QThread::LowestPriority);
 
-    m_progressBackupDialog = new ProgressDialog(m_backupEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
+    m_progressBackupDialog = new ProgressDialog(&m_backupEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
     m_progressBackupDialog->setWindowTitle(tr("Creating new backup snapshot..."));
-    m_progressEraseDialog = new ProgressDialog(m_eraseEngine, ProgressDialog::NoTextBox, ProgressDialog::NotAbortable, this);
+    m_progressEraseDialog = new ProgressDialog(&m_eraseEngine, ProgressDialog::NoTextBox, ProgressDialog::NotAbortable, this);
     m_progressEraseDialog->setWindowTitle(tr("Deleting backup snapshot..."));
-    m_progressValidateDialog = new ProgressDialog(m_validateEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
+    m_progressValidateDialog = new ProgressDialog(&m_validateEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
     m_progressValidateDialog->setWindowTitle(tr("Validating backup snapshot..."));
-    m_progressVerifyDialog = new ProgressDialog(m_verifyEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
+    m_progressVerifyDialog = new ProgressDialog(&m_verifyEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
     m_progressVerifyDialog->setWindowTitle(tr("Verifying latest backup..."));
 
     connect(m_backupSelectorUI, SIGNAL(backupSelected(int)), this, SLOT(onBackupSelected(int)));
@@ -115,37 +102,38 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
     connect(m_snapshotListUI, SIGNAL(deleteBackup()), this, SLOT(onDeleteBackup()));
     connect(m_snapshotListUI, SIGNAL(validateBackup()), this, SLOT(onValidateBackup()));
 
-    connect(m_controlUI, SIGNAL(startBackup()), m_backupEngine, SLOT(start()));
+    connect(m_controlUI, SIGNAL(startBackup()), &m_backupEngine, SLOT(start()));
     connect(m_progressBackupDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(m_backupEngine, SIGNAL(finished()), this, SLOT(reload()));
-    connect(m_backupEngine, SIGNAL(aborted()), this, SLOT(reload()));
-    connect(m_backupEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
-    connect(m_backupEngine, SIGNAL(report(QString)), m_progressBackupDialog, SLOT(display(QString)));
+    connect(&m_backupEngine, SIGNAL(finished()), this, SLOT(reload()));
+    connect(&m_backupEngine, SIGNAL(aborted()), this, SLOT(reload()));
+    connect(&m_backupEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
+    connect(&m_backupEngine, SIGNAL(report(QString)), m_progressBackupDialog, SLOT(display(QString)));
 
-    connect(this, SIGNAL(deleteBackup()), m_eraseEngine, SLOT(start()));
+    connect(this, SIGNAL(deleteBackup()), &m_eraseEngine, SLOT(start()));
     connect(m_progressEraseDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(m_eraseEngine, SIGNAL(finished()), this, SLOT(reload()));
-    connect(m_eraseEngine, SIGNAL(aborted()), this, SLOT(reload()));
-    connect(m_eraseEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
+    connect(&m_eraseEngine, SIGNAL(finished()), this, SLOT(reload()));
+    connect(&m_eraseEngine, SIGNAL(aborted()), this, SLOT(reload()));
+    connect(&m_eraseEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
 
-    connect(this, SIGNAL(validateBackup()), m_validateEngine, SLOT(start()));
+    connect(this, SIGNAL(validateBackup()), &m_validateEngine, SLOT(start()));
     connect(m_progressValidateDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(m_validateEngine, SIGNAL(finished()), this, SLOT(reload()));
-    connect(m_validateEngine, SIGNAL(aborted()), this, SLOT(reload()));
-    connect(m_validateEngine, SIGNAL(failed()), this, SLOT(onValidationFailed()));
-    connect(m_validateEngine, SIGNAL(report(QString)), m_progressValidateDialog, SLOT(display(QString)));
+    connect(&m_validateEngine, SIGNAL(finished()), this, SLOT(reload()));
+    connect(&m_validateEngine, SIGNAL(aborted()), this, SLOT(reload()));
+    connect(&m_validateEngine, SIGNAL(failed()), this, SLOT(onValidationFailed()));
+    connect(&m_validateEngine, SIGNAL(report(QString)), m_progressValidateDialog, SLOT(display(QString)));
 
-    connect(m_controlUI, SIGNAL(startVerify()), m_verifyEngine, SLOT(start()));
+    connect(m_controlUI, SIGNAL(startVerify()), &m_verifyEngine, SLOT(start()));
     connect(m_progressVerifyDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(m_verifyEngine, SIGNAL(finished()), this, SLOT(reload()));
-    connect(m_verifyEngine, SIGNAL(aborted()), this, SLOT(reload()));
-    connect(m_verifyEngine, SIGNAL(failed()), this, SLOT(onVerificationFailed()));
-    connect(m_verifyEngine, SIGNAL(report(QString)), m_progressVerifyDialog, SLOT(display(QString)));
+    connect(&m_verifyEngine, SIGNAL(finished()), this, SLOT(reload()));
+    connect(&m_verifyEngine, SIGNAL(aborted()), this, SLOT(reload()));
+    connect(&m_verifyEngine, SIGNAL(failed()), this, SLOT(onVerificationFailed()));
+    connect(&m_verifyEngine, SIGNAL(report(QString)), m_progressVerifyDialog, SLOT(display(QString)));
 
-    connect(m_timer, SIGNAL(timeout()), m_filesystemInfo, SLOT(refresh()));
+    connect(&m_timer, SIGNAL(timeout()), &m_filesystemInfo, SLOT(refresh()));
 
     m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
-    m_timer->start();
+    m_timer.setInterval(5000);  // for filesystem capacity update
+    m_timer.start();
 
     setWindowTitle(tr("INVERITA Personal Backup"));
     setMinimumSize(750, 600);
@@ -161,12 +149,17 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
  */
 InveritaWindow::~InveritaWindow()
 {
-
+    qDebug() << "InveritaWindow::~InveritaWindow()";
 }
 
 
 void InveritaWindow::closeEvent(QCloseEvent *event)
 {
+    m_backupThread.exit();
+    m_eraseThread.exit();
+    m_validateThread.exit();
+    m_verifyThread.exit();
+
     closeCurrentBackup();
     QMainWindow::closeEvent(event);
 }
@@ -184,7 +177,7 @@ void InveritaWindow::about()
 void InveritaWindow::onBackupFailed()
 {
     QString msg = tr("A critical error during backup execution has occured:") + "<br><br>";
-    msg += m_backupEngine->failureHint() + "<br>";
+    msg += m_backupEngine.failureHint() + "<br>";
     msg += tr("Make sure, you have proper privileges to write to the<br>"
               "backup medium. If this error occurs for the first time<br>"
               "on a long time used backup medium, please consider to<br>"
@@ -207,7 +200,7 @@ void InveritaWindow::onValidationFailed()
     m_progressValidateDialog->hide();
 
     QString msg = tr("A critical error during validation has occured:") + "<br><br>";
-    msg += m_validateEngine->failureHint() + "<br>";
+    msg += m_validateEngine.failureHint() + "<br>";
     QMessageBox::critical(this, tr("Snapshot validation error"), msg);
 
     reload();
@@ -219,7 +212,7 @@ void InveritaWindow::onVerificationFailed()
     m_progressVerifyDialog->hide();
 
     QString msg = tr("A critical error during verification has occured:") + "<br><br>";
-    msg += m_verifyEngine->failureHint() + "<br>";
+    msg += m_verifyEngine.failureHint() + "<br>";
     QMessageBox::critical(this, tr("Backup verification error"), msg);
 
     reload();
@@ -236,8 +229,8 @@ void InveritaWindow::reload()
         /* Filesystem infos must be gathered from the origin storage, not
            from an eventually virtual file system, like encfs. Otherwise, the
            file system type can not be determined correctly. */
-        m_filesystemInfo->setFile(Backup::instance().origin());
-        if (m_filesystemInfo->filesystemType() != FilesystemInfo::Ext4) {
+        m_filesystemInfo.setFile(Backup::instance().origin());
+        if (m_filesystemInfo.filesystemType() != FilesystemInfo::Ext4) {
             QString msg = tr("Your backup medium has an unsupported filesystem. "
                              "Only 'ext4' filesystems are supported.<br><br>"
                              "<b>You can continue at your own risk!</b>");
@@ -245,7 +238,7 @@ void InveritaWindow::reload()
         }
     } else {
         m_snapshotListModel->clear();
-        m_filesystemInfo->reset();
+        m_filesystemInfo.reset();
     }
 
     if (Backup::instance().config().load(location + "/inverita.conf")) {
@@ -370,10 +363,10 @@ void InveritaWindow::abortProgress()
 
     // abort() can not be called via event loop (connect), because
     // the worker thread blocks its event queue.
-    m_backupEngine->abort();
-    m_eraseEngine->abort();
-    m_validateEngine->abort();
-    m_verifyEngine->abort();
+    m_backupEngine.abort();
+    m_eraseEngine.abort();
+    m_validateEngine.abort();
+    m_verifyEngine.abort();
 }
 
 
@@ -381,7 +374,7 @@ void InveritaWindow::onDeleteBackup()
 {
     int index = m_snapshotListUI->currentSelection();
     QString name = m_snapshotListModel->at(index).name();
-    m_eraseEngine->select(Backup::instance().location() + "/" + name);
+    m_eraseEngine.select(Backup::instance().location() + "/" + name);
     emit deleteBackup();
 }
 
@@ -390,7 +383,7 @@ void InveritaWindow::onValidateBackup()
 {
     int index = m_snapshotListUI->currentSelection();
     QString name = m_snapshotListModel->at(index).name();
-    m_validateEngine->select(Backup::instance().location(), name);
+    m_validateEngine.select(Backup::instance().location(), name);
     emit validateBackup();
 }
 
@@ -517,38 +510,38 @@ void InveritaWindow::onConfigure()
  */
 void InveritaWindow::createActions()
 {
-    createBackupAct = new QAction(tr("Create new backup..."), this);
-    createBackupAct->setStatusTip(tr("Create new backup configuration"));
-    createBackupAct->setIconVisibleInMenu(true);
-    createBackupAct->setIcon(QIcon::fromTheme("document-new"));
-    createBackupAct->setShortcut(QKeySequence::New);
-    connect(createBackupAct, SIGNAL(triggered()), this, SLOT(onMenuNewBackup()));
+    m_createBackupAction = new QAction(tr("Create new backup..."), this);
+    m_createBackupAction->setStatusTip(tr("Create new backup configuration"));
+    m_createBackupAction->setIconVisibleInMenu(true);
+    m_createBackupAction->setIcon(QIcon::fromTheme("document-new"));
+    m_createBackupAction->setShortcut(QKeySequence::New);
+    connect(m_createBackupAction, SIGNAL(triggered()), this, SLOT(onMenuNewBackup()));
 
-    openBackupAct = new QAction(tr("Open existing backup..."), this);
-    openBackupAct->setStatusTip(tr("Open an existing backup configuration"));
-    openBackupAct->setIconVisibleInMenu(true);
-    openBackupAct->setIcon(QIcon::fromTheme("document-open"));
-    openBackupAct->setShortcut(QKeySequence::Open);
-    connect(openBackupAct, SIGNAL(triggered()), this, SLOT(onMenuOpenBackup()));
+    m_openBackupAction = new QAction(tr("Open existing backup..."), this);
+    m_openBackupAction->setStatusTip(tr("Open an existing backup configuration"));
+    m_openBackupAction->setIconVisibleInMenu(true);
+    m_openBackupAction->setIcon(QIcon::fromTheme("document-open"));
+    m_openBackupAction->setShortcut(QKeySequence::Open);
+    connect(m_openBackupAction, SIGNAL(triggered()), this, SLOT(onMenuOpenBackup()));
 
-    exitAct = new QAction(tr("Exit"), this);
-    exitAct->setStatusTip(tr("Exit application"));
-    exitAct->setIconVisibleInMenu(true);
-    exitAct->setIcon(QIcon::fromTheme("exit"));
-    exitAct->setShortcut(QKeySequence::Quit);
-    connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
+    m_exitAction = new QAction(tr("Exit"), this);
+    m_exitAction->setStatusTip(tr("Exit application"));
+    m_exitAction->setIconVisibleInMenu(true);
+    m_exitAction->setIcon(QIcon::fromTheme("exit"));
+    m_exitAction->setShortcut(QKeySequence::Quit);
+    connect(m_exitAction, SIGNAL(triggered()), this, SLOT(close()));
 
-    aboutAct = new QAction(tr("&About..."), this);
-    aboutAct->setStatusTip(tr("Show the application's About box"));
-    aboutAct->setIconVisibleInMenu(true);
-    aboutAct->setIcon(QIcon::fromTheme("help-about"));
-    connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
+    m_aboutAction = new QAction(tr("&About..."), this);
+    m_aboutAction->setStatusTip(tr("Show the application's About box"));
+    m_aboutAction->setIconVisibleInMenu(true);
+    m_aboutAction->setIcon(QIcon::fromTheme("help-about"));
+    connect(m_aboutAction, SIGNAL(triggered()), this, SLOT(about()));
 
-    aboutQtAct = new QAction(tr("About &Qt..."), this);
-    aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
-    aboutQtAct->setIconVisibleInMenu(true);
-    aboutQtAct->setIcon(QIcon::fromTheme("help-about"));
-    connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+    m_aboutQtAction = new QAction(tr("About &Qt..."), this);
+    m_aboutQtAction->setStatusTip(tr("Show the Qt library's About box"));
+    m_aboutQtAction->setIconVisibleInMenu(true);
+    m_aboutQtAction->setIcon(QIcon::fromTheme("help-about"));
+    connect(m_aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 }
 
 
@@ -556,14 +549,14 @@ void InveritaWindow::createActions()
  */
 void InveritaWindow::createMenus()
 {
-    backupMenu = menuBar()->addMenu(tr("&Backup"));
-    backupMenu->addAction(createBackupAct);
-    backupMenu->addAction(openBackupAct);
-    backupMenu->addSeparator();
-    backupMenu->addAction(exitAct);
+    m_backupMenu = menuBar()->addMenu(tr("&Backup"));
+    m_backupMenu->addAction(m_createBackupAction);
+    m_backupMenu->addAction(m_openBackupAction);
+    m_backupMenu->addSeparator();
+    m_backupMenu->addAction(m_exitAction);
 
-    helpMenu = menuBar()->addMenu(tr("&Help"));
-    helpMenu->addAction(aboutAct);
-    helpMenu->addAction(aboutQtAct);
+    m_helpMenu = menuBar()->addMenu(tr("&Help"));
+    m_helpMenu->addAction(m_aboutAction);
+    m_helpMenu->addAction(m_aboutQtAction);
 }
 

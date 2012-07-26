@@ -46,6 +46,10 @@ DriveCapacityUI::DriveCapacityUI(AbstractDriveCapacityModel *model, QWidget *par
     connect(m_model, SIGNAL(dataChanged()), this, SLOT(update()));
 }
 
+DriveCapacityUI::~DriveCapacityUI()
+{
+    qDebug() << "DriveCapacityUI::~DriveCapacityUI()";
+}
 
 /*! \copydoc QWidget::minimumSizeHint()
  */

@@ -40,6 +40,8 @@ public:
 
     FilesystemInfo();
     FilesystemInfo(const QString &file);
+    ~FilesystemInfo();
+
     void setFile(const QString &file);
     void reset();
 

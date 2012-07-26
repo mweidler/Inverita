@@ -48,6 +48,7 @@ SnapshotListModel::SnapshotListModel(QObject *parent) : QAbstractTableModel(pare
  */
 SnapshotListModel::~SnapshotListModel()
 {
+    qDebug() << "SnapshotListModel::~SnapshotListModel()";
     clear();
 }
 

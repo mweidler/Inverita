@@ -40,6 +40,7 @@ BackupListModel::BackupListModel(QObject *parent) : QAbstractListModel(parent)
  */
 BackupListModel::~BackupListModel()
 {
+    qDebug() << "BackupListModel::~BackupListModel()";
     clear();
 }
 

@@ -50,6 +50,10 @@ FilesystemInfo::FilesystemInfo(const QString &file)
     setFile(file);
 }
 
+FilesystemInfo::~FilesystemInfo()
+{
+    qDebug() << "FilesystemInfo::~FilesystemInfo()";
+}
 
 /*! Set a new reference file. From now on, the file system information
  *  is based on the file system where the reference file is located on.

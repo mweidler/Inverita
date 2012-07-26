@@ -118,7 +118,7 @@ ProgressDialog::ProgressDialog(WorkerEngine *model, DialogType type, DialogAbort
  */
 ProgressDialog::~ProgressDialog()
 {
-
+    qDebug() << "ProgressDialog::~ProgressDialog()";
 }
 
 

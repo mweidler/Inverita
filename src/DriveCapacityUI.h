@@ -40,6 +40,7 @@ class DriveCapacityUI : public QWidget
 
 public:
     DriveCapacityUI(AbstractDriveCapacityModel *model, QWidget *parent);
+    ~DriveCapacityUI();
 
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
