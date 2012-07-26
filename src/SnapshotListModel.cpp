@@ -52,13 +52,49 @@ SnapshotListModel::~SnapshotListModel()
 }
 
 
+void SnapshotListModel::clear()
+{
+    m_historyList.clear();
+}
+
+
+int SnapshotListModel::count() const
+{
+    return m_historyList.count();
+}
+
+
+bool SnapshotListModel::isEmpty() const
+{
+    return m_historyList.isEmpty();
+}
+
+
+const Snapshot& SnapshotListModel::operator[](int i) const
+{
+    return m_historyList[i];
+}
+
+
+const Snapshot& SnapshotListModel::at(int i) const
+{
+    return m_historyList[i];
+}
+
+
+const Snapshot& SnapshotListModel::last() const
+{
+    return m_historyList.last();
+}
+
+
 /*! Returns the number of rows of the model, means backup history entries
  *
  * \return number of rows
  */
 int SnapshotListModel::rowCount(const QModelIndex & /*parent*/) const
 {
-    return size();
+    return m_historyList.size();
 }
 
 
@@ -96,7 +132,7 @@ QVariant SnapshotListModel::headerData(int section, Qt::Orientation orientation,
  */
 QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
 {
-    const Snapshot &snapshot = this->at(index.row());
+    const Snapshot &snapshot = m_historyList[index.row()];
 
     if (role == Qt::TextAlignmentRole) {
         if (index.column() == 1 || index.column() == 2) {
@@ -177,7 +213,7 @@ void SnapshotListModel::investigate(const QString &origin)
     dir.setSorting(QDir::Time | QDir::Reversed);
 
     beginResetModel();
-    this->clear();
+    m_historyList.clear();
 
     QFileInfoList list = dir.entryInfoList();
     for (int i = 0; i < list.size(); i++) {
@@ -200,7 +236,7 @@ void SnapshotListModel::investigate(const QString &origin)
             snapshot.setMetaInfo(metaInfo);
         }
 
-        this->append(snapshot);
+        m_historyList.append(snapshot);
     }
 
     endResetModel();

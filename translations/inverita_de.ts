@@ -403,13 +403,14 @@ Please try to solve the problem and restart the backup.</source>
     </message>
     <message>
         <location filename="../src/InveritaWindow.cpp" line="239"/>
-        <source>You are using an unsupported filesystem on your backup medium. Currently only &apos;ext4&apos; filesystems are supported.&lt;br&gt;&lt;br&gt;&lt;b&gt;You can continue at your own risk!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>Your backup medium has an unsupported filesystem. Only &apos;ext4&apos; filesystems are supported.&lt;br&gt;&lt;br&gt;&lt;b&gt;You can continue at your own risk!&lt;/b&gt;</source>
+        <translation type="unfinished">Ihr Backupmedium hat ein nicht unterstütztes Dateisystem. Derzeit wird nur das &apos;ext4&apos; Dateisystem unterstützt.&lt;br&gt;&lt;br&gt;
+&lt;b&gt;Sie können auf eigenes Risiko fortfahren!&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../src/InveritaWindow.cpp" line="242"/>
-        <source>Unsupported filesystem warning</source>
-        <translation type="unfinished"></translation>
+        <source>Unsupported filesystem</source>
+        <translation type="unfinished">Nicht unterstütztes Dateisystem</translation>
     </message>
     <message>
         <location filename="../src/InveritaWindow.cpp" line="269"/>
@@ -561,14 +562,12 @@ Please enter this password to get access.</source>
         <source>%1 minute(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/ProgressDialog.cpp" line="225"/>
         <source>%1 second(s)</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -593,54 +592,59 @@ Please enter this password to get access.</source>
     <message>
         <location filename="../src/SnapshotListModel.cpp" line="42"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="../src/SnapshotListModel.cpp" line="43"/>
         <source>Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Dateien</translation>
     </message>
     <message>
         <location filename="../src/SnapshotListModel.cpp" line="43"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Größe</translation>
     </message>
     <message>
         <location filename="../src/SnapshotListModel.cpp" line="43"/>
         <source>Last modified</source>
-        <translation type="unfinished"></translation>
+        <translation>Geändert am</translation>
     </message>
     <message>
         <location filename="../src/SnapshotListModel.cpp" line="43"/>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>Status</translation>
     </message>
     <message>
         <location filename="../src/SnapshotListModel.cpp" line="43"/>
         <source>Checksum</source>
-        <translation type="unfinished"></translation>
+        <translation>Prüfsumme</translation>
     </message>
     <message>
         <location filename="../src/SnapshotListModel.cpp" line="117"/>
         <location filename="../src/SnapshotListModel.cpp" line="124"/>
         <location filename="../src/SnapshotListModel.cpp" line="138"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbekannt</translation>
+    </message>
+    <message>
+        <location filename="../src/SnapshotListModel.cpp" line="131"/>
+        <source>dd/MM/yyyy hh:mm:ss</source>
+        <translation>dd.MM.yyyy hh:mm:ss</translation>
     </message>
     <message>
         <location filename="../src/SnapshotListModel.cpp" line="141"/>
         <source>Partial</source>
-        <translation type="unfinished"></translation>
+        <translation>Teilweise</translation>
     </message>
     <message>
         <location filename="../src/SnapshotListModel.cpp" line="144"/>
         <source>Complete</source>
-        <translation type="unfinished"></translation>
+        <translation>Vollständig</translation>
     </message>
     <message>
         <location filename="../src/SnapshotListModel.cpp" line="147"/>
         <source>Reliable</source>
-        <translation type="unfinished"></translation>
+        <translation>Verlässlich</translation>
     </message>
 </context>
 <context>
@@ -648,22 +652,22 @@ Please enter this password to get access.</source>
     <message>
         <location filename="../src/SnapshotListUI.cpp" line="35"/>
         <source>Backup snapshots</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Backup snapshots</translation>
     </message>
     <message>
         <location filename="../src/SnapshotListUI.cpp" line="54"/>
         <source>Validate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prüfen</translation>
     </message>
     <message>
         <location filename="../src/SnapshotListUI.cpp" line="57"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Löschen</translation>
     </message>
     <message>
         <location filename="../src/SnapshotListUI.cpp" line="60"/>
         <source>Reload</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aktualisieren</translation>
     </message>
 </context>
 <context>

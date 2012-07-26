@@ -234,12 +234,15 @@ void InveritaWindow::reload()
     QString location = Backup::instance().location();
     if (Backup::instance().isOpen()) {
         m_snapshotListModel->investigate(location);
-        m_filesystemInfo->setFile(location);
+        /* Filesystem infos must be gathered from the origin storage, not
+           from an eventually virtual file system, like encfs. Otherwise, the
+           file system type can not be determined correctly. */
+        m_filesystemInfo->setFile(Backup::instance().origin());
         if (m_filesystemInfo->filesystemType() != FilesystemInfo::Ext4) {
-            QString msg = tr("You are using an unsupported filesystem on your backup medium. "
-                             "Currently only 'ext4' filesystems are supported.<br><br>"
+            QString msg = tr("Your backup medium has an unsupported filesystem. "
+                             "Only 'ext4' filesystems are supported.<br><br>"
                              "<b>You can continue at your own risk!</b>");
-            QMessageBox::warning(this, tr("Unsupported filesystem warning"), msg);
+            QMessageBox::warning(this, tr("Unsupported filesystem"), msg);
         }
     } else {
         m_snapshotListModel->clear();
@@ -249,7 +252,7 @@ void InveritaWindow::reload()
     if (Backup::instance().config().load(location + "/inverita.conf")) {
         updateLatestLink(location);
         m_controlUI->setEnabledButtons(ControlUI::CreateButton, true);
-        m_controlUI->setEnabledButtons(ControlUI::VerifyButton, (m_snapshotListModel->size() > 0));
+        m_controlUI->setEnabledButtons(ControlUI::VerifyButton, (m_snapshotListModel->count() > 0));
         m_backupSelectorUI->setEnableConfiguration(true);
         m_snapshotListUI->setEnableReload(true);
     } else {

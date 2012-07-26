@@ -42,11 +42,20 @@ typedef QListIterator<Snapshot> BackupHistoryListIterator;
 
 /*! Model class for storing and handling backup history.
  */
-class SnapshotListModel : public BaseBackupHistoryList, public QAbstractTableModel
+class SnapshotListModel : public QAbstractTableModel
 {
+    Q_OBJECT
+
 public:
     SnapshotListModel(QObject *parent = 0);
     virtual ~SnapshotListModel();
+
+    void clear();
+    int count() const;
+    const Snapshot& operator[](int i) const;
+    const Snapshot& at(int i) const;
+    const Snapshot& last() const;
+    bool  isEmpty() const;
 
     // model<->view handling
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
@@ -57,7 +66,8 @@ public:
     void investigate(const QString &origin);
 
 protected:
-    QStringList m_headerLabels;
+    QStringList           m_headerLabels;
+    BaseBackupHistoryList m_historyList;
 };
 
 #endif // ! HEADER_SNAPSHOTLISTMODEL_INC
