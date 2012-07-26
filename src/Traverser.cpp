@@ -44,7 +44,7 @@ void Traverser::reset()
 {
     m_totalFiles = 0;
     m_totalSize = 0;
-    m_totalTransfered = 0;
+    m_totalTransferred = 0;
     m_totalErrors = 0;
     m_abort = false;
     m_basePaths.clear();
@@ -106,11 +106,11 @@ qint64 Traverser::totalSize()
     return m_totalSize;
 }
 
-/*! \returns the size of all transfered (read/write) files.
+/*! \returns the size of all transferred (read/write) files.
  */
-qint64 Traverser::totalTransfered()
+qint64 Traverser::totalTransferred()
 {
-    return m_totalTransfered;
+    return m_totalTransferred;
 }
 
 

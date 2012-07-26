@@ -55,7 +55,7 @@ WorkerStatus EraseEngine::status()
     WorkerStatus st;
     st.timestamp  = QDateTime::currentDateTime();
     st.completion = expectedFiles ? ((qreal)m_eraseTraverser.totalFiles() / expectedFiles) : 0;
-    st.transfered = 0;
+    st.transferred = 0;
 
     return st;
 }

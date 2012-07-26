@@ -137,7 +137,7 @@ bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, Q
 
             checksum.update(m_copyBuffer, bytesRead);
             m_totalSize += bytesWritten;
-            m_totalTransfered += bytesWritten;
+            m_totalTransferred += bytesWritten;
 
             // e.g. disk full error
             if (bytesRead != bytesWritten) {

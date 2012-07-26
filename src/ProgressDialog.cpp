@@ -205,9 +205,9 @@ void ProgressDialog::update()
     }
 
     if (m_statusHistory.size() >= 20) {
-        qint64 deltaTransfered = m_statusHistory.last().transfered - m_statusHistory.first().transfered;
+        qint64 deltaTransferred = m_statusHistory.last().transferred - m_statusHistory.first().transferred;
         qint64 deltaTimeMs = m_statusHistory.first().timestamp.msecsTo(m_statusHistory.last().timestamp);
-        int transferRate = qRound(deltaTransfered / (deltaTimeMs * 1000.0));
+        int transferRate = qRound(deltaTransferred / (deltaTimeMs * 1000.0));
         transferRateInfo = tr("while processing %1 MByte/s").arg(transferRate);
 
         qreal deltaCompletion = completion - m_statusHistory.first().completion;

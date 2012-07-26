@@ -120,7 +120,7 @@ bool ValidateTraverser::hashFile(const QString &sourcefilename, QByteArray &hash
 
         checksum.update(m_fileBuffer, bytesRead);
         m_totalSize += bytesRead;
-        m_totalTransfered += bytesRead;
+        m_totalTransferred += bytesRead;
 
     } while (bytesRead == (qint64)sizeof(m_fileBuffer) && !m_abort);
 
