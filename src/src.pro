@@ -1,20 +1,25 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2012-04-02T17:16:26
+# Project created by QtCreator 2.4
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT += core gui
 
 TARGET = ../Inverita
 TEMPLATE = app
 MOC_DIR = ../mocs
 OBJECTS_DIR = ../objs
 
-TRANSLATIONS = ../translations/inverita_de.ts
+TRANSLATIONS = \
+    ../translations/inverita_de.ts
+
+DEPENDPATH += \
+    ../translations \
+    ../images
 
 RESOURCES += \
-        ../resources.qrc
+    ../resources.qrc
 
 !isEmpty(TRANSLATIONS) {
 
@@ -34,7 +39,16 @@ RESOURCES += \
    PRE_TARGETDEPS += compiler_TSQM_make_all
 } else:message(No translation files in project)
 
-SOURCES += main.cpp\
+#TSQM.name = lrelease ${QMAKE_FILE_IN}
+#TSQM.input = TRANSLATIONS
+#TSQM.output = ../translations/${QMAKE_FILE_BASE}.qm
+#TSQM.commands = $$[QT_INSTALL_BINS]/lrelease ${QMAKE_FILE_IN}
+#TSQM.config = no_link
+#QMAKE_EXTRA_COMPILERS += TSQM
+#PRE_TARGETDEPS += compiler_TSQM_make_all
+
+SOURCES += \
+    main.cpp \
     BackupSelectorUI.cpp \
     BackupListModel.cpp \
     Configuration.cpp \
@@ -69,7 +83,7 @@ SOURCES += main.cpp\
     SnapshotTableView.cpp \
     DigestsMap.cpp
 
-HEADERS  += \
+HEADERS += \
     BackupSelectorUI.h \
     BackupListModel.h \
     Configuration.h \
