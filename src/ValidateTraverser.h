@@ -38,20 +38,21 @@ class ValidateTraverser : public Traverser
 
 public:
     ValidateTraverser();
+
     DigestsMap &digests();
-    void setBackupPath(QString &absolutePath);
+    void setBackupPath(const QString &absolutePath);
     void evaluate(SnapshotMetaInfo &metainfo);
 
-    void onFile(const QString &absoluteFilePath);
+    virtual void onFile(const QString &absoluteFilePath);
 
 
 private:
-    bool hashFile(const QString &sourcefilename, QByteArray &hash);
+    QByteArray computeDigestOfFile(const QString &sourcefilename);
 
-    QString     m_backupPath;       //!< absolute path to the current backup
-    int         m_sizeOfBackupPath;
-    char        m_fileBuffer[4096]; //!< buffer for file copying
-    DigestsMap  m_digests;          //!< digests of all files in current backup
+    QString    m_backupPath;       //!< absolute path to the current backup
+    int        m_sizeOfBackupPath;
+    char       m_fileBuffer[4096]; //!< buffer for file copying
+    DigestsMap m_digests;          //!< digests of all files in current backup
 };
 
 #endif

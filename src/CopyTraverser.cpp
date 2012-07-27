@@ -136,8 +136,8 @@ bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, Q
             bytesWritten = target.write(m_copyBuffer, bytesRead);
 
             checksum.update(m_copyBuffer, bytesRead);
-            m_totalSize += bytesWritten;
-            m_totalTransferred += bytesWritten;
+            countProcessed(bytesWritten);
+            countTransferred(bytesWritten);
 
             // e.g. disk full error
             if (bytesRead != bytesWritten) {
@@ -145,7 +145,7 @@ bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, Q
                 QFile::remove(targetfilename);
                 return false;
             }
-        } while (bytesRead == (qint64)sizeof(m_copyBuffer) && !m_abort);
+        } while (bytesRead == (qint64)sizeof(m_copyBuffer) && !shouldAbort());
     }
 
     hash = checksum.finish();
@@ -171,7 +171,7 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
         int rc = link(previous.toUtf8().data(), target.toUtf8().data());
         if (rc == -1) {
             ApplicationException e;
-            e.setCauser("Create hard link from '" + previous + "' to '" + target + "'");
+            e.setCauser(tr("Create hard link from '%1' to '%2'").arg(previous).arg(target));
             e.setErrorMessage(strerror(errno));
             throw e;
         }
@@ -181,13 +181,13 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
         m_currentDigests.insert(source, hash);
 
         QFile target(source);
-        m_totalSize += target.size();
+        countProcessed(target.size());
 
     } else {
         bool success = copyFile(source, target, hash);
         if (!success) {
             ApplicationException e;
-            e.setCauser(tr("Copy file from") + "'" + source + "' to '" + target + "'");
+            e.setCauser(tr("Copy file from '%1' to '%2'").arg(source).arg(target));
             e.setErrorMessage(tr("Copy error, disk full?"));
             throw e;
         }
@@ -198,13 +198,13 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
         int rc = CopyMeta(source, target);
         if (rc == -1) {
             ApplicationException e;
-            e.setCauser("Set file meta data  '" + source + "' to '" + target + "'");
+            e.setCauser(tr("Set file meta data  '%1' to '%2'").arg(source).arg(target));
             e.setErrorMessage(strerror(errno));
             throw e;
         }
     }
 
-    m_totalFiles++;
+    countFile();
 }
 
 
@@ -220,7 +220,7 @@ void CopyTraverser::onEnterDir(const QString &absoluteFilePath)
     bool success = dir.mkpath(fullpath);
     if (!success) {
         ApplicationException e;
-        e.setCauser("Create directory '" + fullpath + "'");
+        e.setCauser(tr("Create directory '%1'").arg(fullpath));
         e.setErrorMessage(tr("Could not create directory"));
         throw e;
     }
@@ -239,7 +239,7 @@ void CopyTraverser::onLeaveDir(const QString &absoluteFilePath)
     int rc = CopyMeta(source, target);
     if (rc == -1) {
         ApplicationException e;
-        e.setCauser("Set folder meta data  '" + source + "' to '" + target + "'");
+        e.setCauser(tr("Set folder meta data  '%1' to '%2'").arg(source).arg(target));
         e.setErrorMessage(strerror(errno));
         throw e;
     }
@@ -270,7 +270,7 @@ void CopyTraverser::onLink(const QString &absoluteFilePath, const QString &linkN
 
     if (rc == -1) {
         ApplicationException e;
-        e.setCauser("Create symbolic link '" + source + "' to '" + linkName + "'");
+        e.setCauser(tr("Create symbolic link '%1' to '%2'").arg(source).arg(linkName));
         e.setErrorMessage(strerror(errno));
         throw e;
     }
@@ -281,7 +281,7 @@ void CopyTraverser::onLink(const QString &absoluteFilePath, const QString &linkN
     rc = CopyMeta(source1, target1);
     if (rc == -1) {
         ApplicationException e;
-        e.setCauser("Set file meta data  '" + source1 + "' to '" + target1 + "'");
+        e.setCauser(tr("Copy file meta data from '%1' to '%2'").arg(source1).arg(target1));
         e.setErrorMessage(strerror(errno));
         throw e;
     }

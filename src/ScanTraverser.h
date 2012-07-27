@@ -37,7 +37,7 @@ class ScanTraverser : public Traverser
 public:
     ScanTraverser();
 
-    void onFile(const QString &absoluteFilePath);
+    virtual void onFile(const QString &absoluteFilePath);
 };
 
 #endif

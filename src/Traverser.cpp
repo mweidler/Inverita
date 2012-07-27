@@ -42,10 +42,10 @@ Traverser::Traverser()
  */
 void Traverser::reset()
 {
-    m_totalFiles = 0;
-    m_totalSize = 0;
-    m_totalTransferred = 0;
-    m_totalErrors = 0;
+    m_files = 0;
+    m_processed = 0;
+    m_transferred = 0;
+    m_errors = 0;
     m_abort = false;
     m_basePaths.clear();
     m_excludePatterns.clear();
@@ -93,32 +93,56 @@ void  Traverser::addExcludes(QStringList &absolutePaths)
 
 /*! \returns the number of traversed files.
  */
-qint64 Traverser::totalFiles()
+qint64 Traverser::files() const
 {
-    return m_totalFiles;
+    return m_files;
 }
 
 
 /*! \returns the size of all traversed files.
  */
-qint64 Traverser::totalSize()
+qint64 Traverser::processed() const
 {
-    return m_totalSize;
+    return m_processed;
 }
 
 /*! \returns the size of all transferred (read/write) files.
  */
-qint64 Traverser::totalTransferred()
+qint64 Traverser::transferred() const
 {
-    return m_totalTransferred;
+    return m_transferred;
 }
 
 
 /*! \returns the number of occured errors.
  */
-qint64 Traverser::totalErrors()
+qint64 Traverser::errors() const
 {
-    return m_totalErrors;
+    return m_errors;
+}
+
+
+void Traverser::countFile()
+{
+    m_files++;
+}
+
+
+void Traverser::countProcessed(qint64 size)
+{
+    m_processed += size;
+}
+
+
+void Traverser::countTransferred(qint64 size)
+{
+    m_transferred += size;
+}
+
+
+void Traverser::countError()
+{
+    m_errors++;
 }
 
 
@@ -136,6 +160,12 @@ void Traverser::abort()
 {
     qDebug() << "DirectoryTraverser: abort requested";
     m_abort = true;
+}
+
+
+bool Traverser::shouldAbort() const
+{
+    return m_abort;
 }
 
 
@@ -176,8 +206,8 @@ void Traverser::recurseDirectory(const QString &dirname)
     QDir dir(dirname);
     if (!dir.exists()) {
         ApplicationException e;
-        e.setCauser(tr("Access directory") + " '" + dirname + "'");
-        e.setErrorMessage(tr("Directory not found"));
+        e.setCauser(tr("Access to directory '%1' failed.").arg(dirname));
+        e.setErrorMessage(tr("Directory not found."));
         throw e;
         return;
     }

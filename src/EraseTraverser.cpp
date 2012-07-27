@@ -24,7 +24,9 @@
 
 
 #include "EraseTraverser.h"
+
 #include <QFile>
+#include <QDir>
 
 
 /*! Default constructor
@@ -44,13 +46,13 @@ void EraseTraverser::onFile(const QString &absoluteFilePath)
 
     if (!file.remove()) {
         ApplicationException e;
-        e.setCauser("remove file '" + file.fileName() + "'");
+        e.setCauser(tr("Remove file '%1'").arg(file.fileName()));
         e.setErrorMessage(file.errorString());
         throw e;
     }
 
-    m_totalFiles++;
-    m_totalSize += file.size();
+    countFile();
+    countProcessed(file.size());
 }
 
 
@@ -63,7 +65,7 @@ void EraseTraverser::onLeaveDir(const QString &absoluteFilePath)
     QDir dir;
     if (!dir.rmdir(absoluteFilePath)) {
         ApplicationException e;
-        e.setCauser("remove directory '" + absoluteFilePath + "'");
+        e.setCauser(tr("Remove directory '%1'").arg(absoluteFilePath));
         e.setErrorMessage(tr("Can not remove directory"));
         throw e;
     }
@@ -86,7 +88,7 @@ void EraseTraverser::onLink(const QString &absoluteFilePath, const QString &/*li
     QFile file(absoluteFilePath);
     if (!file.remove()) {
         ApplicationException e;
-        e.setCauser("remove link '" + file.fileName() + "'");
+        e.setCauser(tr("Remove link '%1'").arg(file.fileName()));
         e.setErrorMessage(file.errorString());
         throw e;
     }
@@ -100,7 +102,7 @@ void EraseTraverser::onLink(const QString &absoluteFilePath, const QString &/*li
 void EraseTraverser::onOther(const QString &absoluteFilePath)
 {
     ApplicationException e;
-    e.setCauser("remove unknown file '" + absoluteFilePath + "'");
+    e.setCauser(tr("Remove unknown file '%1'").arg(absoluteFilePath));
     e.setErrorMessage(tr("Don't know what to do"));
     throw e;
 }

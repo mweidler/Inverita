@@ -31,6 +31,7 @@
 #include "SnapshotListModel.h"
 #include "Backup.h"
 
+#include <QDir>
 #include <QDebug>
 
 
@@ -61,8 +62,8 @@ BackupEngine::BackupEngine()
  */
 WorkerStatus BackupEngine::status()
 {
-    qint64 expected = qMax(m_scanTraverser.totalSize(), (qint64)1);
-    qint64 current = m_copyTraverser.totalSize() + m_validateTraverser.totalSize();
+    qint64 expected = qMax(m_scanTraverser.processed(), (qint64)1);
+    qint64 current = m_copyTraverser.processed() + m_validateTraverser.processed();
 
     // Completion assumption: copying takes the same time as validation.
     if (Backup::instance().config().verifyAfterBackup()) {
@@ -72,7 +73,7 @@ WorkerStatus BackupEngine::status()
     WorkerStatus st;
     st.timestamp  = QDateTime::currentDateTime();
     st.completion = ((qreal)current) / expected;
-    st.transferred = m_copyTraverser.totalTransferred() + m_validateTraverser.totalTransferred();
+    st.transferred = m_copyTraverser.transferred() + m_validateTraverser.transferred();
 
     return st;
 }
@@ -213,7 +214,7 @@ void BackupEngine::scanDirectories()
     m_scanTraverser.traverse();
 
     QString msg = tr("Backup snapshot comprises %1 in %2 files.");
-    emit report(msg.arg(formatSize(m_scanTraverser.totalSize())).arg(m_scanTraverser.totalFiles()) + "<br>");
+    emit report(msg.arg(formatSize(m_scanTraverser.processed())).arg(m_scanTraverser.files()) + "<br>");
 }
 
 
@@ -248,15 +249,15 @@ void BackupEngine::executeBackup(QString &timestamp)
     QByteArray checksum = m_copyTraverser.currentDigests().save(currentBackup + "/digests");
 
     SnapshotMetaInfo metaInfo;
-    metaInfo.setNumberOfFiles(m_copyTraverser.totalFiles());
-    metaInfo.setSizeOfFiles(m_copyTraverser.totalSize());
+    metaInfo.setNumberOfFiles(m_copyTraverser.files());
+    metaInfo.setSizeOfFiles(m_copyTraverser.processed());
     metaInfo.setQuality(SnapshotMetaInfo::Partial);
 
     // set valid flag, if expected data/files could be copied, no errors
     // occured and the backup was not aborted.
-    if (m_copyTraverser.totalFiles() == m_scanTraverser.totalFiles() &&
-        m_copyTraverser.totalSize() == m_scanTraverser.totalSize() &&
-        m_copyTraverser.totalErrors() == 0 &&
+    if (m_copyTraverser.files() == m_scanTraverser.files() &&
+        m_copyTraverser.processed() == m_scanTraverser.processed() &&
+        m_copyTraverser.errors() == 0 &&
         m_abort == false) {
         metaInfo.setQuality(SnapshotMetaInfo::Complete);
         metaInfo.setChecksum(checksum);

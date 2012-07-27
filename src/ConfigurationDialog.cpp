@@ -61,7 +61,7 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     buttonBox->button(QDialogButtonBox::Save)->setAutoDefault(true);
     buttonBox->button(QDialogButtonBox::Save)->setDefault(true);
     m_verifyAfterBackup->setChecked(m_config.verifyAfterBackup());
-    m_verifyHash->setChecked(m_config.verifyHash());
+    m_verifyHash->setChecked(m_config.verifyDigest());
     m_purgeBackups->setChecked(m_config.autoDeleteBackups());
     m_spareCapacity->setValue(m_config.spareCapacity());
     m_limitBackups->setChecked(m_config.limitBackups());

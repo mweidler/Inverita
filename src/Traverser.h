@@ -28,9 +28,7 @@
 #include "ApplicationException.h"
 #include "Configuration.h"
 
-#include <QReadWriteLock>
 #include <QFileInfo>
-#include <QDir>
 
 
 /*! Traverse recursively through all files and subdirectories and calls
@@ -52,16 +50,12 @@ public:
     void   addExcludes(const char *absolutePath);
     void   addExcludes(QString &absolutePath);
     void   addExcludes(QStringList &absolutePaths);
-    qint64 totalFiles();
-    qint64 totalSize();
-    qint64 totalTransferred();
-    qint64 totalErrors();
 
-    virtual void onFile(const QString &absoluteFilePath);
-    virtual void onEnterDir(const QString &absoluteFilePath);
-    virtual void onLeaveDir(const QString &absoluteFilePath);
-    virtual void onLink(const QString &absoluteFilePath, const QString &linkName);
-    virtual void onOther(const QString &absoluteFilePath);
+    qint64 files() const;
+    qint64 processed() const;
+    qint64 transferred() const;
+    qint64 errors() const;
+    bool   shouldAbort() const;
 
     void traverse();
 
@@ -73,20 +67,30 @@ public slots:
 
 
 protected:
-    qint64         m_totalFiles;       //!< number of traversed files
-    qint64         m_totalSize;        //!< size of all traversed files
-    qint64         m_totalTransferred; //!< size of all read/written files
-    qint64         m_totalErrors;      //!< number of errors
-    bool           m_abort;            //!< flag to signal the traverser to abort as soon as possible
-    QReadWriteLock m_lock;             //!< lock semaphore for thread-safe read/write to statistics
+    void countFile();
+    void countProcessed(qint64 size);
+    void countTransferred(qint64 size);
+    void countError();
+
+    virtual void onFile(const QString &absoluteFilePath);
+    virtual void onEnterDir(const QString &absoluteFilePath);
+    virtual void onLeaveDir(const QString &absoluteFilePath);
+    virtual void onLink(const QString &absoluteFilePath, const QString &linkName);
+    virtual void onOther(const QString &absoluteFilePath);
 
 
 private:
     void recurseDirectory(const QString &dirname);
     bool isExcluded(const QString &filepath);
 
-    QStringList    m_basePaths;        //!< list of directories (paths) to be traversed
-    QStringList    m_excludePatterns;  //!< list of patterns to indentify excludes
+    qint64         m_files;           //!< number of traversed files
+    qint64         m_processed;       //!< size of all traversed files
+    qint64         m_transferred;     //!< size of all read/written files
+    qint64         m_errors;          //!< number of errors
+    bool           m_abort;           //!< flag to signal the traverser to abort as soon as possible
+    QStringList    m_basePaths;       //!< list of directories (paths) to be traversed
+    QStringList    m_excludePatterns; //!< list of patterns to indentify excludes
 };
 
 #endif
+

@@ -39,6 +39,6 @@ void ScanTraverser::onFile(const QString &absoluteFilePath)
 {
     QFileInfo fileinfo(absoluteFilePath);
 
-    m_totalFiles++;
-    m_totalSize += fileinfo.size();
+    countFile();
+    countProcessed(fileinfo.size());
 }

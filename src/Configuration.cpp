@@ -163,7 +163,7 @@ void Configuration::setVerifyAfterBackup(bool enable)
 }
 
 
-bool Configuration::verifyHash() const
+bool Configuration::verifyDigest() const
 {
     return m_verifyHash;
 }

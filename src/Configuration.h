@@ -50,7 +50,7 @@ public:
     bool verifyAfterBackup() const;
     void setVerifyAfterBackup(bool enable);
 
-    bool verifyHash() const;
+    bool verifyDigest() const;
     void setVerifyHash(bool enable);
 
     bool autoDeleteBackups() const;

@@ -50,7 +50,7 @@ DigestsMap &ValidateTraverser::digests()
  *
  *  \param path the absolute path to the current backup path
  */
-void ValidateTraverser::setBackupPath(QString &path)
+void ValidateTraverser::setBackupPath(const QString &path)
 {
     m_backupPath = path;
     m_sizeOfBackupPath = path.length();
@@ -60,14 +60,14 @@ void ValidateTraverser::setBackupPath(QString &path)
 
 void ValidateTraverser::evaluate(SnapshotMetaInfo &metaInfo)
 {
-    if (metaInfo.numberOfFiles() != m_totalFiles) {
-        emit report(tr("%1 files expected, but %2 files found.").arg(metaInfo.numberOfFiles()).arg(m_totalFiles) + "<br>");
-        m_totalErrors++;
+    if (metaInfo.numberOfFiles() != files()) {
+        emit report(tr("%1 files expected, but %2 files found.").arg(metaInfo.numberOfFiles()).arg(files()) + "<br>");
+        countError();
     }
 
-    if (metaInfo.sizeOfFiles() != m_totalSize) {
-        emit report(tr("%1 bytes expected, but %2 bytes found.<br>").arg(metaInfo.sizeOfFiles()).arg(m_totalSize) + "<br>");
-        m_totalErrors++;
+    if (metaInfo.sizeOfFiles() != processed()) {
+        emit report(tr("%1 bytes expected, but %2 bytes found.<br>").arg(metaInfo.sizeOfFiles()).arg(processed()) + "<br>");
+        countError();
     }
 
     QList<QString> keys = m_digests.keys();
@@ -75,16 +75,16 @@ void ValidateTraverser::evaluate(SnapshotMetaInfo &metaInfo)
         report(tr("The following files are missing in the backup snapshot:") + "<br>");
         for (int i = 0; i < keys.size(); i++)  {
             emit report(keys[i] + "<br>");
-            m_totalFiles++;
+            countFile();
         }
         emit report("<br>");
     }
 
-    if (Backup::instance().config().verifyHash() == false) {
+    if (Backup::instance().config().verifyDigest() == false) {
         emit report(tr("WARNING: Content digests not verified (disabled).") + "<br>");
     }
 
-    if (m_totalErrors > 0) {
+    if (errors() > 0) {
         metaInfo.setQuality(SnapshotMetaInfo::Unknown);
         emit report(tr("Backup snapshot invalidated.") + "<br><br>");
     } else {
@@ -94,16 +94,15 @@ void ValidateTraverser::evaluate(SnapshotMetaInfo &metaInfo)
 }
 
 
-/*! Create a hash code for the file.
+/*! Create a digest of the file content.
  *
  *  The number of processed bytes are added to byte counter.
  *  Hashing can be aborted by flagging.
  *
  *  \param  sourcefilename the absolute path to the file to be copied
- *  \param  hash           hash digest of the file content
- *  \return true on success, otherwise false
+  *  \return Computed hash digest of the file content
  */
-bool ValidateTraverser::hashFile(const QString &sourcefilename, QByteArray &hash)
+QByteArray ValidateTraverser::computeDigestOfFile(const QString &sourcefilename)
 {
     Checksum checksum;
     qint64 bytesRead;
@@ -112,20 +111,19 @@ bool ValidateTraverser::hashFile(const QString &sourcefilename, QByteArray &hash
     QFile source(sourcefilename);
     success = source.open(QIODevice::ReadOnly);
     if (!success) {
-        return false;
+        return QByteArray();
     }
 
     do {
         bytesRead = source.read(m_fileBuffer, sizeof(m_fileBuffer));
 
         checksum.update(m_fileBuffer, bytesRead);
-        m_totalSize += bytesRead;
-        m_totalTransferred += bytesRead;
+        countProcessed(bytesRead);
+        countTransferred(bytesRead);
 
-    } while (bytesRead == (qint64)sizeof(m_fileBuffer) && !m_abort);
+    } while (bytesRead == (qint64)sizeof(m_fileBuffer) && !shouldAbort());
 
-    hash = checksum.finish();
-    return true;
+    return checksum.finish();
 }
 
 
@@ -135,23 +133,22 @@ bool ValidateTraverser::hashFile(const QString &sourcefilename, QByteArray &hash
  */
 void ValidateTraverser::onFile(const QString &absoluteFilePath)
 {
-    QByteArray previousHash;
-    QByteArray currentHash;
-    QString    key = absoluteFilePath.mid(m_sizeOfBackupPath);
+    QString key = absoluteFilePath.mid(m_sizeOfBackupPath);
 
-    if (Backup::instance().config().verifyHash()) {
-        previousHash = m_digests.value(key);
-        hashFile(absoluteFilePath, currentHash);
+    // TODO: rename all Hash naming to Digest
+    if (Backup::instance().config().verifyDigest()) {
+        QByteArray previousDigest = m_digests.value(key);
+        QByteArray currentDigest = computeDigestOfFile(absoluteFilePath);
 
-        if (previousHash != currentHash) {
-            emit report(absoluteFilePath + " has beed modified.<br>");
-            m_totalErrors++;
+        if (previousDigest != currentDigest) {
+            emit report(tr("'%1' has beed modified.").arg(absoluteFilePath) + "<br>");
+            countError();
         }
     } else {
         QFile file(absoluteFilePath);
-        m_totalSize += file.size();
+        countProcessed(file.size());
     }
 
     m_digests.remove(key);
-    m_totalFiles++;
+    countFile();
 }
