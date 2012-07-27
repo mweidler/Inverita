@@ -56,8 +56,8 @@ public:
     ~WorkerEngine();
 
     void    reset();
-    int     taskCount();
-    QString taskDescription(int task);
+    int     tasks();
+    QString task(int task);
     int     currentTask();
     QString failureHint();
 
@@ -82,7 +82,6 @@ protected:
     QString     m_failureHint;
     int         m_currentTask;
     bool        m_abort;
-
 };
 
 #endif

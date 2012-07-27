@@ -67,8 +67,8 @@ ProgressDialog::ProgressDialog(WorkerEngine *model, DialogType type, DialogAbort
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setContentsMargins(20, 20, 20, 20);
     //layout->setSpacing(20);
-    for (int i = 0; i < m_model->taskCount(); i++) {
-        QLabel *labelStep =  new QLabel(m_model->taskDescription(i));
+    for (int i = 0; i < m_model->tasks(); i++) {
+        QLabel *labelStep =  new QLabel(m_model->task(i));
         m_labelList.append(labelStep);
         layout->addWidget(labelStep);
     }
@@ -182,8 +182,8 @@ void ProgressDialog::update()
     QString transferRateInfo;
 
     if (m_previousCurrentTask != m_model->currentTask()) {
-        for (int i = 0; i < m_model->taskCount(); i++) {
-            QString text = m_model->taskDescription(i);
+        for (int i = 0; i < m_model->tasks(); i++) {
+            QString text = m_model->task(i);
             if (i == m_model->currentTask()) {
                 text = "<b>" + text + "</b>";
             }

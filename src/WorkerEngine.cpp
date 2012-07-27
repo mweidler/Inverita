@@ -48,12 +48,12 @@ void WorkerEngine::reset()
 }
 
 
-int WorkerEngine::taskCount()
+int WorkerEngine::tasks()
 {
     return m_descriptions.count();
 }
 
-QString WorkerEngine::taskDescription(int task)
+QString WorkerEngine::task(int task)
 {
     return m_descriptions[task];
 }
