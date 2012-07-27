@@ -73,15 +73,18 @@ ConfigurationListUI::ConfigurationListUI(QStringList &list, ConfigurationListMod
     connect(m_buttonRemove, SIGNAL(clicked()), this, SLOT(onRemove()));
 }
 
+
 ConfigurationListUI::~ConfigurationListUI()
 {
 
 }
 
+
 void ConfigurationListUI::onItemSeleced()
 {
     m_buttonRemove->setEnabled(true);
 }
+
 
 void ConfigurationListUI::onAddDirectory()
 {
@@ -100,23 +103,24 @@ void ConfigurationListUI::onAddDirectory()
     m_list = m_listModel->stringList();
 }
 
+
 void ConfigurationListUI::onAddPattern()
 {
-    QInputDialog inputdialog(this);
-    inputdialog.setWindowTitle(tr("Exclude pattern"));
-    inputdialog.setLabelText(tr(
+    QInputDialog inputDialog(this);
+    inputDialog.setWindowTitle(tr("Exclude pattern"));
+    inputDialog.setLabelText(tr(
                                  "Please enter a glob pattern, like <b>Work?.txt</b>, <b>*.txt</b>, <b>Trash</b>, or <b>lost+found</b>,<br>"
                                  "where '?' matches one character and '*' matches any number of characters.<br><br>"
                                  "Any file or directory that matches one of the patterns<br>"
                                  "will be excluded from the backup.<br>"
                              ));
-    inputdialog.setMinimumSize(400, 200);
-    inputdialog.resize(400, 200);
-    if (inputdialog.exec() == QDialog::Rejected) {
+    inputDialog.setMinimumSize(400, 200);
+    inputDialog.resize(400, 200);
+    if (inputDialog.exec() == QDialog::Rejected) {
         return;
     }
 
-    QString pattern = inputdialog.textValue();
+    QString pattern = inputDialog.textValue();
     if (pattern.isEmpty()) {
         return;
     }
@@ -127,6 +131,7 @@ void ConfigurationListUI::onAddPattern()
     m_listModel->setData(index, pattern);
     m_list = m_listModel->stringList();
 }
+
 
 void ConfigurationListUI::onRemove()
 {

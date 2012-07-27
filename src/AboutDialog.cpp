@@ -66,30 +66,29 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 
     QLabel *labelAboutText = new QLabel(text.arg(INVERITA_COMMIT_VERSION).arg(qVersion()));
 
-    QLabel *labelImage = new QLabel;
-    labelImage->setPixmap(QApplication::windowIcon().pixmap(96, 96));
+    QLabel *labelAppImage = new QLabel;
+    labelAppImage->setPixmap(QApplication::windowIcon().pixmap(96, 96));
 
-    QPixmap gplpixmap(":/images/gplv3.png");
-    QLabel *labelGpl = new QLabel;
-    labelGpl->setPixmap(gplpixmap);
+    QLabel *labelGPLImage = new QLabel;
+    labelGPLImage->setPixmap(QPixmap(":/images/gplv3.png"));
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox();
     buttonBox->addButton(QDialogButtonBox::Ok);
 
-    QVBoxLayout *vlayout = new QVBoxLayout;
-    vlayout->setAlignment(Qt::AlignTop);
-    vlayout->addWidget(labelImage);
-    vlayout->addSpacerItem(new QSpacerItem(0, 40));
-    vlayout->addWidget(labelGpl);
+    QVBoxLayout *imagesLayout = new QVBoxLayout;
+    imagesLayout->setAlignment(Qt::AlignTop);
+    imagesLayout->addWidget(labelAppImage);
+    imagesLayout->addSpacerItem(new QSpacerItem(0, 40));
+    imagesLayout->addWidget(labelGPLImage);
 
-    QHBoxLayout *hlayout = new QHBoxLayout;
-    hlayout->setAlignment(Qt::AlignLeft);
-    hlayout->addLayout(vlayout);
-    hlayout->addWidget(labelAboutText);
+    QHBoxLayout *contentLayout = new QHBoxLayout;
+    contentLayout->setAlignment(Qt::AlignLeft);
+    contentLayout->addLayout(imagesLayout);
+    contentLayout->addWidget(labelAboutText);
 
     QVBoxLayout *masterLayout = new QVBoxLayout;
     masterLayout->setContentsMargins(20, 20, 20, 20);
-    masterLayout->addLayout(hlayout);
+    masterLayout->addLayout(contentLayout);
     masterLayout->addWidget(buttonBox);
     this->setLayout(masterLayout);
 

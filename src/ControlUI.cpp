@@ -50,16 +50,16 @@ ControlUI::ControlUI(QWidget *parent) : QWidget(parent)
     m_btnVerify->setIcon(QIcon(":/images/verify-icon.png"));
     m_btnVerify->setIconSize(QSize(64, 64));
 
-    QHBoxLayout *hboxlayout = new QHBoxLayout;
-    hboxlayout->addWidget(m_btnCreate);
-    hboxlayout->addSpacerItem(new QSpacerItem(15, 0));
-    hboxlayout->addWidget(m_btnVerify);
+    QHBoxLayout *buttonLayout = new QHBoxLayout;
+    buttonLayout->addWidget(m_btnCreate);
+    buttonLayout->addSpacerItem(new QSpacerItem(15, 0));
+    buttonLayout->addWidget(m_btnVerify);
 
-    QVBoxLayout *vboxlayout = new QVBoxLayout;
-    vboxlayout->setAlignment(Qt::AlignTop);
-    vboxlayout->addWidget(description);
-    vboxlayout->addLayout(hboxlayout);
-    this->setLayout(vboxlayout);
+    QVBoxLayout *masterLayout = new QVBoxLayout;
+    masterLayout->setAlignment(Qt::AlignTop);
+    masterLayout->addWidget(description);
+    masterLayout->addLayout(buttonLayout);
+    this->setLayout(masterLayout);
 
     connect(m_btnCreate, SIGNAL(clicked()), this, SIGNAL(startBackup()));
     connect(m_btnVerify, SIGNAL(clicked()), this, SIGNAL(startVerify()));

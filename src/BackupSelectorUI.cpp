@@ -63,11 +63,11 @@ BackupSelectorUI::BackupSelectorUI(BackupListModel *model, QWidget *parent) : QW
     QLabel *labelImage = new QLabel;
     labelImage->setPixmap(QApplication::windowIcon().pixmap(96, 96));
 
-    QHBoxLayout *mainlayout = new QHBoxLayout;
-    mainlayout->addWidget(labelImage);
-    mainlayout->addSpacerItem(new QSpacerItem(20, 0));
-    mainlayout->addLayout(controlLayout);
-    this->setLayout(mainlayout);
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    mainLayout->addWidget(labelImage);
+    mainLayout->addSpacerItem(new QSpacerItem(20, 0));
+    mainLayout->addLayout(controlLayout);
+    this->setLayout(mainLayout);
 
     connect(m_choice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(backupSelected(int)));
     connect(m_btnConf, SIGNAL(clicked()), this, SIGNAL(configure()));
