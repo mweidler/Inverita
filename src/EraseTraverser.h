@@ -37,14 +37,10 @@ class EraseTraverser : public Traverser
 public:
     EraseTraverser();
 
-public:
-    virtual void onFile(const QString &absoluteFilePath);
-    virtual void onEnterDir(const QString &absoluteFilePath);
-    virtual void onLeaveDir(const QString &absoluteFilePath);
-    virtual void onLink(const QString &absoluteFilePath, const QString &linkName);
-    virtual void onOther(const QString &absoluteFilePath);
-
-protected:
+    void onFile(const QString &absoluteFilePath);
+    void onLeaveDir(const QString &absoluteFilePath);
+    void onLink(const QString &absoluteFilePath, const QString &linkName);
+    void onOther(const QString &absoluteFilePath);
 };
 
 #endif

@@ -46,7 +46,6 @@ class Traverser : public QObject
 public:
     Traverser();
 
-public:
     void   reset();
     void   addIncludes(QString &absolutePath);
     void   addIncludes(QStringList &absolutePaths);
@@ -72,19 +71,22 @@ signals:
 public slots:
     void abort();
 
+
 protected:
+    qint64         m_totalFiles;       //!< number of traversed files
+    qint64         m_totalSize;        //!< size of all traversed files
+    qint64         m_totalTransferred; //!< size of all read/written files
+    qint64         m_totalErrors;      //!< number of errors
+    bool           m_abort;            //!< flag to signal the traverser to abort as soon as possible
+    QReadWriteLock m_lock;             //!< lock semaphore for thread-safe read/write to statistics
+
+
+private:
     void recurseDirectory(const QString &dirname);
     bool isExcluded(const QString &filepath);
 
-protected:
-    QStringList    m_basePaths;       //!< list of directories (paths) to be traversed
-    QStringList    m_excludePatterns; //!< list of patterns to indentify excludes
-    qint64         m_totalFiles;      //!< number of traversed files
-    qint64         m_totalSize;       //!< size of all traversed files
-    qint64         m_totalTransferred; //!< size of all read/written files
-    qint64         m_totalErrors;     //!< number of errors
-    bool           m_abort;           //!< flag to signal the traverser to abort as soon as possible
-    QReadWriteLock m_lock;            //!< lock semaphore for thread-safe read/write to statistics
+    QStringList    m_basePaths;        //!< list of directories (paths) to be traversed
+    QStringList    m_excludePatterns;  //!< list of patterns to indentify excludes
 };
 
 #endif

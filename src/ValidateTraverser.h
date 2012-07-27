@@ -42,22 +42,16 @@ public:
     void setBackupPath(QString &absolutePath);
     void evaluate(SnapshotMetaInfo &metainfo);
 
-public:
-    virtual void onFile(const QString &absoluteFilePath);
-    virtual void onEnterDir(const QString &absoluteFilePath);
-    virtual void onLeaveDir(const QString &absoluteFilePath);
-    virtual void onLink(const QString &absoluteFilePath, const QString &linkName);
-    virtual void onOther(const QString &absoluteFilePath);
+    void onFile(const QString &absoluteFilePath);
 
-protected:
+
+private:
     bool hashFile(const QString &sourcefilename, QByteArray &hash);
 
-protected:
-    QString      m_backupPath;       //!< absolute path to the current backup
-    int          m_sizeOfBackupPath;
-    char         m_fileBuffer[4096]; //!< buffer for file copying
-    DigestsMap   m_digests;          //!< digests of all files in current backup
-    bool         m_verifyHash;
+    QString     m_backupPath;       //!< absolute path to the current backup
+    int         m_sizeOfBackupPath;
+    char        m_fileBuffer[4096]; //!< buffer for file copying
+    DigestsMap  m_digests;          //!< digests of all files in current backup
 };
 
 #endif

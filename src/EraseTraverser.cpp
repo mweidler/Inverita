@@ -42,25 +42,15 @@ void EraseTraverser::onFile(const QString &absoluteFilePath)
 {
     QFile file(absoluteFilePath);
 
-    m_totalFiles++;
-    m_totalSize += file.size();
-
     if (!file.remove()) {
         ApplicationException e;
         e.setCauser("remove file '" + file.fileName() + "'");
         e.setErrorMessage(file.errorString());
         throw e;
     }
-}
 
-
-/*! Is called during directory traversal if a new directory is entered.
- *
- *  \param absoluteFilePath the absolute path to the new directory
- */
-void EraseTraverser::onEnterDir(const QString &/*absoluteFilePath*/)
-{
-    // do nothing
+    m_totalFiles++;
+    m_totalSize += file.size();
 }
 
 

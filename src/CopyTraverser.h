@@ -43,18 +43,16 @@ public:
     void setCurrentBackupPath(QString &path);
     void setPreviousBackupPath(QString &path);
 
-public:
-    virtual void onFile(const QString &absoluteFilePath);
-    virtual void onEnterDir(const QString &absoluteFilePath);
-    virtual void onLeaveDir(const QString &absoluteFilePath);
-    virtual void onLink(const QString &absoluteFilePath, const QString &linkName);
-    virtual void onOther(const QString &absoluteFilePath);
+    void onFile(const QString &absoluteFilePath);
+    void onEnterDir(const QString &absoluteFilePath);
+    void onLeaveDir(const QString &absoluteFilePath);
+    void onLink(const QString &absoluteFilePath, const QString &linkName);
+
 
 protected:
     bool compareFiles(QString &newfile, QString &reference);
     bool copyFile(QString &sourcefilename, QString &targetfilename, QByteArray &hash);
 
-protected:
     QString    m_currentBackupPath;  //!< absolute path to the current backup
     QString    m_previousBackupPath; //!< absolute path to the previous backup
     char       m_copyBuffer[4096];   //!< buffer for file copying

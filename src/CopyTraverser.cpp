@@ -286,13 +286,3 @@ void CopyTraverser::onLink(const QString &absoluteFilePath, const QString &linkN
         throw e;
     }
 }
-
-
-/*! Is called during directory traversal if a other item (no link, no file, no directory) was found.
- *
- *  \param absoluteFilePath the absolute path to the file system item
- */
-void CopyTraverser::onOther(const QString &/*absoluteFilePath*/)
-{
-    // do nothing
-}
