@@ -160,7 +160,7 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
                 if (snapshot.metaInfo().sizeOfFiles() == 0) {
                     return tr("Unknown");
                 }
-                return ScaleToSiPrefix(snapshot.metaInfo().sizeOfFiles());
+                return formatSize(snapshot.metaInfo().sizeOfFiles());
                 break;
 
             case 3:

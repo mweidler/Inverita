@@ -156,8 +156,8 @@ void DriveCapacityUI::drawLegend(QPainter &painter, qint64 free, qint64 used)
     painter.setBrush(m_usedColor);
     painter.drawRect(usedRect);
 
-    painter.drawText(freeRect.bottomLeft() + QPoint(15, 1), ScaleToSiPrefix(free) + " " + tr("free"));
-    painter.drawText(usedRect.bottomLeft() + QPoint(15, 1), ScaleToSiPrefix(used) + " " + tr("used"));
+    painter.drawText(freeRect.bottomLeft() + QPoint(15, 1), formatSize(free) + " " + tr("free"));
+    painter.drawText(usedRect.bottomLeft() + QPoint(15, 1), formatSize(used) + " " + tr("used"));
 }
 
 

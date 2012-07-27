@@ -398,7 +398,7 @@ void InveritaWindow::updateLatestLink(QString absolutePath)
     QString linkPath = absolutePath + "/latest";
     QString linkName;
     if (QFile::exists(linkPath)) {
-        linkName = ReadLink(linkPath);
+        linkName = ReadSymbolicLink(linkPath);
     }
 
     if (m_snapshotListModel->isEmpty()) {

@@ -39,11 +39,11 @@
 #error "will not compile"
 #endif
 
-/*
- * Syncs the meta file data from reference to target
+
+/*! Syncs the meta file data from reference to target
  *
- * On success, zero is returned.
- * On error, -1 is returned, and errno is set appropriately.
+ *  On success, zero is returned.
+ *  On error, -1 is returned, and errno is set appropriately.
  */
 int CopyMeta(QString &reference, QString &target)
 {
@@ -80,12 +80,11 @@ int CopyMeta(QString &reference, QString &target)
 }
 
 
-/*
- * Returns the content of the symbolic link 'filepath'.
- * In contrast to QFileInfo::symLinkTarget(), it does not return
- * the absolute path to the file or directory a symlink points to.
+/*! Returns the content of the symbolic link 'filepath'.
+ *  In contrast to QFileInfo::symLinkTarget(), it does not return
+ *  the absolute path to the file or directory a symlink points to.
  */
-QString ReadLink(const QString &filepath)
+QString ReadSymbolicLink(const QString &filepath)
 {
 #ifdef Q_OS_UNIX
     struct stat sb;
@@ -109,6 +108,7 @@ QString ReadLink(const QString &filepath)
 #endif
 }
 
+
 QString SearchLatestBackupDir(QString absolutePath)
 {
     QDir dir(absolutePath);
@@ -124,23 +124,25 @@ QString SearchLatestBackupDir(QString absolutePath)
     }
 }
 
-/*
-This function uses decimal prefixes (SI) for base-10 units with multiple of 1000.
-See <http://wiki.ubuntu.com/UnitsPolicy> for details.
-    1 Byte = 1 byte
-    1 kB = 1,000 bytes (Note: small k)
-    1 MB = 1,000 kByte = 1,000,000 bytes
-    1 GB = 1,000 MByte = 1,000,000 kByte = 1,000,000,000 bytes
-    1 TB = 1,000 GByte = 1,000,000 MByte = 1,000,000,000 kByte = 1,000,000,000,000 bytes
-    1 PB = 1,000 TByte = 1,000,000 GByte = 1,000,000,000 MByte = 1,000,000,000,000 kByte = 1,000,000,000,000,000 bytes
-*/
-QString ScaleToSiPrefix(qint64 size)
-{
-    QStringList units;
-    int     unitIdx = 0;
-    QString stringValue;
-    qreal   value = size;
 
+/*! Formats the size to a well human readable form.
+ *
+ *  This function uses decimal prefixes (SI) for base-10 units with multiple of 1000.
+ *  See <http://wiki.ubuntu.com/UnitsPolicy> for details.
+ *    1 Byte = 1 byte
+ *    1 kB = 1,000 bytes (Note: small k)
+ *    1 MB = 1,000 kByte = 1,000,000 bytes
+ *    1 GB = 1,000 MByte = 1,000,000 kByte = 1,000,000,000 bytes
+ *    1 TB = 1,000 GByte = 1,000,000 MByte = 1,000,000,000 kByte = 1,000,000,000,000 bytes
+ *    1 PB = 1,000 TByte = 1,000,000 GByte = 1,000,000,000 MByte = 1,000,000,000,000 kByte = 1,000,000,000,000,000 bytes
+ */
+QString formatSize(qint64 size)
+{
+    int     unitIdx = 0;
+    qreal   value = size;
+    QString stringValue;
+
+    QStringList units;
     units << "Byte" << "kB" << "MB" << "GB" << "TB" << "PB";
 
     while (value >= 1000 && unitIdx < units.size()) {

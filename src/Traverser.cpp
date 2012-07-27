@@ -196,7 +196,7 @@ void Traverser::recurseDirectory(const QString &dirname)
         }
 
         if (fileinfo.isSymLink()) {
-            QString linkName = ReadLink(filepath);
+            QString linkName = ReadSymbolicLink(filepath);
             onLink(filepath, linkName);
         } else if (fileinfo.isDir()) {
             onEnterDir(filepath);

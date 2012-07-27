@@ -213,7 +213,7 @@ void BackupEngine::scanDirectories()
     m_scanTraverser.traverse();
 
     QString msg = tr("Backup snapshot comprises %1 in %2 files.");
-    emit report(msg.arg(ScaleToSiPrefix(m_scanTraverser.totalSize())).arg(m_scanTraverser.totalFiles()) + "<br>");
+    emit report(msg.arg(formatSize(m_scanTraverser.totalSize())).arg(m_scanTraverser.totalFiles()) + "<br>");
 }
 
 

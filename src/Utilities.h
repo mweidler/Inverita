@@ -28,8 +28,8 @@
 #include <QString>
 
 int     CopyMeta(QString &reference, QString &target);
-QString ReadLink(const QString &filepath);
+QString ReadSymbolicLink(const QString &filepath);
 QString SearchLatestBackupDir(QString absolutePath);
-QString ScaleToSiPrefix(qint64 size);
+QString formatSize(qint64 size);
 
 #endif
