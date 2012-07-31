@@ -89,23 +89,24 @@ ConfigurationDialog::~ConfigurationDialog()
 QWidget *ConfigurationDialog::constructStorageTab()
 {
     QLabel *storageText = new QLabel(tr(
-                                         "The backup storage specifies the location, where backup<br>"
-                                         "data will be stored. You can choose every pathname which is<br>"
-                                         " accessible from your computer, e.g. <i>/media/usbdrive</i> or<br>"
+                                         "The backup storage specifies the location, where backup "
+                                         "data will be stored. You can choose every pathname which is "
+                                         "accessible from your computer, e.g. <i>/media/usbdrive</i> or "
                                          "<i>/data/backup</i><br><br>"
-                                         "<u>Attention:</u> If you change an existing backup storage to<br>"
-                                         "another location, a new backup will be created on the new<br>"
-                                         "location. Your existing backup and snapshots will not be<br>"
+                                         "<u>Attention:</u> If you change an existing backup storage to "
+                                         "another location, a new backup will be created on the new "
+                                         "location. Your existing backup and snapshots will not be "
                                          "copied to the new location and reside on the old location."
                                      ));
+    storageText->setWordWrap(true);
 
     QPixmap pixmap(":/images/drive-icon.png");
     QLabel *labelImage = new QLabel;
     labelImage->setPixmap(pixmap);
 
     QHBoxLayout *descriptionLayout = new QHBoxLayout;
-    descriptionLayout->addWidget(storageText);
-    descriptionLayout->addWidget(labelImage, 1, Qt::AlignRight | Qt::AlignTop);
+    descriptionLayout->addWidget(storageText, 1);
+    descriptionLayout->addWidget(labelImage, 0, Qt::AlignRight | Qt::AlignTop);
 
     QHBoxLayout *locationLayout = new QHBoxLayout;
     m_storageEdit = new QLineEdit();
