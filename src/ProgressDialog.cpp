@@ -178,6 +178,7 @@ void ProgressDialog::closeEvent(QCloseEvent *event)
  */
 void ProgressDialog::update()
 {
+    QString timeInfo;
     QString remainingInfo;
     QString transferRateInfo;
 
@@ -208,7 +209,6 @@ void ProgressDialog::update()
         qint64 deltaTransferred = m_statusHistory.last().transferred - m_statusHistory.first().transferred;
         qint64 deltaTimeMs = m_statusHistory.first().timestamp.msecsTo(m_statusHistory.last().timestamp);
         int transferRate = qRound(deltaTransferred / (deltaTimeMs * 1000.0));
-        transferRateInfo = tr("while processing %1 MByte/s").arg(transferRate);
 
         qreal deltaCompletion = completion - m_statusHistory.first().completion;
         qreal openCompletion = 1.0 - completion;
@@ -216,17 +216,19 @@ void ProgressDialog::update()
         int remainingMinutes = remainingSeconds / 60.0;
         int remainingHours = remainingMinutes / 60.0;
 
-        remainingInfo.clear();
         if (remainingHours >= 1) {
-            remainingInfo += QString("%1:%2").arg(remainingHours).arg(remainingMinutes, 2, 10, QChar('0'));
+            timeInfo = QString("%1:%2").arg(remainingHours).arg(remainingMinutes, 2, 10, QChar('0'));
         } else if (remainingMinutes >= 1) {
-            remainingInfo += tr("%n minute(s)", "", remainingMinutes);
+            timeInfo = tr("%n minute(s)", "", remainingMinutes);
         } else {
-            remainingInfo += tr("%n second(s)", "", remainingSeconds);
+            timeInfo = tr("%n second(s)", "", remainingSeconds);
         }
 
-        remainingInfo += " " + tr("estimated time remaining") + " ";
-
+        if (transferRate > 0) {
+            remainingInfo = tr("%1 estimated time remaining, processing %2 MByte/s").arg(timeInfo).arg(transferRate);
+        } else {
+            remainingInfo = tr("%1 estimated time remaining").arg(timeInfo);
+        }
     } else {
         remainingInfo = tr("Please be patient...");
     }
@@ -241,5 +243,5 @@ void ProgressDialog::update()
     }
 
     m_progressBar->setValue((int)(completion * m_progressBar->maximum()));
-    m_labelRemaining->setText(remainingInfo + transferRateInfo);
+    m_labelRemaining->setText(remainingInfo);
 }
