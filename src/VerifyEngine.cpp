@@ -29,17 +29,22 @@
 
 #include <QDebug>
 
+
+/*! Constructor
+ */
 VerifyEngine::VerifyEngine()
 {
     reset();
 
-    m_descriptions << tr("Verifying all items of the selected backup");
+    m_descriptions << tr("Verifying the current backup");
 
     // traverser and engine can emit report signals to the progress dialog
     connect(&m_validateTraverser, SIGNAL(report(QString)), this, SIGNAL(report(QString)));
 }
 
 
+/*! \return the progress status of this engine
+ */
 WorkerStatus VerifyEngine::status()
 {
     WorkerStatus st;
@@ -51,8 +56,11 @@ WorkerStatus VerifyEngine::status()
 }
 
 
-// slot called each time, the "Start Backup" button is pressed
-// Attention: this will run in a different thread scope
+
+/*! Slot called each time, the "Verify Backup" button is pressed
+ *
+ * Attention: this will run in a different thread scope
+ */
 void VerifyEngine::start()
 {
     reset();
@@ -63,7 +71,7 @@ void VerifyEngine::start()
     m_validateTraverser.reset();
     emit started();
 
-    m_metaInfo.load(currentBackup + "/" + "metainfo") ;
+    m_metaInfo.load(currentBackup + "/metainfo") ;
     m_validateTraverser.addIncludes(backup.config().includes());
     m_validateTraverser.addExcludes(backup.config().excludes());
     m_validateTraverser.addExcludes("metainfo");
@@ -82,20 +90,26 @@ void VerifyEngine::start()
             return;
         }
     } else {
-        m_failureHint = tr("The contents of digests file are not trustable because it's checksum does not match the expected checksum.<br>"
-                           "A backup verification is not possible!<br>The latest snapshot will be set as 'Invalid'.");
+        m_failureHint = tr("The content of the digests file are not trustable because "
+                           "it's checksum does not match the expected checksum!<br>"
+                           "A backup verification is not possible!<br>"
+                           "The latest backup snapshot status will be set to 'Unknown'.");
         m_metaInfo.setQuality(SnapshotMetaInfo::Unknown);
-        m_metaInfo.save(currentBackup + "/" + "metainfo");
+        m_metaInfo.save(currentBackup + "/metainfo");
         emit failed();
         return;
     }
 
-    m_metaInfo.save(currentBackup + "/" + "metainfo");
+    m_metaInfo.save(currentBackup + "/metainfo");
     emit finished();
 }
 
-// abort() can not be called via event loop (connect), because
-// the thread blocks its event queue.
+
+/*! Indicates, that the worker should terminate it's execution.
+ *
+ * Attention: abort() can not be called via event loop, because
+ * the thread blocks its event queue. Thus, do not "connect"!
+ */
 void VerifyEngine::abort()
 {
     qDebug() << "VerifyEngine: abort requested";

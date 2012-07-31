@@ -94,7 +94,7 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
     m_progressValidateDialog = new ProgressDialog(&m_validateEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
     m_progressValidateDialog->setWindowTitle(tr("Validating backup snapshot..."));
     m_progressVerifyDialog = new ProgressDialog(&m_verifyEngine, ProgressDialog::ShowTextBox, ProgressDialog::Abortable, this);
-    m_progressVerifyDialog->setWindowTitle(tr("Verifying latest backup..."));
+    m_progressVerifyDialog->setWindowTitle(tr("Verifying backup..."));
 
     connect(m_backupSelectorUI, SIGNAL(backupSelected(int)), this, SLOT(onBackupSelected(int)));
     connect(m_backupSelectorUI, SIGNAL(configure()), this, SLOT(onConfigure()));
