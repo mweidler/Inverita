@@ -88,16 +88,17 @@ ConfigurationDialog::~ConfigurationDialog()
  */
 QWidget *ConfigurationDialog::constructStorageTab()
 {
-    QLabel *storageText = new QLabel(tr(
-                                         "The backup storage specifies the location, where backup "
-                                         "data will be stored. You can choose every pathname which is "
-                                         "accessible from your computer, e.g. <i>/media/usbdrive</i> or "
-                                         "<i>/data/backup</i><br><br>"
-                                         "<u>Attention:</u> If you change an existing backup storage to "
-                                         "another location, a new backup will be created on the new "
-                                         "location. Your existing backup and snapshots will not be "
-                                         "copied to the new location and reside on the old location."
-                                     ));
+    QLabel *storageText = new QLabel(
+        tr(
+            "The backup storage specifies the location, where backup "
+            "data will be stored. You can choose every pathname which is "
+            "accessible from your computer, e.g. '/media/usbdrive' or "
+            "'/data/backup'<br><br>"
+            "<u>Attention:</u> If you change an existing backup storage to "
+            "another location, a new backup will be created on the new "
+            "location. Your existing backup and snapshots will not be "
+            "copied to the new location and reside on the old location."
+        ));
     storageText->setWordWrap(true);
 
     QPixmap pixmap(":/images/drive-icon.png");
@@ -122,7 +123,7 @@ QWidget *ConfigurationDialog::constructStorageTab()
     QLabel *separator = new QLabel;
     separator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 
-    QLabel *labelText = new QLabel(tr("You can give your backup a short label, like <i>Home-Backup</i> or <i>Dropbox</i>."));
+    QLabel *labelText = new QLabel(tr("You can give your backup a short label, like 'Home-Backup' or 'Dropbox'."));
 
     QHBoxLayout *labelLayout = new QHBoxLayout;
     m_storageLabelEdit = new QLineEdit();

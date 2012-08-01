@@ -34,7 +34,7 @@ EraseEngine::EraseEngine()
 {
     reset();
 
-    m_descriptions << tr("Deleting all items of the selected backup snapshot");
+    m_descriptions << tr("Deleting the selected backup snapshot");
 }
 
 
@@ -84,12 +84,12 @@ void EraseEngine::start()
     m_eraseTraverser.reset();
     emit started();
 
-    m_metaInfo.load(m_snapshotName + "/" + "metainfo");
+    m_metaInfo.load(m_snapshotName + "/metainfo");
 
     // remove metainfo and digests of the snapshot "manually" to
     // invalidate whole snapshot. They were not counted on meta data creation.
-    QFile::remove(m_snapshotName + "/" + "metainfo");
-    QFile::remove(m_snapshotName + "/" + "digests");
+    QFile::remove(m_snapshotName + "/metainfo");
+    QFile::remove(m_snapshotName + "/digests");
 
     m_eraseTraverser.addIncludes(m_snapshotName);
 

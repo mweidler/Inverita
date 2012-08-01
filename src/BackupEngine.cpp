@@ -41,7 +41,7 @@ BackupEngine::BackupEngine()
 {
     reset();
 
-    m_descriptions << tr("1. Checking drive space") <<
+    m_descriptions << tr("1. Checking available drive space") <<
                    tr("2. Analyzing backup content") <<
                    tr("3. Creating new backup snapshot") <<
                    tr("4. Verifying generated backup snapshot") <<
@@ -161,7 +161,7 @@ void BackupEngine::checkDriveSpace()
 
     for (int i = 0; (i < snapshotList.count()) && (filesystem.capacity() < spare); i++) {
         deleteSnapshot(Backup::instance().location() + "/" + snapshotList[i].name());
-        emit report(tr("Old backup snapshot <i>%1</i> has been deleted due to low drive space.").arg(snapshotList[i].name()));
+        emit report(tr("Old backup snapshot '%1' has been deleted due to low drive space.").arg(snapshotList[i].name()));
         filesystem.refresh();
     }
 }
@@ -179,7 +179,7 @@ void BackupEngine::checkOvercharge()
 
     for (int i = 0; i < overcharge && !m_abort; i++) {
         deleteSnapshot(Backup::instance().location() + "/" + snapshotList[i].name());
-        emit report(tr("Old backup snapshot <i>%1</i> has been deleted due to overcharge.").arg(snapshotList[i].name()));
+        emit report(tr("Old backup snapshot '%1' has been deleted due to overcharge.").arg(snapshotList[i].name()));
     }
 }
 
@@ -235,7 +235,7 @@ void BackupEngine::executeBackup(QString &timestamp)
 
     // ensure, that the new directory of the new snapshot does not exist
     while (QFile::exists(currentBackup)) {
-        currentBackup += "1";
+        currentBackup += "x";
     }
 
     dir.mkpath(currentBackup);
@@ -261,8 +261,8 @@ void BackupEngine::executeBackup(QString &timestamp)
         m_abort == false) {
         metaInfo.setQuality(SnapshotMetaInfo::Complete);
         metaInfo.setChecksum(checksum);
-        emit report(tr("Backup snapshot created successfully without errors.<br>"));
-        emit report(tr("Backup snapshot checksum is '%1'<br>").arg(QString(checksum)));
+        emit report(tr("Backup snapshot created successfully without errors.") + "<br>");
+        emit report(tr("Backup snapshot checksum is '%1'").arg(QString(checksum)) + "<br>");
     }
     metaInfo.save(currentBackup + "/metainfo");
 }

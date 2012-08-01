@@ -26,7 +26,7 @@
     <name>BackupEngine</name>
     <message>
         <location filename="../src/BackupEngine.cpp" line="44"/>
-        <source>1. Checking drive space</source>
+        <source>1. Checking available drive space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -51,27 +51,27 @@
     </message>
     <message>
         <location filename="../src/BackupEngine.cpp" line="164"/>
-        <source>Old backup snapshot &lt;i&gt;%1&lt;/i&gt; has been deleted due to low drive space.</source>
+        <source>Old backup snapshot &apos;%1&apos; has been deleted due to low drive space.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/BackupEngine.cpp" line="182"/>
-        <source>Old backup snapshot &lt;i&gt;%1&lt;/i&gt; has been deleted due to overcharge.</source>
+        <source>Old backup snapshot &apos;%1&apos; has been deleted due to overcharge.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BackupEngine.cpp" line="264"/>
+        <source>Backup snapshot created successfully without errors.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BackupEngine.cpp" line="265"/>
+        <source>Backup snapshot checksum is &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/BackupEngine.cpp" line="216"/>
         <source>Backup snapshot comprises %1 in %2 files.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/BackupEngine.cpp" line="264"/>
-        <source>Backup snapshot created successfully without errors.&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/BackupEngine.cpp" line="265"/>
-        <source>Backup snapshot checksum is &apos;%1&apos;&lt;br&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -138,22 +138,21 @@
         <translation type="obsolete">Der Backup Speicherort bezeichnet den Platz, worauf die&lt;br&gt;Backup-Daten gespeichert werden. Sie können jeden Pfad&lt;br&gt;verwenden, der von Ihrem Computer erreicht werden kann,&lt;br&gt;z.B. &lt;i&gt;/media/usbdrive&lt;/i&gt; oder &lt;i&gt;/data/backup&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;u&gt;Achtung:&lt;/u&gt; Wenn Sie einen bestehenden Speicherort verändern,&lt;br&gt;wird dort ein neues Backup angelegt. Das bereits vorhandene&lt;br&gt;Backup wird nicht umkopiert.</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="113"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="114"/>
         <source>Change</source>
         <translation>Ändern</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="119"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="120"/>
         <source>Current backup storage:</source>
         <translation>Derzeitiger Speicherort:</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="125"/>
         <source>You can give your backup a short label, like &lt;i&gt;Home-Backup&lt;/i&gt; or &lt;i&gt;Dropbox&lt;/i&gt;.</source>
-        <translation>Geben Sie dem Backup eine kurze Bezeichnung, z.B. »Home-Backup« oder »Dropbox«.</translation>
+        <translation type="obsolete">Geben Sie dem Backup eine kurze Bezeichnung, z.B. »Home-Backup« oder »Dropbox«.</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="129"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="130"/>
         <source>Backup label:</source>
         <translation>Backup-Bezeichnung:</translation>
     </message>
@@ -162,82 +161,91 @@
         <translation type="obsolete">Die folgende Auflistung zeigt alle Verzeichnisse, die das Backup umfasst,&lt;br&gt;z.B.»/data« oder »/home/user«</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="181"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="182"/>
         <source>Backup snapshots can be verified after creation or on individual request.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="182"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="183"/>
         <source>&amp;Verify backup snapshots automatically after creation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="183"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="184"/>
         <source>Backup snapshot verification ensures the consistency of the digests to&lt;br&gt;the corresponding files, and ensures that all files exist. For performance&lt;br&gt;reasons, the digest recomputation can be left out.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="293"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="294"/>
         <source>The backup storage you have specified does not exist.&lt;br&gt;Please choose another storage.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="186"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="187"/>
         <source>Recompute digests on verification (recommended)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="91"/>
         <source>The backup storage specifies the location, where backup data will be stored. You can choose every pathname which is accessible from your computer, e.g. &lt;i&gt;/media/usbdrive&lt;/i&gt; or &lt;i&gt;/data/backup&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;u&gt;Attention:&lt;/u&gt; If you change an existing backup storage to another location, a new backup will be created on the new location. Your existing backup and snapshots will not be copied to the new location and reside on the old location.</source>
+        <translation type="obsolete">Der Backup Speicherort bezeichnet den Platz, worauf die Backup-Daten gespeichert werden. Sie können jeden Pfad verwenden, der von Ihrem Computer erreicht werden kann, z.B. »/media/usbdrive« oder &lt;i&gt;/data/backup&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;u&gt;Achtung:&lt;/u&gt; Wenn Sie einen bestehenden Speicherort verändern, wird dort ein neues Backup angelegt. Das bereits vorhandene Backup wird nicht umkopiert.</translation>
+    </message>
+    <message>
+        <location filename="../src/ConfigurationDialog.cpp" line="92"/>
+        <source>The backup storage specifies the location, where backup data will be stored. You can choose every pathname which is accessible from your computer, e.g. &apos;/media/usbdrive&apos; or &apos;/data/backup&apos;&lt;br&gt;&lt;br&gt;&lt;u&gt;Attention:&lt;/u&gt; If you change an existing backup storage to another location, a new backup will be created on the new location. Your existing backup and snapshots will not be copied to the new location and reside on the old location.</source>
         <translation type="unfinished">Der Backup Speicherort bezeichnet den Platz, worauf die Backup-Daten gespeichert werden. Sie können jeden Pfad verwenden, der von Ihrem Computer erreicht werden kann, z.B. »/media/usbdrive« oder &lt;i&gt;/data/backup&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;u&gt;Achtung:&lt;/u&gt; Wenn Sie einen bestehenden Speicherort verändern, wird dort ein neues Backup angelegt. Das bereits vorhandene Backup wird nicht umkopiert.</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="151"/>
-        <source>The list below shows all directories that comprises your backup, e.g. &apos;/data&apos; or &apos;/home/user&apos;</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/ConfigurationDialog.cpp" line="126"/>
+        <source>You can give your backup a short label, like &apos;Home-Backup&apos; or &apos;Dropbox&apos;.</source>
+        <translation type="unfinished">Geben Sie dem Backup eine kurze Bezeichnung, z.B. »Home-Backup« oder »Dropbox«.</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="162"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="152"/>
+        <source>The list below shows all directories that comprises your backup, e.g. &apos;/data&apos; or &apos;/home/user&apos;</source>
+        <translation type="unfinished">Die folgende Auflistung zeigt alle Verzeichnisse, die das Backup umfasst,&lt;br&gt;z.B.»/data« oder »/home/user«</translation>
+    </message>
+    <message>
+        <location filename="../src/ConfigurationDialog.cpp" line="163"/>
         <source>The list below shows all file/directory-patterns that will be excluded from the backup, e.g. &apos;/data/temp&apos; will exclude the whole directory, &apos;test*&apos; will exclude all items beginning with &apos;test&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="188"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="189"/>
         <source>At low drive space, the oldest backup snapshots can be deleted automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bei geringem Speicherplatz können die ältesten Backup snapshots automatisch gelöscht werden.</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="190"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="191"/>
         <source>&amp;Delete oldest backup snapshots until free capacity reaches</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Lösche die ältesten Backup snapshots bis die freie Kapazität</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="194"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="195"/>
         <source>percent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prozent erreicht</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="200"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="201"/>
         <source>The number of backup snapshots can be limited.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Die Anzahl der Backup snapshots kann begrenzt werden.</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="202"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="203"/>
         <source>&amp;Keep up to</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Behalte bis zu</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="206"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="207"/>
         <source>backup snapshots and delete the oldest ones</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Backup snapshots und lösche die Ältesten</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="273"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="274"/>
         <source>Select a new backup location...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="292"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="293"/>
         <source>Backup storage does not exist</source>
         <translation type="unfinished"></translation>
     </message>
@@ -348,7 +356,7 @@
     <name>EraseEngine</name>
     <message>
         <location filename="../src/EraseEngine.cpp" line="37"/>
-        <source>Deleting all items of the selected backup snapshot</source>
+        <source>Deleting the selected backup snapshot</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -781,12 +789,12 @@
     <name>ValidateEngine</name>
     <message>
         <location filename="../src/ValidateEngine.cpp" line="36"/>
-        <source>Validating all items of the selected backup snapshot</source>
+        <source>Validating the selected backup snapshot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ValidateEngine.cpp" line="93"/>
-        <source>The contents of digests file are not trustable because it&apos;s checksum does not match the expected checksum.&lt;br&gt;A snapshot validation is not possible!&lt;br&gt;The snapshot will be set as &apos;Invalid&apos;.</source>
+        <source>The content of the digests file are not trustable because it&apos;s checksum does not match the expected checksum!&lt;br&gt;A snapshot validation is not possible!&lt;br&gt;The backup snapshot status will be set to &apos;Unknown&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

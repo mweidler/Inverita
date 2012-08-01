@@ -33,7 +33,7 @@ ValidateEngine::ValidateEngine()
 {
     reset();
 
-    m_descriptions << tr("Validating all items of the selected backup snapshot");
+    m_descriptions << tr("Validating the selected backup snapshot");
 
     // traverser and engine can emit report signals to the progress dialog
     connect(&m_validateTraverser, SIGNAL(report(QString)), this, SIGNAL(report(QString)));
@@ -70,7 +70,7 @@ void ValidateEngine::start()
     QString snapshotName = m_backupRootPath + "/" + m_snapshotName;
     emit started();
 
-    m_metaInfo.load(snapshotName + "/" + "metainfo") ;
+    m_metaInfo.load(snapshotName + "/metainfo") ;
     m_validateTraverser.addIncludes(snapshotName);
     m_validateTraverser.addExcludes("metainfo");
     m_validateTraverser.addExcludes("digests");
@@ -84,23 +84,26 @@ void ValidateEngine::start()
             m_currentTask = -1; // disable highlighted task
         } catch (ApplicationException &e) {
             m_metaInfo.setQuality(SnapshotMetaInfo::Unknown);
-            m_metaInfo.save(snapshotName + "/" + "metainfo");
+            m_metaInfo.save(snapshotName + "/metainfo");
             buildFailureHint(e);
             emit failed();
             return;
         }
     } else {
-        m_failureHint = tr("The contents of digests file are not trustable because it's checksum does not match the expected checksum.<br>"
-                           "A snapshot validation is not possible!<br>The snapshot will be set as 'Invalid'.");
+        m_failureHint = tr("The content of the digests file are not trustable because "
+                           "it's checksum does not match the expected checksum!<br>"
+                           "A snapshot validation is not possible!<br>"
+                           "The backup snapshot status will be set to 'Unknown'.");
         m_metaInfo.setQuality(SnapshotMetaInfo::Unknown);
-        m_metaInfo.save(snapshotName + "/" + "metainfo");
+        m_metaInfo.save(snapshotName + "/metainfo");
         emit failed();
         return;
     }
 
-    m_metaInfo.save(snapshotName + "/" + "metainfo");
+    m_metaInfo.save(snapshotName + "/metainfo");
     emit finished();
 }
+
 
 // abort() can not be called via event loop (connect), because
 // the thread blocks its event queue.
