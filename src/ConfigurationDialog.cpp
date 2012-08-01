@@ -148,8 +148,8 @@ QWidget *ConfigurationDialog::constructStorageTab()
  */
 QWidget *ConfigurationDialog::constructIncludesTab()
 {
-    QString description = tr("The list below shows all directories that comprises your backup,<br>"
-                             "e.g. <i>/data</i> or <i>/home/user</i>");
+    QString description = tr("The list below shows all directories that comprises your backup, "
+                             "e.g. '/data' or '/home/user'");
 
     return new ConfigurationListUI(m_config.includes(), ConfigurationListUI::DIRECTORY, description, this);
 }
@@ -159,9 +159,9 @@ QWidget *ConfigurationDialog::constructIncludesTab()
  */
 QWidget *ConfigurationDialog::constructExcludesTab()
 {
-    QString description = tr("The list below shows all file/directory-patterns that will be excluded<br>"
-                             "from the backup, e.g. <i>/data/temp</i> will exclude the whole directory,<br>"
-                             "<i>test*</i> will exclude all items beginning with 'test'");
+    QString description = tr("The list below shows all file/directory-patterns that will be excluded "
+                             "from the backup, e.g. '/data/temp' will exclude the whole directory, "
+                             "'test*' will exclude all items beginning with 'test'");
 
     return new ConfigurationListUI(m_config.excludes(), ConfigurationListUI::PATTERN, description, this);
 }

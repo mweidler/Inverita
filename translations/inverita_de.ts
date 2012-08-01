@@ -5,7 +5,7 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../src/AboutDialog.cpp" line="43"/>
-        <source>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;All rights reserved.&lt;br&gt;&lt;br&gt;INVERITA is free software: you can redistribute it and/or modify&lt;br&gt;it under the terms of the GNU General Public License as published by&lt;br&gt;the Free Software Foundation, either version 3 of the License, or&lt;br&gt;(at your option) any later version.&lt;br&gt;&lt;br&gt;INVERITA is distributed in the hope that it will be useful,&lt;br&gt;but WITHOUT ANY WARRANTY; without even the implied warranty of&lt;br&gt;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&lt;br&gt;GNU General Public License for more details.&lt;br&gt;http://www.gnu.org/licenses/&lt;br&gt;&lt;br&gt;INVERITA uses Qt library %2&lt;br&gt;Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).&lt;br&gt;&lt;br&gt;INVERITA uses parts of PolarSSL library (http://www.polarssl.org)&lt;br&gt;FIPS-180-1 compliant SHA-1 implementation&lt;br&gt;Copyright (C) 2006-2010, Brainspark B.V.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Artua (http://www.artua.com)&lt;br&gt;that are free for non-commercial use.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Joker Design (http://www.joker-design.com)&lt;br&gt;that are licensed under &apos;CC Attribution-Noncommercial-No Derivate 3.0&apos;.&lt;br&gt;</source>
+        <source>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;All rights reserved.&lt;br&gt;&lt;br&gt;INVERITA is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;br&gt;&lt;br&gt;INVERITA is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details: http://www.gnu.org/licenses/&lt;br&gt;&lt;br&gt;INVERITA uses Qt library %2&lt;br&gt;Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).&lt;br&gt;&lt;br&gt;INVERITA uses parts of PolarSSL library (http://www.polarssl.org)&lt;br&gt;FIPS-180-1 compliant SHA-1 implementation&lt;br&gt;Copyright (C) 2006-2010, Brainspark B.V.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Artua (http://www.artua.com)&lt;br&gt;that are free for non-commercial use.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Joker Design (http://www.joker-design.com)&lt;br&gt;that are licensed under &apos;CC Attribution-Noncommercial-No Derivate 3.0&apos;.&lt;br&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -78,17 +78,21 @@
 <context>
     <name>BackupSelectorUI</name>
     <message>
-        <location filename="../src/BackupSelectorUI.cpp" line="45"/>
         <source>Select a recently used backup from the list below, or open an&lt;br&gt;existing backup or create a new backup from the backup menu.</source>
-        <translation>Wählen sie ein kürzlich benutztes Backup aus der unten stehenden Liste, oder&lt;br&gt;öffnen sie ein bestehendes, oder erstellen sie ein neues Backup im Menü.</translation>
+        <translation type="obsolete">Wählen sie ein kürzlich benutztes Backup aus der unten stehenden Liste, oder&lt;br&gt;öffnen sie ein bestehendes, oder erstellen sie ein neues Backup im Menü.</translation>
     </message>
     <message>
-        <location filename="../src/BackupSelectorUI.cpp" line="49"/>
+        <location filename="../src/BackupSelectorUI.cpp" line="45"/>
+        <source>Select a recently used backup from the list below, or open an existing backup or create a new backup from the backup menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BackupSelectorUI.cpp" line="51"/>
         <source>Configure</source>
         <translation>Konfigurieren</translation>
     </message>
     <message>
-        <location filename="../src/BackupSelectorUI.cpp" line="60"/>
+        <location filename="../src/BackupSelectorUI.cpp" line="62"/>
         <source>Your current backup:</source>
         <translation>Ihr aktuelles Backup:</translation>
     </message>
@@ -112,22 +116,22 @@
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="43"/>
         <source>Storage</source>
-        <translation type="unfinished">Speicherort</translation>
+        <translation>Speicherort</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="44"/>
         <source>Includes</source>
-        <translation type="unfinished">Einbeziehen</translation>
+        <translation>Verzeichnisse</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="45"/>
         <source>Excludes</source>
-        <translation type="unfinished">Ausnahmen</translation>
+        <translation>Ausnahmen</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="46"/>
         <source>Options</source>
-        <translation type="unfinished">Optionen</translation>
+        <translation>Optionen</translation>
     </message>
     <message>
         <source>The backup storage specifies the location, where backup&lt;br&gt;data will be stored. You can choose every pathname which is&lt;br&gt; accessible from your computer, e.g. &lt;i&gt;/media/usbdrive&lt;/i&gt; or&lt;br&gt;&lt;i&gt;/data/backup&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;u&gt;Attention:&lt;/u&gt; If you change an existing backup storage to&lt;br&gt;another location, a new backup will be created on the new&lt;br&gt;location. Your existing backup and snapshots will not be&lt;br&gt;copied to the new location and reside on the old location.</source>
@@ -136,32 +140,26 @@
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="113"/>
         <source>Change</source>
-        <translation type="unfinished">Ändern</translation>
+        <translation>Ändern</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="119"/>
         <source>Current backup storage:</source>
-        <translation type="unfinished">Derzeitiges Speicherort:</translation>
+        <translation>Derzeitiger Speicherort:</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="125"/>
         <source>You can give your backup a short label, like &lt;i&gt;Home-Backup&lt;/i&gt; or &lt;i&gt;Dropbox&lt;/i&gt;.</source>
-        <translation type="unfinished">Geben Sie dem Backup eine kurze Bezeichnung, z.B. &lt;i&gt;Home-Backup&lt;/i&gt; oder &lt;i&gt;Dropbox&lt;/i&gt;.</translation>
+        <translation>Geben Sie dem Backup eine kurze Bezeichnung, z.B. »Home-Backup« oder »Dropbox«.</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="129"/>
         <source>Backup label:</source>
-        <translation type="unfinished">Backup-Bezeichnung:</translation>
+        <translation>Backup-Bezeichnung:</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="151"/>
         <source>The list below shows all directories that comprises your backup,&lt;br&gt;e.g. &lt;i&gt;/data&lt;/i&gt; or &lt;i&gt;/home/user&lt;/i&gt;</source>
-        <translation type="unfinished">Die folgende Auflistung zeigt alle Verzeichnisse, die das Backup umfasst,&lt;br&gt;z.B.&lt;i&gt;/data&lt;/i&gt; oder &lt;i&gt;/home/user&lt;/i&gt; </translation>
-    </message>
-    <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="162"/>
-        <source>The list below shows all file/directory-patterns that will be excluded&lt;br&gt;from the backup, e.g. &lt;i&gt;/data/temp&lt;/i&gt; will exclude the whole directory,&lt;br&gt;&lt;i&gt;test*&lt;/i&gt; will exclude all items beginning with &apos;test&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Die folgende Auflistung zeigt alle Verzeichnisse, die das Backup umfasst,&lt;br&gt;z.B.»/data« oder »/home/user«</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="181"/>
@@ -191,7 +189,17 @@
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="91"/>
         <source>The backup storage specifies the location, where backup data will be stored. You can choose every pathname which is accessible from your computer, e.g. &lt;i&gt;/media/usbdrive&lt;/i&gt; or &lt;i&gt;/data/backup&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;u&gt;Attention:&lt;/u&gt; If you change an existing backup storage to another location, a new backup will be created on the new location. Your existing backup and snapshots will not be copied to the new location and reside on the old location.</source>
-        <translation type="unfinished">Der Backup Speicherort bezeichnet den Platz, worauf die Backup-Daten gespeichert werden. Sie können jeden Pfad verwenden, der von Ihrem Computer erreicht werden kann, z.B. &lt;i&gt;/media/usbdrive&lt;/i&gt; oder &lt;i&gt;/data/backup&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;u&gt;Achtung:&lt;/u&gt; Wenn Sie einen bestehenden Speicherort verändern, wird dort ein neues Backup angelegt. Das bereits vorhandene Backup wird nicht umkopiert.</translation>
+        <translation type="unfinished">Der Backup Speicherort bezeichnet den Platz, worauf die Backup-Daten gespeichert werden. Sie können jeden Pfad verwenden, der von Ihrem Computer erreicht werden kann, z.B. »/media/usbdrive« oder &lt;i&gt;/data/backup&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;u&gt;Achtung:&lt;/u&gt; Wenn Sie einen bestehenden Speicherort verändern, wird dort ein neues Backup angelegt. Das bereits vorhandene Backup wird nicht umkopiert.</translation>
+    </message>
+    <message>
+        <location filename="../src/ConfigurationDialog.cpp" line="151"/>
+        <source>The list below shows all directories that comprises your backup, e.g. &apos;/data&apos; or &apos;/home/user&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ConfigurationDialog.cpp" line="162"/>
+        <source>The list below shows all file/directory-patterns that will be excluded from the backup, e.g. &apos;/data/temp&apos; will exclude the whole directory, &apos;test*&apos; will exclude all items beginning with &apos;test&apos;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="188"/>
@@ -237,22 +245,22 @@
 <context>
     <name>ConfigurationListUI</name>
     <message>
-        <location filename="../src/ConfigurationListUI.cpp" line="39"/>
+        <location filename="../src/ConfigurationListUI.cpp" line="41"/>
         <source>Add Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationListUI.cpp" line="42"/>
+        <location filename="../src/ConfigurationListUI.cpp" line="44"/>
         <source>Remove Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationListUI.cpp" line="110"/>
+        <location filename="../src/ConfigurationListUI.cpp" line="112"/>
         <source>Exclude pattern</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationListUI.cpp" line="111"/>
+        <location filename="../src/ConfigurationListUI.cpp" line="113"/>
         <source>Please enter a glob pattern, like &lt;b&gt;Work?.txt&lt;/b&gt;, &lt;b&gt;*.txt&lt;/b&gt;, &lt;b&gt;Trash&lt;/b&gt;, or &lt;b&gt;lost+found&lt;/b&gt;,&lt;br&gt;where &apos;?&apos; matches one character and &apos;*&apos; matches any number of characters.&lt;br&gt;&lt;br&gt;Any file or directory that matches one of the patterns&lt;br&gt;will be excluded from the backup.&lt;br&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -654,63 +662,63 @@
 <context>
     <name>SnapshotListModel</name>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="42"/>
+        <location filename="../src/SnapshotListModel.cpp" line="43"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="43"/>
+        <location filename="../src/SnapshotListModel.cpp" line="44"/>
         <source>Files</source>
         <translation>Dateien</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="43"/>
+        <location filename="../src/SnapshotListModel.cpp" line="44"/>
         <source>Size</source>
         <translation>Größe</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="43"/>
+        <location filename="../src/SnapshotListModel.cpp" line="44"/>
         <source>Last modified</source>
         <translation>Geändert am</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="43"/>
+        <location filename="../src/SnapshotListModel.cpp" line="44"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="43"/>
+        <location filename="../src/SnapshotListModel.cpp" line="44"/>
         <source>Checksum</source>
         <translation>Prüfsumme</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="154"/>
-        <location filename="../src/SnapshotListModel.cpp" line="161"/>
-        <location filename="../src/SnapshotListModel.cpp" line="174"/>
+        <location filename="../src/SnapshotListModel.cpp" line="173"/>
+        <location filename="../src/SnapshotListModel.cpp" line="180"/>
+        <location filename="../src/SnapshotListModel.cpp" line="193"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="167"/>
+        <location filename="../src/SnapshotListModel.cpp" line="186"/>
         <source>dddd, dd-MMM-yyyy hh:mm:ss</source>
-        <translation type="unfinished"></translation>
+        <translation>dddd, dd.MM.yyyy hh:mm:ss</translation>
     </message>
     <message>
         <source>dd/MM/yyyy hh:mm:ss</source>
         <translation type="obsolete">dd.MM.yyyy hh:mm:ss</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="177"/>
+        <location filename="../src/SnapshotListModel.cpp" line="196"/>
         <source>Partial</source>
         <translation>Teilweise</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="180"/>
+        <location filename="../src/SnapshotListModel.cpp" line="199"/>
         <source>Complete</source>
         <translation>Vollständig</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="183"/>
+        <location filename="../src/SnapshotListModel.cpp" line="202"/>
         <source>Reliable</source>
         <translation>Verlässlich</translation>
     </message>
@@ -816,8 +824,12 @@
     </message>
     <message>
         <location filename="../src/ValidateTraverser.cpp" line="144"/>
+        <source>File &apos;%1&apos; has beed modified.</source>
+        <translation type="unfinished">Datei »%1« wurde verändert.</translation>
+    </message>
+    <message>
         <source>&apos;%1&apos; has beed modified.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Datei »%1« wurde verändert.</translation>
     </message>
 </context>
 <context>

@@ -44,15 +44,14 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
             "<b>INVERITA Personal Backup</b> Version %1<br>"
             "Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)<br>"
             "All rights reserved.<br><br>"
-            "INVERITA is free software: you can redistribute it and/or modify<br>"
-            "it under the terms of the GNU General Public License as published by<br>"
-            "the Free Software Foundation, either version 3 of the License, or<br>"
+            "INVERITA is free software: you can redistribute it and/or modify "
+            "it under the terms of the GNU General Public License as published by "
+            "the Free Software Foundation, either version 3 of the License, or "
             "(at your option) any later version.<br><br>"
-            "INVERITA is distributed in the hope that it will be useful,<br>"
-            "but WITHOUT ANY WARRANTY; without even the implied warranty of<br>"
-            "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br>"
-            "GNU General Public License for more details.<br>"
-            "http://www.gnu.org/licenses/<br><br>"
+            "INVERITA is distributed in the hope that it will be useful, "
+            "but WITHOUT ANY WARRANTY; without even the implied warranty of "
+            "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
+            "GNU General Public License for more details: http://www.gnu.org/licenses/<br><br>"
             "INVERITA uses Qt library %2<br>"
             "Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).<br><br>"
             "INVERITA uses parts of PolarSSL library (http://www.polarssl.org)<br>"
@@ -65,6 +64,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
         );
 
     QLabel *labelAboutText = new QLabel(text.arg(INVERITA_COMMIT_VERSION).arg(qVersion()));
+    labelAboutText->setWordWrap(true);
 
     QLabel *labelAppImage = new QLabel;
     labelAppImage->setPixmap(QApplication::windowIcon().pixmap(96, 96));
@@ -84,7 +84,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     QHBoxLayout *contentLayout = new QHBoxLayout;
     contentLayout->setAlignment(Qt::AlignLeft);
     contentLayout->addLayout(imagesLayout);
-    contentLayout->addWidget(labelAboutText);
+    contentLayout->addWidget(labelAboutText, 1);
 
     QVBoxLayout *masterLayout = new QVBoxLayout;
     masterLayout->setContentsMargins(20, 20, 20, 20);

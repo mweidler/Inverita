@@ -141,7 +141,7 @@ void ValidateTraverser::onFile(const QString &absoluteFilePath)
         QByteArray currentDigest = computeDigestOfFile(absoluteFilePath);
 
         if (previousDigest != currentDigest) {
-            emit report(tr("'%1' has beed modified.").arg(absoluteFilePath) + "<br>");
+            emit report(tr("File '%1' has beed modified.").arg(absoluteFilePath) + "<br>");
             countError();
         }
     } else {

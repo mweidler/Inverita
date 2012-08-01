@@ -34,6 +34,8 @@
 ConfigurationListUI::ConfigurationListUI(QStringList &list, ConfigurationListMode mode, QString &description, QWidget *parent) : QWidget(parent), m_list(list)
 {
     QLabel *descriptionLabel = new QLabel(description);
+    descriptionLabel->setWordWrap(true);
+
     m_listModel = new QStringListModel(list);
 
     m_buttonAdd = new QPushButton(tr("Add Item"));
