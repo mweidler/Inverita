@@ -28,6 +28,7 @@
 #include "Utilities.h"
 
 #include <QDir>
+#include <QIcon>
 #include <QDebug>
 
 
@@ -137,9 +138,27 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
 
     if (role == Qt::TextAlignmentRole) {
         if (index.column() == 1 || index.column() == 2) {
-            return QVariant(Qt::AlignRight);
+            return QVariant(Qt::AlignRight | Qt::AlignVCenter);
         } else {
-            return QVariant(Qt::AlignLeft);
+            return QVariant(Qt::AlignLeft | Qt::AlignVCenter);
+        }
+    }
+
+    if (role == Qt::DecorationRole && index.column() == 4) {
+        switch (snapshot.metaInfo().quality()) {
+            default:
+            case SnapshotMetaInfo::Unknown:
+                return QIcon::fromTheme("dialog-no");
+                break;
+            case SnapshotMetaInfo::Partial:
+                return QIcon::fromTheme("dialog-no");
+                break;
+            case SnapshotMetaInfo::Complete:
+                return QIcon::fromTheme("dialog-ok");
+                break;
+            case SnapshotMetaInfo::Reliable:
+                return QIcon::fromTheme("dialog-yes");
+                break;
         }
     }
 
@@ -181,7 +200,6 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
                         break;
                     case SnapshotMetaInfo::Reliable:
                         return tr("Reliable");
-                        break;
                         break;
                 }
                 break;
