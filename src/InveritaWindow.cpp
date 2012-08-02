@@ -433,7 +433,7 @@ void InveritaWindow::onMenuNewBackup()
 
     closeCurrentBackup();
     if (openCurrentBackup(entry) == Backup::Success) {
-        config.save(backup.location() + "/" + "inverita.conf");
+        config.save(backup.location() + "/inverita.conf");
         int index = m_backupListModel->setEntry(entry);
         m_backupSelectorUI->select(index); // causes a currentIndexChanged event
     } else {
@@ -475,7 +475,7 @@ void InveritaWindow::onConfigure()
     config.load(backup.location() + "/" + "inverita.conf");
 
     ConfigurationDialog configDialog(config, this);
-    configDialog.setWindowTitle(tr("Configuring backup") + "' " + backup.origin() + "'");
+    configDialog.setWindowTitle(tr("Configuring backup '%1'").arg(backup.origin()));
     configDialog.setLabel(backup.label());
     configDialog.setLocation(backup.origin());
     if (configDialog.exec() != QDialog::Accepted) {
@@ -490,7 +490,7 @@ void InveritaWindow::onConfigure()
 
     QString newOrigin = configDialog.location();
     if (backup.origin() == newOrigin) {
-        config.save(backup.location() + "/" + "inverita.conf");
+        config.save(backup.location() + "/inverita.conf");
         m_backupListModel->setEntry(entry);
         reload(); // explicitly reload, because there is no backup change
         return;
@@ -498,7 +498,7 @@ void InveritaWindow::onConfigure()
 
     closeCurrentBackup();
     if (openCurrentBackup(entry) == Backup::Success) {
-        config.save(newOrigin + "/" + "inverita.conf");
+        config.save(newOrigin + "/inverita.conf");
         int index = m_backupListModel->setEntry(entry);
         m_backupSelectorUI->select(index); // causes a currentIndexChanged event
     } else {

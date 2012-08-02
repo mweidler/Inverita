@@ -19,7 +19,7 @@
     <message>
         <location filename="../src/Backup.cpp" line="182"/>
         <source>Directory does not exist or is not accessible.</source>
-        <translation>Auf Verzeichnis kann nicht zugegriffen werden oder existiert nicht.</translation>
+        <translation>Auf Verzeichnis kann nicht zugegriffen werden oder es existiert nicht.</translation>
     </message>
 </context>
 <context>
@@ -52,12 +52,12 @@
     <message>
         <location filename="../src/BackupEngine.cpp" line="164"/>
         <source>Old backup snapshot &apos;%1&apos; has been deleted due to low drive space.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alte Datensicherung »%1« wurde aus Platzgründen gelöscht.</translation>
     </message>
     <message>
         <location filename="../src/BackupEngine.cpp" line="182"/>
         <source>Old backup snapshot &apos;%1&apos; has been deleted due to overcharge.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alte Datensicherung »%1« wurde wegen Überzahl gelöscht.</translation>
     </message>
     <message>
         <location filename="../src/BackupEngine.cpp" line="264"/>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../src/BackupSelectorUI.cpp" line="45"/>
         <source>Select a recently used backup from the list below, or open an existing backup or create a new backup from the backup menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen sie eine kürzlich benutzte Datensicherung aus der unten stehenden Liste, oder benutzen Sie das Menü um eine bestehende Datensicherung zu öffnen oder eine neue Datensicherung anzulegen.</translation>
     </message>
     <message>
         <location filename="../src/BackupSelectorUI.cpp" line="51"/>
@@ -94,7 +94,7 @@
     <message>
         <location filename="../src/BackupSelectorUI.cpp" line="62"/>
         <source>Your current backup:</source>
-        <translation>Ihr aktuelles Backup:</translation>
+        <translation>Ihre aktuelle Datensicherung:</translation>
     </message>
 </context>
 <context>
@@ -163,22 +163,22 @@
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="182"/>
         <source>Backup snapshots can be verified after creation or on individual request.</source>
-        <translation>Datensicherungs Snapshots können nach der Erstellung oder später überprüft werden.</translation>
+        <translation>Datensicherungen können direkt nach der Erstellung oder später überprüft werden.</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="184"/>
         <source>&amp;Verify backup snapshots automatically after creation</source>
-        <translation>&amp;Überprüfe Datensicherungs-Schnapschüsse direkt nach der Erstellung</translation>
+        <translation>&amp;Überprüfe Datensicherungen direkt nach der Erstellung</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="297"/>
         <source>The backup storage you have specified does not exist.&lt;br&gt;Please choose another storage.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der angegebene Speicherort für die Datensicherung existiert nicht. &lt;br&gt; Bitte wählen Sie einen anderen Speicherort.</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="189"/>
         <source>Recompute digests on verification (recommended)</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuberechnung der Prüfsummen bei der Überprüfung (empfohlen)</translation>
     </message>
     <message>
         <source>The backup storage specifies the location, where backup data will be stored. You can choose every pathname which is accessible from your computer, e.g. &lt;i&gt;/media/usbdrive&lt;/i&gt; or &lt;i&gt;/data/backup&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;u&gt;Attention:&lt;/u&gt; If you change an existing backup storage to another location, a new backup will be created on the new location. Your existing backup and snapshots will not be copied to the new location and reside on the old location.</source>
@@ -197,37 +197,37 @@
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="152"/>
         <source>The list below shows all directories that comprises your backup, e.g. &apos;/data&apos; or &apos;/home/user&apos;</source>
-        <translation type="unfinished">Die folgende Auflistung zeigt alle Verzeichnisse, welche die Datensicherung umfasst,&lt;br&gt;z.B.»/data« oder »/home/user«</translation>
+        <translation>Die folgende Auflistung zeigt alle Verzeichnisse, welche die Datensicherung umfasst, z.B.»/data« oder »/home/user«</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="163"/>
         <source>The list below shows all file/directory-patterns that will be excluded from the backup, e.g. &apos;/data/temp&apos; will exclude the whole directory, &apos;test*&apos; will exclude all items beginning with &apos;test&apos;</source>
-        <translation type="unfinished">Die unten stehende Liste zeigt alle Datei-/Verzeichnis-Muster, die von der Datensicherung ausgenommen werden, z.B. »/data/temp« ignoriert das gesamte Verzeichnis, »test*« ignoriert alle Dateien und Verzeichnisse, die mit &quot;test&quot; beginnen</translation>
+        <translation>Die unten stehende Liste zeigt alle Datei-/Verzeichnis-Muster, die von der Datensicherung ausgenommen werden, z.B. »/data/temp« ignoriert das gesamte Verzeichnis, »test*« ignoriert alle Dateien und Verzeichnisse, die mit &quot;test&quot; beginnen</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="185"/>
         <source>Backup snapshot verification ensures the consistency of the digests to the corresponding files, and ensures that all files exist. For performance reasons, the digest recomputation can be left out.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Überprüfung einer Datensicherung stellt sicher, dass die Prüfsummen mit den Dateiinhalten übereinstimmen und alle Dateien gesichert sind. Aus Geschwindigkeitsgründen kann die Prüfsummenberechnung ausgelassen werden.</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="191"/>
         <source>At low drive space, the oldest backup snapshots can be deleted automatically.</source>
-        <translation type="unfinished">Bei geringem Speicherplatz können die ältesten Datensicherungen automatisch gelöscht werden.</translation>
+        <translation>Bei geringem Speicherplatz können die ältesten Datensicherungen automatisch gelöscht werden.</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="194"/>
         <source>&amp;Delete oldest backup snapshots until free capacity reaches</source>
-        <translation type="unfinished">&amp;Lösche die ältesten Datensicherungen bis die freie Kapazität</translation>
+        <translation>&amp;Lösche Datensicherungen bis die freie Kapazität</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="198"/>
         <source>percent</source>
-        <translation type="unfinished">Prozent erreicht</translation>
+        <translation>Prozent erreicht</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="204"/>
         <source>The number of backup snapshots can be limited.</source>
-        <translation type="unfinished">Die Anzahl der Datensicherungen kann begrenzt werden.</translation>
+        <translation>Die Anzahl der Datensicherungen kann begrenzt werden.</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="206"/>
@@ -255,22 +255,26 @@
     <message>
         <location filename="../src/ConfigurationListUI.cpp" line="41"/>
         <source>Add Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Hinzufügen</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationListUI.cpp" line="44"/>
         <source>Remove Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Entfernen</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationListUI.cpp" line="112"/>
         <source>Exclude pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausnahme Muster</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationListUI.cpp" line="113"/>
+        <source>Please enter a glob pattern, like &apos;&gt;Work?.txt&apos;, &apos;*.txt&apos;, &apos;Trash&apos;, or &apos;lost+found&apos;, where &apos;?&apos; matches one character and &apos;*&apos; matches any number of characters.&lt;br&gt;&lt;br&gt;Any file or directory that matches one of the patterns will be excluded from the backup.</source>
+        <translation>Bitte geben Sie ein Glob-Muster an, wie »Work?.txt«, »*.txt«, »*Trash« oder »lost+found«, wobei »?« vergleicht ein Zeichen und »*« vergleicht eine beliebiege Anzahl von Zeichen. &lt;br&gt;&lt;br&gt;Jede Datei oder jedes Verzeichnis, welches dem Muster entspricht, wird von der Datensicherung ausgenommen.</translation>
+    </message>
+    <message>
         <source>Please enter a glob pattern, like &lt;b&gt;Work?.txt&lt;/b&gt;, &lt;b&gt;*.txt&lt;/b&gt;, &lt;b&gt;Trash&lt;/b&gt;, or &lt;b&gt;lost+found&lt;/b&gt;,&lt;br&gt;where &apos;?&apos; matches one character and &apos;*&apos; matches any number of characters.&lt;br&gt;&lt;br&gt;Any file or directory that matches one of the patterns&lt;br&gt;will be excluded from the backup.&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Bitte geben Sie ein Glob-Muster an, wie »Work?.txt«, »*.txt«, »*Trash« oder »lost+found«, wobei »?« vergleicht ein Zeichen und »*« vergleicht eine beliebiege Anzahl von Zeichen. &lt;br&gt;&lt;br&gt;Jede Datei oder jedes Verzeichnis, welches dem Muster entspricht, wird von der Datensicherung ausgenommen.&lt;br&gt;</translation>
     </message>
 </context>
 <context>
@@ -278,17 +282,17 @@
     <message>
         <location filename="../src/ControlUI.cpp" line="39"/>
         <source>&lt;b&gt;Create&lt;/b&gt; a new backup snapshot or &lt;b&gt;verify&lt;/b&gt; your existing backup.</source>
-        <translation type="unfinished">Neuen Backup snapshot &lt;b&gt;erstellen&lt;/b&gt; oder Backup &lt;b&gt;überprüfen&lt;/b&gt;.</translation>
+        <translation>Neuen Backup snapshot &lt;b&gt;erstellen&lt;/b&gt; oder Backup &lt;b&gt;überprüfen&lt;/b&gt;.</translation>
     </message>
     <message>
         <location filename="../src/ControlUI.cpp" line="43"/>
         <source>Create new backup snapshot</source>
-        <translation type="unfinished">Neuen Snapshot erstellen</translation>
+        <translation>Neuen Snapshot erstellen</translation>
     </message>
     <message>
         <location filename="../src/ControlUI.cpp" line="49"/>
         <source>Verify last backup with origin</source>
-        <translation type="unfinished">Prüfe Backup gegen Original</translation>
+        <translation>Prüfe Backup gegen Original</translation>
     </message>
 </context>
 <context>
@@ -296,47 +300,47 @@
     <message>
         <location filename="../src/CopyTraverser.cpp" line="174"/>
         <source>Create hard link from &apos;%1&apos; to &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstelle Hard-Link von »%1« nach »%2«</translation>
     </message>
     <message>
         <location filename="../src/CopyTraverser.cpp" line="190"/>
         <source>Copy file from &apos;%1&apos; to &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiere Datei von »%1« nach »%2«</translation>
     </message>
     <message>
         <location filename="../src/CopyTraverser.cpp" line="191"/>
         <source>Copy error, disk full?</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Kopieren; kein Speicherplatz mehr?</translation>
     </message>
     <message>
         <location filename="../src/CopyTraverser.cpp" line="201"/>
         <source>Set file meta data  &apos;%1&apos; to &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Setze Datei-Meta-Daten von »%1« nach »%2«</translation>
     </message>
     <message>
         <location filename="../src/CopyTraverser.cpp" line="223"/>
         <source>Create directory &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstelle Verzeichnis »%1«</translation>
     </message>
     <message>
         <location filename="../src/CopyTraverser.cpp" line="224"/>
         <source>Could not create directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Verzeichnis konnte nicht erstellt werden</translation>
     </message>
     <message>
         <location filename="../src/CopyTraverser.cpp" line="242"/>
         <source>Set folder meta data  &apos;%1&apos; to &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Setze Verzeichnis-Meta-Daten von »%1« nach »%2«</translation>
     </message>
     <message>
         <location filename="../src/CopyTraverser.cpp" line="273"/>
         <source>Create symbolic link &apos;%1&apos; to &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstelle symbolischen Link von %1« nach »%2«</translation>
     </message>
     <message>
         <location filename="../src/CopyTraverser.cpp" line="284"/>
         <source>Copy file meta data from &apos;%1&apos; to &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiere Datei-Meta-Daten von »%1« nach »%2«</translation>
     </message>
 </context>
 <context>
@@ -464,6 +468,11 @@
         <translation>Verschlüsselungs-Software fehlt</translation>
     </message>
     <message>
+        <location filename="../src/InveritaWindow.cpp" line="478"/>
+        <source>Configuring backup &apos;%1&apos;</source>
+        <translation>Datensicherung »%1« konfigurieren</translation>
+    </message>
+    <message>
         <location filename="../src/InveritaWindow.cpp" line="180"/>
         <source>A critical error during backup execution has occured:</source>
         <translation>Ein schwerer Fehler währen der Erstellung des Backups ist aufgetreten:</translation>
@@ -476,7 +485,7 @@
     <message>
         <location filename="../src/InveritaWindow.cpp" line="182"/>
         <source>Make sure, you have proper privileges to write to the&lt;br&gt;backup medium. If this error occurs for the first time&lt;br&gt;on a long time used backup medium, please consider to&lt;br&gt;replace this medium with a new one.&lt;br&gt;&lt;br&gt;Due to backup integrity, this backup snapshot with all&lt;br&gt;contained folders and files should be deleted manually.&lt;br&gt;Please try to solve the problem and restart the backup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Stellen Sie sicher, dass Sie Schreibrechte auf dem Speichermedium besitzen. Wenn dieser Fehler zum ersten mal nach langer Benutzung des Speichermediums auftritt, erwägen Sie bitte das Speichermedium durch eine Neues zu ersetzen.&lt;br&gt;&lt;br&gt;Aus Integritätsgründen sollte diese Datensicherung mit allen Verzeichnissen und Dateien manuell gelöscht werden.&lt;br&gt;Bitte versuchen Sie das Problem zu beheben und starten die Datensicherung erneut.</translation>
     </message>
     <message>
         <location filename="../src/InveritaWindow.cpp" line="203"/>
@@ -509,9 +518,8 @@
         <translation>Öffne bestehende Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="478"/>
         <source>Configuring backup</source>
-        <translation>Datensicherung konfigurieren</translation>
+        <translation type="obsolete">Datensicherung konfigurieren</translation>
     </message>
     <message>
         <location filename="../src/InveritaWindow.cpp" line="514"/>
