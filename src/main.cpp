@@ -24,7 +24,10 @@
 
 #include "version.h"
 #include "InveritaWindow.h"
+
 #include <QApplication>
+#include <QTranslator>
+#include <QLibraryInfo>
 
 
 /*! The one and only main function and start point of the program

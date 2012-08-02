@@ -41,6 +41,8 @@
 #include "ProgressDialog.h"
 #include "Backup.h"
 
+#include <QThread>
+
 
 /*! The Main Window
  */

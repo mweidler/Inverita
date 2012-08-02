@@ -180,13 +180,16 @@ QWidget *ConfigurationDialog::constructOptionsTab()
     separator3->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 
     QLabel *verifyText = new QLabel(tr("Backup snapshots can be verified after creation or on individual request."));
+    verifyText->setWordWrap(true);
     m_verifyAfterBackup = new QCheckBox(tr("&Verify backup snapshots automatically after creation"));
-    QLabel *digestText = new QLabel(tr("Backup snapshot verification ensures the consistency of the digests to<br>"
-                                     "the corresponding files, and ensures that all files exist. For performance<br>"
-                                     "reasons, the digest recomputation can be left out."));
+    QLabel *digestText = new QLabel(tr("Backup snapshot verification ensures the consistency of the digests to "
+                                       "the corresponding files, and ensures that all files exist. For performance "
+                                       "reasons, the digest recomputation can be left out."));
+    digestText->setWordWrap(true);
     m_verifyDigest = new QCheckBox(tr("Recompute digests on verification (recommended)"));
 
     QLabel *purgeText = new QLabel(tr("At low drive space, the oldest backup snapshots can be deleted automatically."));
+    purgeText->setWordWrap(true);
     QHBoxLayout *purgeLayout = new QHBoxLayout;
     m_purgeBackups = new QCheckBox(tr("&Delete oldest backup snapshots until free capacity reaches"));
     m_spareCapacity = new QSpinBox;

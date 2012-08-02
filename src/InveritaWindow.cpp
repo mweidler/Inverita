@@ -38,6 +38,7 @@
 #include <QFileDialog>
 #include <QAction>
 #include <QMenuBar>
+#include <QDebug>
 
 
 /*! Constructs a new mainwindow objects and initializes the user interface.
@@ -261,7 +262,7 @@ void InveritaWindow::closeCurrentBackup()
     Backup &backup = Backup::instance();
 
     while (backup.close() == Backup::Failed) {
-        QString msg = tr("The backup target can not be closed:") + "<br>" +
+        QString msg = tr("The backup can not be closed:") + "<br>" +
                       backup.origin() + "<br><br>" +
                       backup.errorString() + "<br>";
         if (QMessageBox::critical(this, tr("Backup access error"), msg,

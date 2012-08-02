@@ -25,7 +25,6 @@
 #ifndef HEADER_BACKUPLISTMODEL_INC
 #define HEADER_BACKUPLISTMODEL_INC
 
-#include <QtCore>
 #include <QString>
 #include <QList>
 #include <QListIterator>

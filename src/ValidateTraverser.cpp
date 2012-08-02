@@ -65,7 +65,7 @@ void ValidateTraverser::evaluate(SnapshotMetaInfo &metaInfo)
     }
 
     if (metaInfo.sizeOfFiles() != processed()) {
-        emit report(tr("%1 bytes expected, but %2 bytes found.<br>").arg(metaInfo.sizeOfFiles()).arg(processed()) + "<br>");
+        emit report(tr("%1 Bytes expected, but %2 Bytes found.").arg(metaInfo.sizeOfFiles()).arg(processed()) + "<br>");
         countError();
     }
 

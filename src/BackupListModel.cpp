@@ -25,6 +25,9 @@
 
 #include "BackupListModel.h"
 
+#include <QDebug>
+#include <QSettings>
+#include <QFile>
 
 /*! Constructs a new backup list model.
  *
