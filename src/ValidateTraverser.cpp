@@ -54,7 +54,6 @@ void ValidateTraverser::setBackupPath(const QString &path)
 {
     m_backupPath = path;
     m_sizeOfBackupPath = path.length();
-    qDebug() << "Validate set backup path"  << m_backupPath << m_sizeOfBackupPath;
 }
 
 
@@ -86,10 +85,10 @@ void ValidateTraverser::evaluate(SnapshotMetaInfo &metaInfo)
 
     if (errors() > 0) {
         metaInfo.setQuality(SnapshotMetaInfo::Unknown);
-        emit report(tr("Backup snapshot invalidated.") + "<br><br>");
+        emit report(tr("Backup snapshot status set to 'Unknown'.") + "<br><br>");
     } else {
         metaInfo.setQuality(SnapshotMetaInfo::Reliable);
-        emit report(tr("Backup snapshot is valid.") + "<br><br>");
+        emit report(tr("All files validated, Backup snapshot is reliable.") + "<br><br>");
     }
 }
 
@@ -97,10 +96,10 @@ void ValidateTraverser::evaluate(SnapshotMetaInfo &metaInfo)
 /*! Create a digest of the file content.
  *
  *  The number of processed bytes are added to byte counter.
- *  Hashing can be aborted by flagging.
+ *  Digest computing can be aborted by flagging.
  *
  *  \param  sourcefilename the absolute path to the file to be copied
-  *  \return Computed hash digest of the file content
+  *  \return Computed digest of the file content
  */
 QByteArray ValidateTraverser::computeDigestOfFile(const QString &sourcefilename)
 {
@@ -135,7 +134,6 @@ void ValidateTraverser::onFile(const QString &absoluteFilePath)
 {
     QString key = absoluteFilePath.mid(m_sizeOfBackupPath);
 
-    // TODO: rename all Hash naming to Digest
     if (Backup::instance().config().verifyDigest()) {
         QByteArray previousDigest = m_digests.value(key);
         QByteArray currentDigest = computeDigestOfFile(absoluteFilePath);

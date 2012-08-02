@@ -56,7 +56,7 @@ protected:
     void scanDirectories();
     void executeBackup(QString &timestamp);
     void validateBackup(QString &timestamp);
-    void deleteSnapshot(QString snapshotName);
+    void deleteSnapshot(const QString &snapshotName);
 
 protected:
     QString           m_latestBackup;

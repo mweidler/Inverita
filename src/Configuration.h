@@ -51,7 +51,7 @@ public:
     void setVerifyAfterBackup(bool enable);
 
     bool verifyDigest() const;
-    void setVerifyHash(bool enable);
+    void setVerifyDigest(bool enable);
 
     bool autoDeleteBackups() const;
     void setAutoDeleteBackups(bool enable);
@@ -72,7 +72,7 @@ protected:
     QStringList m_includePaths;
     QStringList m_excludePatterns;
     bool        m_verifyAfterBackup;
-    bool        m_verifyHash;
+    bool        m_verifyDigest;
     bool        m_autoDeleteBackups;
     int         m_spareCapacity;
     bool        m_limitBackups;

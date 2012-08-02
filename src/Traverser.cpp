@@ -54,7 +54,7 @@ void Traverser::reset()
 
 /*! Add a specific directory (path) to the list to be traversed.
  */
-void Traverser::addIncludes(QString &absolutePath)
+void Traverser::addIncludes(const QString &absolutePath)
 {
     m_basePaths.append(absolutePath);
 }
@@ -78,7 +78,7 @@ void Traverser::addExcludes(const char *absolutePath)
 
 /*! Add a patterns to identify excludes.
  */
-void Traverser::addExcludes(QString &absolutePath)
+void Traverser::addExcludes(const QString &absolutePath)
 {
     m_excludePatterns.append(absolutePath);
 }

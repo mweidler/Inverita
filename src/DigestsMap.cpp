@@ -73,9 +73,9 @@ QByteArray DigestsMap::load(const QString &filename)
             break;
         }
 
-        QByteArray hash = line.mid(0, firstblank);
+        QByteArray digest = line.mid(0, firstblank);
         QByteArray path = line.mid(firstblank + 2, endofline - firstblank - 2);
-        this->insert(QString::fromUtf8(path), hash);
+        this->insert(QString::fromUtf8(path), digest);
     }
 
     return checksum.finish();

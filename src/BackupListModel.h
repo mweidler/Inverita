@@ -32,7 +32,7 @@
 #include <QStringListModel>
 
 
-/*! Container for meta information and hash value.
+/*! Container for meta information and digest value.
  */
 typedef struct BackupEntry {
     QString  label;

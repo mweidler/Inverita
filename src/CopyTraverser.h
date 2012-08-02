@@ -51,13 +51,13 @@ public:
 
 protected:
     bool compareFiles(QString &newfile, QString &reference);
-    bool copyFile(QString &sourcefilename, QString &targetfilename, QByteArray &hash);
+    bool copyFile(QString &sourcefilename, QString &targetfilename, QByteArray &digest);
 
     QString    m_currentBackupPath;  //!< absolute path to the current backup
     QString    m_previousBackupPath; //!< absolute path to the previous backup
     char       m_copyBuffer[4096];   //!< buffer for file copying
-    DigestsMap m_currentDigests;     //!< hash digests of all files in current backup
-    DigestsMap m_previousDigests;    //!< hash digests of all files in previous backup
+    DigestsMap m_currentDigests;     //!< digests of all files in current backup
+    DigestsMap m_previousDigests;    //!< digests of all files in previous backup
 };
 
 #endif

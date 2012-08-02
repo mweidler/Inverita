@@ -55,7 +55,7 @@ void Checksum::update(const char *buffer, int size)
 
 QByteArray Checksum::finish()
 {
-    QByteArray hashoutput(20, '\0');
-    sha1_finish(&ctx, (unsigned char *)hashoutput.data());
-    return hashoutput.toHex();
+    QByteArray digestoutput(20, '\0');
+    sha1_finish(&ctx, (unsigned char *)digestoutput.data());
+    return digestoutput.toHex();
 }

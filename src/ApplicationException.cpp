@@ -24,17 +24,6 @@
 
 #include "ApplicationException.h"
 
-#include <QtCore>
-#include <QString>
-
-#include <stdlib.h>
-#include <string.h>
-#include <iostream>
-
-#ifdef Q_OS_UNIX
-#include <unistd.h>
-#endif
-
 
 /*! Construct a new exception object
  */

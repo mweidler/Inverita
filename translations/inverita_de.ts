@@ -17,7 +17,7 @@
 <context>
     <name>Backup</name>
     <message>
-        <location filename="../src/Backup.cpp" line="181"/>
+        <location filename="../src/Backup.cpp" line="182"/>
         <source>Directory does not exist or is not accessible.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -790,12 +790,12 @@
     <message>
         <location filename="../src/ValidateEngine.cpp" line="36"/>
         <source>Validating the selected backup snapshot</source>
-        <translation type="unfinished"></translation>
+        <translation>Überprüfe den aktuellen Backup snapshot</translation>
     </message>
     <message>
         <location filename="../src/ValidateEngine.cpp" line="93"/>
         <source>The content of the digests file are not trustable because it&apos;s checksum does not match the expected checksum!&lt;br&gt;A snapshot validation is not possible!&lt;br&gt;The backup snapshot status will be set to &apos;Unknown&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dem Inhalt der Digest-Datei kann nicht vertraut werden, weil deren Prüfsumme nicht mit der erwarteten Prüfsumme überein stimmt!&lt;br&gt;Eine Überprüfung des Backup snapshots ist nicht möglich!&lt;br&gt;Der Status des Backup snapshots wird auf »Unbekannt« gesetzt. </translation>
     </message>
 </context>
 <context>
@@ -803,17 +803,17 @@
     <message>
         <location filename="../src/ValidateTraverser.cpp" line="64"/>
         <source>%1 files expected, but %2 files found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Es wurden %1 Dateien erwartet, aber %2 Dateien gefunden.</translation>
     </message>
     <message>
         <location filename="../src/ValidateTraverser.cpp" line="69"/>
         <source>%1 bytes expected, but %2 bytes found.&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Es wurden %1 Bytes erwartet, aber %2 Bytes gefunden.&lt;br&gt;</translation>
     </message>
     <message>
         <location filename="../src/ValidateTraverser.cpp" line="75"/>
         <source>The following files are missing in the backup snapshot:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Die folgenden Dateien fehlen im Backup snapshot:</translation>
     </message>
     <message>
         <location filename="../src/ValidateTraverser.cpp" line="84"/>
@@ -822,16 +822,21 @@
     </message>
     <message>
         <location filename="../src/ValidateTraverser.cpp" line="89"/>
-        <source>Backup snapshot invalidated.</source>
+        <source>Backup snapshot status set to &apos;Unknown&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ValidateTraverser.cpp" line="92"/>
-        <source>Backup snapshot is valid.</source>
+        <source>%1 files validated.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="144"/>
+        <location filename="../src/ValidateTraverser.cpp" line="93"/>
+        <source>Backup snapshot is reliable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ValidateTraverser.cpp" line="145"/>
         <source>File &apos;%1&apos; has beed modified.</source>
         <translation type="unfinished">Datei »%1« wurde verändert.</translation>
     </message>

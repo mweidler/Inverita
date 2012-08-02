@@ -62,7 +62,7 @@ private:
 
 private:
     QCheckBox     *m_verifyAfterBackup;
-    QCheckBox     *m_verifyHash;
+    QCheckBox     *m_verifyDigest;
     QCheckBox     *m_purgeBackups;
     QSpinBox      *m_spareCapacity;
     QCheckBox     *m_limitBackups;

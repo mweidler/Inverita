@@ -113,10 +113,10 @@ bool CopyTraverser::compareFiles(QString &newfilename, QString &reffilename)
  *
  *  \param  sourcefilename the absolute path to the file to be copied
  *  \param  targetfilename the absolute path to the location to be copied
- *  \param  hash           hash digest of the file content
+ *  \param  digest         digest of the file content
  *  \return true on success, otherwise false
  */
-bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, QByteArray &hash)
+bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, QByteArray &digest)
 {
     Checksum checksum;
     qint64 bytesRead, bytesWritten;
@@ -148,7 +148,7 @@ bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, Q
         } while (bytesRead == (qint64)sizeof(m_copyBuffer) && !shouldAbort());
     }
 
-    hash = checksum.finish();
+    digest = checksum.finish();
     return true;
 }
 
@@ -162,7 +162,7 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
     QString source = absoluteFilePath;
     QString target = m_currentBackupPath + absoluteFilePath;
     QString previous = m_previousBackupPath + absoluteFilePath;
-    QByteArray hash;
+    QByteArray digest;
 
     /* If a previous backup already exists and there is already exactly the same file,
      * we create a hard link on this file instead of creating/copying a new file.
@@ -176,15 +176,15 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
             throw e;
         }
 
-        // take hash from previous backup
-        hash = m_previousDigests.value(source);
-        m_currentDigests.insert(source, hash);
+        // take digest from previous backup
+        digest = m_previousDigests.value(source);
+        m_currentDigests.insert(source, digest);
 
         QFile target(source);
         countProcessed(target.size());
 
     } else {
-        bool success = copyFile(source, target, hash);
+        bool success = copyFile(source, target, digest);
         if (!success) {
             ApplicationException e;
             e.setCauser(tr("Copy file from '%1' to '%2'").arg(source).arg(target));
@@ -192,8 +192,8 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
             throw e;
         }
 
-        // hash has been generated during copy
-        m_currentDigests.insert(source, hash);
+        // digest has been generated during copy
+        m_currentDigests.insert(source, digest);
 
         int rc = CopyMeta(source, target);
         if (rc == -1) {

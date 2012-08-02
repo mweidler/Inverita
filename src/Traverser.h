@@ -45,10 +45,10 @@ public:
     Traverser();
 
     void   reset();
-    void   addIncludes(QString &absolutePath);
+    void   addIncludes(const QString &absolutePath);
     void   addIncludes(QStringList &absolutePaths);
     void   addExcludes(const char *absolutePath);
-    void   addExcludes(QString &absolutePath);
+    void   addExcludes(const QString &absolutePath);
     void   addExcludes(QStringList &absolutePaths);
 
     qint64 files() const;

@@ -167,6 +167,7 @@ QString Backup::findUsableMountPoint() const
     return QString("/tmp/inverita-backup");
 }
 
+
 Backup::Status Backup::open()
 {
     QProcess process;

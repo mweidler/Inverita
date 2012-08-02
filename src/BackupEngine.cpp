@@ -184,7 +184,7 @@ void BackupEngine::checkOvercharge()
 }
 
 
-void BackupEngine::deleteSnapshot(QString snapshotName)
+void BackupEngine::deleteSnapshot(const QString &snapshotName)
 {
     qDebug() << "BackupEngine::deleteSnapshot" << snapshotName;
 
@@ -269,7 +269,7 @@ void BackupEngine::executeBackup(QString &timestamp)
 
 
 /*! Sub job of the backup engine: Validates, if the backup is fully readable and
- *  compares content against hash digests.
+ *  compares content against digests.
  *
  * \param timestamp of the new backup snapshot
  */

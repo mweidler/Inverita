@@ -61,7 +61,7 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     buttonBox->button(QDialogButtonBox::Save)->setAutoDefault(true);
     buttonBox->button(QDialogButtonBox::Save)->setDefault(true);
     m_verifyAfterBackup->setChecked(m_config.verifyAfterBackup());
-    m_verifyHash->setChecked(m_config.verifyDigest());
+    m_verifyDigest->setChecked(m_config.verifyDigest());
     m_purgeBackups->setChecked(m_config.autoDeleteBackups());
     m_spareCapacity->setValue(m_config.spareCapacity());
     m_limitBackups->setChecked(m_config.limitBackups());
@@ -181,10 +181,10 @@ QWidget *ConfigurationDialog::constructOptionsTab()
 
     QLabel *verifyText = new QLabel(tr("Backup snapshots can be verified after creation or on individual request."));
     m_verifyAfterBackup = new QCheckBox(tr("&Verify backup snapshots automatically after creation"));
-    QLabel *hashText = new QLabel(tr("Backup snapshot verification ensures the consistency of the digests to<br>"
+    QLabel *digestText = new QLabel(tr("Backup snapshot verification ensures the consistency of the digests to<br>"
                                      "the corresponding files, and ensures that all files exist. For performance<br>"
                                      "reasons, the digest recomputation can be left out."));
-    m_verifyHash = new QCheckBox(tr("Recompute digests on verification (recommended)"));
+    m_verifyDigest = new QCheckBox(tr("Recompute digests on verification (recommended)"));
 
     QLabel *purgeText = new QLabel(tr("At low drive space, the oldest backup snapshots can be deleted automatically."));
     QHBoxLayout *purgeLayout = new QHBoxLayout;
@@ -214,8 +214,8 @@ QWidget *ConfigurationDialog::constructOptionsTab()
     optionsLayout->addWidget(verifyText);
     optionsLayout->addWidget(m_verifyAfterBackup);
     optionsLayout->addWidget(separator1);
-    optionsLayout->addWidget(hashText);
-    optionsLayout->addWidget(m_verifyHash);
+    optionsLayout->addWidget(digestText);
+    optionsLayout->addWidget(m_verifyDigest);
     optionsLayout->addWidget(separator2);
     optionsLayout->addWidget(purgeText);
     optionsLayout->addLayout(purgeLayout);
@@ -298,7 +298,7 @@ void ConfigurationDialog::onSave()
     }
 
     m_config.setVerifyAfterBackup(m_verifyAfterBackup->isChecked());
-    m_config.setVerifyHash(m_verifyHash->isChecked());
+    m_config.setVerifyDigest(m_verifyDigest->isChecked());
     m_config.setAutoDeleteBackups(m_purgeBackups->isChecked());
     m_config.setLimitBackups(m_limitBackups->isChecked());
     m_config.setMaximumBackups(m_numberBackups->value());
