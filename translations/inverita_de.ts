@@ -78,10 +78,6 @@
 <context>
     <name>BackupSelectorUI</name>
     <message>
-        <source>Select a recently used backup from the list below, or open an&lt;br&gt;existing backup or create a new backup from the backup menu.</source>
-        <translation type="obsolete">Wählen sie ein kürzlich benutztes Backup aus der unten stehenden Liste, oder&lt;br&gt;öffnen sie ein bestehendes, oder erstellen sie ein neues Backup im Menü.</translation>
-    </message>
-    <message>
         <location filename="../src/BackupSelectorUI.cpp" line="45"/>
         <source>Select a recently used backup from the list below, or open an existing backup or create a new backup from the backup menu.</source>
         <translation>Wählen sie eine kürzlich benutzte Datensicherung aus der unten stehenden Liste, oder benutzen Sie das Menü um eine bestehende Datensicherung zu öffnen oder eine neue Datensicherung anzulegen.</translation>
@@ -134,10 +130,6 @@
         <translation>Optionen</translation>
     </message>
     <message>
-        <source>The backup storage specifies the location, where backup&lt;br&gt;data will be stored. You can choose every pathname which is&lt;br&gt; accessible from your computer, e.g. &lt;i&gt;/media/usbdrive&lt;/i&gt; or&lt;br&gt;&lt;i&gt;/data/backup&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;u&gt;Attention:&lt;/u&gt; If you change an existing backup storage to&lt;br&gt;another location, a new backup will be created on the new&lt;br&gt;location. Your existing backup and snapshots will not be&lt;br&gt;copied to the new location and reside on the old location.</source>
-        <translation type="obsolete">Der Backup Speicherort bezeichnet den Platz, worauf die&lt;br&gt;Backup-Daten gespeichert werden. Sie können jeden Pfad&lt;br&gt;verwenden, der von Ihrem Computer erreicht werden kann,&lt;br&gt;z.B. &lt;i&gt;/media/usbdrive&lt;/i&gt; oder &lt;i&gt;/data/backup&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;u&gt;Achtung:&lt;/u&gt; Wenn Sie einen bestehenden Speicherort verändern,&lt;br&gt;wird dort ein neues Backup angelegt. Das bereits vorhandene&lt;br&gt;Backup wird nicht umkopiert.</translation>
-    </message>
-    <message>
         <location filename="../src/ConfigurationDialog.cpp" line="114"/>
         <source>Change</source>
         <translation>Ändern</translation>
@@ -148,17 +140,9 @@
         <translation>Derzeitiger Speicherort:</translation>
     </message>
     <message>
-        <source>You can give your backup a short label, like &lt;i&gt;Home-Backup&lt;/i&gt; or &lt;i&gt;Dropbox&lt;/i&gt;.</source>
-        <translation type="obsolete">Geben Sie dem Backup eine kurze Bezeichnung, z.B. »Home-Backup« oder »Dropbox«.</translation>
-    </message>
-    <message>
         <location filename="../src/ConfigurationDialog.cpp" line="130"/>
         <source>Backup label:</source>
         <translation>Bezeichnung:</translation>
-    </message>
-    <message>
-        <source>The list below shows all directories that comprises your backup,&lt;br&gt;e.g. &lt;i&gt;/data&lt;/i&gt; or &lt;i&gt;/home/user&lt;/i&gt;</source>
-        <translation type="obsolete">Die folgende Auflistung zeigt alle Verzeichnisse, die das Backup umfasst,&lt;br&gt;z.B.»/data« oder »/home/user«</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="182"/>
@@ -179,10 +163,6 @@
         <location filename="../src/ConfigurationDialog.cpp" line="189"/>
         <source>Recompute digests on verification (recommended)</source>
         <translation>Neuberechnung der Prüfsummen bei der Überprüfung (empfohlen)</translation>
-    </message>
-    <message>
-        <source>The backup storage specifies the location, where backup data will be stored. You can choose every pathname which is accessible from your computer, e.g. &lt;i&gt;/media/usbdrive&lt;/i&gt; or &lt;i&gt;/data/backup&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;u&gt;Attention:&lt;/u&gt; If you change an existing backup storage to another location, a new backup will be created on the new location. Your existing backup and snapshots will not be copied to the new location and reside on the old location.</source>
-        <translation type="obsolete">Der Backup Speicherort bezeichnet den Platz, worauf die Backup-Daten gespeichert werden. Sie können jeden Pfad verwenden, der von Ihrem Computer erreicht werden kann, z.B. »/media/usbdrive« oder &lt;i&gt;/data/backup&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;u&gt;Achtung:&lt;/u&gt; Wenn Sie einen bestehenden Speicherort verändern, wird dort ein neues Backup angelegt. Das bereits vorhandene Backup wird nicht umkopiert.</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="92"/>
@@ -271,10 +251,6 @@
         <location filename="../src/ConfigurationListUI.cpp" line="113"/>
         <source>Please enter a glob pattern, like &apos;&gt;Work?.txt&apos;, &apos;*.txt&apos;, &apos;Trash&apos;, or &apos;lost+found&apos;, where &apos;?&apos; matches one character and &apos;*&apos; matches any number of characters.&lt;br&gt;&lt;br&gt;Any file or directory that matches one of the patterns will be excluded from the backup.</source>
         <translation>Bitte geben Sie ein Glob-Muster an, wie »Work?.txt«, »*.txt«, »*Trash« oder »lost+found«, wobei »?« vergleicht ein Zeichen und »*« vergleicht eine beliebiege Anzahl von Zeichen. &lt;br&gt;&lt;br&gt;Jede Datei oder jedes Verzeichnis, welches dem Muster entspricht, wird von der Datensicherung ausgenommen.</translation>
-    </message>
-    <message>
-        <source>Please enter a glob pattern, like &lt;b&gt;Work?.txt&lt;/b&gt;, &lt;b&gt;*.txt&lt;/b&gt;, &lt;b&gt;Trash&lt;/b&gt;, or &lt;b&gt;lost+found&lt;/b&gt;,&lt;br&gt;where &apos;?&apos; matches one character and &apos;*&apos; matches any number of characters.&lt;br&gt;&lt;br&gt;Any file or directory that matches one of the patterns&lt;br&gt;will be excluded from the backup.&lt;br&gt;</source>
-        <translation type="obsolete">Bitte geben Sie ein Glob-Muster an, wie »Work?.txt«, »*.txt«, »*Trash« oder »lost+found«, wobei »?« vergleicht ein Zeichen und »*« vergleicht eine beliebiege Anzahl von Zeichen. &lt;br&gt;&lt;br&gt;Jede Datei oder jedes Verzeichnis, welches dem Muster entspricht, wird von der Datensicherung ausgenommen.&lt;br&gt;</translation>
     </message>
 </context>
 <context>
@@ -518,10 +494,6 @@
         <translation>Öffne bestehende Datensicherung</translation>
     </message>
     <message>
-        <source>Configuring backup</source>
-        <translation type="obsolete">Datensicherung konfigurieren</translation>
-    </message>
-    <message>
         <location filename="../src/InveritaWindow.cpp" line="514"/>
         <source>Create new backup...</source>
         <translation>Erstelle neue Datensicherung...</translation>
@@ -612,28 +584,6 @@
 </context>
 <context>
     <name>ProgressDialog</name>
-    <message>
-        <source>while processing %1 MByte/s</source>
-        <translation type="obsolete">, verarbeite %1 MByte/s</translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 minute(s)</source>
-        <translation type="obsolete">
-            <numerusform>%1 Minute</numerusform>
-            <numerusform>%1 Minuten</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 second(s)</source>
-        <translation type="obsolete">
-            <numerusform>%1 Sekunde</numerusform>
-            <numerusform>%1 Sekunden</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>, processing %1 MByte/s</source>
-        <translation type="obsolete">, verarbeite %1 MByte/s</translation>
-    </message>
     <message numerus="yes">
         <location filename="../src/ProgressDialog.cpp" line="222"/>
         <source>%n minute(s)</source>
@@ -659,10 +609,6 @@
         <location filename="../src/ProgressDialog.cpp" line="230"/>
         <source>%1 estimated time remaining</source>
         <translation>%1 geschätzte Restzeit</translation>
-    </message>
-    <message>
-        <source>estimated time remaining</source>
-        <translation type="obsolete">geschätzte Restzeit</translation>
     </message>
     <message>
         <location filename="../src/ProgressDialog.cpp" line="233"/>
@@ -718,10 +664,6 @@
         <location filename="../src/SnapshotListModel.cpp" line="186"/>
         <source>dddd, dd-MMM-yyyy hh:mm:ss</source>
         <translation>dddd, dd.MM.yyyy hh:mm:ss</translation>
-    </message>
-    <message>
-        <source>dd/MM/yyyy hh:mm:ss</source>
-        <translation type="obsolete">dd.MM.yyyy hh:mm:ss</translation>
     </message>
     <message>
         <location filename="../src/SnapshotListModel.cpp" line="196"/>
@@ -814,10 +756,6 @@
         <translation>Es wurden %1 Dateien erwartet, aber %2 Dateien gefunden.</translation>
     </message>
     <message>
-        <source>%1 bytes expected, but %2 bytes found.&lt;br&gt;</source>
-        <translation type="obsolete">Es wurden %1 Bytes erwartet, aber %2 Bytes gefunden.&lt;br&gt;</translation>
-    </message>
-    <message>
         <location filename="../src/ValidateTraverser.cpp" line="68"/>
         <source>%1 Bytes expected, but %2 Bytes found.</source>
         <translation>Es wurden %1 Bytes erwartet, aber %2 Bytes gefunden.</translation>
@@ -846,10 +784,6 @@
         <location filename="../src/ValidateTraverser.cpp" line="142"/>
         <source>File &apos;%1&apos; has beed modified.</source>
         <translation>Datei »%1« wurde verändert.</translation>
-    </message>
-    <message>
-        <source>&apos;%1&apos; has beed modified.</source>
-        <translation type="obsolete">Datei »%1« wurde verändert.</translation>
     </message>
 </context>
 <context>
