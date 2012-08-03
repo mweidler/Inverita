@@ -198,7 +198,7 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
         int rc = CopyMeta(source, target);
         if (rc == -1) {
             ApplicationException e;
-            e.setCauser(tr("Set file meta data  '%1' to '%2'").arg(source).arg(target));
+            e.setCauser(tr("Set file meta data '%1' to '%2'").arg(source).arg(target));
             e.setErrorMessage(strerror(errno));
             throw e;
         }
@@ -239,7 +239,7 @@ void CopyTraverser::onLeaveDir(const QString &absoluteFilePath)
     int rc = CopyMeta(source, target);
     if (rc == -1) {
         ApplicationException e;
-        e.setCauser(tr("Set folder meta data  '%1' to '%2'").arg(source).arg(target));
+        e.setCauser(tr("Set folder meta data '%1' to '%2'").arg(source).arg(target));
         e.setErrorMessage(strerror(errno));
         throw e;
     }

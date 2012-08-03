@@ -37,6 +37,7 @@
 ControlUI::ControlUI(QWidget *parent) : QWidget(parent)
 {
     QLabel *description = new QLabel(tr("<b>Create</b> a new backup snapshot or <b>verify</b> your existing backup."));
+    description->setWordWrap(true);
 
     m_btnCreate = new QToolButton(this);
     m_btnCreate->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -60,6 +61,7 @@ ControlUI::ControlUI(QWidget *parent) : QWidget(parent)
     masterLayout->addWidget(description);
     masterLayout->addLayout(buttonLayout);
     this->setLayout(masterLayout);
+    this->setMinimumSize(1,1); // TODO: this is only a work around, make this right.
 
     connect(m_btnCreate, SIGNAL(clicked()), this, SIGNAL(startBackup()));
     connect(m_btnVerify, SIGNAL(clicked()), this, SIGNAL(startVerify()));

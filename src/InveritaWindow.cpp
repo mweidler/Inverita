@@ -61,8 +61,8 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
     m_controlUI = new ControlUI(this);
 
     QHBoxLayout *hlayout = new QHBoxLayout;
-    hlayout->addWidget(m_driveCapacityUI, 0, Qt::AlignLeft);
-    hlayout->addWidget(m_controlUI, 1, Qt::AlignRight);
+    hlayout->addWidget(m_driveCapacityUI);
+    hlayout->addWidget(m_controlUI);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setSpacing(20);

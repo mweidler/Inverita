@@ -110,7 +110,7 @@ void ConfigurationListUI::onAddPattern()
 {
     QInputDialog inputDialog(this);
     inputDialog.setWindowTitle(tr("Exclude pattern"));
-    inputDialog.setLabelText(tr("Please enter a glob pattern, like '>Work?.txt', '*.txt', 'Trash', or 'lost+found', "
+    inputDialog.setLabelText(tr("Please enter a glob pattern, like 'Work?.txt', '*.txt', 'Trash', or 'lost+found', "
                                 "where '?' matches one character and '*' matches any number of characters.<br><br>"
                                 "Any file or directory that matches one of the patterns "
                                 "will be excluded from the backup.") + "<br>");
