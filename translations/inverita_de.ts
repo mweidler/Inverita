@@ -178,7 +178,7 @@
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="152"/>
         <source>The list below shows all directories that comprises your backup, e.g. &apos;/data&apos; or &apos;/home/user&apos;</source>
-        <translation>Die folgende Auflistung zeigt alle Verzeichnisse, welche die Datensicherung umfasst, z.B.»/data« oder »/home/user«</translation>
+        <translation>Die folgende Auflistung zeigt alle Verzeichnisse, welche die Datensicherung umfasst, z.B. »/data« oder »/home/user«</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="163"/>
@@ -259,17 +259,17 @@
     <message>
         <location filename="../src/ControlUI.cpp" line="39"/>
         <source>&lt;b&gt;Create&lt;/b&gt; a new backup snapshot or &lt;b&gt;verify&lt;/b&gt; your existing backup.</source>
-        <translation>Neue Sicherungsversion &lt;b&gt;erstellen&lt;/b&gt; oder Datensicherung &lt;b&gt;überprüfen&lt;/b&gt;.</translation>
+        <translation>Neue Datensicherungsversion &lt;b&gt;erstellen&lt;/b&gt; oder vorhandene Datensicherung mit Original &lt;b&gt;vergleichen&lt;/b&gt;.</translation>
     </message>
     <message>
         <location filename="../src/ControlUI.cpp" line="44"/>
         <source>Create new backup snapshot</source>
-        <translation>Neue Sicherungsversion erstellen</translation>
+        <translation>Sicherungsversion erstellen</translation>
     </message>
     <message>
         <location filename="../src/ControlUI.cpp" line="50"/>
         <source>Verify last backup with origin</source>
-        <translation>Prüfe Sicherung gegen Original</translation>
+        <translation>Vergleiche Datensicherung</translation>
     </message>
 </context>
 <context>

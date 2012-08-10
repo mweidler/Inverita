@@ -61,7 +61,7 @@ ControlUI::ControlUI(QWidget *parent) : QWidget(parent)
     masterLayout->addWidget(description);
     masterLayout->addLayout(buttonLayout);
     this->setLayout(masterLayout);
-    this->setMinimumSize(1,1); // TODO: this is only a work around, make this right.
+    this->setMinimumSize(1, 1); // TODO: this is only a work around, make this right.
 
     connect(m_btnCreate, SIGNAL(clicked()), this, SIGNAL(startBackup()));
     connect(m_btnVerify, SIGNAL(clicked()), this, SIGNAL(startVerify()));

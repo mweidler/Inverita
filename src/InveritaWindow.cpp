@@ -161,6 +161,11 @@ void InveritaWindow::closeEvent(QCloseEvent *event)
     m_validateThread.exit();
     m_verifyThread.exit();
 
+    m_backupThread.wait();
+    m_eraseThread.wait();
+    m_validateThread.wait();
+    m_verifyThread.wait();
+
     closeCurrentBackup();
     QMainWindow::closeEvent(event);
 }
