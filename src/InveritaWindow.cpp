@@ -545,12 +545,6 @@ void InveritaWindow::createActions()
     m_aboutAction->setIconVisibleInMenu(true);
     m_aboutAction->setIcon(QIcon::fromTheme("help-about"));
     connect(m_aboutAction, SIGNAL(triggered()), this, SLOT(about()));
-
-    m_aboutQtAction = new QAction(tr("About &Qt..."), this);
-    m_aboutQtAction->setStatusTip(tr("Show the Qt library's About box"));
-    m_aboutQtAction->setIconVisibleInMenu(true);
-    m_aboutQtAction->setIcon(QIcon::fromTheme("help-about"));
-    connect(m_aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 }
 
 
@@ -566,6 +560,5 @@ void InveritaWindow::createMenus()
 
     m_helpMenu = menuBar()->addMenu(tr("&Help"));
     m_helpMenu->addAction(m_aboutAction);
-    m_helpMenu->addAction(m_aboutQtAction);
 }
 

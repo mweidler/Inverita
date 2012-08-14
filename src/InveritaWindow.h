@@ -94,7 +94,6 @@ private:
     QAction *m_openBackupAction;
     QAction *m_exitAction;
     QAction *m_aboutAction;
-    QAction *m_aboutQtAction;
 
     ProgressDialog    *m_progressBackupDialog;
     ProgressDialog    *m_progressEraseDialog;
