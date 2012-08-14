@@ -134,10 +134,11 @@ int BackupListModel::load(const QString &organization)
         BackupEntry entry;
         entry.label = settings.value("label").toString();
         entry.origin = settings.value("origin").toString();
-        if (settings.value("encrypted").toInt()) {
+        QString encryption = settings.value("encryption").toString();
+        if (encryption == "encfs") {
             entry.encryption = Backup::EncFSEncrypted;
         } else {
-            entry.encryption = Backup::NotEncrypted; // TODO: save as string
+            entry.encryption = Backup::NotEncrypted;
         }
         entry.password = settings.value("password").toString();
 
@@ -174,7 +175,7 @@ void BackupListModel::saveAs(const QString &organization)
         settings.setArrayIndex(i);
         settings.setValue("label", entry.label);
         settings.setValue("origin", entry.origin);
-        settings.setValue("encrypted", entry.encryption);
+        settings.setValue("encryption", (entry.encryption == Backup::EncFSEncrypted)?"encfs":"none");
         settings.setValue("password", entry.password);
     }
     settings.endArray();
