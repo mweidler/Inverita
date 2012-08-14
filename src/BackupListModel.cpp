@@ -175,7 +175,7 @@ void BackupListModel::saveAs(const QString &organization)
         settings.setArrayIndex(i);
         settings.setValue("label", entry.label);
         settings.setValue("origin", entry.origin);
-        settings.setValue("encryption", (entry.encryption == Backup::EncFSEncrypted)?"encfs":"none");
+        settings.setValue("encryption", (entry.encryption == Backup::EncFSEncrypted) ? "encfs" : "none");
         settings.setValue("password", entry.password);
     }
     settings.endArray();
