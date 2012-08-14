@@ -533,14 +533,14 @@ void InveritaWindow::createActions()
     m_openBackupAction->setShortcut(QKeySequence::Open);
     connect(m_openBackupAction, SIGNAL(triggered()), this, SLOT(onMenuOpenBackup()));
 
-    m_exitAction = new QAction(tr("Exit"), this);
-    m_exitAction->setStatusTip(tr("Exit application"));
-    m_exitAction->setIconVisibleInMenu(true);
-    m_exitAction->setIcon(QIcon::fromTheme("exit"));
-    m_exitAction->setShortcut(QKeySequence::Quit);
-    connect(m_exitAction, SIGNAL(triggered()), this, SLOT(close()));
+    m_quitAction = new QAction(tr("Quit"), this);
+    m_quitAction->setStatusTip(tr("Quit application"));
+    m_quitAction->setIconVisibleInMenu(true);
+    m_quitAction->setIcon(QIcon::fromTheme("exit"));
+    m_quitAction->setShortcut(QKeySequence::Quit);
+    connect(m_quitAction, SIGNAL(triggered()), this, SLOT(close()));
 
-    m_aboutAction = new QAction(tr("&About..."), this);
+    m_aboutAction = new QAction(tr("&About INVERITA..."), this);
     m_aboutAction->setStatusTip(tr("Show the application's About box"));
     m_aboutAction->setIconVisibleInMenu(true);
     m_aboutAction->setIcon(QIcon::fromTheme("help-about"));
@@ -556,7 +556,7 @@ void InveritaWindow::createMenus()
     m_backupMenu->addAction(m_createBackupAction);
     m_backupMenu->addAction(m_openBackupAction);
     m_backupMenu->addSeparator();
-    m_backupMenu->addAction(m_exitAction);
+    m_backupMenu->addAction(m_quitAction);
 
     m_helpMenu = menuBar()->addMenu(tr("&Help"));
     m_helpMenu->addAction(m_aboutAction);

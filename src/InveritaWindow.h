@@ -92,7 +92,7 @@ private:
 
     QAction *m_createBackupAction;
     QAction *m_openBackupAction;
-    QAction *m_exitAction;
+    QAction *m_quitAction;
     QAction *m_aboutAction;
 
     ProgressDialog    *m_progressBackupDialog;
