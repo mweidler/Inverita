@@ -49,6 +49,8 @@ public:
     void setLocation(const QString &location);
     QString label() const;
     void setLabel(const QString &label);
+    bool encrypt() const;
+    void setEncrypt(bool encrypt);
 
 public slots:
     void onChangeButton();
@@ -61,6 +63,7 @@ private:
     QWidget *constructOptionsTab();
 
 private:
+    QCheckBox     *m_encryptBackup;
     QCheckBox     *m_verifyAfterBackup;
     QCheckBox     *m_verifyDigest;
     QCheckBox     *m_purgeBackups;

@@ -278,7 +278,7 @@ void InveritaWindow::closeCurrentBackup()
 }
 
 
-Backup::Status InveritaWindow::openCurrentBackup(BackupEntry entry)
+Backup::Status InveritaWindow::openCurrentBackup(BackupEntry &entry)
 {
     Backup::Status status = Backup::Failed;
 
@@ -287,7 +287,7 @@ Backup::Status InveritaWindow::openCurrentBackup(BackupEntry entry)
     backup.setLabel(entry.label);
 
     while (status != Backup::Success) {
-        if (backup.detectEncryption() != Backup::NotEncrypted) {
+        if (entry.encryption == Backup::EncFSEncrypted) {
 
             QString currentPassword = entry.password;
             PasswordDialog passwordDialog(this);
@@ -305,13 +305,12 @@ Backup::Status InveritaWindow::openCurrentBackup(BackupEntry entry)
             }
 
             backup.setPassword(currentPassword);
-
-            entry.encrypted = 1;
-            m_backupListModel->setEntry(entry);
+            entry.encryption = Backup::EncFSEncrypted;
         }
 
         QString msg;
         QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+        backup.setEncryption(entry.encryption ? Backup::EncFSEncrypted : Backup::NotEncrypted);
         status = backup.open();
         QApplication::restoreOverrideCursor();
 
@@ -349,14 +348,18 @@ void InveritaWindow::onBackupSelected(int selection)
     Backup &backup = Backup::instance();
     BackupEntry entry = m_backupListModel->at(selection);
 
-    closeCurrentBackup();
-    if (openCurrentBackup(entry) != Backup::Success) {
-        m_backupSelectorUI->select(-1);
-        return;
-    }
+    // Switch backup only if really a new backup is selected
+    if (backup.origin() != entry.origin) {
+        closeCurrentBackup();
+        if (openCurrentBackup(entry) != Backup::Success) {
+            m_backupSelectorUI->select(-1);
+            return;
+        }
 
-    if (QFile::exists(backup.location() + "/inverita.conf") == false) {
-        onConfigure();
+        m_backupListModel->setEntry(entry);
+        if (QFile::exists(backup.location() + "/inverita.conf") == false) {
+            onConfigure();
+        }
     }
 
     reload();
@@ -428,17 +431,16 @@ void InveritaWindow::onMenuNewBackup()
         return;
     }
 
+    closeCurrentBackup();
+
     BackupEntry entry;
     entry.label = configDialog.label();
     entry.origin = configDialog.location();
-    entry.encrypted = (int)Backup::detectEncryption(entry.origin);
+    entry.encryption = configDialog.encrypt() ? Backup::EncFSEncrypted : Backup::NotEncrypted;
     entry.password.clear();
 
-    Backup &backup = Backup::instance();
-
-    closeCurrentBackup();
     if (openCurrentBackup(entry) == Backup::Success) {
-        config.save(backup.location() + "/inverita.conf");
+        config.save(Backup::instance().location() + "/inverita.conf");
         int index = m_backupListModel->setEntry(entry);
         m_backupSelectorUI->select(index); // causes a currentIndexChanged event
     } else {
@@ -460,11 +462,11 @@ void InveritaWindow::onMenuOpenBackup()
 
     BackupEntry entry;
     entry.origin = filedialog.selectedFiles()[0];
-    entry.encrypted = 0;
+    entry.encryption = Backup::NotEncrypted;
     entry.password.clear();
 
-    if (Backup::detectEncryption(entry.origin) != Backup::NotEncrypted) {
-        entry.encrypted = 1;
+    if (QFile::exists(entry.origin + "/.encfs6.xml")) {
+        entry.encryption = Backup::EncFSEncrypted;
     }
 
     int index = m_backupListModel->setEntry(entry);
@@ -483,6 +485,7 @@ void InveritaWindow::onConfigure()
     configDialog.setWindowTitle(tr("Configuring backup '%1'").arg(backup.origin()));
     configDialog.setLabel(backup.label());
     configDialog.setLocation(backup.origin());
+    configDialog.setEncrypt(backup.encryption() == Backup::EncFSEncrypted);
     if (configDialog.exec() != QDialog::Accepted) {
         return;
     }
@@ -490,7 +493,7 @@ void InveritaWindow::onConfigure()
     BackupEntry entry;
     entry.label = configDialog.label();
     entry.origin = configDialog.location();
-    entry.encrypted = (int)Backup::detectEncryption(entry.origin);
+    entry.encryption = configDialog.encrypt() ? Backup::EncFSEncrypted : Backup::NotEncrypted;
     entry.password = backup.password();
 
     QString newOrigin = configDialog.location();

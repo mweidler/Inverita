@@ -131,28 +131,6 @@ int Backup::error() const
 }
 
 
-Backup::Encryption Backup::detectEncryption() const
-{
-    return detectEncryption(m_origin);
-}
-
-
-Backup::Encryption Backup::detectEncryption(const QString &origin)
-{
-    QDir dir(origin);
-    dir.setFilter(QDir::Hidden | QDir::Files);
-    QFileInfoList filelist = dir.entryInfoList();
-
-    for (int i = 0; i < filelist.count(); i++) {
-        QFileInfo fileinfo = filelist[i];
-        if (fileinfo.fileName().startsWith(".encfs")) {
-            return Backup::EncFSEncrypted;
-        }
-    }
-
-    return Backup::NotEncrypted;
-}
-
 QString Backup::findUsableMountPoint() const
 {
     QString basePath = QDir::homePath() + "/" + "inverita-backup";
@@ -173,8 +151,6 @@ Backup::Status Backup::open()
     QProcess process;
     QDir dir;
 
-    m_encryption = detectEncryption();
-
     switch (m_encryption) {
         case Backup::NotEncrypted:
             dir.setPath(m_origin);
@@ -190,7 +166,7 @@ Backup::Status Backup::open()
             dir.mkpath(m_location);
 
             // start encfs as daemon, reading password from stdin
-            process.start("encfs", QStringList() << "-S" <<  m_origin << m_location);
+            process.start("encfs", QStringList() << "--stdinpass" <<  "--standard" << m_origin << m_location);
             if (process.waitForStarted() == false) {
                 m_errorString = process.errorString();
                 m_rc = process.exitCode();
@@ -219,6 +195,7 @@ Backup::Status Backup::open()
     m_isOpen = true;
     return Backup::Success;
 }
+
 
 Backup::Status Backup::close()
 {

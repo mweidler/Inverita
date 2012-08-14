@@ -25,6 +25,8 @@
 #ifndef HEADER_BACKUPLISTMODEL_INC
 #define HEADER_BACKUPLISTMODEL_INC
 
+#include "Backup.h"
+
 #include <QString>
 #include <QList>
 #include <QListIterator>
@@ -34,10 +36,10 @@
 /*! Container for meta information and digest value.
  */
 typedef struct BackupEntry {
-    QString  label;
-    QString  origin;
-    int      encrypted;
-    QString  password;
+    QString            label;
+    QString            origin;
+    Backup::Encryption encryption;
+    QString            password;
 } BackupEntry;
 
 

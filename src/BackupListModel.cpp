@@ -61,7 +61,7 @@ QVariant BackupListModel::data(const QModelIndex &index, int role) const
     BackupEntry entry = this->at(index.row());
     switch (role) {
         case Qt::DecorationRole:
-            return entry.encrypted ? QIcon::fromTheme("encrypted") : QIcon::fromTheme("folder");
+            return entry.encryption ? QIcon::fromTheme("encrypted") : QIcon::fromTheme("folder");
             break;
 
         case Qt::DisplayRole:
@@ -134,7 +134,11 @@ int BackupListModel::load(const QString &organization)
         BackupEntry entry;
         entry.label = settings.value("label").toString();
         entry.origin = settings.value("origin").toString();
-        entry.encrypted = settings.value("encrypted").toInt();
+        if (settings.value("encrypted").toInt()) {
+            entry.encryption = Backup::EncFSEncrypted;
+        } else {
+            entry.encryption = Backup::NotEncrypted; // TODO: save as string
+        }
         entry.password = settings.value("password").toString();
 
         this->append(entry);
@@ -170,7 +174,7 @@ void BackupListModel::saveAs(const QString &organization)
         settings.setArrayIndex(i);
         settings.setValue("label", entry.label);
         settings.setValue("origin", entry.origin);
-        settings.setValue("encrypted", entry.encrypted);
+        settings.setValue("encrypted", entry.encryption);
         settings.setValue("password", entry.password);
     }
     settings.endArray();

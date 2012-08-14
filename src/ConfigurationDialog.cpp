@@ -116,9 +116,12 @@ QWidget *ConfigurationDialog::constructStorageTab()
     locationLayout->addWidget(m_storageEdit);
     locationLayout->addWidget(m_buttonChange);
 
+    m_encryptBackup = new QCheckBox(tr("Encrypt backup data using 'encfs'"));
+
     QVBoxLayout *storageLayout = new QVBoxLayout;
     storageLayout->addWidget(new QLabel(tr("Current backup storage:")));
     storageLayout->addLayout(locationLayout);
+    storageLayout->addWidget(m_encryptBackup);
 
     QLabel *separator = new QLabel;
     separator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
@@ -266,6 +269,18 @@ QString ConfigurationDialog::label() const
 void ConfigurationDialog::setLabel(const QString &label)
 {
     m_storageLabelEdit->setText(label);
+}
+
+
+bool ConfigurationDialog::encrypt() const
+{
+    return m_encryptBackup->isChecked();
+}
+
+
+void ConfigurationDialog::setEncrypt(bool encrypt)
+{
+    m_encryptBackup->setChecked(encrypt);
 }
 
 

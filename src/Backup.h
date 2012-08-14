@@ -46,7 +46,7 @@ private:
     virtual ~Backup();
 
 public:
-    enum Encryption { NotEncrypted = 0, EncFSEncrypted, TruecryptEncrypted };
+    enum Encryption { NotEncrypted = 0, EncFSEncrypted = 1 };
     enum Status { Failed = 0, CouldNotStarted, Success };
 
     static Backup &instance();
@@ -74,9 +74,6 @@ public:
     bool isOpen() const;
 
     Configuration &config();
-
-    Encryption detectEncryption() const;
-    static Encryption detectEncryption(const QString &origin);
 
 private:
     QString findUsableMountPoint() const;
