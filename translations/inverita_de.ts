@@ -450,22 +450,22 @@
         <translation>Verschlüsselungs-Software fehlt</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="485"/>
+        <location filename="../src/InveritaWindow.cpp" line="502"/>
         <source>Configuring backup &apos;%1&apos;</source>
         <translation>Datensicherung »%1« konfigurieren</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="536"/>
+        <location filename="../src/InveritaWindow.cpp" line="553"/>
         <source>Quit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="537"/>
+        <location filename="../src/InveritaWindow.cpp" line="554"/>
         <source>Quit application</source>
         <translation>Anwendung beenden</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="543"/>
+        <location filename="../src/InveritaWindow.cpp" line="560"/>
         <source>&amp;About INVERITA...</source>
         <translation>&amp;Info über INVERITA...</translation>
     </message>
@@ -515,37 +515,47 @@
         <translation>Öffne bestehende Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="522"/>
+        <location filename="../src/InveritaWindow.cpp" line="482"/>
+        <source>Backup not supported</source>
+        <translation>Datensicherung wird nicht unterstützt</translation>
+    </message>
+    <message>
+        <location filename="../src/InveritaWindow.cpp" line="483"/>
+        <source>The backup you want to open is not supported:&lt;br&gt;&apos;%1&apos;&lt;br&gt;Please choose another backup.</source>
+        <translation>Die Datensicherung, die Sie öffnen wollen, wird nicht unterstützt: &lt;br&gt;»%1«&lt;br&gt;Bitte wählen Sie eine andere Datensicherung.</translation>
+    </message>
+    <message>
+        <location filename="../src/InveritaWindow.cpp" line="539"/>
         <source>Create new backup...</source>
         <translation>Erstelle neue Datensicherung...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="523"/>
+        <location filename="../src/InveritaWindow.cpp" line="540"/>
         <source>Create new backup configuration</source>
         <translation>Erstelle neue Datensicherungs-Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="529"/>
+        <location filename="../src/InveritaWindow.cpp" line="546"/>
         <source>Open existing backup...</source>
         <translation>Öffne bestehende Datensicherung...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="530"/>
+        <location filename="../src/InveritaWindow.cpp" line="547"/>
         <source>Open an existing backup configuration</source>
         <translation>Öffne bestehende Datensicherungs-Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="544"/>
+        <location filename="../src/InveritaWindow.cpp" line="561"/>
         <source>Show the application&apos;s About box</source>
         <translation>Zeige Informationen über die Anwendung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="555"/>
+        <location filename="../src/InveritaWindow.cpp" line="572"/>
         <source>&amp;Backup</source>
         <translation>&amp;Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="561"/>
+        <location filename="../src/InveritaWindow.cpp" line="578"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>

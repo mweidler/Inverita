@@ -460,6 +460,8 @@ void InveritaWindow::onMenuOpenBackup()
         return;
     }
 
+    bool validStorage = false;
+
     BackupEntry entry;
     entry.origin = filedialog.selectedFiles()[0];
     entry.encryption = Backup::NotEncrypted;
@@ -467,6 +469,21 @@ void InveritaWindow::onMenuOpenBackup()
 
     if (QFile::exists(entry.origin + "/.encfs6.xml")) {
         entry.encryption = Backup::EncFSEncrypted;
+        validStorage = true;
+    }
+
+    if (QFile::exists(entry.origin + "/inverita.conf")) {
+        entry.encryption = Backup::NotEncrypted;
+        validStorage = true;
+    }
+
+    if (!validStorage || 1) {
+        QMessageBox::critical(this,
+                              tr("Backup not supported"),
+                              tr("The backup you want to open is not supported:<br>'%1'<br>"
+                                 "Please choose another backup.").arg(entry.origin)
+                             );
+        return;
     }
 
     int index = m_backupListModel->setEntry(entry);
@@ -479,7 +496,7 @@ void InveritaWindow::onConfigure()
     Backup &backup = Backup::instance();
 
     Configuration config;
-    config.load(backup.location() + "/" + "inverita.conf");
+    config.load(backup.location() + "/inverita.conf");
 
     ConfigurationDialog configDialog(config, this);
     configDialog.setWindowTitle(tr("Configuring backup '%1'").arg(backup.origin()));

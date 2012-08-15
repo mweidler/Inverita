@@ -250,7 +250,7 @@ void SnapshotListModel::investigate(const QString &origin)
         snapshot.setName(fileInfo.fileName());
 
         SnapshotMetaInfo metaInfo;
-        if (metaInfo.load(fileInfo.absoluteFilePath() + "/" + "metainfo")) {
+        if (metaInfo.load(fileInfo.absoluteFilePath() + "/metainfo")) {
             snapshot.setMetaInfo(metaInfo);
         }
 

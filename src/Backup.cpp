@@ -133,7 +133,7 @@ int Backup::error() const
 
 QString Backup::findUsableMountPoint() const
 {
-    QString basePath = QDir::homePath() + "/" + "inverita-backup";
+    QString basePath = QDir::homePath() + "/inverita-backup";
 
     for (int i = 1; i < 100; i++) {
         QDir dir((i > 1) ? (basePath + QString("%1").arg(i)) : basePath);
