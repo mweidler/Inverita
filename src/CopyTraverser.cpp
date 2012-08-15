@@ -177,8 +177,8 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
         }
 
         // take digest from previous backup
-        digest = m_previousDigests.value(source);
-        m_currentDigests.insert(source, digest);
+        digest = m_previousDigests.value("." + source);
+        m_currentDigests.insert("." + source, digest);
 
         QFile target(source);
         countProcessed(target.size());
@@ -193,7 +193,7 @@ void CopyTraverser::onFile(const QString &absoluteFilePath)
         }
 
         // digest has been generated during copy
-        m_currentDigests.insert(source, digest);
+        m_currentDigests.insert("." + source, digest);
 
         int rc = CopyMeta(source, target);
         if (rc == -1) {

@@ -73,7 +73,12 @@ void ValidateTraverser::evaluate(SnapshotMetaInfo &metaInfo)
     if (keys.size() > 0) {
         report(tr("The following files are missing in the backup snapshot:") + "<br>");
         for (int i = 0; i < keys.size(); i++)  {
-            emit report(keys[i] + "<br>");
+            if (i < 25) {
+                emit report(keys[i] + "<br>");
+            } else if (i == 25) {
+                emit report(tr("More files are missing...") + "<br>");
+            }
+
             countFile();
         }
         emit report("<br>");
@@ -132,14 +137,19 @@ QByteArray ValidateTraverser::computeDigestOfFile(const QString &sourcefilename)
  */
 void ValidateTraverser::onFile(const QString &absoluteFilePath)
 {
-    QString key = absoluteFilePath.mid(m_sizeOfBackupPath);
+    QString key = "." + absoluteFilePath.mid(m_sizeOfBackupPath);
 
     if (Backup::instance().config().verifyDigest()) {
         QByteArray previousDigest = m_digests.value(key);
         QByteArray currentDigest = computeDigestOfFile(absoluteFilePath);
 
         if (previousDigest != currentDigest) {
-            emit report(tr("File '%1' has beed modified.").arg(absoluteFilePath) + "<br>");
+            if (errors() < 25) {
+                emit report(tr("File '%1' has beed modified.").arg(absoluteFilePath) + "<br>");
+            } else if (errors() == 25) {
+                emit report(tr("More files have been modified...") + "<br>");
+            }
+
             countError();
         }
     } else {
