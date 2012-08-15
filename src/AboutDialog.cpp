@@ -70,7 +70,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     labelAppImage->setPixmap(QApplication::windowIcon().pixmap(96, 96));
 
     QLabel *labelGPLImage = new QLabel;
-    labelGPLImage->setPixmap(QPixmap(":/images/gplv3.png"));
+    labelGPLImage->setPixmap(QPixmap(":/images/gplv3.png").scaledToWidth(90));
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox();
     buttonBox->addButton(QDialogButtonBox::Ok);
