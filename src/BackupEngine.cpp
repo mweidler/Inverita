@@ -186,8 +186,6 @@ void BackupEngine::checkOvercharge()
 
 void BackupEngine::deleteSnapshot(const QString &snapshotName)
 {
-    qDebug() << "BackupEngine::deleteSnapshot" << snapshotName;
-
     m_eraseTraverser.reset();
     m_eraseTraverser.addIncludes(snapshotName);
 

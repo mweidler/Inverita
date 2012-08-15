@@ -55,7 +55,6 @@ void ValidateEngine::select(const QString &backupRootPath, const QString &snapsh
 {
     m_backupRootPath = backupRootPath;
     m_snapshotName = snapshotName;
-    qDebug() << "Validate snapshot selected: " << m_snapshotName;
 }
 
 

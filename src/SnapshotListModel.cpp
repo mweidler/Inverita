@@ -29,7 +29,7 @@
 
 #include <QDir>
 #include <QIcon>
-#include <QDebug>
+#include <QLocale>
 
 
 /*! Constructs a new backup history list object
@@ -40,8 +40,8 @@ SnapshotListModel::SnapshotListModel(QObject *parent) : QAbstractTableModel(pare
 {
     clear();
 
-    m_headerLabels << tr("Name")  <<
-                   tr("Files") << tr("Size") << tr("Last modified") << tr("Status") << tr("Checksum");
+    m_headerLabels << tr("Name") <<  tr("Files") << tr("Size") <<
+                   tr("Last modified") << tr("Status") << tr("Checksum");
 }
 
 
@@ -49,7 +49,6 @@ SnapshotListModel::SnapshotListModel(QObject *parent) : QAbstractTableModel(pare
  */
 SnapshotListModel::~SnapshotListModel()
 {
-    qDebug() << "SnapshotListModel::~SnapshotListModel()";
     clear();
 }
 
@@ -236,8 +235,6 @@ void SnapshotListModel::investigate(const QString &origin)
     QFileInfoList list = dir.entryInfoList();
     for (int i = 0; i < list.size(); i++) {
         const QFileInfo &fileInfo = list.at(i);
-
-        qDebug() << "Investigate" << fileInfo.absoluteFilePath() << fileInfo.fileName();
 
         // read only snapshot directory names (starting with @-sign)
         if (!fileInfo.fileName().startsWith("@")) {

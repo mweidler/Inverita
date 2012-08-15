@@ -69,7 +69,6 @@ WorkerStatus EraseEngine::status()
 void EraseEngine::select(const QString &snapshotName)
 {
     m_snapshotName = snapshotName;
-    qDebug() << "Delete snapshot selected: " << m_snapshotName;
 }
 
 

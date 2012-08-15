@@ -48,7 +48,6 @@ DriveCapacityUI::DriveCapacityUI(AbstractDriveCapacityModel *model, QWidget *par
 
 DriveCapacityUI::~DriveCapacityUI()
 {
-    qDebug() << "DriveCapacityUI::~DriveCapacityUI()";
 }
 
 /*! \copydoc QWidget::minimumSizeHint()

@@ -26,7 +26,7 @@
 #include "FilesystemInfo.h"
 
 #include <QFile>
-#include <QDebug>
+
 
 /*! Constructs a new object providing infos of the root file system.
  *
@@ -52,7 +52,6 @@ FilesystemInfo::FilesystemInfo(const QString &file)
 
 FilesystemInfo::~FilesystemInfo()
 {
-    qDebug() << "FilesystemInfo::~FilesystemInfo()";
 }
 
 /*! Set a new reference file. From now on, the file system information

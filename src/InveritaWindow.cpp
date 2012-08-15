@@ -150,7 +150,6 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
  */
 InveritaWindow::~InveritaWindow()
 {
-    qDebug() << "InveritaWindow::~InveritaWindow()";
 }
 
 
@@ -227,8 +226,6 @@ void InveritaWindow::onVerificationFailed()
 
 void InveritaWindow::reload()
 {
-    qDebug() << "MainWindow::reload()";
-
     QString location = Backup::instance().location();
     if (Backup::instance().isOpen()) {
         m_snapshotListModel->investigate(location);
@@ -477,7 +474,7 @@ void InveritaWindow::onMenuOpenBackup()
         validStorage = true;
     }
 
-    if (!validStorage || 1) {
+    if (!validStorage) {
         QMessageBox::critical(this,
                               tr("Backup not supported"),
                               tr("The backup you want to open is not supported:<br>'%1'<br>"

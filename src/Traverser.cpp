@@ -221,7 +221,6 @@ void Traverser::recurseDirectory(const QString &dirname)
         QString filepath = fileinfo.absoluteFilePath();
 
         if (isExcluded(filepath)) {
-            qDebug() << "excluded item: " << filepath;
             continue;
         }
 
