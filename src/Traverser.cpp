@@ -177,6 +177,10 @@ void Traverser::traverse()
     for (int i = 0; i < m_basePaths.count() && !m_abort; i++) {
         QString currentBasePath = m_basePaths[i];
 
+        if (isExcluded(currentBasePath)) {
+            continue;
+        }
+
         onEnterDir(currentBasePath);
         recurseDirectory(currentBasePath);
         onLeaveDir(currentBasePath);
