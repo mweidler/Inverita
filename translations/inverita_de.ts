@@ -61,17 +61,17 @@
         <translation>Alte Datensicherung »%1« wurde wegen Überzahl gelöscht.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="264"/>
+        <location filename="../src/BackupEngine.cpp" line="262"/>
         <source>Backup snapshot created successfully without errors.</source>
         <translation>Datensicherung erfolgreich ohne Fehler erstellt.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="265"/>
+        <location filename="../src/BackupEngine.cpp" line="263"/>
         <source>Backup snapshot checksum is &apos;%1&apos;</source>
         <translation>Die Prüfsumme der Datensicherung ist »%1«</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="216"/>
+        <location filename="../src/BackupEngine.cpp" line="214"/>
         <source>Backup snapshot comprises %1 in %2 files.</source>
         <translation>Die Datensicherung umfasst %1 in %2 Dateien.</translation>
     </message>
@@ -255,8 +255,8 @@
     </message>
     <message>
         <location filename="../src/ConfigurationListUI.cpp" line="113"/>
-        <source>Please enter a glob pattern, like &apos;Work?.txt&apos;, &apos;*.txt&apos;, &apos;Trash&apos;, or &apos;lost+found&apos;, where &apos;?&apos; matches one character and &apos;*&apos; matches any number of characters.&lt;br&gt;&lt;br&gt;Any file or directory that matches one of the patterns will be excluded from the backup.</source>
-        <translation>Bitte geben Sie ein Glob-Muster an, wie »Work?.txt«, »*.txt«, »*Trash« oder »lost+found«, wobei »?« vergleicht ein Zeichen und »*« vergleicht eine beliebige Anzahl von Zeichen. &lt;br&gt;&lt;br&gt;Jede Datei oder jedes Verzeichnis, welches dem Muster entspricht, wird von der Datensicherung ausgenommen.</translation>
+        <source>Please enter a glob pattern, like &apos;Work?.txt&apos;, &apos;*.txt&apos;, &apos;Trash&apos;, or &apos;lost+found&apos;,&lt;br&gt;where &apos;?&apos; matches one character and &apos;*&apos; matches any number of characters.&lt;br&gt;&lt;br&gt;Any file or directory that matches one of the patterns will be excluded&lt;br&gt;from the backup.</source>
+        <translation>Bitte geben Sie ein Glob-Muster an, wie »Work?.txt«, »*.txt«, »*Trash« oder »lost+found«,&lt;br&gt;wobei »?« ein Zeichen vergleicht und »*« eine beliebige Anzahl von Zeichen vergleicht.&lt;br&gt;&lt;br&gt;Jede Datei oder jedes Verzeichnis, welches dem Muster entspricht,&lt;br&gt;wird von der Datensicherung ausgenommen.</translation>
     </message>
 </context>
 <context>
@@ -328,12 +328,12 @@
 <context>
     <name>DriveCapacityUI</name>
     <message>
-        <location filename="../src/DriveCapacityUI.cpp" line="159"/>
+        <location filename="../src/DriveCapacityUI.cpp" line="158"/>
         <source>free</source>
         <translation>frei</translation>
     </message>
     <message>
-        <location filename="../src/DriveCapacityUI.cpp" line="160"/>
+        <location filename="../src/DriveCapacityUI.cpp" line="159"/>
         <source>used</source>
         <translation>belegt</translation>
     </message>
@@ -403,74 +403,74 @@
         <translation>INVERITA Personal Backup</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="196"/>
+        <location filename="../src/InveritaWindow.cpp" line="195"/>
         <source>Backup execution error</source>
         <translation>Fehler bei der Erstellung der Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="210"/>
+        <location filename="../src/InveritaWindow.cpp" line="209"/>
         <source>Snapshot validation error</source>
         <translation>Fehler bei der Überprüfung der Datensicherungsversion</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="222"/>
+        <location filename="../src/InveritaWindow.cpp" line="221"/>
         <source>Backup verification error</source>
         <translation>Fehler bei der Überprüfung der Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="240"/>
+        <location filename="../src/InveritaWindow.cpp" line="237"/>
         <source>Your backup medium has an unsupported filesystem. Only &apos;ext4&apos; filesystems are supported.&lt;br&gt;&lt;br&gt;&lt;b&gt;You can continue at your own risk!&lt;/b&gt;</source>
         <translation>Ihr Speicherort hat ein nicht unterstütztes Dateisystem. Derzeit wird nur das »ext4« Dateisystem unterstützt.&lt;br&gt;&lt;br&gt;
 &lt;b&gt;Sie können auf eigenes Risiko fortfahren!&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="243"/>
+        <location filename="../src/InveritaWindow.cpp" line="240"/>
         <source>Unsupported filesystem</source>
         <translation>Nicht unterstütztes Dateisystem</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="270"/>
+        <location filename="../src/InveritaWindow.cpp" line="267"/>
         <source>The backup can not be closed:</source>
         <translation>Die Datensicherung kann nicht geschlossen werden:</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="273"/>
-        <location filename="../src/InveritaWindow.cpp" line="331"/>
+        <location filename="../src/InveritaWindow.cpp" line="270"/>
+        <location filename="../src/InveritaWindow.cpp" line="328"/>
         <source>Backup access error</source>
         <translation>Fehler beim Zugriff auf die Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="320"/>
+        <location filename="../src/InveritaWindow.cpp" line="317"/>
         <source>Please verify, if &apos;encfs&apos; is installed properly and try again.</source>
         <translation>Bitte prüfen Sie, ob »encfs« richtig installiert ist und versuchen Sie es erneut.</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="321"/>
+        <location filename="../src/InveritaWindow.cpp" line="318"/>
         <source>Encryption software missing</source>
         <translation>Verschlüsselungs-Software fehlt</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="502"/>
+        <location filename="../src/InveritaWindow.cpp" line="499"/>
         <source>Configuring backup &apos;%1&apos;</source>
         <translation>Datensicherung »%1« konfigurieren</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="553"/>
+        <location filename="../src/InveritaWindow.cpp" line="550"/>
         <source>Quit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="554"/>
+        <location filename="../src/InveritaWindow.cpp" line="551"/>
         <source>Quit application</source>
         <translation>Anwendung beenden</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="560"/>
+        <location filename="../src/InveritaWindow.cpp" line="557"/>
         <source>&amp;About INVERITA...</source>
         <translation>&amp;Info über INVERITA...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="185"/>
+        <location filename="../src/InveritaWindow.cpp" line="184"/>
         <source>A critical error during backup execution has occured:</source>
         <translation>Ein schwerer Fehler während der Datensicherung ist aufgetreten:</translation>
     </message>
@@ -480,82 +480,82 @@
         <translation>Überprüfe Datensicherung...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="187"/>
+        <location filename="../src/InveritaWindow.cpp" line="186"/>
         <source>Make sure, you have proper privileges to write to the&lt;br&gt;backup medium. If this error occurs for the first time&lt;br&gt;on a long time used backup medium, please consider to&lt;br&gt;replace this medium with a new one.&lt;br&gt;&lt;br&gt;Due to backup integrity, this backup snapshot with all&lt;br&gt;contained folders and files should be deleted manually.&lt;br&gt;Please try to solve the problem and restart the backup.</source>
         <translation>Stellen Sie sicher, dass Sie Schreibrechte auf dem Speichermedium besitzen. Wenn dieser Fehler zum ersten mal nach langer Benutzung des Speichermediums auftritt, erwägen Sie bitte das Speichermedium durch ein Neues zu ersetzen.&lt;br&gt;&lt;br&gt;Aus Integritätsgründen sollte diese Datensicherung mit allen Verzeichnissen und Dateien manuell gelöscht werden.&lt;br&gt;Bitte versuchen Sie, das Problem zu beheben und starten die Datensicherung erneut.</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="208"/>
+        <location filename="../src/InveritaWindow.cpp" line="207"/>
         <source>A critical error during validation has occured:</source>
         <translation>Ein schwerer Fehler währen der Überprüfung der Datensicherung ist aufgetreten:</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="220"/>
+        <location filename="../src/InveritaWindow.cpp" line="219"/>
         <source>A critical error during verification has occured:</source>
         <translation>Ein schwerer Fehler währen der Überprüfung der Datensicherung ist aufgetreten:</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="318"/>
+        <location filename="../src/InveritaWindow.cpp" line="315"/>
         <source>Encryption software &apos;encfs&apos; could not be started:</source>
         <translation>Die Verschlüsselungs-Software »encfs« kann nicht gestartet werden:</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="328"/>
+        <location filename="../src/InveritaWindow.cpp" line="325"/>
         <source>The backup can not be accessed:</source>
         <translation>Auf die Datensicherung kann nicht zugegriffen werden:</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="429"/>
+        <location filename="../src/InveritaWindow.cpp" line="426"/>
         <source>Create a new backup</source>
         <translation>Erstelle neue Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="455"/>
+        <location filename="../src/InveritaWindow.cpp" line="452"/>
         <source>Open an existing backup</source>
         <translation>Öffne bestehende Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="482"/>
+        <location filename="../src/InveritaWindow.cpp" line="479"/>
         <source>Backup not supported</source>
         <translation>Datensicherung wird nicht unterstützt</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="483"/>
+        <location filename="../src/InveritaWindow.cpp" line="480"/>
         <source>The backup you want to open is not supported:&lt;br&gt;&apos;%1&apos;&lt;br&gt;Please choose another backup.</source>
         <translation>Die Datensicherung, die Sie öffnen wollen, wird nicht unterstützt: &lt;br&gt;»%1«&lt;br&gt;Bitte wählen Sie eine andere Datensicherung.</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="539"/>
+        <location filename="../src/InveritaWindow.cpp" line="536"/>
         <source>Create new backup...</source>
         <translation>Erstelle neue Datensicherung...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="540"/>
+        <location filename="../src/InveritaWindow.cpp" line="537"/>
         <source>Create new backup configuration</source>
         <translation>Erstelle neue Datensicherungs-Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="546"/>
+        <location filename="../src/InveritaWindow.cpp" line="543"/>
         <source>Open existing backup...</source>
         <translation>Öffne bestehende Datensicherung...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="547"/>
+        <location filename="../src/InveritaWindow.cpp" line="544"/>
         <source>Open an existing backup configuration</source>
         <translation>Öffne bestehende Datensicherungs-Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="561"/>
+        <location filename="../src/InveritaWindow.cpp" line="558"/>
         <source>Show the application&apos;s About box</source>
         <translation>Zeige Informationen über die Anwendung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="572"/>
+        <location filename="../src/InveritaWindow.cpp" line="569"/>
         <source>&amp;Backup</source>
         <translation>&amp;Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="578"/>
+        <location filename="../src/InveritaWindow.cpp" line="575"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
@@ -591,7 +591,7 @@
 <context>
     <name>ProgressDialog</name>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="222"/>
+        <location filename="../src/ProgressDialog.cpp" line="221"/>
         <source>%n minute(s)</source>
         <translation>
             <numerusform>%n Minute</numerusform>
@@ -599,7 +599,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="224"/>
+        <location filename="../src/ProgressDialog.cpp" line="223"/>
         <source>%n second(s)</source>
         <translation>
             <numerusform>%n Sekunde</numerusform>
@@ -607,22 +607,22 @@
         </translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="228"/>
+        <location filename="../src/ProgressDialog.cpp" line="227"/>
         <source>%1 estimated time remaining, processing %2 MByte/s</source>
         <translation>%1 geschätzte Restzeit, verarbeite %2 MByte/s</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="230"/>
+        <location filename="../src/ProgressDialog.cpp" line="229"/>
         <source>%1 estimated time remaining</source>
         <translation>%1 geschätzte Restzeit</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="233"/>
+        <location filename="../src/ProgressDialog.cpp" line="232"/>
         <source>Please be patient...</source>
         <translation>Bitte haben Sie Geduld...</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="237"/>
+        <location filename="../src/ProgressDialog.cpp" line="236"/>
         <source>Finished.</source>
         <translation>Fertig.</translation>
     </message>
@@ -635,12 +635,12 @@
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="44"/>
+        <location filename="../src/SnapshotListModel.cpp" line="43"/>
         <source>Files</source>
         <translation>Dateien</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="44"/>
+        <location filename="../src/SnapshotListModel.cpp" line="43"/>
         <source>Size</source>
         <translation>Größe</translation>
     </message>
@@ -660,29 +660,29 @@
         <translation>Prüfsumme</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="173"/>
-        <location filename="../src/SnapshotListModel.cpp" line="180"/>
-        <location filename="../src/SnapshotListModel.cpp" line="193"/>
+        <location filename="../src/SnapshotListModel.cpp" line="172"/>
+        <location filename="../src/SnapshotListModel.cpp" line="179"/>
+        <location filename="../src/SnapshotListModel.cpp" line="192"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="186"/>
+        <location filename="../src/SnapshotListModel.cpp" line="185"/>
         <source>dddd, dd-MMM-yyyy hh:mm:ss</source>
         <translation>dddd, dd.MM.yyyy hh:mm:ss</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="196"/>
+        <location filename="../src/SnapshotListModel.cpp" line="195"/>
         <source>Partial</source>
         <translation>Teilweise</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="199"/>
+        <location filename="../src/SnapshotListModel.cpp" line="198"/>
         <source>Complete</source>
         <translation>Vollständig</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="202"/>
+        <location filename="../src/SnapshotListModel.cpp" line="201"/>
         <source>Reliable</source>
         <translation>Verlässlich</translation>
     </message>
@@ -749,7 +749,7 @@
         <translation>Überprüfe die aktuelle Datensicherungsversion</translation>
     </message>
     <message>
-        <location filename="../src/ValidateEngine.cpp" line="93"/>
+        <location filename="../src/ValidateEngine.cpp" line="92"/>
         <source>The content of the digests file are not trustable because it&apos;s checksum does not match the expected checksum!&lt;br&gt;A snapshot validation is not possible!&lt;br&gt;The backup snapshot status will be set to &apos;Unknown&apos;.</source>
         <translation>Dem Inhalt der Digest-Datei kann nicht vertraut werden, weil deren Prüfsumme nicht mit der erwarteten Prüfsumme überein stimmt!&lt;br&gt;Eine Überprüfung der Datensicherungsversion ist nicht möglich!&lt;br&gt;Der Status des Datensicherungsversion wird auf »Unbekannt« gesetzt.</translation>
     </message>
@@ -772,24 +772,34 @@
         <translation>Die folgenden Dateien fehlen in der Datensicherung:</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="83"/>
+        <location filename="../src/ValidateTraverser.cpp" line="79"/>
+        <source>More files are missing...</source>
+        <translation>Es fehlen noch weitere Dateien...</translation>
+    </message>
+    <message>
+        <location filename="../src/ValidateTraverser.cpp" line="88"/>
         <source>WARNING: Content digests not verified (disabled).</source>
         <translation>WARNUNG: Prüfsummen der Dateien wurden nicht geprüft (Option ausgeschaltet).</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="88"/>
+        <location filename="../src/ValidateTraverser.cpp" line="93"/>
         <source>Backup snapshot status set to &apos;Unknown&apos;.</source>
         <translation>Der Status der Datensicherungsversion wird auf »Unbekannt« gesetzt.</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="91"/>
+        <location filename="../src/ValidateTraverser.cpp" line="96"/>
         <source>All files validated, Backup snapshot is reliable.</source>
         <translation>Alle Dateien geprüft, Datensicherungsversion ist verlässlich.</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="142"/>
+        <location filename="../src/ValidateTraverser.cpp" line="148"/>
         <source>File &apos;%1&apos; has beed modified.</source>
         <translation>Datei »%1« wurde verändert.</translation>
+    </message>
+    <message>
+        <location filename="../src/ValidateTraverser.cpp" line="150"/>
+        <source>More files have been modified...</source>
+        <translation>Es wurden noch weitere Dateien modifiziert...</translation>
     </message>
 </context>
 <context>
