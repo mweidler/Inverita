@@ -38,6 +38,11 @@ public:
     ScanTraverser();
 
     virtual void onFile(const QString &absoluteFilePath);
+
+    TRAVERSER_IGNORE_ONENTERDIR
+    TRAVERSER_IGNORE_ONLEAVEDIR
+    TRAVERSER_IGNORE_ONLINK
+    TRAVERSER_IGNORE_ONOTHER
 };
 
 #endif

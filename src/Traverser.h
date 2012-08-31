@@ -31,6 +31,13 @@
 #include <QFileInfo>
 
 
+#define TRAVERSER_IGNORE_ONFILE     void onFile(const QString &/*absoluteFilePath*/) { }
+#define TRAVERSER_IGNORE_ONENTERDIR void onEnterDir(const QString &/*absoluteFilePath*/) { }
+#define TRAVERSER_IGNORE_ONLEAVEDIR void onLeaveDir(const QString &/*absoluteFilePath*/) { }
+#define TRAVERSER_IGNORE_ONLINK     void onLink(const QString &/*absoluteFilePath*/, const QString &/*linkName*/) { }
+#define TRAVERSER_IGNORE_ONOTHER    void onOther(const QString &/*absoluteFilePath*/) { }
+
+
 /*! Traverse recursively through all files and subdirectories and calls
  *  appropriate methods for each found item type (file, dir, link and other).
  *
