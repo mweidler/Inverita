@@ -54,6 +54,8 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
             "GNU General Public License for more details: http://www.gnu.org/licenses/<br><br>"
             "INVERITA uses Qt library %2<br>"
             "Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).<br><br>"
+            "INVERITA makes use of EncFS (http://www.arg0.net/encfs)<br>"
+            "Copyright (C) 2003-2007, Valient Gough (vgough@pobox.com)<br><br>"
             "INVERITA uses parts of PolarSSL library (http://www.polarssl.org)<br>"
             "FIPS-180-1 compliant SHA-1 implementation<br>"
             "Copyright (C) 2006-2010, Brainspark B.V.<br><br>"
@@ -94,8 +96,8 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 
-    setMinimumSize(700, 550);
-    resize(700, 550);
+    setMinimumSize(700, 580);
+    resize(700, 580);
     setWindowTitle(tr("About INVERITA Personal Backup"));
 }
 
