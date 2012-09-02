@@ -23,6 +23,7 @@
  */
 
 #include "ProgressDialog.h"
+#include "Utilities.h"
 
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -207,24 +208,24 @@ void ProgressDialog::update()
     if (m_statusHistory.size() >= 20) {
         qint64 deltaTransferred = m_statusHistory.last().transferred - m_statusHistory.first().transferred;
         qint64 deltaTimeMs = m_statusHistory.first().timestamp.msecsTo(m_statusHistory.last().timestamp);
-        int transferRate = qRound(deltaTransferred / (deltaTimeMs * 1000.0));
+        qint64 transferRate = (deltaTransferred * 1000) / deltaTimeMs;
 
         qreal deltaCompletion = completion - m_statusHistory.first().completion;
         qreal openCompletion = 1.0 - completion;
-        int remainingSeconds = qRound(((openCompletion / deltaCompletion) * deltaTimeMs) / 1000.0);
-        int remainingMinutes = remainingSeconds / 60.0;
-        int remainingHours = remainingMinutes / 60.0;
+        int   remainingSeconds = qRound(((openCompletion / deltaCompletion) * deltaTimeMs) / 1000.0);
+        qreal remainingMinutes = remainingSeconds / 60.0;
+        qreal remainingHours = remainingMinutes / 60.0;
 
-        if (remainingHours >= 1) {
-            timeInfo = QString("%1:%2").arg(remainingHours).arg(remainingMinutes, 2, 10, QChar('0'));
-        } else if (remainingMinutes >= 1) {
-            timeInfo = tr("%n minute(s)", "", remainingMinutes);
+        if (remainingHours > 0.75) {
+            timeInfo = tr("About %n hour(s)", "", qRound(remainingHours));
+        } else if (remainingSeconds > 45) {
+            timeInfo = tr("%n minute(s)", "", qRound(remainingMinutes));
         } else {
             timeInfo = tr("%n second(s)", "", remainingSeconds);
         }
 
         if (transferRate > 0) {
-            remainingInfo = tr("%1 estimated time remaining, processing %2 MByte/s").arg(timeInfo).arg(transferRate);
+            remainingInfo = tr("%1 estimated time remaining, processing %2/s").arg(timeInfo).arg(formatSize(transferRate));
         } else {
             remainingInfo = tr("%1 estimated time remaining").arg(timeInfo);
         }

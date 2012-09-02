@@ -5,12 +5,11 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../src/AboutDialog.cpp" line="43"/>
-        <source>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;All rights reserved.&lt;br&gt;&lt;br&gt;INVERITA is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;br&gt;&lt;br&gt;INVERITA is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details: http://www.gnu.org/licenses/&lt;br&gt;&lt;br&gt;INVERITA uses Qt library %2&lt;br&gt;Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).&lt;br&gt;&lt;br&gt;INVERITA uses parts of PolarSSL library (http://www.polarssl.org)&lt;br&gt;FIPS-180-1 compliant SHA-1 implementation&lt;br&gt;Copyright (C) 2006-2010, Brainspark B.V.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Artua (http://www.artua.com)&lt;br&gt;that are free for non-commercial use.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Joker Design (http://www.joker-design.com)&lt;br&gt;that are licensed under &apos;CC Attribution-Noncommercial-No Derivate 3.0&apos;.&lt;br&gt;</source>
-        <translatorcomment>This is not really translated due to legal reasons</translatorcomment>
-        <translation>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;Alle Rechte vorbehalten.&lt;br&gt;&lt;br&gt;INVERITA is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;br&gt;&lt;br&gt;INVERITA is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details: http://www.gnu.org/licenses/&lt;br&gt;&lt;br&gt;INVERITA uses Qt library %2&lt;br&gt;Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).&lt;br&gt;&lt;br&gt;INVERITA uses parts of PolarSSL library (http://www.polarssl.org)&lt;br&gt;FIPS-180-1 compliant SHA-1 implementation&lt;br&gt;Copyright (C) 2006-2010, Brainspark B.V.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Artua (http://www.artua.com)&lt;br&gt;that are free for non-commercial use.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Joker Design (http://www.joker-design.com)&lt;br&gt;that are licensed under &apos;CC Attribution-Noncommercial-No Derivate 3.0&apos;.&lt;br&gt;</translation>
+        <source>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;All rights reserved.&lt;br&gt;&lt;br&gt;INVERITA is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;br&gt;&lt;br&gt;INVERITA is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details: http://www.gnu.org/licenses/&lt;br&gt;&lt;br&gt;INVERITA uses Qt library %2&lt;br&gt;Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).&lt;br&gt;&lt;br&gt;INVERITA makes use of EncFS (http://www.arg0.net/encfs)&lt;br&gt;Copyright (C) 2003-2007, Valient Gough (vgough@pobox.com)&lt;br&gt;&lt;br&gt;INVERITA uses parts of PolarSSL library (http://www.polarssl.org)&lt;br&gt;FIPS-180-1 compliant SHA-1 implementation&lt;br&gt;Copyright (C) 2006-2010, Brainspark B.V.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Artua (http://www.artua.com)&lt;br&gt;that are free for non-commercial use.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Joker Design (http://www.joker-design.com)&lt;br&gt;that are licensed under &apos;CC Attribution-Noncommercial-No Derivate 3.0&apos;.&lt;br&gt;</source>
+        <translation>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;Alle Rechte vorbehalten.&lt;br&gt;&lt;br&gt;INVERITA is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;br&gt;&lt;br&gt;INVERITA is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details: http://www.gnu.org/licenses/&lt;br&gt;&lt;br&gt;INVERITA uses Qt library %2&lt;br&gt;Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).&lt;br&gt;&lt;br&gt;INVERITA makes use of EncFS (http://www.arg0.net/encfs)&lt;br&gt;Copyright (C) 2003-2007, Valient Gough (vgough@pobox.com)&lt;br&gt;&lt;br&gt;INVERITA uses parts of PolarSSL library (http://www.polarssl.org)&lt;br&gt;FIPS-180-1 compliant SHA-1 implementation&lt;br&gt;Copyright (C) 2006-2010, Brainspark B.V.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Artua (http://www.artua.com)&lt;br&gt;that are free for non-commercial use.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Joker Design (http://www.joker-design.com)&lt;br&gt;that are licensed under &apos;CC Attribution-Noncommercial-No Derivate 3.0&apos;.&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="../src/AboutDialog.cpp" line="99"/>
+        <location filename="../src/AboutDialog.cpp" line="101"/>
         <source>About INVERITA Personal Backup</source>
         <translation>Info über INVERITA Personal Backup</translation>
     </message>
@@ -343,7 +342,7 @@
     <message>
         <location filename="../src/EraseEngine.cpp" line="37"/>
         <source>Deleting the selected backup snapshot</source>
-        <translation>Lösche die ausgewählte Datensicherung</translation>
+        <translation>Lösche die ausgewählte Datensicherungsversion</translation>
     </message>
 </context>
 <context>
@@ -591,7 +590,7 @@
 <context>
     <name>ProgressDialog</name>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="221"/>
+        <location filename="../src/ProgressDialog.cpp" line="222"/>
         <source>%n minute(s)</source>
         <translation>
             <numerusform>%n Minute</numerusform>
@@ -599,30 +598,38 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="223"/>
+        <location filename="../src/ProgressDialog.cpp" line="224"/>
         <source>%n second(s)</source>
         <translation>
             <numerusform>%n Sekunde</numerusform>
             <numerusform>%n Sekunden</numerusform>
         </translation>
     </message>
-    <message>
-        <location filename="../src/ProgressDialog.cpp" line="227"/>
-        <source>%1 estimated time remaining, processing %2 MByte/s</source>
-        <translation>%1 geschätzte Restzeit, verarbeite %2 MByte/s</translation>
+    <message numerus="yes">
+        <location filename="../src/ProgressDialog.cpp" line="220"/>
+        <source>About %n hour(s)</source>
+        <translation>
+            <numerusform>Ungefähr %n Stunde</numerusform>
+            <numerusform>Ungefähr %n Stunden</numerusform>
+        </translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="229"/>
+        <location filename="../src/ProgressDialog.cpp" line="228"/>
+        <source>%1 estimated time remaining, processing %2/s</source>
+        <translation>%1 geschätzte Restzeit, verarbeite %2/s</translation>
+    </message>
+    <message>
+        <location filename="../src/ProgressDialog.cpp" line="230"/>
         <source>%1 estimated time remaining</source>
         <translation>%1 geschätzte Restzeit</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="232"/>
+        <location filename="../src/ProgressDialog.cpp" line="233"/>
         <source>Please be patient...</source>
         <translation>Bitte haben Sie Geduld...</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="236"/>
+        <location filename="../src/ProgressDialog.cpp" line="237"/>
         <source>Finished.</source>
         <translation>Fertig.</translation>
     </message>
@@ -731,12 +738,12 @@
 <context>
     <name>Traverser</name>
     <message>
-        <location filename="../src/Traverser.cpp" line="209"/>
+        <location filename="../src/Traverser.cpp" line="213"/>
         <source>Access to directory &apos;%1&apos; failed.</source>
         <translation>Auf Verzeichnis »%1« kann nicht zugegriffen werden.</translation>
     </message>
     <message>
-        <location filename="../src/Traverser.cpp" line="210"/>
+        <location filename="../src/Traverser.cpp" line="214"/>
         <source>Directory not found.</source>
         <translation>Verzeichnis nicht gefunden.</translation>
     </message>
