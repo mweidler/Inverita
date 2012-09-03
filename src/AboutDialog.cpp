@@ -86,6 +86,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     QHBoxLayout *contentLayout = new QHBoxLayout;
     contentLayout->setAlignment(Qt::AlignLeft);
     contentLayout->addLayout(imagesLayout);
+    contentLayout->addSpacerItem(new QSpacerItem(20, 0));
     contentLayout->addWidget(labelAboutText, 1);
 
     QVBoxLayout *masterLayout = new QVBoxLayout;
