@@ -55,7 +55,9 @@ SnapshotListModel::~SnapshotListModel()
 
 void SnapshotListModel::clear()
 {
+    beginResetModel();
     m_historyList.clear();
+    endResetModel();
 }
 
 

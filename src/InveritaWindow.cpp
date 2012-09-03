@@ -346,16 +346,15 @@ void InveritaWindow::onBackupSelected(int selection)
     BackupEntry entry = m_backupListModel->at(selection);
 
     // Switch backup only if really a new backup is selected
-    if (backup.origin() != entry.origin) {
+    if (!backup.isOpen() || backup.origin() != entry.origin) {
         closeCurrentBackup();
         if (openCurrentBackup(entry) != Backup::Success) {
             m_backupSelectorUI->select(-1);
-            return;
-        }
-
-        m_backupListModel->setEntry(entry);
-        if (QFile::exists(backup.location() + "/inverita.conf") == false) {
-            onConfigure();
+        } else {
+            m_backupListModel->setEntry(entry);
+            if (QFile::exists(backup.location() + "/inverita.conf") == false) {
+                onConfigure();
+            }
         }
     }
 
