@@ -38,7 +38,6 @@
 #include <QFileDialog>
 #include <QAction>
 #include <QMenuBar>
-#include <QDebug>
 
 
 /*! Constructs a new mainwindow objects and initializes the user interface.
@@ -364,8 +363,6 @@ void InveritaWindow::onBackupSelected(int selection)
 
 void InveritaWindow::abortProgress()
 {
-    qDebug() << "MainWindow::abortProgress() called";
-
     // abort() can not be called via event loop (connect), because
     // the worker thread blocks its event queue.
     m_backupEngine.abort();
