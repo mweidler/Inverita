@@ -37,42 +37,42 @@
     <message>
         <location filename="../src/BackupEngine.cpp" line="46"/>
         <source>3. Creating new backup snapshot</source>
-        <translation>3. Erstelle neue Datensicherung</translation>
+        <translation>3. Erstelle neue Datensicherungsversion</translation>
     </message>
     <message>
         <location filename="../src/BackupEngine.cpp" line="47"/>
         <source>4. Verifying generated backup snapshot</source>
-        <translation>4. Überprüfe die erstellte Datensicherung</translation>
+        <translation>4. Überprüfe die erstellte Datensicherungsversion</translation>
     </message>
     <message>
         <location filename="../src/BackupEngine.cpp" line="48"/>
         <source>5. Removing obsolete backup snapshots</source>
-        <translation>5. Lösche nicht mehr benötigte Datensicherungen</translation>
+        <translation>5. Lösche nicht mehr benötigte Datensicherungsversionen</translation>
     </message>
     <message>
         <location filename="../src/BackupEngine.cpp" line="164"/>
         <source>Old backup snapshot &apos;%1&apos; has been deleted due to low drive space.</source>
-        <translation>Alte Datensicherung »%1« wurde aus Platzgründen gelöscht.</translation>
+        <translation>Alte Datensicherungsversion »%1« wurde aus Platzgründen gelöscht.</translation>
     </message>
     <message>
         <location filename="../src/BackupEngine.cpp" line="182"/>
         <source>Old backup snapshot &apos;%1&apos; has been deleted due to overcharge.</source>
-        <translation>Alte Datensicherung »%1« wurde wegen Überzahl gelöscht.</translation>
+        <translation>Alte Datensicherungsversion »%1« wurde wegen Überzahl gelöscht.</translation>
     </message>
     <message>
         <location filename="../src/BackupEngine.cpp" line="262"/>
         <source>Backup snapshot created successfully without errors.</source>
-        <translation>Datensicherung erfolgreich ohne Fehler erstellt.</translation>
+        <translation>Datensicherungsversion erfolgreich ohne Fehler erstellt.</translation>
     </message>
     <message>
         <location filename="../src/BackupEngine.cpp" line="263"/>
         <source>Backup snapshot checksum is &apos;%1&apos;</source>
-        <translation>Die Prüfsumme der Datensicherung ist »%1«</translation>
+        <translation>Die Prüfsumme der Datensicherungsversion ist »%1«</translation>
     </message>
     <message>
         <location filename="../src/BackupEngine.cpp" line="214"/>
         <source>Backup snapshot comprises %1 in %2 files.</source>
-        <translation>Die Datensicherung umfasst %1 in %2 Dateien.</translation>
+        <translation>Die Datensicherungsversion umfasst %1 in %2 Dateien.</translation>
     </message>
 </context>
 <context>
@@ -404,7 +404,7 @@
     <message>
         <location filename="../src/InveritaWindow.cpp" line="195"/>
         <source>Backup execution error</source>
-        <translation>Fehler bei der Erstellung der Datensicherung</translation>
+        <translation>Fehler bei der Durchführung der Datensicherung</translation>
     </message>
     <message>
         <location filename="../src/InveritaWindow.cpp" line="209"/>
@@ -437,11 +437,6 @@
         <location filename="../src/InveritaWindow.cpp" line="328"/>
         <source>Backup access error</source>
         <translation>Fehler beim Zugriff auf die Datensicherung</translation>
-    </message>
-    <message>
-        <location filename="../src/InveritaWindow.cpp" line="317"/>
-        <source>Please verify, if &apos;encfs&apos; is installed properly and try again.</source>
-        <translation>Bitte prüfen Sie, ob »encfs« richtig installiert ist und versuchen Sie es erneut.</translation>
     </message>
     <message>
         <location filename="../src/InveritaWindow.cpp" line="318"/>
@@ -486,7 +481,7 @@
     <message>
         <location filename="../src/InveritaWindow.cpp" line="207"/>
         <source>A critical error during validation has occured:</source>
-        <translation>Ein schwerer Fehler währen der Überprüfung der Datensicherung ist aufgetreten:</translation>
+        <translation>Ein schwerer Fehler während der Überprüfung der Datensicherung ist aufgetreten:</translation>
     </message>
     <message>
         <location filename="../src/InveritaWindow.cpp" line="219"/>
@@ -495,8 +490,13 @@
     </message>
     <message>
         <location filename="../src/InveritaWindow.cpp" line="315"/>
-        <source>Encryption software &apos;encfs&apos; could not be started:</source>
-        <translation>Die Verschlüsselungs-Software »encfs« kann nicht gestartet werden:</translation>
+        <source>Encryption software &apos;EncFS&apos; could not be started:</source>
+        <translation>Die Verschlüsselungs-Software »EncFS« kann nicht gestartet werden:</translation>
+    </message>
+    <message>
+        <location filename="../src/InveritaWindow.cpp" line="317"/>
+        <source>Please verify, if &apos;EncFS&apos; is installed properly and try again.</source>
+        <translation>Bitte prüfen Sie, ob »EncFS« richtig installiert ist und versuchen Sie es erneut.</translation>
     </message>
     <message>
         <location filename="../src/InveritaWindow.cpp" line="325"/>
@@ -590,7 +590,7 @@
 <context>
     <name>ProgressDialog</name>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="224"/>
+        <location filename="../src/ProgressDialog.cpp" line="226"/>
         <source>%n minute(s)</source>
         <translation>
             <numerusform>%n Minute</numerusform>
@@ -598,7 +598,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="226"/>
+        <location filename="../src/ProgressDialog.cpp" line="228"/>
         <source>%n second(s)</source>
         <translation>
             <numerusform>%n Sekunde</numerusform>
@@ -606,7 +606,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="222"/>
+        <location filename="../src/ProgressDialog.cpp" line="224"/>
         <source>About %n hour(s)</source>
         <translation>
             <numerusform>Ungefähr %n Stunde</numerusform>
@@ -614,22 +614,22 @@
         </translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="230"/>
+        <location filename="../src/ProgressDialog.cpp" line="232"/>
         <source>%1 estimated time remaining, processing %2/s</source>
         <translation>%1 geschätzte Restzeit, verarbeite %2/s</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="232"/>
+        <location filename="../src/ProgressDialog.cpp" line="234"/>
         <source>%1 estimated time remaining</source>
         <translation>%1 geschätzte Restzeit</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="235"/>
+        <location filename="../src/ProgressDialog.cpp" line="237"/>
         <source>Please be patient...</source>
         <translation>Bitte haben Sie Geduld...</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="239"/>
+        <location filename="../src/ProgressDialog.cpp" line="241"/>
         <source>Finished.</source>
         <translation>Fertig.</translation>
     </message>

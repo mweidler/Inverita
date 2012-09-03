@@ -312,9 +312,9 @@ Backup::Status InveritaWindow::openCurrentBackup(BackupEntry &entry)
         QApplication::restoreOverrideCursor();
 
         if (status == Backup::CouldNotStarted) {
-            msg = tr("Encryption software 'encfs' could not be started:") + "<br><br>" +
+            msg = tr("Encryption software 'EncFS' could not be started:") + "<br><br>" +
                   "'" + backup.errorString() + "'<br><br>" +
-                  tr("Please verify, if 'encfs' is installed properly and try again.");
+                  tr("Please verify, if 'EncFS' is installed properly and try again.");
             if (QMessageBox::critical(this, tr("Encryption software missing"), msg,
                                       QMessageBox::Cancel | QMessageBox::Retry, QMessageBox::Cancel) == QMessageBox::Cancel) {
                 break;
