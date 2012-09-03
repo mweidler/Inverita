@@ -112,6 +112,7 @@ ProgressDialog::ProgressDialog(WorkerEngine *model, DialogType type, DialogAbort
 
     setModal(true);
     m_previousCurrentTask = -1;
+    m_finalized = false;
 }
 
 
@@ -140,7 +141,9 @@ void ProgressDialog::finalize()
     m_buttonBox->setEnabled(true);
     m_buttonBox->button(QDialogButtonBox::Abort)->hide();
     m_buttonBox->button(QDialogButtonBox::Ok)->show();
-    qDebug() << "Finalized update requested";
+    m_buttonBox->button(QDialogButtonBox::Ok)->setAutoDefault(true);
+    m_buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
+    m_finalized = true;
     update();
 }
 
@@ -157,6 +160,7 @@ void ProgressDialog::showEvent(QShowEvent *event)
     m_statusHistory.clear();
     m_progressBar->reset();
     m_labelRemaining->clear();
+    m_finalized = false;
 
     QDialog::showEvent(event);
     m_timer->start();
@@ -200,7 +204,7 @@ void ProgressDialog::update()
     }
 
     m_statusHistory.append(m_model->status());
-    qreal completion = m_statusHistory.last().completion;
+    qreal completion = m_finalized ? 1.0 : m_statusHistory.last().completion;
     if (completion > 0) {
         m_progressBar->setMaximum(1000);
     }

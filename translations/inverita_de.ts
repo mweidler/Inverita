@@ -175,10 +175,6 @@
         <translation>Der Speicherort bezeichnet den Platz, worauf die einzelnen Datensicherungen gespeichert werden. Sie können jeden Pfad verwenden, der von Ihrem Computer erreicht werden kann, z.B. »/media/usbdrive« oder »/data/backup«&lt;br&gt;&lt;br&gt;&lt;u&gt;Achtung:&lt;/u&gt; Wenn Sie einen bestehenden Speicherort verändern, wird dort eine neue Datensicherung angelegt. Bereits vorhandene Datensicherungen werden nicht umkopiert.</translation>
     </message>
     <message>
-        <source>Encrypt backup data using &apos;encfs&apos;</source>
-        <translation type="obsolete">Daten der Datensicherung mit »encfs« verschlüsseln</translation>
-    </message>
-    <message>
         <location filename="../src/ConfigurationDialog.cpp" line="129"/>
         <source>You can give your backup a short label, like &apos;Home-Backup&apos; or &apos;Dropbox&apos;.</source>
         <translation>Kurze Bezeichnung für die Datensicherung, z.B. »Home-Backup« oder »Dropbox«.</translation>
@@ -594,7 +590,7 @@
 <context>
     <name>ProgressDialog</name>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="222"/>
+        <location filename="../src/ProgressDialog.cpp" line="224"/>
         <source>%n minute(s)</source>
         <translation>
             <numerusform>%n Minute</numerusform>
@@ -602,7 +598,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="224"/>
+        <location filename="../src/ProgressDialog.cpp" line="226"/>
         <source>%n second(s)</source>
         <translation>
             <numerusform>%n Sekunde</numerusform>
@@ -610,7 +606,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="220"/>
+        <location filename="../src/ProgressDialog.cpp" line="222"/>
         <source>About %n hour(s)</source>
         <translation>
             <numerusform>Ungefähr %n Stunde</numerusform>
@@ -618,22 +614,22 @@
         </translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="228"/>
+        <location filename="../src/ProgressDialog.cpp" line="230"/>
         <source>%1 estimated time remaining, processing %2/s</source>
         <translation>%1 geschätzte Restzeit, verarbeite %2/s</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="230"/>
+        <location filename="../src/ProgressDialog.cpp" line="232"/>
         <source>%1 estimated time remaining</source>
         <translation>%1 geschätzte Restzeit</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="233"/>
+        <location filename="../src/ProgressDialog.cpp" line="235"/>
         <source>Please be patient...</source>
         <translation>Bitte haben Sie Geduld...</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="237"/>
+        <location filename="../src/ProgressDialog.cpp" line="239"/>
         <source>Finished.</source>
         <translation>Fertig.</translation>
     </message>

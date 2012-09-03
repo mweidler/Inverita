@@ -73,6 +73,7 @@ private:
     QList<WorkerStatus> m_statusHistory;
     QList<QLabel *>     m_labelList;
     int                 m_previousCurrentTask;
+    bool                m_finalized;
 };
 
 #endif
