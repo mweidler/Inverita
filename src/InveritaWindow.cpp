@@ -98,34 +98,34 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
 
     connect(m_backupSelectorUI, SIGNAL(backupSelected(int)), this, SLOT(onBackupSelected(int)));
     connect(m_backupSelectorUI, SIGNAL(configure()), this, SLOT(onConfigure()));
-    connect(m_snapshotListUI, SIGNAL(reloadSnapshots()), this, SLOT(reloadSnapshotList()));
+    connect(m_snapshotListUI, SIGNAL(reloadSnapshots()), this, SLOT(refreshContent()));
     connect(m_snapshotListUI, SIGNAL(deleteSnapshot()), this, SLOT(onDeleteSnapshot()));
     connect(m_snapshotListUI, SIGNAL(validateSnapshot()), this, SLOT(onValidateSnapshot()));
 
     connect(m_controlUI, SIGNAL(startBackup()), &m_backupEngine, SLOT(start()));
     connect(m_progressBackupDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(&m_backupEngine, SIGNAL(finished()), this, SLOT(reloadSnapshotList()));
-    connect(&m_backupEngine, SIGNAL(aborted()), this, SLOT(reloadSnapshotList()));
+    connect(&m_backupEngine, SIGNAL(finished()), this, SLOT(refreshContent()));
+    connect(&m_backupEngine, SIGNAL(aborted()), this, SLOT(refreshContent()));
     connect(&m_backupEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
     connect(&m_backupEngine, SIGNAL(report(QString)), m_progressBackupDialog, SLOT(display(QString)));
 
     connect(this, SIGNAL(deleteBackup()), &m_eraseEngine, SLOT(start()));
     connect(m_progressEraseDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(&m_eraseEngine, SIGNAL(finished()), this, SLOT(reloadSnapshotList()));
-    connect(&m_eraseEngine, SIGNAL(aborted()), this, SLOT(reloadSnapshotList()));
+    connect(&m_eraseEngine, SIGNAL(finished()), this, SLOT(refreshContent()));
+    connect(&m_eraseEngine, SIGNAL(aborted()), this, SLOT(refreshContent()));
     connect(&m_eraseEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
 
     connect(this, SIGNAL(validateBackup()), &m_validateEngine, SLOT(start()));
     connect(m_progressValidateDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(&m_validateEngine, SIGNAL(finished()), this, SLOT(reloadSnapshotList()));
-    connect(&m_validateEngine, SIGNAL(aborted()), this, SLOT(reloadSnapshotList()));
+    connect(&m_validateEngine, SIGNAL(finished()), this, SLOT(refreshContent()));
+    connect(&m_validateEngine, SIGNAL(aborted()), this, SLOT(refreshContent()));
     connect(&m_validateEngine, SIGNAL(failed()), this, SLOT(onValidationFailed()));
     connect(&m_validateEngine, SIGNAL(report(QString)), m_progressValidateDialog, SLOT(display(QString)));
 
     connect(m_controlUI, SIGNAL(startVerify()), &m_verifyEngine, SLOT(start()));
     connect(m_progressVerifyDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(&m_verifyEngine, SIGNAL(finished()), this, SLOT(reloadSnapshotList()));
-    connect(&m_verifyEngine, SIGNAL(aborted()), this, SLOT(reloadSnapshotList()));
+    connect(&m_verifyEngine, SIGNAL(finished()), this, SLOT(refreshContent()));
+    connect(&m_verifyEngine, SIGNAL(aborted()), this, SLOT(refreshContent()));
     connect(&m_verifyEngine, SIGNAL(failed()), this, SLOT(onVerificationFailed()));
     connect(&m_verifyEngine, SIGNAL(report(QString)), m_progressVerifyDialog, SLOT(display(QString)));
 
@@ -195,7 +195,7 @@ void InveritaWindow::onBackupFailed()
 
     m_progressBackupDialog->hide();
     m_progressEraseDialog->hide();
-    reloadSnapshotList();
+    refreshContent();
 }
 
 
@@ -207,7 +207,7 @@ void InveritaWindow::onValidationFailed()
     msg += m_validateEngine.failureHint() + "<br>";
     QMessageBox::critical(this, tr("Snapshot validation error"), msg);
 
-    reloadSnapshotList();
+    refreshContent();
 }
 
 
@@ -219,15 +219,22 @@ void InveritaWindow::onVerificationFailed()
     msg += m_verifyEngine.failureHint() + "<br>";
     QMessageBox::critical(this, tr("Backup verification error"), msg);
 
-    reloadSnapshotList();
+    refreshContent();
 }
 
 
-void InveritaWindow::reloadSnapshotList()
+void InveritaWindow::refreshContent()
 {
     QString location = Backup::instance().location();
-    if (Backup::instance().isOpen()) {
+    if (Backup::instance().isOpen() &&
+        Backup::instance().config().load(location + "/inverita.conf") ) {
         m_snapshotListModel->investigate(location);
+        updateLatestLink(location);
+        m_controlUI->setEnabledButtons(ControlUI::CreateButton, true);
+        m_controlUI->setEnabledButtons(ControlUI::VerifyButton, (m_snapshotListModel->count() > 0));
+        m_backupSelectorUI->setEnableConfiguration(true);
+        m_snapshotListUI->setEnableReload(true);
+
         /* Filesystem infos must be gathered from the origin storage, not
            from an eventually virtual file system, like encfs. Otherwise, the
            file system type can not be determined correctly. */
@@ -241,15 +248,6 @@ void InveritaWindow::reloadSnapshotList()
     } else {
         m_snapshotListModel->clear();
         m_filesystemInfo.reset();
-    }
-
-    if (Backup::instance().config().load(location + "/inverita.conf")) {
-        updateLatestLink(location);
-        m_controlUI->setEnabledButtons(ControlUI::CreateButton, true);
-        m_controlUI->setEnabledButtons(ControlUI::VerifyButton, (m_snapshotListModel->count() > 0));
-        m_backupSelectorUI->setEnableConfiguration(true);
-        m_snapshotListUI->setEnableReload(true);
-    } else {
         m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
         m_backupSelectorUI->setEnableConfiguration(false);
         m_snapshotListUI->setEnableReload(false);
@@ -357,7 +355,7 @@ void InveritaWindow::onBackupSelected(int selection)
         }
     }
 
-    reloadSnapshotList();
+    refreshContent();
 }
 
 
@@ -510,7 +508,7 @@ void InveritaWindow::onConfigure()
     if (backup.origin() == newOrigin) {
         config.save(backup.location() + "/inverita.conf");
         m_backupListModel->setEntry(entry);
-        reloadSnapshotList(); // explicitly reload, because there is no backup change
+        refreshContent(); // explicitly reload, because there is no backup change
         return;
     }
 
