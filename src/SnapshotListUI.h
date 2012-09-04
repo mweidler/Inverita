@@ -38,6 +38,7 @@ public:
     SnapshotListUI(QAbstractTableModel *model, QWidget *parent = 0);
     ~SnapshotListUI();
 
+    void setEnableModifiers(bool enable);
     void setEnableReload(bool enable);
     int currentSelection();
 

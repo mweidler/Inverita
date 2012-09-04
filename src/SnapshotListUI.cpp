@@ -92,11 +92,15 @@ SnapshotListUI::~SnapshotListUI()
 
 }
 
+void SnapshotListUI::setEnableModifiers(bool enable)
+{
+    m_buttonValidate->setEnabled(enable);
+    m_buttonDelete->setEnabled(enable);
+}
+
 
 void SnapshotListUI::setEnableReload(bool enable)
 {
-    m_buttonValidate->setEnabled(false);
-    m_buttonDelete->setEnabled(false);
     m_buttonReload->setEnabled(enable);
 }
 
@@ -109,39 +113,34 @@ int SnapshotListUI::currentSelection()
 
 void SnapshotListUI::onSelectionChanged()
 {
-    m_buttonValidate->setEnabled(false);
-    m_buttonDelete->setEnabled(false);
+    setEnableModifiers(false);
 }
 
 
 void SnapshotListUI::onItemSelected()
 {
-    m_buttonValidate->setEnabled(true);
-    m_buttonDelete->setEnabled(true);
+    setEnableModifiers(true);
 }
 
 
 void SnapshotListUI::onValidate()
 {
     emit validateSnapshot();
-    m_buttonValidate->setEnabled(false);
-    m_buttonDelete->setEnabled(false);
+    setEnableModifiers(false);
 }
 
 
 void SnapshotListUI::onDelete()
 {
     emit deleteSnapshot();
-    m_buttonValidate->setEnabled(false);
-    m_buttonDelete->setEnabled(false);
+    setEnableModifiers(false);
 }
 
 
 void SnapshotListUI::onReload()
 {
     emit reloadSnapshots();
-    m_buttonValidate->setEnabled(false);
-    m_buttonDelete->setEnabled(false);
+    setEnableModifiers(false);
 }
 
 

@@ -234,6 +234,7 @@ void InveritaWindow::refreshContent()
         m_controlUI->setEnabledButtons(ControlUI::VerifyButton, (m_snapshotListModel->count() > 0));
         m_backupSelectorUI->setEnableConfiguration(true);
         m_snapshotListUI->setEnableReload(true);
+        m_snapshotListUI->setEnableModifiers(false);
 
         /* Filesystem infos must be gathered from the origin storage, not
            from an eventually virtual file system, like encfs. Otherwise, the
@@ -251,6 +252,7 @@ void InveritaWindow::refreshContent()
         m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
         m_backupSelectorUI->setEnableConfiguration(false);
         m_snapshotListUI->setEnableReload(false);
+        m_snapshotListUI->setEnableModifiers(false);
         m_backupSelectorUI->select(-1);
     }
 }
