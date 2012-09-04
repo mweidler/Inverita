@@ -83,8 +83,9 @@ SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QF
     connect(m_tableView, SIGNAL(clicked(QModelIndex)), this, SLOT(onItemSelected()));
     connect(m_buttonValidate, SIGNAL(clicked()), this, SLOT(onValidate()));
     connect(m_buttonDelete, SIGNAL(clicked()), this, SLOT(onDelete()));
-    connect(m_buttonReload, SIGNAL(clicked()), this, SIGNAL(reload()));
+    connect(m_buttonReload, SIGNAL(clicked()), this, SLOT(onReload()));
 }
+
 
 SnapshotListUI::~SnapshotListUI()
 {
@@ -94,6 +95,8 @@ SnapshotListUI::~SnapshotListUI()
 
 void SnapshotListUI::setEnableReload(bool enable)
 {
+    m_buttonValidate->setEnabled(false);
+    m_buttonDelete->setEnabled(false);
     m_buttonReload->setEnabled(enable);
 }
 
@@ -120,7 +123,7 @@ void SnapshotListUI::onItemSelected()
 
 void SnapshotListUI::onValidate()
 {
-    emit validateBackup();
+    emit validateSnapshot();
     m_buttonValidate->setEnabled(false);
     m_buttonDelete->setEnabled(false);
 }
@@ -128,7 +131,15 @@ void SnapshotListUI::onValidate()
 
 void SnapshotListUI::onDelete()
 {
-    emit deleteBackup();
+    emit deleteSnapshot();
+    m_buttonValidate->setEnabled(false);
+    m_buttonDelete->setEnabled(false);
+}
+
+
+void SnapshotListUI::onReload()
+{
+    emit reloadSnapshots();
     m_buttonValidate->setEnabled(false);
     m_buttonDelete->setEnabled(false);
 }

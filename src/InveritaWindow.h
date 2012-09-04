@@ -61,10 +61,10 @@ signals:
 
 public slots:
     void about();
-    void reload();
+    void reloadSnapshotList();
     void onBackupSelected(int selection);
-    void onDeleteBackup();
-    void onValidateBackup();
+    void onDeleteSnapshot();
+    void onValidateSnapshot();
     void onBackupFailed();
     void onValidationFailed();
     void onVerificationFailed();

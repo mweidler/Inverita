@@ -42,15 +42,16 @@ public:
     int currentSelection();
 
 signals:
-    void validateBackup();
-    void deleteBackup();
-    void reload();
+    void validateSnapshot();
+    void deleteSnapshot();
+    void reloadSnapshots();
 
 public slots:
     void onSelectionChanged();
     void onItemSelected();
     void onValidate();
     void onDelete();
+    void onReload();
 
 protected:
     SnapshotTableView *m_tableView;

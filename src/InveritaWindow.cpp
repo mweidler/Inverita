@@ -98,34 +98,34 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
 
     connect(m_backupSelectorUI, SIGNAL(backupSelected(int)), this, SLOT(onBackupSelected(int)));
     connect(m_backupSelectorUI, SIGNAL(configure()), this, SLOT(onConfigure()));
-    connect(m_snapshotListUI, SIGNAL(reload()), this, SLOT(reload()));
-    connect(m_snapshotListUI, SIGNAL(deleteBackup()), this, SLOT(onDeleteBackup()));
-    connect(m_snapshotListUI, SIGNAL(validateBackup()), this, SLOT(onValidateBackup()));
+    connect(m_snapshotListUI, SIGNAL(reloadSnapshots()), this, SLOT(reloadSnapshotList()));
+    connect(m_snapshotListUI, SIGNAL(deleteSnapshot()), this, SLOT(onDeleteSnapshot()));
+    connect(m_snapshotListUI, SIGNAL(validateSnapshot()), this, SLOT(onValidateSnapshot()));
 
     connect(m_controlUI, SIGNAL(startBackup()), &m_backupEngine, SLOT(start()));
     connect(m_progressBackupDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(&m_backupEngine, SIGNAL(finished()), this, SLOT(reload()));
-    connect(&m_backupEngine, SIGNAL(aborted()), this, SLOT(reload()));
+    connect(&m_backupEngine, SIGNAL(finished()), this, SLOT(reloadSnapshotList()));
+    connect(&m_backupEngine, SIGNAL(aborted()), this, SLOT(reloadSnapshotList()));
     connect(&m_backupEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
     connect(&m_backupEngine, SIGNAL(report(QString)), m_progressBackupDialog, SLOT(display(QString)));
 
     connect(this, SIGNAL(deleteBackup()), &m_eraseEngine, SLOT(start()));
     connect(m_progressEraseDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(&m_eraseEngine, SIGNAL(finished()), this, SLOT(reload()));
-    connect(&m_eraseEngine, SIGNAL(aborted()), this, SLOT(reload()));
+    connect(&m_eraseEngine, SIGNAL(finished()), this, SLOT(reloadSnapshotList()));
+    connect(&m_eraseEngine, SIGNAL(aborted()), this, SLOT(reloadSnapshotList()));
     connect(&m_eraseEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
 
     connect(this, SIGNAL(validateBackup()), &m_validateEngine, SLOT(start()));
     connect(m_progressValidateDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(&m_validateEngine, SIGNAL(finished()), this, SLOT(reload()));
-    connect(&m_validateEngine, SIGNAL(aborted()), this, SLOT(reload()));
+    connect(&m_validateEngine, SIGNAL(finished()), this, SLOT(reloadSnapshotList()));
+    connect(&m_validateEngine, SIGNAL(aborted()), this, SLOT(reloadSnapshotList()));
     connect(&m_validateEngine, SIGNAL(failed()), this, SLOT(onValidationFailed()));
     connect(&m_validateEngine, SIGNAL(report(QString)), m_progressValidateDialog, SLOT(display(QString)));
 
     connect(m_controlUI, SIGNAL(startVerify()), &m_verifyEngine, SLOT(start()));
     connect(m_progressVerifyDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
-    connect(&m_verifyEngine, SIGNAL(finished()), this, SLOT(reload()));
-    connect(&m_verifyEngine, SIGNAL(aborted()), this, SLOT(reload()));
+    connect(&m_verifyEngine, SIGNAL(finished()), this, SLOT(reloadSnapshotList()));
+    connect(&m_verifyEngine, SIGNAL(aborted()), this, SLOT(reloadSnapshotList()));
     connect(&m_verifyEngine, SIGNAL(failed()), this, SLOT(onVerificationFailed()));
     connect(&m_verifyEngine, SIGNAL(report(QString)), m_progressVerifyDialog, SLOT(display(QString)));
 
@@ -195,7 +195,7 @@ void InveritaWindow::onBackupFailed()
 
     m_progressBackupDialog->hide();
     m_progressEraseDialog->hide();
-    reload();
+    reloadSnapshotList();
 }
 
 
@@ -207,7 +207,7 @@ void InveritaWindow::onValidationFailed()
     msg += m_validateEngine.failureHint() + "<br>";
     QMessageBox::critical(this, tr("Snapshot validation error"), msg);
 
-    reload();
+    reloadSnapshotList();
 }
 
 
@@ -219,11 +219,11 @@ void InveritaWindow::onVerificationFailed()
     msg += m_verifyEngine.failureHint() + "<br>";
     QMessageBox::critical(this, tr("Backup verification error"), msg);
 
-    reload();
+    reloadSnapshotList();
 }
 
 
-void InveritaWindow::reload()
+void InveritaWindow::reloadSnapshotList()
 {
     QString location = Backup::instance().location();
     if (Backup::instance().isOpen()) {
@@ -357,7 +357,7 @@ void InveritaWindow::onBackupSelected(int selection)
         }
     }
 
-    reload();
+    reloadSnapshotList();
 }
 
 
@@ -372,7 +372,7 @@ void InveritaWindow::abortProgress()
 }
 
 
-void InveritaWindow::onDeleteBackup()
+void InveritaWindow::onDeleteSnapshot()
 {
     int index = m_snapshotListUI->currentSelection();
     QString name = m_snapshotListModel->at(index).name();
@@ -381,7 +381,7 @@ void InveritaWindow::onDeleteBackup()
 }
 
 
-void InveritaWindow::onValidateBackup()
+void InveritaWindow::onValidateSnapshot()
 {
     int index = m_snapshotListUI->currentSelection();
     QString name = m_snapshotListModel->at(index).name();
@@ -510,7 +510,7 @@ void InveritaWindow::onConfigure()
     if (backup.origin() == newOrigin) {
         config.save(backup.location() + "/inverita.conf");
         m_backupListModel->setEntry(entry);
-        reload(); // explicitly reload, because there is no backup change
+        reloadSnapshotList(); // explicitly reload, because there is no backup change
         return;
     }
 
