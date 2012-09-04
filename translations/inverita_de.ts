@@ -9,7 +9,7 @@
         <translation>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;Alle Rechte vorbehalten.&lt;br&gt;&lt;br&gt;INVERITA is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;br&gt;&lt;br&gt;INVERITA is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details: http://www.gnu.org/licenses/&lt;br&gt;&lt;br&gt;INVERITA uses Qt library %2&lt;br&gt;Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).&lt;br&gt;&lt;br&gt;INVERITA makes use of EncFS (http://www.arg0.net/encfs)&lt;br&gt;Copyright (C) 2003-2007, Valient Gough (vgough@pobox.com)&lt;br&gt;&lt;br&gt;INVERITA uses parts of PolarSSL library (http://www.polarssl.org)&lt;br&gt;FIPS-180-1 compliant SHA-1 implementation&lt;br&gt;Copyright (C) 2006-2010, Brainspark B.V.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Artua (http://www.artua.com)&lt;br&gt;that are free for non-commercial use.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Joker Design (http://www.joker-design.com)&lt;br&gt;that are licensed under &apos;CC Attribution-Noncommercial-No Derivate 3.0&apos;.&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="../src/AboutDialog.cpp" line="101"/>
+        <location filename="../src/AboutDialog.cpp" line="102"/>
         <source>About INVERITA Personal Backup</source>
         <translation>Info über INVERITA Personal Backup</translation>
     </message>
@@ -145,6 +145,11 @@
         <translation>Derzeitiger Speicherort:</translation>
     </message>
     <message>
+        <location filename="../src/ConfigurationDialog.cpp" line="129"/>
+        <source>You can give your backup a short label, like &apos;Home-Backup&apos; or &apos;Data&apos;.</source>
+        <translation>Kurze Bezeichnung für die Datensicherung, z.B. »Home-Backup« oder »Data«.</translation>
+    </message>
+    <message>
         <location filename="../src/ConfigurationDialog.cpp" line="133"/>
         <source>Backup label:</source>
         <translation>Bezeichnung:</translation>
@@ -173,11 +178,6 @@
         <location filename="../src/ConfigurationDialog.cpp" line="92"/>
         <source>The backup storage specifies the location, where backup data will be stored. You can choose every pathname which is accessible from your computer, e.g. &apos;/media/usbdrive&apos; or &apos;/data/backup&apos;&lt;br&gt;&lt;br&gt;&lt;u&gt;Attention:&lt;/u&gt; If you change an existing backup storage to another location, a new backup will be created on the new location. Your existing backup and snapshots will not be copied to the new location and reside on the old location.</source>
         <translation>Der Speicherort bezeichnet den Platz, worauf die einzelnen Datensicherungen gespeichert werden. Sie können jeden Pfad verwenden, der von Ihrem Computer erreicht werden kann, z.B. »/media/usbdrive« oder »/data/backup«&lt;br&gt;&lt;br&gt;&lt;u&gt;Achtung:&lt;/u&gt; Wenn Sie einen bestehenden Speicherort verändern, wird dort eine neue Datensicherung angelegt. Bereits vorhandene Datensicherungen werden nicht umkopiert.</translation>
-    </message>
-    <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="129"/>
-        <source>You can give your backup a short label, like &apos;Home-Backup&apos; or &apos;Dropbox&apos;.</source>
-        <translation>Kurze Bezeichnung für die Datensicherung, z.B. »Home-Backup« oder »Dropbox«.</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="155"/>
@@ -381,180 +381,180 @@
 <context>
     <name>InveritaWindow</name>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="92"/>
+        <location filename="../src/InveritaWindow.cpp" line="91"/>
         <source>Creating new backup snapshot...</source>
         <translation>Erstelle neue Datensicherungsversion...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="94"/>
+        <location filename="../src/InveritaWindow.cpp" line="93"/>
         <source>Deleting backup snapshot...</source>
         <translation>Lösche Datensicherungsversion...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="96"/>
+        <location filename="../src/InveritaWindow.cpp" line="95"/>
         <source>Validating backup snapshot...</source>
         <translation>Überprüfe Datensicherungsversion...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="139"/>
+        <location filename="../src/InveritaWindow.cpp" line="138"/>
         <source>INVERITA Personal Backup</source>
         <translatorcomment>left as english text, sounds bad when translated :-)</translatorcomment>
         <translation>INVERITA Personal Backup</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="195"/>
+        <location filename="../src/InveritaWindow.cpp" line="194"/>
         <source>Backup execution error</source>
         <translation>Fehler bei der Durchführung der Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="209"/>
+        <location filename="../src/InveritaWindow.cpp" line="208"/>
         <source>Snapshot validation error</source>
         <translation>Fehler bei der Überprüfung der Datensicherungsversion</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="221"/>
+        <location filename="../src/InveritaWindow.cpp" line="220"/>
         <source>Backup verification error</source>
         <translation>Fehler bei der Überprüfung der Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="237"/>
+        <location filename="../src/InveritaWindow.cpp" line="243"/>
         <source>Your backup medium has an unsupported filesystem. Only &apos;ext4&apos; filesystems are supported.&lt;br&gt;&lt;br&gt;&lt;b&gt;You can continue at your own risk!&lt;/b&gt;</source>
         <translation>Ihr Speicherort hat ein nicht unterstütztes Dateisystem. Derzeit wird nur das »ext4« Dateisystem unterstützt.&lt;br&gt;&lt;br&gt;
 &lt;b&gt;Sie können auf eigenes Risiko fortfahren!&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="240"/>
+        <location filename="../src/InveritaWindow.cpp" line="246"/>
         <source>Unsupported filesystem</source>
         <translation>Nicht unterstütztes Dateisystem</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="267"/>
+        <location filename="../src/InveritaWindow.cpp" line="264"/>
         <source>The backup can not be closed:</source>
         <translation>Die Datensicherung kann nicht geschlossen werden:</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="270"/>
-        <location filename="../src/InveritaWindow.cpp" line="328"/>
+        <location filename="../src/InveritaWindow.cpp" line="267"/>
+        <location filename="../src/InveritaWindow.cpp" line="325"/>
         <source>Backup access error</source>
         <translation>Fehler beim Zugriff auf die Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="318"/>
+        <location filename="../src/InveritaWindow.cpp" line="315"/>
         <source>Encryption software missing</source>
         <translation>Verschlüsselungs-Software fehlt</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="498"/>
+        <location filename="../src/InveritaWindow.cpp" line="493"/>
         <source>Configuring backup &apos;%1&apos;</source>
         <translation>Datensicherung »%1« konfigurieren</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="549"/>
+        <location filename="../src/InveritaWindow.cpp" line="544"/>
         <source>Quit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="550"/>
+        <location filename="../src/InveritaWindow.cpp" line="545"/>
         <source>Quit application</source>
         <translation>Anwendung beenden</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="556"/>
+        <location filename="../src/InveritaWindow.cpp" line="551"/>
         <source>&amp;About INVERITA...</source>
         <translation>&amp;Info über INVERITA...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="184"/>
+        <location filename="../src/InveritaWindow.cpp" line="183"/>
         <source>A critical error during backup execution has occured:</source>
         <translation>Ein schwerer Fehler während der Datensicherung ist aufgetreten:</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="98"/>
+        <location filename="../src/InveritaWindow.cpp" line="97"/>
         <source>Verifying backup...</source>
         <translation>Überprüfe Datensicherung...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="186"/>
+        <location filename="../src/InveritaWindow.cpp" line="185"/>
         <source>Make sure, you have proper privileges to write to the&lt;br&gt;backup medium. If this error occurs for the first time&lt;br&gt;on a long time used backup medium, please consider to&lt;br&gt;replace this medium with a new one.&lt;br&gt;&lt;br&gt;Due to backup integrity, this backup snapshot with all&lt;br&gt;contained folders and files should be deleted manually.&lt;br&gt;Please try to solve the problem and restart the backup.</source>
         <translation>Stellen Sie sicher, dass Sie Schreibrechte auf dem Speichermedium besitzen. Wenn dieser Fehler zum ersten mal nach langer Benutzung des Speichermediums auftritt, erwägen Sie bitte das Speichermedium durch ein Neues zu ersetzen.&lt;br&gt;&lt;br&gt;Aus Integritätsgründen sollte diese Datensicherung mit allen Verzeichnissen und Dateien manuell gelöscht werden.&lt;br&gt;Bitte versuchen Sie, das Problem zu beheben und starten die Datensicherung erneut.</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="207"/>
+        <location filename="../src/InveritaWindow.cpp" line="206"/>
         <source>A critical error during validation has occured:</source>
         <translation>Ein schwerer Fehler während der Überprüfung der Datensicherung ist aufgetreten:</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="219"/>
+        <location filename="../src/InveritaWindow.cpp" line="218"/>
         <source>A critical error during verification has occured:</source>
         <translation>Ein schwerer Fehler währen der Überprüfung der Datensicherung ist aufgetreten:</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="315"/>
+        <location filename="../src/InveritaWindow.cpp" line="312"/>
         <source>Encryption software &apos;EncFS&apos; could not be started:</source>
         <translation>Die Verschlüsselungs-Software »EncFS« kann nicht gestartet werden:</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="317"/>
+        <location filename="../src/InveritaWindow.cpp" line="314"/>
         <source>Please verify, if &apos;EncFS&apos; is installed properly and try again.</source>
         <translation>Bitte prüfen Sie, ob »EncFS« richtig installiert ist und versuchen Sie es erneut.</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="325"/>
+        <location filename="../src/InveritaWindow.cpp" line="322"/>
         <source>The backup can not be accessed:</source>
         <translation>Auf die Datensicherung kann nicht zugegriffen werden:</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="425"/>
+        <location filename="../src/InveritaWindow.cpp" line="420"/>
         <source>Create a new backup</source>
         <translation>Erstelle neue Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="451"/>
+        <location filename="../src/InveritaWindow.cpp" line="446"/>
         <source>Open an existing backup</source>
         <translation>Öffne bestehende Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="478"/>
+        <location filename="../src/InveritaWindow.cpp" line="473"/>
         <source>Backup not supported</source>
         <translation>Datensicherung wird nicht unterstützt</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="479"/>
+        <location filename="../src/InveritaWindow.cpp" line="474"/>
         <source>The backup you want to open is not supported:&lt;br&gt;&apos;%1&apos;&lt;br&gt;Please choose another backup.</source>
         <translation>Die Datensicherung, die Sie öffnen wollen, wird nicht unterstützt: &lt;br&gt;»%1«&lt;br&gt;Bitte wählen Sie eine andere Datensicherung.</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="535"/>
+        <location filename="../src/InveritaWindow.cpp" line="530"/>
         <source>Create new backup...</source>
         <translation>Erstelle neue Datensicherung...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="536"/>
+        <location filename="../src/InveritaWindow.cpp" line="531"/>
         <source>Create new backup configuration</source>
         <translation>Erstelle neue Datensicherungs-Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="542"/>
+        <location filename="../src/InveritaWindow.cpp" line="537"/>
         <source>Open existing backup...</source>
         <translation>Öffne bestehende Datensicherung...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="543"/>
+        <location filename="../src/InveritaWindow.cpp" line="538"/>
         <source>Open an existing backup configuration</source>
         <translation>Öffne bestehende Datensicherungs-Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="557"/>
+        <location filename="../src/InveritaWindow.cpp" line="552"/>
         <source>Show the application&apos;s About box</source>
         <translation>Zeige Informationen über die Anwendung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="568"/>
+        <location filename="../src/InveritaWindow.cpp" line="563"/>
         <source>&amp;Backup</source>
         <translation>&amp;Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="574"/>
+        <location filename="../src/InveritaWindow.cpp" line="569"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>

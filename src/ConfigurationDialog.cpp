@@ -126,7 +126,7 @@ QWidget *ConfigurationDialog::constructStorageTab()
     QLabel *separator = new QLabel;
     separator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 
-    QLabel *labelText = new QLabel(tr("You can give your backup a short label, like 'Home-Backup' or 'Dropbox'."));
+    QLabel *labelText = new QLabel(tr("You can give your backup a short label, like 'Home-Backup' or 'Data'."));
 
     QHBoxLayout *labelLayout = new QHBoxLayout;
     m_storageLabelEdit = new QLineEdit();
