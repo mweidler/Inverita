@@ -60,8 +60,8 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
             "Copyright (C) 2006-2010, Brainspark B.V.<br><br>"
             "INVERITA contains icons from Artua (http://www.artua.com)<br>"
             "that are free for non-commercial use.<br><br>"
-            "INVERITA contains icons from the 'Faenza' theme,<br>"
-            "created by XXX.<br><br>"
+            "INVERITA contains icons from 'Faenza Icons' (http://tiheum.deviantart.com)<br>"
+            "Copyright (C) 2010-2012, Matthieu James (~tiheum)<br><br>"
             "INVERITA contains icons from Joker Design (http://www.joker-design.com)<br>"
             "that are licensed under 'CC Attribution-Noncommercial-No Derivate 3.0'.<br>"
         );

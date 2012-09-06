@@ -5,8 +5,8 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../src/AboutDialog.cpp" line="43"/>
-        <source>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;All rights reserved.&lt;br&gt;&lt;br&gt;INVERITA is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;br&gt;&lt;br&gt;INVERITA is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details: http://www.gnu.org/licenses/&lt;br&gt;&lt;br&gt;INVERITA uses Qt library %2&lt;br&gt;Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).&lt;br&gt;&lt;br&gt;INVERITA makes use of EncFS (http://www.arg0.net/encfs)&lt;br&gt;Copyright (C) 2003-2007, Valient Gough (vgough@pobox.com)&lt;br&gt;&lt;br&gt;INVERITA uses parts of PolarSSL library (http://www.polarssl.org)&lt;br&gt;FIPS-180-1 compliant SHA-1 implementation&lt;br&gt;Copyright (C) 2006-2010, Brainspark B.V.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Artua (http://www.artua.com)&lt;br&gt;that are free for non-commercial use.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Joker Design (http://www.joker-design.com)&lt;br&gt;that are licensed under &apos;CC Attribution-Noncommercial-No Derivate 3.0&apos;.&lt;br&gt;</source>
-        <translation>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;Alle Rechte vorbehalten.&lt;br&gt;&lt;br&gt;INVERITA is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;br&gt;&lt;br&gt;INVERITA is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details: http://www.gnu.org/licenses/&lt;br&gt;&lt;br&gt;INVERITA uses Qt library %2&lt;br&gt;Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).&lt;br&gt;&lt;br&gt;INVERITA makes use of EncFS (http://www.arg0.net/encfs)&lt;br&gt;Copyright (C) 2003-2007, Valient Gough (vgough@pobox.com)&lt;br&gt;&lt;br&gt;INVERITA uses parts of PolarSSL library (http://www.polarssl.org)&lt;br&gt;FIPS-180-1 compliant SHA-1 implementation&lt;br&gt;Copyright (C) 2006-2010, Brainspark B.V.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Artua (http://www.artua.com)&lt;br&gt;that are free for non-commercial use.&lt;br&gt;&lt;br&gt;INVERITA uses icons from Joker Design (http://www.joker-design.com)&lt;br&gt;that are licensed under &apos;CC Attribution-Noncommercial-No Derivate 3.0&apos;.&lt;br&gt;</translation>
+        <source>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;All rights reserved.&lt;br&gt;&lt;br&gt;INVERITA is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;br&gt;&lt;br&gt;INVERITA is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details: http://www.gnu.org/licenses/&lt;br&gt;&lt;br&gt;INVERITA uses Qt library %2&lt;br&gt;Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).&lt;br&gt;&lt;br&gt;INVERITA makes use of EncFS (http://www.arg0.net/encfs)&lt;br&gt;Copyright (C) 2003-2007, Valient Gough (vgough@pobox.com)&lt;br&gt;&lt;br&gt;INVERITA contains FIPS-180-1 compliant SHA-1 implementation from PolarSSL library (http://www.polarssl.org) Copyright (C) 2006-2010, Brainspark B.V.&lt;br&gt;&lt;br&gt;INVERITA contains icons from Artua (http://www.artua.com)&lt;br&gt;that are free for non-commercial use.&lt;br&gt;&lt;br&gt;INVERITA contains icons from &apos;Faenza Icons&apos; (http://tiheum.deviantart.com)&lt;br&gt;Copyright (C) 2010-2012, Matthieu James (~tiheum)&lt;br&gt;&lt;br&gt;INVERITA contains icons from Joker Design (http://www.joker-design.com)&lt;br&gt;that are licensed under &apos;CC Attribution-Noncommercial-No Derivate 3.0&apos;.&lt;br&gt;</source>
+        <translation>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;Alle Rechte vorbehalten.&lt;br&gt;&lt;br&gt;INVERITA is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;br&gt;&lt;br&gt;INVERITA is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details: http://www.gnu.org/licenses/&lt;br&gt;&lt;br&gt;INVERITA uses Qt library %2&lt;br&gt;Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).&lt;br&gt;&lt;br&gt;INVERITA makes use of EncFS (http://www.arg0.net/encfs)&lt;br&gt;Copyright (C) 2003-2007, Valient Gough (vgough@pobox.com)&lt;br&gt;&lt;br&gt;INVERITA contains FIPS-180-1 compliant SHA-1 implementation from PolarSSL library (http://www.polarssl.org) Copyright (C) 2006-2010, Brainspark B.V.&lt;br&gt;&lt;br&gt;INVERITA contains icons from Artua (http://www.artua.com)&lt;br&gt;that are free for non-commercial use.&lt;br&gt;&lt;br&gt;INVERITA contains icons from &apos;Faenza Icons&apos; (http://tiheum.deviantart.com)&lt;br&gt;Copyright (C) 2010-2012, Matthieu James (~tiheum)&lt;br&gt;&lt;br&gt;INVERITA contains icons from Joker Design (http://www.joker-design.com)&lt;br&gt;that are licensed under &apos;CC Attribution-Noncommercial-No Derivate 3.0&apos;.&lt;br&gt;</translation>
     </message>
     <message>
         <location filename="../src/AboutDialog.cpp" line="102"/>
@@ -417,49 +417,49 @@
         <translation>Fehler bei der Überprüfung der Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="243"/>
+        <location filename="../src/InveritaWindow.cpp" line="244"/>
         <source>Your backup medium has an unsupported filesystem. Only &apos;ext4&apos; filesystems are supported.&lt;br&gt;&lt;br&gt;&lt;b&gt;You can continue at your own risk!&lt;/b&gt;</source>
         <translation>Ihr Speicherort hat ein nicht unterstütztes Dateisystem. Derzeit wird nur das »ext4« Dateisystem unterstützt.&lt;br&gt;&lt;br&gt;
 &lt;b&gt;Sie können auf eigenes Risiko fortfahren!&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="246"/>
+        <location filename="../src/InveritaWindow.cpp" line="247"/>
         <source>Unsupported filesystem</source>
         <translation>Nicht unterstütztes Dateisystem</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="264"/>
+        <location filename="../src/InveritaWindow.cpp" line="266"/>
         <source>The backup can not be closed:</source>
         <translation>Die Datensicherung kann nicht geschlossen werden:</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="267"/>
-        <location filename="../src/InveritaWindow.cpp" line="325"/>
+        <location filename="../src/InveritaWindow.cpp" line="269"/>
+        <location filename="../src/InveritaWindow.cpp" line="327"/>
         <source>Backup access error</source>
         <translation>Fehler beim Zugriff auf die Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="315"/>
+        <location filename="../src/InveritaWindow.cpp" line="317"/>
         <source>Encryption software missing</source>
         <translation>Verschlüsselungs-Software fehlt</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="493"/>
+        <location filename="../src/InveritaWindow.cpp" line="495"/>
         <source>Configuring backup &apos;%1&apos;</source>
         <translation>Datensicherung »%1« konfigurieren</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="544"/>
+        <location filename="../src/InveritaWindow.cpp" line="546"/>
         <source>Quit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="545"/>
+        <location filename="../src/InveritaWindow.cpp" line="547"/>
         <source>Quit application</source>
         <translation>Anwendung beenden</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="551"/>
+        <location filename="../src/InveritaWindow.cpp" line="553"/>
         <source>&amp;About INVERITA...</source>
         <translation>&amp;Info über INVERITA...</translation>
     </message>
@@ -489,72 +489,72 @@
         <translation>Ein schwerer Fehler währen der Überprüfung der Datensicherung ist aufgetreten:</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="312"/>
+        <location filename="../src/InveritaWindow.cpp" line="314"/>
         <source>Encryption software &apos;EncFS&apos; could not be started:</source>
         <translation>Die Verschlüsselungs-Software »EncFS« kann nicht gestartet werden:</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="314"/>
+        <location filename="../src/InveritaWindow.cpp" line="316"/>
         <source>Please verify, if &apos;EncFS&apos; is installed properly and try again.</source>
         <translation>Bitte prüfen Sie, ob »EncFS« richtig installiert ist und versuchen Sie es erneut.</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="322"/>
+        <location filename="../src/InveritaWindow.cpp" line="324"/>
         <source>The backup can not be accessed:</source>
         <translation>Auf die Datensicherung kann nicht zugegriffen werden:</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="420"/>
+        <location filename="../src/InveritaWindow.cpp" line="422"/>
         <source>Create a new backup</source>
         <translation>Erstelle neue Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="446"/>
+        <location filename="../src/InveritaWindow.cpp" line="448"/>
         <source>Open an existing backup</source>
         <translation>Öffne bestehende Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="473"/>
+        <location filename="../src/InveritaWindow.cpp" line="475"/>
         <source>Backup not supported</source>
         <translation>Datensicherung wird nicht unterstützt</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="474"/>
+        <location filename="../src/InveritaWindow.cpp" line="476"/>
         <source>The backup you want to open is not supported:&lt;br&gt;&apos;%1&apos;&lt;br&gt;Please choose another backup.</source>
         <translation>Die Datensicherung, die Sie öffnen wollen, wird nicht unterstützt: &lt;br&gt;»%1«&lt;br&gt;Bitte wählen Sie eine andere Datensicherung.</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="530"/>
+        <location filename="../src/InveritaWindow.cpp" line="532"/>
         <source>Create new backup...</source>
         <translation>Erstelle neue Datensicherung...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="531"/>
+        <location filename="../src/InveritaWindow.cpp" line="533"/>
         <source>Create new backup configuration</source>
         <translation>Erstelle neue Datensicherungs-Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="537"/>
+        <location filename="../src/InveritaWindow.cpp" line="539"/>
         <source>Open existing backup...</source>
         <translation>Öffne bestehende Datensicherung...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="538"/>
+        <location filename="../src/InveritaWindow.cpp" line="540"/>
         <source>Open an existing backup configuration</source>
         <translation>Öffne bestehende Datensicherungs-Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="552"/>
+        <location filename="../src/InveritaWindow.cpp" line="554"/>
         <source>Show the application&apos;s About box</source>
         <translation>Zeige Informationen über die Anwendung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="563"/>
+        <location filename="../src/InveritaWindow.cpp" line="565"/>
         <source>&amp;Backup</source>
         <translation>&amp;Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="569"/>
+        <location filename="../src/InveritaWindow.cpp" line="571"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
