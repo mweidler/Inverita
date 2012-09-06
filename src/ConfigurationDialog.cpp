@@ -48,7 +48,7 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     QDialogButtonBox *buttonBox = new QDialogButtonBox();
     buttonBox->addButton(QDialogButtonBox::Save);
     buttonBox->addButton(QDialogButtonBox::Cancel);
-    buttonBox->button(QDialogButtonBox::Save)->setIcon(QIcon::fromTheme("ok"));
+    buttonBox->button(QDialogButtonBox::Save)->setIcon(QIcon::fromTheme("filesave"));
     buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QIcon::fromTheme("stop"));
 
     QVBoxLayout *layout = new QVBoxLayout;

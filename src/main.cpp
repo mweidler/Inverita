@@ -41,6 +41,14 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    for (int i = 0; i < argc; i++) {
+        QString option(argv[i]);
+        if (option.startsWith("--icontheme=")) {
+            QString themeName = option.mid(option.lastIndexOf("=") + 1);
+            QIcon::setThemeName(themeName);
+        }
+    }
+
     QApplication::setApplicationName("inverita");
     QApplication::setApplicationVersion(QString(INVERITA_COMMIT_VERSION));
     QApplication::setWindowIcon(QIcon::fromTheme(QApplication::applicationName(),

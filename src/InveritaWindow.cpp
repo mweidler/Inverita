@@ -227,7 +227,7 @@ void InveritaWindow::refreshContent()
 {
     QString location = Backup::instance().location();
     if (Backup::instance().isOpen() &&
-        Backup::instance().config().load(location + "/inverita.conf") ) {
+        Backup::instance().config().load(location + "/inverita.conf")) {
         m_snapshotListModel->investigate(location);
         updateLatestLink(location);
         m_controlUI->setEnabledButtons(ControlUI::CreateButton, true);

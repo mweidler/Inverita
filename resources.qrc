@@ -5,6 +5,8 @@
         <file>images/verify-icon.png</file>
         <file>images/drive-icon.png</file>
         <file>images/gplv3.png</file>
+        <file>images/ok.png</file>
+        <file>images/encrypted.png</file>
         <file>translations/inverita_de.qm</file>
     </qresource>
 </RCC>

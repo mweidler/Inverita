@@ -39,10 +39,10 @@ ConfigurationListUI::ConfigurationListUI(QStringList &list, ConfigurationListMod
     m_listModel = new QStringListModel(list);
 
     m_buttonAdd = new QPushButton(tr("Add Item"));
-    m_buttonAdd->setIcon(QIcon::fromTheme("edit-add"));
+    m_buttonAdd->setIcon(QIcon::fromTheme("list-add"));
 
     m_buttonRemove = new QPushButton(tr("Remove Item"));
-    m_buttonRemove->setIcon(QIcon::fromTheme("edit-delete"));
+    m_buttonRemove->setIcon(QIcon::fromTheme("list-remove"));
     m_buttonRemove->setEnabled(false);
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;

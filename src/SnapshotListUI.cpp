@@ -52,7 +52,7 @@ SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QF
     m_tableView->show();
 
     m_buttonValidate = new QPushButton(tr("Validate"));
-    m_buttonValidate->setIcon(QIcon::fromTheme("dialog-yes"));
+    m_buttonValidate->setIcon(QIcon::fromTheme("search"));
     m_buttonValidate->setEnabled(false);
     m_buttonDelete = new QPushButton(tr("Delete"));
     m_buttonDelete->setIcon(QIcon::fromTheme("edit-delete"));

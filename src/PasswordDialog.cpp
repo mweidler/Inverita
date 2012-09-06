@@ -61,7 +61,7 @@ PasswordDialog::PasswordDialog(QWidget *parent) : QDialog(parent)
     QDialogButtonBox *buttonBox = new QDialogButtonBox();
     buttonBox->addButton(QDialogButtonBox::Ok);
     buttonBox->addButton(QDialogButtonBox::Cancel);
-    buttonBox->button(QDialogButtonBox::Ok)->setIcon(QIcon::fromTheme("ok"));
+    buttonBox->button(QDialogButtonBox::Ok)->setIcon(QIcon::fromTheme("ok", QIcon(":/images/ok.png")));
     buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QIcon::fromTheme("stop"));
 
     QVBoxLayout *masterLayout = new QVBoxLayout;

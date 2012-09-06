@@ -149,16 +149,16 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
         switch (snapshot.metaInfo().quality()) {
             default:
             case SnapshotMetaInfo::Unknown:
-                return QIcon::fromTheme("dialog-no");
+                return QIcon::fromTheme("dialog-question");
                 break;
             case SnapshotMetaInfo::Partial:
-                return QIcon::fromTheme("dialog-no");
+                return QIcon::fromTheme("dialog-warning");
                 break;
             case SnapshotMetaInfo::Complete:
-                return QIcon::fromTheme("dialog-ok");
+                return QIcon::fromTheme("ok", QIcon(":/images/ok.png"));
                 break;
             case SnapshotMetaInfo::Reliable:
-                return QIcon::fromTheme("dialog-yes");
+                return QIcon::fromTheme("starred");
                 break;
         }
     }

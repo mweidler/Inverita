@@ -60,7 +60,11 @@ QVariant BackupListModel::data(const QModelIndex &index, int role) const
     BackupEntry entry = this->at(index.row());
     switch (role) {
         case Qt::DecorationRole:
-            return entry.encryption ? QIcon::fromTheme("encrypted") : QIcon::fromTheme("folder");
+            if (entry.encryption) {
+                return QIcon::fromTheme("encrypted", QIcon(":/images/encrypted.png"));
+            } else {
+                return QIcon::fromTheme("folder");
+            }
             break;
 
         case Qt::DisplayRole:
