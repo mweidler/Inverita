@@ -51,6 +51,9 @@ SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QF
     m_tableView->horizontalHeader()->setResizeMode(5, QHeaderView::Stretch);
     m_tableView->show();
 
+    m_buttonOpen = new QPushButton(tr("Open"));
+    m_buttonOpen->setIcon(QIcon::fromTheme("folder-open"));
+    m_buttonOpen->setEnabled(false);
     m_buttonValidate = new QPushButton(tr("Validate"));
     m_buttonValidate->setIcon(QIcon::fromTheme("search"));
     m_buttonValidate->setEnabled(false);
@@ -64,6 +67,7 @@ SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QF
     QHBoxLayout *buttonLayout = new QHBoxLayout;
     buttonLayout->setAlignment(Qt::AlignRight);
     buttonLayout->setMargin(0);
+    buttonLayout->addWidget(m_buttonOpen);
     buttonLayout->addWidget(m_buttonValidate);
     buttonLayout->addWidget(m_buttonDelete);
     buttonLayout->addWidget(m_buttonReload);
@@ -81,6 +85,7 @@ SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QF
 
     connect(m_tableView, SIGNAL(selectionChanged()), this, SLOT(onSelectionChanged()));
     connect(m_tableView, SIGNAL(clicked(QModelIndex)), this, SLOT(onItemSelected()));
+    connect(m_buttonOpen, SIGNAL(clicked()), this, SLOT(onOpen()));
     connect(m_buttonValidate, SIGNAL(clicked()), this, SLOT(onValidate()));
     connect(m_buttonDelete, SIGNAL(clicked()), this, SLOT(onDelete()));
     connect(m_buttonReload, SIGNAL(clicked()), this, SLOT(onReload()));
@@ -94,6 +99,7 @@ SnapshotListUI::~SnapshotListUI()
 
 void SnapshotListUI::setEnableModifiers(bool enable)
 {
+    m_buttonOpen->setEnabled(enable);
     m_buttonValidate->setEnabled(enable);
     m_buttonDelete->setEnabled(enable);
 }
@@ -123,10 +129,15 @@ void SnapshotListUI::onItemSelected()
 }
 
 
+void SnapshotListUI::onOpen()
+{
+    emit openSnapshot();
+}
+
+
 void SnapshotListUI::onValidate()
 {
     emit validateSnapshot();
-    setEnableModifiers(false);
 }
 
 

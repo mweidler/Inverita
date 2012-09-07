@@ -43,6 +43,7 @@ public:
     int currentSelection();
 
 signals:
+    void openSnapshot();
     void validateSnapshot();
     void deleteSnapshot();
     void reloadSnapshots();
@@ -50,12 +51,14 @@ signals:
 public slots:
     void onSelectionChanged();
     void onItemSelected();
+    void onOpen();
     void onValidate();
     void onDelete();
     void onReload();
 
 protected:
     SnapshotTableView *m_tableView;
+    QPushButton       *m_buttonOpen;
     QPushButton       *m_buttonValidate;
     QPushButton       *m_buttonDelete;
     QPushButton       *m_buttonReload;

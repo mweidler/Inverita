@@ -63,8 +63,9 @@ public slots:
     void about();
     void refreshContent();
     void onBackupSelected(int selection);
-    void onDeleteSnapshot();
+    void onOpenSnapshot();
     void onValidateSnapshot();
+    void onDeleteSnapshot();
     void onBackupFailed();
     void onValidationFailed();
     void onVerificationFailed();

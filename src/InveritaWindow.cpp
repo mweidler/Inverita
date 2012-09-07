@@ -38,6 +38,8 @@
 #include <QFileDialog>
 #include <QAction>
 #include <QMenuBar>
+#include <QDesktopServices>
+#include <QUrl>
 
 
 /*! Constructs a new mainwindow objects and initializes the user interface.
@@ -98,9 +100,10 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
 
     connect(m_backupSelectorUI, SIGNAL(backupSelected(int)), this, SLOT(onBackupSelected(int)));
     connect(m_backupSelectorUI, SIGNAL(configure()), this, SLOT(onConfigure()));
-    connect(m_snapshotListUI, SIGNAL(reloadSnapshots()), this, SLOT(refreshContent()));
-    connect(m_snapshotListUI, SIGNAL(deleteSnapshot()), this, SLOT(onDeleteSnapshot()));
+    connect(m_snapshotListUI, SIGNAL(openSnapshot()), this, SLOT(onOpenSnapshot()));
     connect(m_snapshotListUI, SIGNAL(validateSnapshot()), this, SLOT(onValidateSnapshot()));
+    connect(m_snapshotListUI, SIGNAL(deleteSnapshot()), this, SLOT(onDeleteSnapshot()));
+    connect(m_snapshotListUI, SIGNAL(reloadSnapshots()), this, SLOT(refreshContent()));
 
     connect(m_controlUI, SIGNAL(startBackup()), &m_backupEngine, SLOT(start()));
     connect(m_progressBackupDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
@@ -372,12 +375,12 @@ void InveritaWindow::abortProgress()
 }
 
 
-void InveritaWindow::onDeleteSnapshot()
+void InveritaWindow::onOpenSnapshot()
 {
     int index = m_snapshotListUI->currentSelection();
     QString name = m_snapshotListModel->at(index).name();
-    m_eraseEngine.select(Backup::instance().location() + "/" + name);
-    emit deleteBackup();
+    QString path = QDir::toNativeSeparators(Backup::instance().location() + "/" + name);
+    QDesktopServices::openUrl(QUrl("file:///" + path));
 }
 
 
@@ -387,6 +390,15 @@ void InveritaWindow::onValidateSnapshot()
     QString name = m_snapshotListModel->at(index).name();
     m_validateEngine.select(Backup::instance().location(), name);
     emit validateBackup();
+}
+
+
+void InveritaWindow::onDeleteSnapshot()
+{
+    int index = m_snapshotListUI->currentSelection();
+    QString name = m_snapshotListModel->at(index).name();
+    m_eraseEngine.select(Backup::instance().location() + "/" + name);
+    emit deleteBackup();
 }
 
 
@@ -571,4 +583,3 @@ void InveritaWindow::createMenus()
     m_helpMenu = menuBar()->addMenu(tr("&Help"));
     m_helpMenu->addAction(m_aboutAction);
 }
-
