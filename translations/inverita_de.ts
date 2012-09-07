@@ -506,7 +506,7 @@
     <message>
         <location filename="../src/InveritaWindow.cpp" line="402"/>
         <source>Delete backup snapshot?</source>
-        <translation>Datensicherungsversion wirklich löschen?</translation>
+        <translation>Datensicherungsversion löschen?</translation>
     </message>
     <message>
         <location filename="../src/InveritaWindow.cpp" line="403"/>
