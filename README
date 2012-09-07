@@ -19,8 +19,8 @@ The main features are:
 ---------------
 
 INVERITA is developed and optimized for Unix/Linux operating systems.
-It needs a file system on backup medium, that supports hard-links and meta information (user, permissions, dates). Recommended is ext4.
-It will not work in FAT/VFAT file systems.
+It needs a file system on backup medium, that supports hard-links and meta information (user, permissions, dates).
+Recommended is ext4. It will not work in FAT/VFAT file systems.
 
 
 3. LICENSE
