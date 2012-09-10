@@ -43,6 +43,9 @@ PACKAGENAME=inverita-"$VERSION"_"$ARCH".deb
 [ -d packaging/usr ] || mkdir packaging/usr
 [ -d packaging/usr/bin ] || mkdir packaging/usr/bin
 cp --preserve=timestamp Inverita packaging/usr/bin/inverita
+chmod 755 packaging/usr/bin/inverita
+
+[ -d packaging/DEBIAN ] || mkdir packaging/DEBIAN
 
 echo -e "Package: INVERITA\n\
 Version: $VERSION\n\
@@ -60,6 +63,8 @@ Description: INVERITA Personal Backup is a software for data backup on various m
    * Hard-link technology for each backup snapshot to minimize needed media space.\n\
    * Integrity validation of backups\n\
 " >packaging/DEBIAN/control
+
+chmod 644 packaging/DEBIAN/control
 
 fakeroot dpkg -b packaging $PACKAGENAME
 dpkg -c $PACKAGENAME
