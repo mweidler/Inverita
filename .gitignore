@@ -10,4 +10,5 @@ src/version.h
 staging/
 translations/*.qm
 packaging/usr/bin/inverita
+packaging/DEBIAN/control
 
