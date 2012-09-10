@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+#set -x
 
 COMMIT_VERSION=`git describe HEAD 2>/dev/null | sed 's/-/./;s/\([^-]*\).*/\1/'`
 TAG_VERSION=`git describe HEAD 2>/dev/null | sed 's/\([^-]*\).*/\1/'`
