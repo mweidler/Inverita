@@ -9,4 +9,5 @@ qrc_resources.cpp
 src/version.h
 staging/
 translations/*.qm
+packaging/usr/bin/inverita
 

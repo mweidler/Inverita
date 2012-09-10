@@ -40,7 +40,9 @@ fi
 VERSION=`git describe HEAD 2>/dev/null | sed 's/-/./;s/\([^-]*\).*/\1/'`
 PACKAGENAME=inverita-"$VERSION"_"$ARCH".deb
 
-cp Inverita packaging/usr/bin/inverita
+[ -d packaging/usr ] || mkdir packaging/usr
+[ -d packaging/usr/bin ] || mkdir packaging/usr/bin
+cp --preserve=timestamp Inverita packaging/usr/bin/inverita
 
 echo -e "Package: INVERITA\n\
 Version: $VERSION\n\
