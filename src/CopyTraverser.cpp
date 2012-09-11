@@ -39,6 +39,7 @@
  */
 CopyTraverser::CopyTraverser()
 {
+    memset(m_copyBuffer, 0, sizeof(m_copyBuffer));
 }
 
 

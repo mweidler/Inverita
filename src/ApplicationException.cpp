@@ -87,8 +87,7 @@ QString &ApplicationException::errorMessage()
 
 /*! \return legacy std::string error/exception description
  */
-const char *ApplicationException::what()
+const char *ApplicationException::what() const throw()
 {
     return m_errormsg.toUtf8().data();
 }
-

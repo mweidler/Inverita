@@ -43,7 +43,7 @@ public:
     void setCauser(QString causer);
     void setErrorMessage(QString errormsg);
     void setErrorMessage(char *errormsg);
-    virtual const char *what();
+    virtual const char *what() const throw();
 
     QString &causer();
     int     errorCode();

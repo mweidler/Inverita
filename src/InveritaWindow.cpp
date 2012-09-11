@@ -177,7 +177,7 @@ void InveritaWindow::closeEvent(QCloseEvent *event)
 void InveritaWindow::about()
 {
     AboutDialog dialog(this);
-    dialog.exec();
+    (void)dialog.exec();
 }
 
 

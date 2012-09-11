@@ -46,6 +46,7 @@ void Configuration::reset()
     m_verifyAfterBackup = true;
     m_verifyDigest = true;
     m_autoDeleteBackups = true;
+    m_spareCapacity = 7;
     m_limitBackups = true;
     m_maxBackups = 40;
 }

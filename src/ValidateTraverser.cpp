@@ -34,6 +34,8 @@
  */
 ValidateTraverser::ValidateTraverser()
 {
+    m_sizeOfBackupPath = 0;
+    memset(m_fileBuffer, 0, sizeof(m_fileBuffer));
 }
 
 

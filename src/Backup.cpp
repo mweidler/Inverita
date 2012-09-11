@@ -32,16 +32,18 @@
  */
 Backup::Backup()
 {
-    m_isOpen = false;
     m_encryption = Backup::NotEncrypted;
+    m_isOpen = false;
+    m_rc = 0;
 }
 
 
 Backup::Backup(const QString &origin)
 {
-    m_isOpen = false;
-    m_encryption = Backup::NotEncrypted;
     m_origin = origin;
+    m_encryption = Backup::NotEncrypted;
+    m_isOpen = false;
+    m_rc = 0;
 }
 
 /*! Destructor
@@ -59,9 +61,9 @@ Backup &Backup::instance()
 
 void Backup::use(const QString &origin)
 {
-    m_isOpen = false;
-    m_encryption = Backup::NotEncrypted;
     m_origin = origin;
+    m_encryption = Backup::NotEncrypted;
+    m_isOpen = false;
 }
 
 
