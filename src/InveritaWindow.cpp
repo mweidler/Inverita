@@ -400,8 +400,8 @@ void InveritaWindow::onDeleteSnapshot()
     m_eraseEngine.select(Backup::instance().location() + "/" + name);
 
     if (QMessageBox::question(this, tr("Delete backup snapshot?"),
-                             tr("Do you really want to delete the backup snapshot<br>'%1'?").arg(name),
-                             QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+                              tr("Do you really want to delete the backup snapshot<br>'%1'?").arg(name),
+                              QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
         emit deleteBackup();
     }
 }
