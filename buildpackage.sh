@@ -47,7 +47,7 @@ chmod 755 packaging/usr/bin/inverita
 
 [ -d packaging/DEBIAN ] || mkdir packaging/DEBIAN
 
-echo -e "Package: INVERITA\n\
+echo -e "Package: Inverita\n\
 Version: $VERSION\n\
 Section: utility\n\
 Priority: optional\n\
