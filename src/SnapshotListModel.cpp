@@ -170,16 +170,10 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
                 break;
 
             case 1:
-                if (snapshot.metaInfo().numberOfFiles() == 0) {
-                    return tr("Unknown");
-                }
                 return QVariant(snapshot.metaInfo().numberOfFiles());
                 break;
 
             case 2:
-                if (snapshot.metaInfo().sizeOfFiles() == 0) {
-                    return tr("Unknown");
-                }
                 return formatSize(snapshot.metaInfo().sizeOfFiles());
                 break;
 

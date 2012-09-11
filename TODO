@@ -1,4 +1,2 @@
-[ ] Add compression of backup data
-[ ] Sort header includes alphabetical
 [ ] Extract low level file operations in a File-Class inherited by QFile
-[ ] Test "no includes" and "no files found during backup"
+

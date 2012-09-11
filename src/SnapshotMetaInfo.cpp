@@ -93,10 +93,6 @@ bool SnapshotMetaInfo::load(QString filename)
         m_quality = Reliable;
     }
 
-    if (m_files == 0) {
-        return false;
-    }
-
     return true;
 }
 
