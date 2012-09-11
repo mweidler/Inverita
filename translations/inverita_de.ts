@@ -17,7 +17,7 @@
 <context>
     <name>Backup</name>
     <message>
-        <location filename="../src/Backup.cpp" line="158"/>
+        <location filename="../src/Backup.cpp" line="160"/>
         <source>Directory does not exist or is not accessible.</source>
         <translation>Auf das Verzeichnis kann nicht zugegriffen werden oder es existiert nicht.</translation>
     </message>
@@ -96,13 +96,13 @@
 <context>
     <name>Configuration</name>
     <message>
-        <location filename="../src/Configuration.cpp" line="85"/>
-        <location filename="../src/Configuration.cpp" line="120"/>
+        <location filename="../src/Configuration.cpp" line="86"/>
+        <location filename="../src/Configuration.cpp" line="121"/>
         <source>Can not be opened</source>
         <translation>Kann nicht geöffnet werden</translation>
     </message>
     <message>
-        <location filename="../src/Configuration.cpp" line="150"/>
+        <location filename="../src/Configuration.cpp" line="151"/>
         <source>Error during writing</source>
         <translation>Fehler beim Schreiben</translation>
     </message>
@@ -160,9 +160,14 @@
         <translation>Datensicherungen können direkt nach der Erstellung oder später überprüft werden.</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="187"/>
-        <source>&amp;Verify backup snapshots automatically after creation</source>
-        <translation>&amp;Überprüfe Datensicherungen direkt nach der Erstellung</translation>
+        <location filename="../src/ConfigurationDialog.cpp" line="197"/>
+        <source>Delete oldest backup snapshots until free capacity reaches</source>
+        <translation>Lösche Datensicherungen bis die freie Kapazität</translation>
+    </message>
+    <message>
+        <location filename="../src/ConfigurationDialog.cpp" line="209"/>
+        <source>Keep up to</source>
+        <translation>Behalte bis zu</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="312"/>
@@ -190,6 +195,11 @@
         <translation>Die unten stehende Liste zeigt alle Datei-/Verzeichnis-Muster, die von der Datensicherung ausgenommen werden, z.B. »/data/temp« ignoriert das gesamte Verzeichnis, »test*« ignoriert alle Dateien und Verzeichnisse, die mit &quot;test&quot; beginnen</translation>
     </message>
     <message>
+        <location filename="../src/ConfigurationDialog.cpp" line="187"/>
+        <source>Verify backup snapshots automatically after creation</source>
+        <translation>Überprüfe Datensicherungen direkt nach der Erstellung</translation>
+    </message>
+    <message>
         <location filename="../src/ConfigurationDialog.cpp" line="188"/>
         <source>Backup snapshot verification ensures the consistency of the digests to the corresponding files, and ensures that all files exist. For performance reasons, the digest recomputation can be left out.</source>
         <translation>Die Überprüfung einer Datensicherung stellt sicher, dass die Prüfsummen mit den Dateiinhalten übereinstimmen und alle Dateien gesichert sind. Aus Geschwindigkeitsgründen kann die Prüfsummenberechnung ausgelassen werden.</translation>
@@ -200,11 +210,6 @@
         <translation>Bei geringem Speicherplatz können die ältesten Datensicherungen automatisch gelöscht werden.</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="197"/>
-        <source>&amp;Delete oldest backup snapshots until free capacity reaches</source>
-        <translation>&amp;Lösche Datensicherungen bis die freie Kapazität</translation>
-    </message>
-    <message>
         <location filename="../src/ConfigurationDialog.cpp" line="201"/>
         <source>percent</source>
         <translation>Prozent erreicht</translation>
@@ -213,11 +218,6 @@
         <location filename="../src/ConfigurationDialog.cpp" line="207"/>
         <source>The number of backup snapshots can be limited.</source>
         <translation>Die Anzahl der Datensicherungen kann begrenzt werden.</translation>
-    </message>
-    <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="209"/>
-        <source>&amp;Keep up to</source>
-        <translation>&amp;Behalte bis zu</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="213"/>
@@ -279,47 +279,47 @@
 <context>
     <name>CopyTraverser</name>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="174"/>
+        <location filename="../src/CopyTraverser.cpp" line="175"/>
         <source>Create hard link from &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Erstelle Hard-Link von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="190"/>
+        <location filename="../src/CopyTraverser.cpp" line="191"/>
         <source>Copy file from &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Kopiere Datei von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="191"/>
+        <location filename="../src/CopyTraverser.cpp" line="192"/>
         <source>Copy error, disk full?</source>
         <translation>Fehler beim Kopieren; kein Speicherplatz mehr?</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="201"/>
+        <location filename="../src/CopyTraverser.cpp" line="202"/>
         <source>Set file meta data &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Setze Datei-Meta-Daten von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="242"/>
+        <location filename="../src/CopyTraverser.cpp" line="243"/>
         <source>Set folder meta data &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Setze Verzeichnis-Meta-Daten von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="223"/>
+        <location filename="../src/CopyTraverser.cpp" line="224"/>
         <source>Create directory &apos;%1&apos;</source>
         <translation>Erstelle Verzeichnis »%1«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="224"/>
+        <location filename="../src/CopyTraverser.cpp" line="225"/>
         <source>Could not create directory</source>
         <translation>Verzeichnis konnte nicht erstellt werden</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="273"/>
+        <location filename="../src/CopyTraverser.cpp" line="274"/>
         <source>Create symbolic link &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Erstelle symbolischen Link von %1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="284"/>
+        <location filename="../src/CopyTraverser.cpp" line="285"/>
         <source>Copy file meta data from &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Kopiere Datei-Meta-Daten von »%1« nach »%2«</translation>
     </message>
@@ -677,29 +677,27 @@
         <translation>Prüfsumme</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="174"/>
-        <location filename="../src/SnapshotListModel.cpp" line="181"/>
-        <location filename="../src/SnapshotListModel.cpp" line="194"/>
+        <location filename="../src/SnapshotListModel.cpp" line="188"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="187"/>
+        <location filename="../src/SnapshotListModel.cpp" line="181"/>
         <source>dddd, dd-MMM-yyyy hh:mm:ss</source>
         <translation>dddd, dd.MM.yyyy hh:mm:ss</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="197"/>
+        <location filename="../src/SnapshotListModel.cpp" line="191"/>
         <source>Partial</source>
         <translation>Teilweise</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="200"/>
+        <location filename="../src/SnapshotListModel.cpp" line="194"/>
         <source>Complete</source>
         <translation>Vollständig</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotListModel.cpp" line="203"/>
+        <location filename="../src/SnapshotListModel.cpp" line="197"/>
         <source>Reliable</source>
         <translation>Verlässlich</translation>
     </message>
@@ -740,12 +738,12 @@
         <translation>Kann nicht geöffnet werden</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotMetaInfo.cpp" line="110"/>
+        <location filename="../src/SnapshotMetaInfo.cpp" line="106"/>
         <source>Can not be created</source>
         <translation>Kann nicht erstellt werden</translation>
     </message>
     <message>
-        <location filename="../src/SnapshotMetaInfo.cpp" line="137"/>
+        <location filename="../src/SnapshotMetaInfo.cpp" line="133"/>
         <source>Error during writing</source>
         <translation>Fehler beim Schreiben</translation>
     </message>
@@ -779,47 +777,47 @@
 <context>
     <name>ValidateTraverser</name>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="63"/>
+        <location filename="../src/ValidateTraverser.cpp" line="65"/>
         <source>%1 files expected, but %2 files found.</source>
         <translation>Es wurden %1 Dateien erwartet, aber %2 Dateien gefunden.</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="68"/>
+        <location filename="../src/ValidateTraverser.cpp" line="70"/>
         <source>%1 Bytes expected, but %2 Bytes found.</source>
         <translation>Es wurden %1 Bytes erwartet, aber %2 Bytes gefunden.</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="74"/>
+        <location filename="../src/ValidateTraverser.cpp" line="76"/>
         <source>The following files are missing in the backup snapshot:</source>
         <translation>Die folgenden Dateien fehlen in der Datensicherung:</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="79"/>
+        <location filename="../src/ValidateTraverser.cpp" line="81"/>
         <source>More files are missing...</source>
         <translation>Es fehlen noch weitere Dateien...</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="88"/>
+        <location filename="../src/ValidateTraverser.cpp" line="90"/>
         <source>WARNING: Content digests not verified (disabled).</source>
         <translation>WARNUNG: Prüfsummen der Dateien wurden nicht geprüft (Option ausgeschaltet).</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="93"/>
+        <location filename="../src/ValidateTraverser.cpp" line="95"/>
         <source>Backup snapshot status set to &apos;Unknown&apos;.</source>
         <translation>Der Status der Datensicherungsversion wird auf »Unbekannt« gesetzt.</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="96"/>
+        <location filename="../src/ValidateTraverser.cpp" line="98"/>
         <source>All files validated, Backup snapshot is reliable.</source>
         <translation>Alle Dateien geprüft, Datensicherungsversion ist verlässlich.</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="148"/>
+        <location filename="../src/ValidateTraverser.cpp" line="150"/>
         <source>File &apos;%1&apos; has beed modified.</source>
         <translation>Datei »%1« wurde verändert.</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="150"/>
+        <location filename="../src/ValidateTraverser.cpp" line="152"/>
         <source>More files have been modified...</source>
         <translation>Es wurden noch weitere Dateien modifiziert...</translation>
     </message>

@@ -184,7 +184,7 @@ QWidget *ConfigurationDialog::constructOptionsTab()
 
     QLabel *verifyText = new QLabel(tr("Backup snapshots can be verified after creation or on individual request."));
     verifyText->setWordWrap(true);
-    m_verifyAfterBackup = new QCheckBox(tr("&Verify backup snapshots automatically after creation"));
+    m_verifyAfterBackup = new QCheckBox(tr("Verify backup snapshots automatically after creation"));
     QLabel *digestText = new QLabel(tr("Backup snapshot verification ensures the consistency of the digests to "
                                        "the corresponding files, and ensures that all files exist. For performance "
                                        "reasons, the digest recomputation can be left out."));
@@ -194,7 +194,7 @@ QWidget *ConfigurationDialog::constructOptionsTab()
     QLabel *purgeText = new QLabel(tr("At low drive space, the oldest backup snapshots can be deleted automatically."));
     purgeText->setWordWrap(true);
     QHBoxLayout *purgeLayout = new QHBoxLayout;
-    m_purgeBackups = new QCheckBox(tr("&Delete oldest backup snapshots until free capacity reaches"));
+    m_purgeBackups = new QCheckBox(tr("Delete oldest backup snapshots until free capacity reaches"));
     m_spareCapacity = new QSpinBox;
     m_spareCapacity->setMaximum(15);
     m_spareCapacity->setMinimum(5);
@@ -206,7 +206,7 @@ QWidget *ConfigurationDialog::constructOptionsTab()
 
     QLabel *limitText = new QLabel(tr("The number of backup snapshots can be limited."));
     QHBoxLayout *limitLayout = new QHBoxLayout;
-    m_limitBackups = new QCheckBox(tr("&Keep up to"));
+    m_limitBackups = new QCheckBox(tr("Keep up to"));
     m_numberBackups = new QSpinBox;
     m_numberBackups->setMaximum(50);
     m_numberBackups->setMinimum(1);
