@@ -6,13 +6,13 @@
     or (at your option) any later version.
 
 
-2. Qt library
+2. INVERITA uses Qt library
 
     Copyright Nokia Corporation and/or its subsidiary(-ies)
     Qt can be used under open source (LGPL v2.1) 
 
 
-3. PolarSSL
+3. sha1.c
 
     PolarSSL library (http://www.polarssl.org)
     FIPS-180-1 compliant SHA-1 implementation
@@ -34,7 +34,7 @@
 
 6. ok.png, encrypted.png
 
-    Taken from Faenza Icons' (http://tiheum.deviantart.com)
+    Taken from 'Faenza Icons' (http://tiheum.deviantart.com)
     Copyright (C) 2010-2012, Matthieu James (~tiheum)
 
 
