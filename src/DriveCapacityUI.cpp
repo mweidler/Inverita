@@ -146,8 +146,9 @@ void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, QCo
  */
 void DriveCapacityUI::drawLegend(QPainter &painter, qint64 free, qint64 used)
 {
-    QRect freeRect(m_legendRect.left() + 10, m_legendRect.top() + 1, 10, 10);
-    QRect usedRect(m_legendRect.left() + 10, m_legendRect.top() + 22, 10, 10);
+    QRect titleRect(m_legendRect.left()+ 10, m_legendRect.top(),      10, 10);
+    QRect freeRect(m_legendRect.left() + 10, m_legendRect.top() + 20, 10, 10);
+    QRect usedRect(m_legendRect.left() + 10, m_legendRect.top() + 40, 10, 10);
 
     painter.setPen(this->palette().text().color());
     painter.setBrush(m_freeColor);
@@ -155,6 +156,7 @@ void DriveCapacityUI::drawLegend(QPainter &painter, qint64 free, qint64 used)
     painter.setBrush(m_usedColor);
     painter.drawRect(usedRect);
 
+    painter.drawText(titleRect.bottomLeft() + QPoint(0, 1), tr("Storage capacity:"));
     painter.drawText(freeRect.bottomLeft() + QPoint(15, 1), formatSize(free) + " " + tr("free"));
     painter.drawText(usedRect.bottomLeft() + QPoint(15, 1), formatSize(used) + " " + tr("used"));
 }

@@ -327,12 +327,17 @@
 <context>
     <name>DriveCapacityUI</name>
     <message>
-        <location filename="../src/DriveCapacityUI.cpp" line="158"/>
+        <location filename="../src/DriveCapacityUI.cpp" line="159"/>
+        <source>Storage capacity:</source>
+        <translation>Speicherkapazität:</translation>
+    </message>
+    <message>
+        <location filename="../src/DriveCapacityUI.cpp" line="160"/>
         <source>free</source>
         <translation>frei</translation>
     </message>
     <message>
-        <location filename="../src/DriveCapacityUI.cpp" line="159"/>
+        <location filename="../src/DriveCapacityUI.cpp" line="161"/>
         <source>used</source>
         <translation>belegt</translation>
     </message>
