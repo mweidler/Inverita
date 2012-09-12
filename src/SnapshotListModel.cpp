@@ -223,7 +223,7 @@ void SnapshotListModel::investigate(const QString &origin)
 {
     QDir dir(origin);
     dir.setFilter(QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks);
-    dir.setSorting(QDir::Time | QDir::Reversed);
+    dir.setSorting(QDir::Time);
 
     beginResetModel();
     m_historyList.clear();
