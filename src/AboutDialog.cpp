@@ -40,10 +40,10 @@
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
     static const QString text =
-        tr(
-            "<b>INVERITA Personal Backup</b> Version %1<br>"
-            "Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)<br>"
-            "All rights reserved.<br><br>"
+        tr("<b>INVERITA Personal Backup</b> Version %1<br>"
+           "Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)<br>"
+           "All rights reserved.") + "<br><br>" +
+        QString::fromLatin1(
             "INVERITA is free software: you can redistribute it and/or modify "
             "it under the terms of the GNU General Public License as published by "
             "the Free Software Foundation, either version 3 of the License, or "
