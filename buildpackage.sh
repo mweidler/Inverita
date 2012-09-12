@@ -45,6 +45,13 @@ PACKAGENAME=inverita-"$VERSION"_"$ARCH".deb
 cp --preserve=timestamp Inverita packaging/usr/bin/inverita
 chmod 755 packaging/usr/bin/inverita
 
+[ -d packaging/usr ] || mkdir packaging/usr
+[ -d packaging/usr/share ] || mkdir packaging/usr/share
+[ -d packaging/usr/share/doc ] || mkdir packaging/usr/share/doc
+[ -d packaging/usr/share/doc/inverita ] || mkdir packaging/usr/share/doc/inverita
+cp --preserve=timestamp COPYRIGHT packaging/usr/share/doc/inverita/copyright
+chmod 644 packaging/usr/share/doc/inverita/copyright
+
 [ -d packaging/DEBIAN ] || mkdir packaging/DEBIAN
 
 echo -e "Package: Inverita\n\
