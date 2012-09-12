@@ -605,8 +605,16 @@
 <context>
     <name>ProgressDialog</name>
     <message numerus="yes">
+        <location filename="../src/ProgressDialog.cpp" line="224"/>
+        <source>About %n Hour(s)</source>
+        <translation>
+            <numerusform>Ungefähr %n Stunde</numerusform>
+            <numerusform>Ungefähr %n Stunden</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
         <location filename="../src/ProgressDialog.cpp" line="226"/>
-        <source>%n minute(s)</source>
+        <source>%n Minute(s)</source>
         <translation>
             <numerusform>%n Minute</numerusform>
             <numerusform>%n Minuten</numerusform>
@@ -614,18 +622,10 @@
     </message>
     <message numerus="yes">
         <location filename="../src/ProgressDialog.cpp" line="228"/>
-        <source>%n second(s)</source>
+        <source>%n Second(s)</source>
         <translation>
             <numerusform>%n Sekunde</numerusform>
             <numerusform>%n Sekunden</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="224"/>
-        <source>About %n hour(s)</source>
-        <translation>
-            <numerusform>Ungefähr %n Stunde</numerusform>
-            <numerusform>Ungefähr %n Stunden</numerusform>
         </translation>
     </message>
     <message>

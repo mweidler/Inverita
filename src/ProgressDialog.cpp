@@ -221,11 +221,11 @@ void ProgressDialog::update()
         qreal remainingHours = remainingMinutes / 60.0;
 
         if (remainingHours > 0.75) {
-            timeInfo = tr("About %n hour(s)", "", qRound(remainingHours));
+            timeInfo = tr("About %n Hour(s)", "", qRound(remainingHours));
         } else if (remainingSeconds > 45) {
-            timeInfo = tr("%n minute(s)", "", qRound(remainingMinutes));
+            timeInfo = tr("%n Minute(s)", "", qRound(remainingMinutes));
         } else {
-            timeInfo = tr("%n second(s)", "", remainingSeconds);
+            timeInfo = tr("%n Second(s)", "", remainingSeconds);
         }
 
         if (transferRate > 0) {
