@@ -146,7 +146,7 @@ void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, QCo
  */
 void DriveCapacityUI::drawLegend(QPainter &painter, qint64 free, qint64 used)
 {
-    QRect titleRect(m_legendRect.left()+ 10, m_legendRect.top(),      10, 10);
+    QRect titleRect(m_legendRect.left() + 10, m_legendRect.top(),      10, 10);
     QRect freeRect(m_legendRect.left() + 10, m_legendRect.top() + 20, 10, 10);
     QRect usedRect(m_legendRect.left() + 10, m_legendRect.top() + 40, 10, 10);
 
