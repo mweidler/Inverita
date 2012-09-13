@@ -43,7 +43,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
         tr("<b>INVERITA Personal Backup</b> Version %1<br>"
            "Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)<br>"
            "All rights reserved.") + "<br><br>" +
-        QString::fromLatin1(
+        QLatin1String(
             "INVERITA is free software: you can redistribute it and/or modify "
             "it under the terms of the GNU General Public License as published by "
             "the Free Software Foundation, either version 3 of the License, or "
@@ -98,8 +98,9 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 
-    setMinimumSize(700, 500);
     setWindowTitle(tr("About INVERITA Personal Backup"));
+    setMinimumSize(700, 500);
+    resize(700, 600);
 }
 
 
