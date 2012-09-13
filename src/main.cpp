@@ -43,9 +43,14 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i < argc; i++) {
         QString option(argv[i]);
-        if (option.startsWith("--icontheme=")) {
+        if (option.toLower().startsWith("-icontheme=")) {
             QString themeName = option.mid(option.lastIndexOf("=") + 1);
             QIcon::setThemeName(themeName);
+        }
+
+        if (option.toLower().startsWith("-menushaveicons=")) {
+            QString haveIcons = option.mid(option.lastIndexOf("=") + 1);
+            QApplication::setAttribute(Qt::AA_DontShowIconsInMenus, haveIcons!="true");
         }
     }
 
