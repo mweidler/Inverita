@@ -85,9 +85,9 @@ const Snapshot &SnapshotListModel::at(int i) const
 }
 
 
-const Snapshot &SnapshotListModel::last() const
+const Snapshot &SnapshotListModel::first() const
 {
-    return m_historyList.last();
+    return m_historyList.first();
 }
 
 

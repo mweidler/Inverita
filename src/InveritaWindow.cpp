@@ -423,7 +423,7 @@ void InveritaWindow::updateLatestLink(QString absolutePath)
     if (m_snapshotListModel->isEmpty()) {
         QFile::remove(linkPath);
     } else {
-        QString newName = m_snapshotListModel->last().name();
+        QString newName = m_snapshotListModel->first().name();
         if (linkName != newName) {
             QFile::remove(linkPath);
             QFile::link(newName, linkPath);
