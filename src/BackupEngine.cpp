@@ -243,6 +243,7 @@ void BackupEngine::executeBackup(QString &timestamp)
     m_copyTraverser.setPreviousBackupPath(previousBackup);
     m_copyTraverser.setCurrentBackupPath(currentBackup);
     m_copyTraverser.previousDigests().load(previousBackup + "/digests");
+    m_copyTraverser.currentDigests().clear();
     m_copyTraverser.traverse();
     QByteArray checksum = m_copyTraverser.currentDigests().save(currentBackup + "/digests");
 
