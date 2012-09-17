@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 
         if (option.toLower().startsWith("-menushaveicons=")) {
             QString haveIcons = option.mid(option.lastIndexOf("=") + 1);
-            QApplication::setAttribute(Qt::AA_DontShowIconsInMenus, haveIcons!="true");
+            QApplication::setAttribute(Qt::AA_DontShowIconsInMenus, haveIcons != "true");
         }
     }
 
