@@ -72,6 +72,7 @@ public slots:
 
     void onMenuNewBackup();
     void onMenuOpenBackup();
+    void onMenuEmptyBackupList();
     void onConfigure();
 
 protected:
@@ -93,6 +94,7 @@ private:
 
     QAction *m_createBackupAction;
     QAction *m_openBackupAction;
+    QAction *m_emptyBackupListAction;
     QAction *m_quitAction;
     QAction *m_aboutAction;
 

@@ -501,6 +501,34 @@ void InveritaWindow::onMenuOpenBackup()
 }
 
 
+void InveritaWindow::onMenuEmptyBackupList()
+{
+    QString msg = tr("All closed backups will get removed from the list "
+                     "of recently used backups. Each backup can be re-opened again "
+                     "by using the menu and will then appear in the list again."
+                    );
+
+    if (QMessageBox::warning(this, tr("Empty backup list"), msg,
+                             QMessageBox::Cancel | QMessageBox::Ok, QMessageBox::Ok) != QMessageBox::Ok) {
+        return;
+    }
+
+    int current = m_backupSelectorUI->currentSelection();
+
+    if (current != -1) {
+        BackupEntry entry = m_backupListModel->at(current);
+        m_backupListModel->clear();
+        m_backupListModel->setEntry(entry);
+    } else {
+        m_backupListModel->clear();
+    }
+
+    m_backupListModel->save();
+    m_backupListModel->load("inverita");
+    m_backupSelectorUI->select(m_backupListModel->size() - 1);
+}
+
+
 void InveritaWindow::onConfigure()
 {
     Backup &backup = Backup::instance();
@@ -572,6 +600,12 @@ void InveritaWindow::createActions()
     m_openBackupAction->setShortcut(QKeySequence::Open);
     connect(m_openBackupAction, SIGNAL(triggered()), this, SLOT(onMenuOpenBackup()));
 
+    m_emptyBackupListAction = new QAction(tr("Empty recently used backup list..."), this);
+    m_emptyBackupListAction->setStatusTip(tr("Remove closed backups from backup list"));
+    m_emptyBackupListAction->setIconVisibleInMenu(true);
+    m_emptyBackupListAction->setIcon(QIcon::fromTheme("edit-clear"));
+    connect(m_emptyBackupListAction, SIGNAL(triggered()), this, SLOT(onMenuEmptyBackupList()));
+
     m_quitAction = new QAction(tr("Quit"), this);
     m_quitAction->setStatusTip(tr("Quit application"));
     m_quitAction->setIconVisibleInMenu(true);
@@ -594,6 +628,8 @@ void InveritaWindow::createMenus()
     m_backupMenu = menuBar()->addMenu(tr("&Backup"));
     m_backupMenu->addAction(m_createBackupAction);
     m_backupMenu->addAction(m_openBackupAction);
+    m_backupMenu->addSeparator();
+    m_backupMenu->addAction(m_emptyBackupListAction);
     m_backupMenu->addSeparator();
     m_backupMenu->addAction(m_quitAction);
 

@@ -41,6 +41,7 @@ public:
     BackupSelectorUI(BackupListModel *model, QWidget *parent = 0);
     ~BackupSelectorUI();
 
+    int  currentSelection();
     void select(int selection);
     void setEnableConfiguration(bool enabled);
 
