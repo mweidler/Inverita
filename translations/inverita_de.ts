@@ -9,7 +9,7 @@
         <translation>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;Alle Rechte vorbehalten.</translation>
     </message>
     <message>
-        <location filename="../src/AboutDialog.cpp" line="102"/>
+        <location filename="../src/AboutDialog.cpp" line="101"/>
         <source>About INVERITA Personal Backup</source>
         <translation>Info über INVERITA Personal Backup</translation>
     </message>
@@ -60,12 +60,12 @@
         <translation>Alte Datensicherungsversion »%1« wurde wegen Überzahl gelöscht.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="262"/>
+        <location filename="../src/BackupEngine.cpp" line="263"/>
         <source>Backup snapshot created successfully without errors.</source>
         <translation>Datensicherungsversion erfolgreich ohne Fehler erstellt.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="263"/>
+        <location filename="../src/BackupEngine.cpp" line="264"/>
         <source>Backup snapshot checksum is &apos;%1&apos;</source>
         <translation>Die Prüfsumme der Datensicherungsversion ist »%1«</translation>
     </message>
@@ -130,107 +130,107 @@
         <translation>Optionen</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="114"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="92"/>
+        <source>The backup storage specifies the location, where backup data will be stored. You can choose every pathname which is accessible from your computer, e.g. &apos;/media/usbdrive&apos; or &apos;/data/backup&apos;&lt;br&gt;&lt;br&gt;&lt;u&gt;Attention:&lt;/u&gt; You can not change the backup storage after once created. The encryption can only be enabled/disabeled if no backup snapshots are currently available.</source>
+        <translation>Der Speicherort bezeichnet den Platz, worauf die einzelnen Datensicherungen gespeichert werden. Sie können jeden Pfad verwenden, der von Ihrem Computer erreicht werden kann, z.B. »/media/usbdrive« oder »/data/backup«&lt;br&gt;&lt;br&gt;&lt;u&gt;Achtung:&lt;/u&gt; Ein bestehender Speicherort kann nicht verändert werden. Die Verschlüsselung kann nur ein-/ausgeschaltet werden, wenn keine Datensicherungsversionen vorhanden sind.</translation>
+    </message>
+    <message>
+        <location filename="../src/ConfigurationDialog.cpp" line="113"/>
         <source>Change</source>
         <translation>Ändern</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="119"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="118"/>
         <source>Encrypt backup data using &apos;EncFS&apos;</source>
         <translation>Daten der Datensicherung mit »EncFS« verschlüsseln</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="122"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="121"/>
         <source>Current backup storage:</source>
         <translation>Derzeitiger Speicherort:</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="129"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="128"/>
         <source>You can give your backup a short label, like &apos;Home-Backup&apos; or &apos;Data&apos;.</source>
         <translation>Kurze Bezeichnung für die Datensicherung, z.B. »Home-Backup« oder »Data«.</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="133"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="132"/>
         <source>Backup label:</source>
         <translation>Bezeichnung:</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="185"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="184"/>
         <source>Backup snapshots can be verified after creation or on individual request.</source>
         <translation>Datensicherungen können direkt nach der Erstellung oder später überprüft werden.</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="197"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="196"/>
         <source>Delete oldest backup snapshots until free capacity reaches</source>
         <translation>Lösche Datensicherungen bis die freie Kapazität</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="209"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="208"/>
         <source>Keep up to</source>
         <translation>Behalte bis zu</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="312"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="324"/>
         <source>The backup storage you have specified does not exist.&lt;br&gt;Please choose another storage.</source>
         <translation>Der angegebene Speicherort für die Datensicherung existiert nicht. &lt;br&gt;Bitte wählen Sie einen anderen Speicherort.</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="192"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="191"/>
         <source>Recompute digests on verification (recommended)</source>
         <translation>Neuberechnung der Prüfsummen bei der Überprüfung (empfohlen)</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="92"/>
-        <source>The backup storage specifies the location, where backup data will be stored. You can choose every pathname which is accessible from your computer, e.g. &apos;/media/usbdrive&apos; or &apos;/data/backup&apos;&lt;br&gt;&lt;br&gt;&lt;u&gt;Attention:&lt;/u&gt; If you change an existing backup storage to another location, a new backup will be created on the new location. Your existing backup and snapshots will not be copied to the new location and reside on the old location.</source>
-        <translation>Der Speicherort bezeichnet den Platz, worauf die einzelnen Datensicherungen gespeichert werden. Sie können jeden Pfad verwenden, der von Ihrem Computer erreicht werden kann, z.B. »/media/usbdrive« oder »/data/backup«&lt;br&gt;&lt;br&gt;&lt;u&gt;Achtung:&lt;/u&gt; Wenn Sie einen bestehenden Speicherort verändern, wird dort eine neue Datensicherung angelegt. Bereits vorhandene Datensicherungen werden nicht umkopiert.</translation>
-    </message>
-    <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="155"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="154"/>
         <source>The list below shows all directories that comprises your backup, e.g. &apos;/data&apos; or &apos;/home/user&apos;</source>
         <translation>Die folgende Auflistung zeigt alle Verzeichnisse, welche die Datensicherung umfasst, z.B. »/data« oder »/home/user«</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="166"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="165"/>
         <source>The list below shows all file/directory-patterns that will be excluded from the backup, e.g. &apos;/data/temp&apos; will exclude the whole directory, &apos;test*&apos; will exclude all items beginning with &apos;test&apos;</source>
         <translation>Die unten stehende Liste zeigt alle Datei-/Verzeichnis-Muster, die von der Datensicherung ausgenommen werden, z.B. »/data/temp« ignoriert das gesamte Verzeichnis, »test*« ignoriert alle Dateien und Verzeichnisse, die mit &quot;test&quot; beginnen</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="187"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="186"/>
         <source>Verify backup snapshots automatically after creation</source>
         <translation>Überprüfe Datensicherungen direkt nach der Erstellung</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="188"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="187"/>
         <source>Backup snapshot verification ensures the consistency of the digests to the corresponding files, and ensures that all files exist. For performance reasons, the digest recomputation can be left out.</source>
         <translation>Die Überprüfung einer Datensicherung stellt sicher, dass die Prüfsummen mit den Dateiinhalten übereinstimmen und alle Dateien gesichert sind. Aus Geschwindigkeitsgründen kann die Prüfsummenberechnung ausgelassen werden.</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="194"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="193"/>
         <source>At low drive space, the oldest backup snapshots can be deleted automatically.</source>
         <translation>Bei geringem Speicherplatz können die ältesten Datensicherungen automatisch gelöscht werden.</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="201"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="200"/>
         <source>percent</source>
         <translation>Prozent erreicht</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="207"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="206"/>
         <source>The number of backup snapshots can be limited.</source>
         <translation>Die Anzahl der Datensicherungen kann begrenzt werden.</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="213"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="212"/>
         <source>backup snapshots and delete the oldest ones</source>
         <translation>Datensicherungen und lösche die Ältesten</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="292"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="304"/>
         <source>Select a new backup location...</source>
         <translation>Einen neuen Speicherort wählen...</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="311"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="323"/>
         <source>Backup storage does not exist</source>
         <translation>Speicherort nicht vorhanden</translation>
     </message>
@@ -454,17 +454,17 @@
         <translation>Datensicherung »%1« konfigurieren</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="563"/>
+        <location filename="../src/InveritaWindow.cpp" line="575"/>
         <source>Quit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="564"/>
+        <location filename="../src/InveritaWindow.cpp" line="576"/>
         <source>Quit application</source>
         <translation>Anwendung beenden</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="570"/>
+        <location filename="../src/InveritaWindow.cpp" line="582"/>
         <source>&amp;About INVERITA...</source>
         <translation>&amp;Info über INVERITA...</translation>
     </message>
@@ -539,37 +539,37 @@
         <translation>Die Datensicherung, die Sie öffnen wollen, wird nicht unterstützt: &lt;br&gt;»%1«&lt;br&gt;Bitte wählen Sie eine andere Datensicherung.</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="549"/>
+        <location filename="../src/InveritaWindow.cpp" line="561"/>
         <source>Create new backup...</source>
         <translation>Erstelle neue Datensicherung...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="550"/>
+        <location filename="../src/InveritaWindow.cpp" line="562"/>
         <source>Create new backup configuration</source>
         <translation>Erstelle neue Datensicherungs-Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="556"/>
+        <location filename="../src/InveritaWindow.cpp" line="568"/>
         <source>Open existing backup...</source>
         <translation>Öffne bestehende Datensicherung...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="557"/>
+        <location filename="../src/InveritaWindow.cpp" line="569"/>
         <source>Open an existing backup configuration</source>
         <translation>Öffne bestehende Datensicherungs-Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="571"/>
+        <location filename="../src/InveritaWindow.cpp" line="583"/>
         <source>Show the application&apos;s About box</source>
         <translation>Zeige Informationen über die Anwendung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="582"/>
+        <location filename="../src/InveritaWindow.cpp" line="594"/>
         <source>&amp;Backup</source>
         <translation>&amp;Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="588"/>
+        <location filename="../src/InveritaWindow.cpp" line="600"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>

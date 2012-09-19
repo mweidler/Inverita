@@ -512,6 +512,8 @@ void InveritaWindow::onConfigure()
     configDialog.setWindowTitle(tr("Configuring backup '%1'").arg(backup.origin()));
     configDialog.setLabel(backup.label());
     configDialog.setLocation(backup.origin());
+    configDialog.setEnableLocationChange(false);
+    configDialog.setEnableEncryptionSelection(m_snapshotListModel->count() == 0);
     configDialog.setEncrypt(backup.encryption() == Backup::EncFSEncrypted);
     if (configDialog.exec() != QDialog::Accepted) {
         return;
@@ -523,8 +525,18 @@ void InveritaWindow::onConfigure()
     entry.encryption = configDialog.encrypt() ? Backup::EncFSEncrypted : Backup::NotEncrypted;
     entry.password = backup.password();
 
-    QString newOrigin = configDialog.location();
-    if (backup.origin() == newOrigin) {
+    /* Attention: you have to make sure, that a change of the encryption
+     * can only happen, if no more backup snapshots are in the backup!
+     * Snapshots can not be encrypted/decrypted on the fly!
+     */
+    if (backup.encryption() != entry.encryption) {
+        QFile::remove(backup.location() + "/inverita.conf");
+        QFile::remove(backup.origin() + "/.encfs6.xml");
+        entry.password.clear();
+        backup.setPassword(entry.password);
+    }
+
+    if (backup.encryption() == entry.encryption) {
         config.save(backup.location() + "/inverita.conf");
         m_backupListModel->setEntry(entry);
         refreshContent(); // explicitly reload, because there is no backup change
@@ -533,7 +545,7 @@ void InveritaWindow::onConfigure()
 
     closeCurrentBackup();
     if (openCurrentBackup(entry) == Backup::Success) {
-        config.save(newOrigin + "/inverita.conf");
+        config.save(backup.location() + "/inverita.conf");
         int index = m_backupListModel->setEntry(entry);
         m_backupSelectorUI->select(index); // causes a currentIndexChanged event
     } else {

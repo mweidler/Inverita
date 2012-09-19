@@ -50,6 +50,8 @@ public:
     QString label() const;
     void setLabel(const QString &label);
     bool encrypt() const;
+    void setEnableLocationChange(bool enable);
+    void setEnableEncryptionSelection(bool enable);
     void setEncrypt(bool encrypt);
 
 public slots:

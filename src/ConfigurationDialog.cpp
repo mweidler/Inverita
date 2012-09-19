@@ -94,10 +94,9 @@ QWidget *ConfigurationDialog::constructStorageTab()
             "data will be stored. You can choose every pathname which is "
             "accessible from your computer, e.g. '/media/usbdrive' or "
             "'/data/backup'<br><br>"
-            "<u>Attention:</u> If you change an existing backup storage to "
-            "another location, a new backup will be created on the new "
-            "location. Your existing backup and snapshots will not be "
-            "copied to the new location and reside on the old location."
+            "<u>Attention:</u> You can not change the backup storage after "
+            "once created. The encryption can only be enabled/disabeled "
+            "if no backup snapshots are currently available."
         ));
     storageText->setWordWrap(true);
 
@@ -275,6 +274,19 @@ void ConfigurationDialog::setLabel(const QString &label)
 bool ConfigurationDialog::encrypt() const
 {
     return m_encryptBackup->isChecked();
+}
+
+
+void ConfigurationDialog::setEnableLocationChange(bool enable)
+{
+    m_storageEdit->setReadOnly(!enable);
+    m_buttonChange->setEnabled(enable);
+}
+
+
+void ConfigurationDialog::setEnableEncryptionSelection(bool enable)
+{
+    m_encryptBackup->setEnabled(enable);
 }
 
 
