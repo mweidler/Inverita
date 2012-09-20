@@ -113,17 +113,21 @@ void BackupEngine::start()
 
         m_currentTask = -1; // disable highlighted task
 
+        if (m_abort) {
+            emit aborted();
+        } else {
+            emit finished();
+        }
+
     } catch (ApplicationException &e) {
         buildFailureHint(e);
         emit failed();
-        return;
     }
 
-    if (m_abort) {
-        emit aborted();
-    } else {
-        emit finished();
-    }
+    // This is only to reduce memory consumption
+    m_copyTraverser.currentDigests().clear();
+    m_copyTraverser.previousDigests().clear();
+    m_validateTraverser.digests().clear();
 }
 
 

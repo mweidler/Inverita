@@ -37,6 +37,14 @@ DigestsMap::DigestsMap()
 }
 
 
+/*! Destructor
+ */
+DigestsMap::~DigestsMap()
+{
+
+}
+
+
 /*! Load the contents of an digests file
  *
  * \param filename the filename of the digests file to load

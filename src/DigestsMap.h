@@ -44,6 +44,7 @@ class DigestsMap : public Digests
 {
 public:
     DigestsMap();
+    ~DigestsMap();
 
     QByteArray load(const QString &filename);
     QByteArray save(const QString &filename);

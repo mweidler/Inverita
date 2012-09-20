@@ -84,10 +84,13 @@ void VerifyEngine::start()
             m_validateTraverser.traverse();
             m_validateTraverser.evaluate(m_metaInfo);
             m_currentTask = -1; // disable highlighted task
+
+            m_metaInfo.save(currentBackup + "/metainfo");
+            emit finished();
+
         } catch (ApplicationException &e) {
             buildFailureHint(e);
             emit failed();
-            return;
         }
     } else {
         m_failureHint = tr("The content of the digests file are not trustable because "
@@ -97,11 +100,9 @@ void VerifyEngine::start()
         m_metaInfo.setQuality(SnapshotMetaInfo::Unknown);
         m_metaInfo.save(currentBackup + "/metainfo");
         emit failed();
-        return;
     }
 
-    m_metaInfo.save(currentBackup + "/metainfo");
-    emit finished();
+    m_validateTraverser.digests().clear();
 }
 
 
