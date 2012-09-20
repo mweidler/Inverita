@@ -89,41 +89,43 @@ ConfigurationDialog::~ConfigurationDialog()
 QWidget *ConfigurationDialog::constructStorageTab()
 {
     QLabel *storageText = new QLabel(
-        tr(
-            "The backup storage specifies the location, where backup "
-            "data will be stored. You can choose every pathname which is "
-            "accessible from your computer, e.g. '/media/usbdrive' or "
-            "'/data/backup'<br><br>"
-            "<u>Attention:</u> You can not change the backup storage after "
-            "once created. The encryption can only be enabled/disabeled "
-            "if no backup snapshots are currently available."
-        ));
+        tr("The backup storage specifies the location, where backup "
+           "data will be stored. You can choose every pathname which is "
+           "accessible from your computer, e.g. '/media/usbdrive' or '/data/backup'. "
+           "The location can not be changed any more after creation."));
     storageText->setWordWrap(true);
 
     QPixmap pixmap(":/images/drive-icon.png");
     QLabel *labelImage = new QLabel;
     labelImage->setPixmap(pixmap);
 
-    QHBoxLayout *descriptionLayout = new QHBoxLayout;
-    descriptionLayout->addWidget(storageText, 1);
-    descriptionLayout->addWidget(labelImage, 0, Qt::AlignRight | Qt::AlignTop);
-
     QHBoxLayout *locationLayout = new QHBoxLayout;
-    m_storageEdit = new QLineEdit();
+    m_storageLocation = new QLabel();
+    m_storageLocation->setFrameStyle(QFrame::Panel);
+    m_storageLocation->setFrameShadow(QFrame::Sunken);
     m_buttonChange = new QPushButton(tr("Change"));
     m_buttonChange->setIcon(QIcon::fromTheme("fileopen"));
-    locationLayout->addWidget(m_storageEdit);
+    locationLayout->addWidget(m_storageLocation, 1);
     locationLayout->addWidget(m_buttonChange);
 
-    m_encryptBackup = new QCheckBox(tr("Encrypt backup data using 'EncFS'"));
-
     QVBoxLayout *storageLayout = new QVBoxLayout;
-    storageLayout->addWidget(new QLabel(tr("Current backup storage:")));
+    storageLayout->addWidget(storageText);
+    storageLayout->addWidget(new QLabel(tr("Backup storage:")));
     storageLayout->addLayout(locationLayout);
-    storageLayout->addWidget(m_encryptBackup);
 
-    QLabel *separator = new QLabel;
-    separator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+    QHBoxLayout *storage2Layout = new QHBoxLayout;
+    storage2Layout->addLayout(storageLayout);
+    storage2Layout->addSpacerItem(new QSpacerItem(20, 0));
+    storage2Layout->addWidget(labelImage, 0, Qt::AlignRight | Qt::AlignTop);
+
+    QLabel *encryptionText = new QLabel(
+        tr("For security reasons, the backup data can be encrypted. The encryption can only "
+           "be changed if no backup snapshots are currently available."));
+    encryptionText->setWordWrap(true);
+    QVBoxLayout *encryptLayout = new QVBoxLayout;
+    m_encryptBackup = new QCheckBox(tr("Encrypt backup data using 'EncFS'"));
+    encryptLayout->addWidget(encryptionText);
+    encryptLayout->addWidget(m_encryptBackup);
 
     QLabel *labelText = new QLabel(tr("You can give your backup a short label, like 'Home-Backup' or 'Data'."));
 
@@ -132,11 +134,17 @@ QWidget *ConfigurationDialog::constructStorageTab()
     labelLayout->addWidget(new QLabel(tr("Backup label:")));
     labelLayout->addWidget(m_storageLabelEdit);
 
+    QLabel *separator = new QLabel;
+    separator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+
+    QLabel *separator2 = new QLabel;
+    separator2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+
     QVBoxLayout *storageVLayout = new QVBoxLayout;
-    storageVLayout->addLayout(descriptionLayout);
-    storageVLayout->addSpacerItem(new QSpacerItem(0, 20));
-    storageVLayout->addLayout(storageLayout);
+    storageVLayout->addLayout(storage2Layout);
     storageVLayout->addWidget(separator);
+    storageVLayout->addLayout(encryptLayout);
+    storageVLayout->addWidget(separator2);
     storageVLayout->addWidget(labelText);
     storageVLayout->addLayout(labelLayout);
 
@@ -239,7 +247,7 @@ QWidget *ConfigurationDialog::constructOptionsTab()
  */
 QString ConfigurationDialog::location() const
 {
-    return m_storageEdit->text();
+    return m_storageLocation->text();
 }
 
 
@@ -249,7 +257,7 @@ QString ConfigurationDialog::location() const
  */
 void ConfigurationDialog::setLocation(const QString &location)
 {
-    m_storageEdit->setText(location);
+    m_storageLocation->setText(location);
 }
 
 
@@ -279,7 +287,6 @@ bool ConfigurationDialog::encrypt() const
 
 void ConfigurationDialog::setEnableLocationChange(bool enable)
 {
-    m_storageEdit->setReadOnly(!enable);
     m_buttonChange->setEnabled(enable);
 }
 
@@ -303,14 +310,14 @@ void ConfigurationDialog::onChangeButton()
     QFileDialog filedialog(this);
     filedialog.setWindowTitle(tr("Select a new backup location..."));
     filedialog.setFileMode(QFileDialog::Directory);
-    filedialog.setDirectory(m_storageEdit->text());
+    filedialog.setDirectory(m_storageLocation->text());
     filedialog.setOption(QFileDialog::ShowDirsOnly, true);
     if (filedialog.exec() == QDialog::Rejected) {
         return;
     }
 
     QString dirname = filedialog.selectedFiles()[0];
-    m_storageEdit->setText(dirname);
+    m_storageLocation->setText(dirname);
 }
 
 

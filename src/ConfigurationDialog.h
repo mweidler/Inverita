@@ -30,6 +30,7 @@
 #include <QDialog>
 #include <QCheckBox>
 #include <QSpinBox>
+#include <QLabel>
 
 
 /*! Configuration dialog for setting various backup parameters, like
@@ -72,7 +73,7 @@ private:
     QSpinBox      *m_spareCapacity;
     QCheckBox     *m_limitBackups;
     QSpinBox      *m_numberBackups;
-    QLineEdit     *m_storageEdit;
+    QLabel        *m_storageLocation;
     QLineEdit     *m_storageLabelEdit;
     QPushButton   *m_buttonChange;
     Configuration &m_config;
