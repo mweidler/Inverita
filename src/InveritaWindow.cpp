@@ -441,14 +441,13 @@ void InveritaWindow::onMenuNewBackup()
         return;
     }
 
-    closeCurrentBackup();
-
     BackupEntry entry;
     entry.label = configDialog.label();
     entry.origin = configDialog.location();
     entry.encryption = configDialog.encrypt() ? Backup::EncFSEncrypted : Backup::NotEncrypted;
     entry.password.clear();
 
+    closeCurrentBackup();
     if (openCurrentBackup(entry) == Backup::Success) {
         config.save(Backup::instance().location() + "/inverita.conf");
         int index = m_backupListModel->setEntry(entry);
@@ -557,19 +556,18 @@ void InveritaWindow::onConfigure()
      * can only happen, if no more backup snapshots are in the backup!
      * Snapshots can not be encrypted/decrypted on the fly!
      */
-    if (backup.encryption() != entry.encryption) {
-        QFile::remove(backup.location() + "/inverita.conf");
-        QFile::remove(backup.origin() + "/.encfs6.xml");
-        entry.password.clear();
-        backup.setPassword(entry.password);
-    }
-
     if (backup.encryption() == entry.encryption) {
         config.save(backup.location() + "/inverita.conf");
         m_backupListModel->setEntry(entry);
+        backup.setLabel(entry.label);
         refreshContent(); // explicitly reload, because there is no backup change
         return;
     }
+
+    QFile::remove(backup.location() + "/inverita.conf");
+    QFile::remove(backup.origin() + "/.encfs6.xml");
+    entry.password.clear();
+    backup.setPassword(entry.password);
 
     closeCurrentBackup();
     if (openCurrentBackup(entry) == Backup::Success) {

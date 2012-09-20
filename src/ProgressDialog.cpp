@@ -43,7 +43,6 @@ ProgressDialog::ProgressDialog(WorkerEngine *model, DialogType type, DialogAbort
     QFont font;
     font.setFamily("Courier");
     font.setFixedPitch(true);
-    //font.setPointSize(10);
 
     m_textArea = new QTextEdit;
     m_textArea->setReadOnly(true);
@@ -67,7 +66,6 @@ ProgressDialog::ProgressDialog(WorkerEngine *model, DialogType type, DialogAbort
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setContentsMargins(20, 20, 20, 20);
-    //layout->setSpacing(20);
     for (int i = 0; i < m_model->tasks(); i++) {
         QLabel *labelStep =  new QLabel(m_model->task(i));
         m_labelList.append(labelStep);
@@ -79,7 +77,7 @@ ProgressDialog::ProgressDialog(WorkerEngine *model, DialogType type, DialogAbort
     switch (type) {
         case ProgressDialog::ShowTextBox:
             layout->addWidget(m_textArea);
-            setMinimumSize(700, 400);
+            setMinimumSize(800, 500);
             break;
 
         default: // fall through
