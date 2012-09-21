@@ -35,19 +35,6 @@
 #
 #set -x
 
-RECURSIVE=""
-if [[ $# -ge 1 ]]
-then
-  if [[ $1 == "-r" ]]
-  then
-    RECURSIVE="--recursive"
-    shift
-  fi
-else
-  echo "Code beautifier usage: $0 <file> ..."
-  exit
-fi
-
 astyle --version 2>/dev/null
 if [[ $? == 0 ]]
 then
@@ -57,7 +44,7 @@ then
 
   if [[ $ASTYLE_VER_MAJOR -ge 2 ]]
   then
-    astyle --options=astyle.opt --verbose $RECURSIVE "$@"
+    astyle --options=astyle.opt --verbose --formatted src/*.cpp src/*.h
   else
     echo "'astyle' version is too old - must be at least version 2."
   fi
