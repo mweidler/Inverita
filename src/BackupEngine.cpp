@@ -154,7 +154,7 @@ void BackupEngine::abort()
 
 void BackupEngine::checkDriveSpace()
 {
-    if (!Backup::instance().config().autoDeleteBackups()) {
+    if (!Backup::instance().config().autoDeleteSnapshots()) {
         return;
     }
 
@@ -173,13 +173,13 @@ void BackupEngine::checkDriveSpace()
 
 void BackupEngine::checkOvercharge()
 {
-    if (!Backup::instance().config().limitBackups()) {
+    if (!Backup::instance().config().limitSnapshots()) {
         return;
     }
 
     SnapshotListModel snapshotList;
     snapshotList.investigate(Backup::instance().location());
-    int overcharge = snapshotList.count() - Backup::instance().config().maximumBackups() ;
+    int overcharge = snapshotList.count() - Backup::instance().config().maximumSnapshots() ;
 
     for (int i = 0; i < overcharge && !m_abort; i++) {
         deleteSnapshot(Backup::instance().location() + "/" + snapshotList[i].name());

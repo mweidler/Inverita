@@ -45,10 +45,10 @@ void Configuration::reset()
     m_excludePatterns.clear();
     m_verifyAfterBackup = true;
     m_verifyDigest = true;
-    m_autoDeleteBackups = true;
+    m_autoDeleteSnapshots = true;
     m_spareCapacity = 7;
-    m_limitBackups = true;
-    m_maxBackups = 40;
+    m_limitSnapshots = true;
+    m_maximumSnapshots = 40;
 }
 
 QStringList &Configuration::includes()
@@ -90,23 +90,23 @@ bool Configuration::load(const QString &filename)
     int size = settings.beginReadArray("INCLUDEPATHS");
     for (int i = 0; i < size; ++i) {
         settings.setArrayIndex(i);
-        m_includePaths.append(settings.value("Include").toString());
+        m_includePaths.append(settings.value("include").toString());
     }
     settings.endArray();
 
     size = settings.beginReadArray("EXCLUDEPATTERNS");
     for (int i = 0; i < size; ++i) {
         settings.setArrayIndex(i);
-        m_excludePatterns.append(settings.value("Exclude").toString());
+        m_excludePatterns.append(settings.value("exclude").toString());
     }
     settings.endArray();
 
-    m_verifyAfterBackup = settings.value("OPTIONS/VerifyAfterBackup", true).toBool();
-    m_verifyDigest      = settings.value("OPTIONS/VerifyDigest", true).toBool();
-    m_autoDeleteBackups = settings.value("OPTIONS/AutoDeleteBackups", true).toBool();
-    m_spareCapacity     = settings.value("OPTIONS/SpareCapacity", 7).toInt();
-    m_limitBackups      = settings.value("OPTIONS/LimitBackups", true).toBool();
-    m_maxBackups        = settings.value("OPTIONS/MaxBackups", 40).toInt();
+    m_verifyAfterBackup   = settings.value("OPTIONS/verifyafterbackup", true).toBool();
+    m_verifyDigest        = settings.value("OPTIONS/verifydigest", true).toBool();
+    m_autoDeleteSnapshots = settings.value("OPTIONS/autodeletesnapshots", true).toBool();
+    m_spareCapacity       = settings.value("OPTIONS/sparecapacity", 7).toInt();
+    m_limitSnapshots      = settings.value("OPTIONS/limitsnapshots", true).toBool();
+    m_maximumSnapshots    = settings.value("OPTIONS/maximumsnapshots", 40).toInt();
 
     return true;
 }
@@ -114,36 +114,36 @@ bool Configuration::load(const QString &filename)
 
 void Configuration::save(const QString &filename) const
 {
-    QSettings settings(filename,  QSettings::IniFormat);
+    QFile::remove(filename);
+
+    QSettings settings(filename, QSettings::IniFormat);
     if (settings.status() != QSettings::NoError) {
         ApplicationException e;
         e.setCauser("save settings '" + filename + "'");
-        e.setErrorMessage(tr("Can not be opened"));
+        e.setErrorMessage(tr("Can not be created"));
         throw e;
     }
-
-    settings.remove("");
 
     settings.beginWriteArray("INCLUDEPATHS");
     for (int i = 0; i < m_includePaths.size(); i++) {
         settings.setArrayIndex(i);
-        settings.setValue("Include", m_includePaths[i]);
+        settings.setValue("include", m_includePaths[i]);
     }
     settings.endArray();
 
     settings.beginWriteArray("EXCLUDEPATTERNS");
     for (int i = 0; i < m_excludePatterns.size(); i++) {
         settings.setArrayIndex(i);
-        settings.setValue("Exclude", m_excludePatterns[i]);
+        settings.setValue("exclude", m_excludePatterns[i]);
     }
     settings.endArray();
 
-    settings.setValue("OPTIONS/VerifyAfterBackup", m_verifyAfterBackup);
-    settings.setValue("OPTIONS/VerifyDigest",      m_verifyDigest);
-    settings.setValue("OPTIONS/AutoDeleteBackups", m_autoDeleteBackups);
-    settings.setValue("OPTIONS/SpareCapacity",     m_spareCapacity);
-    settings.setValue("OPTIONS/LimitBackups",      m_limitBackups);
-    settings.setValue("OPTIONS/MaxBackups",        m_maxBackups);
+    settings.setValue("OPTIONS/verifyafterbackup",   m_verifyAfterBackup);
+    settings.setValue("OPTIONS/verifydigest",        m_verifyDigest);
+    settings.setValue("OPTIONS/autodeletesnapshots", m_autoDeleteSnapshots);
+    settings.setValue("OPTIONS/sparecapacity",       m_spareCapacity);
+    settings.setValue("OPTIONS/limitsnapshots",      m_limitSnapshots);
+    settings.setValue("OPTIONS/maximumsnapshots",    m_maximumSnapshots);
 
     if (settings.status() != QSettings::NoError) {
         ApplicationException e;
@@ -174,14 +174,14 @@ void Configuration::setVerifyDigest(bool enable)
     m_verifyDigest = enable;
 }
 
-bool Configuration::autoDeleteBackups() const
+bool Configuration::autoDeleteSnapshots() const
 {
-    return m_autoDeleteBackups;
+    return m_autoDeleteSnapshots;
 }
 
-void Configuration::setAutoDeleteBackups(bool enable)
+void Configuration::setAutoDeleteSnapshots(bool enable)
 {
-    m_autoDeleteBackups = enable;
+    m_autoDeleteSnapshots = enable;
 }
 
 int Configuration::spareCapacity() const
@@ -195,23 +195,23 @@ void Configuration::setSpareCapacity(int spare)
 }
 
 
-bool Configuration::limitBackups() const
+bool Configuration::limitSnapshots() const
 {
-    return m_limitBackups;
+    return m_limitSnapshots;
 }
 
-void Configuration::setLimitBackups(bool enable)
+void Configuration::setLimitSnapshots(bool enable)
 {
-    m_limitBackups = enable;
+    m_limitSnapshots = enable;
 }
 
-int  Configuration::maximumBackups() const
+int  Configuration::maximumSnapshots() const
 {
-    return m_maxBackups;
+    return m_maximumSnapshots;
 }
 
-void Configuration::setMaximumBackups(int count)
+void Configuration::setMaximumSnapshots(int count)
 {
-    m_maxBackups = count;
+    m_maximumSnapshots = count;
 }
 

@@ -53,17 +53,17 @@ public:
     bool verifyDigest() const;
     void setVerifyDigest(bool enable);
 
-    bool autoDeleteBackups() const;
-    void setAutoDeleteBackups(bool enable);
+    bool autoDeleteSnapshots() const;
+    void setAutoDeleteSnapshots(bool enable);
 
     int  spareCapacity() const;
     void setSpareCapacity(int spare);
 
-    bool limitBackups() const;
-    void setLimitBackups(bool enable);
+    bool limitSnapshots() const;
+    void setLimitSnapshots(bool enable);
 
-    int  maximumBackups() const;
-    void setMaximumBackups(int count);
+    int  maximumSnapshots() const;
+    void setMaximumSnapshots(int count);
 
     bool load(const QString &filename);
     void save(const QString &filename) const;
@@ -73,10 +73,10 @@ protected:
     QStringList m_excludePatterns;
     bool        m_verifyAfterBackup;
     bool        m_verifyDigest;
-    bool        m_autoDeleteBackups;
+    bool        m_autoDeleteSnapshots;
     int         m_spareCapacity;
-    bool        m_limitBackups;
-    int         m_maxBackups;
+    bool        m_limitSnapshots;
+    int         m_maximumSnapshots;
 };
 
 #endif

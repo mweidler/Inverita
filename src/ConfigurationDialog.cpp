@@ -62,10 +62,10 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     buttonBox->button(QDialogButtonBox::Save)->setDefault(true);
     m_verifyAfterBackup->setChecked(m_config.verifyAfterBackup());
     m_verifyDigest->setChecked(m_config.verifyDigest());
-    m_purgeBackups->setChecked(m_config.autoDeleteBackups());
+    m_purgeBackups->setChecked(m_config.autoDeleteSnapshots());
     m_spareCapacity->setValue(m_config.spareCapacity());
-    m_limitBackups->setChecked(m_config.limitBackups());
-    m_numberBackups->setValue(m_config.maximumBackups());
+    m_limitBackups->setChecked(m_config.limitSnapshots());
+    m_numberBackups->setValue(m_config.maximumSnapshots());
 
     connect(m_buttonChange, SIGNAL(clicked()), this, SLOT(onChangeButton()));
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(onSave()));
@@ -336,9 +336,9 @@ void ConfigurationDialog::onSave()
 
     m_config.setVerifyAfterBackup(m_verifyAfterBackup->isChecked());
     m_config.setVerifyDigest(m_verifyDigest->isChecked());
-    m_config.setAutoDeleteBackups(m_purgeBackups->isChecked());
-    m_config.setLimitBackups(m_limitBackups->isChecked());
-    m_config.setMaximumBackups(m_numberBackups->value());
+    m_config.setAutoDeleteSnapshots(m_purgeBackups->isChecked());
+    m_config.setLimitSnapshots(m_limitBackups->isChecked());
+    m_config.setMaximumSnapshots(m_numberBackups->value());
     m_config.setSpareCapacity(m_spareCapacity->value());
 
     accept();
