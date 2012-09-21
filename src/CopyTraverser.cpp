@@ -143,7 +143,7 @@ bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, Q
             bytesRead = source.read(m_copyBuffer.data(), m_copyBuffer.size());
             bytesWritten = target.write(m_copyBuffer.data(), bytesRead);
 
-            checksum.update(m_copyBuffer.data(), bytesRead);
+            checksum.update(m_copyBuffer, bytesRead);
             countProcessed(bytesWritten);
             countTransferred(bytesWritten);
 

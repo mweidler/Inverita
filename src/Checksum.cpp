@@ -43,14 +43,14 @@ void Checksum::reset()
     sha1_starts(&ctx);
 }
 
-void Checksum::update(QByteArray &buffer)
+void Checksum::update(const QByteArray &buffer)
 {
-    sha1_update(&ctx, (const unsigned char *)buffer.constData(), buffer.size());
+    sha1_update(&ctx, (const unsigned char *)buffer.data(), buffer.size());
 }
 
-void Checksum::update(const char *buffer, int size)
+void Checksum::update(const QByteArray &buffer, int size)
 {
-    sha1_update(&ctx, (const unsigned char *)buffer, size);
+    sha1_update(&ctx, (const unsigned char *)buffer.data(), size);
 }
 
 QByteArray Checksum::finish()

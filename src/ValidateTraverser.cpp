@@ -123,7 +123,7 @@ QByteArray ValidateTraverser::computeDigestOfFile(const QString &sourcefilename)
     do {
         bytesRead = source.read(m_fileBuffer.data(), m_fileBuffer.size());
 
-        checksum.update(m_fileBuffer.data(), bytesRead);
+        checksum.update(m_fileBuffer, bytesRead);
         countProcessed(bytesRead);
         countTransferred(bytesRead);
 

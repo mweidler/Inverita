@@ -43,8 +43,8 @@ public:
     ~Checksum();
 
     void reset();
-    void update(QByteArray &buffer);
-    void update(const char *buffer, int size);
+    void update(const QByteArray &buffer);
+    void update(const QByteArray &buffer, int size);
     QByteArray finish();
 
 private:
