@@ -55,7 +55,7 @@ private:
 
     QString    m_backupPath;       //!< absolute path to the current backup
     int        m_sizeOfBackupPath;
-    char       m_fileBuffer[4096]; //!< buffer for file copying
+    QByteArray m_fileBuffer;       //!< buffer for file copying
     DigestsMap m_digests;          //!< digests of all files in current backup
 };
 

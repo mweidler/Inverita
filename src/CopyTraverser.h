@@ -38,6 +38,7 @@ class CopyTraverser : public Traverser
 
 public:
     CopyTraverser();
+    ~CopyTraverser();
     DigestsMap &currentDigests();
     DigestsMap &previousDigests();
     void setCurrentBackupPath(QString &path);
@@ -55,7 +56,7 @@ protected:
 
     QString    m_currentBackupPath;  //!< absolute path to the current backup
     QString    m_previousBackupPath; //!< absolute path to the previous backup
-    char       m_copyBuffer[4096];   //!< buffer for file copying
+    QByteArray m_copyBuffer;         //!< buffer for file copying
     DigestsMap m_currentDigests;     //!< digests of all files in current backup
     DigestsMap m_previousDigests;    //!< digests of all files in previous backup
 };

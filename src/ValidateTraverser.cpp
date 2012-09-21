@@ -35,7 +35,7 @@
 ValidateTraverser::ValidateTraverser()
 {
     m_sizeOfBackupPath = 0;
-    memset(m_fileBuffer, 0, sizeof(m_fileBuffer));
+    m_fileBuffer.resize(16 * 1024);
 }
 
 
@@ -121,13 +121,13 @@ QByteArray ValidateTraverser::computeDigestOfFile(const QString &sourcefilename)
     }
 
     do {
-        bytesRead = source.read(m_fileBuffer, sizeof(m_fileBuffer));
+        bytesRead = source.read(m_fileBuffer.data(), m_fileBuffer.size());
 
-        checksum.update(m_fileBuffer, bytesRead);
+        checksum.update(m_fileBuffer.data(), bytesRead);
         countProcessed(bytesRead);
         countTransferred(bytesRead);
 
-    } while (bytesRead == (qint64)sizeof(m_fileBuffer) && !shouldAbort());
+    } while (bytesRead == m_fileBuffer.size() && !shouldAbort());
 
     return checksum.finish();
 }

@@ -39,7 +39,14 @@
  */
 CopyTraverser::CopyTraverser()
 {
-    memset(m_copyBuffer, 0, sizeof(m_copyBuffer));
+    m_copyBuffer.resize(16 * 1024);
+}
+
+/*! Destructor
+ */
+CopyTraverser::~CopyTraverser()
+{
+
 }
 
 
@@ -133,10 +140,10 @@ bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, Q
     success = target.open(QIODevice::WriteOnly);
     if (success) {
         do {
-            bytesRead = source.read(m_copyBuffer, sizeof(m_copyBuffer));
-            bytesWritten = target.write(m_copyBuffer, bytesRead);
+            bytesRead = source.read(m_copyBuffer.data(), m_copyBuffer.size());
+            bytesWritten = target.write(m_copyBuffer.data(), bytesRead);
 
-            checksum.update(m_copyBuffer, bytesRead);
+            checksum.update(m_copyBuffer.data(), bytesRead);
             countProcessed(bytesWritten);
             countTransferred(bytesWritten);
 
@@ -146,7 +153,7 @@ bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, Q
                 QFile::remove(targetfilename);
                 return false;
             }
-        } while (bytesRead == (qint64)sizeof(m_copyBuffer) && !shouldAbort());
+        } while (bytesRead == m_copyBuffer.size() && !shouldAbort());
     }
 
     digest = checksum.finish();
