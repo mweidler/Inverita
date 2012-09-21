@@ -112,7 +112,7 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
     connect(&m_backupEngine, SIGNAL(failed()), this, SLOT(onBackupFailed()));
     connect(&m_backupEngine, SIGNAL(report(QString)), m_progressBackupDialog, SLOT(display(QString)));
 
-    connect(this, SIGNAL(deleteBackup()), &m_eraseEngine, SLOT(start()));
+    connect(this, SIGNAL(deleteBackupSnapshot()), &m_eraseEngine, SLOT(start()));
     connect(m_progressEraseDialog, SIGNAL(aborted()), this, SLOT(abortProgress()));
     connect(&m_eraseEngine, SIGNAL(finished()), this, SLOT(refreshContent()));
     connect(&m_eraseEngine, SIGNAL(aborted()), this, SLOT(refreshContent()));
@@ -402,7 +402,9 @@ void InveritaWindow::onDeleteSnapshot()
     if (QMessageBox::question(this, tr("Delete backup snapshot?"),
                               tr("Do you really want to delete the backup snapshot<br>'%1'?").arg(name),
                               QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
-        emit deleteBackup();
+        emit deleteBackupSnapshot();
+    } else {
+        refreshContent();
     }
 }
 
@@ -505,10 +507,11 @@ void InveritaWindow::onMenuEmptyBackupList()
     QString msg = tr("All closed backups will get removed from the list "
                      "of recently used backups. Each backup can be re-opened again "
                      "by using the menu and will then appear in the list again."
-                    );
+                    ) + "<br><br>" +
+                  tr("Do you really want to empty the list?");
 
-    if (QMessageBox::warning(this, tr("Empty backup list"), msg,
-                             QMessageBox::Cancel | QMessageBox::Ok, QMessageBox::Ok) != QMessageBox::Ok) {
+    if (QMessageBox::question(this, tr("Empty backup list"), msg,
+                              QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes) != QMessageBox::Yes) {
         return;
     }
 

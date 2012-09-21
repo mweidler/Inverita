@@ -50,27 +50,27 @@
         <translation>5. Lösche nicht mehr benötigte Datensicherungsversionen</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="164"/>
+        <location filename="../src/BackupEngine.cpp" line="168"/>
         <source>Old backup snapshot &apos;%1&apos; has been deleted due to low drive space.</source>
         <translation>Alte Datensicherungsversion »%1« wurde aus Platzgründen gelöscht.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="182"/>
+        <location filename="../src/BackupEngine.cpp" line="186"/>
         <source>Old backup snapshot &apos;%1&apos; has been deleted due to overcharge.</source>
         <translation>Alte Datensicherungsversion »%1« wurde wegen Überzahl gelöscht.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="263"/>
+        <location filename="../src/BackupEngine.cpp" line="267"/>
         <source>Backup snapshot created successfully without errors.</source>
         <translation>Datensicherungsversion erfolgreich ohne Fehler erstellt.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="264"/>
+        <location filename="../src/BackupEngine.cpp" line="268"/>
         <source>Backup snapshot checksum is &apos;%1&apos;</source>
         <translation>Die Prüfsumme der Datensicherungsversion ist »%1«</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="214"/>
+        <location filename="../src/BackupEngine.cpp" line="218"/>
         <source>Backup snapshot comprises %1 in %2 files.</source>
         <translation>Die Datensicherungsversion umfasst %1 in %2 Dateien.</translation>
     </message>
@@ -165,7 +165,7 @@
         <translation>Behalte bis zu</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="332"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="331"/>
         <source>The backup storage you have specified does not exist.&lt;br&gt;Please choose another storage.</source>
         <translation>Der angegebene Speicherort für die Datensicherung existiert nicht. &lt;br&gt;Bitte wählen Sie einen anderen Speicherort.</translation>
     </message>
@@ -230,12 +230,12 @@
         <translation>Datensicherungen und lösche die Ältesten</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="312"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="311"/>
         <source>Select a new backup location...</source>
         <translation>Einen neuen Speicherort wählen...</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="331"/>
+        <location filename="../src/ConfigurationDialog.cpp" line="330"/>
         <source>Backup storage does not exist</source>
         <translation>Speicherort nicht vorhanden</translation>
     </message>
@@ -454,22 +454,22 @@
         <translation>Verschlüsselungs-Software fehlt</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="540"/>
+        <location filename="../src/InveritaWindow.cpp" line="542"/>
         <source>Configuring backup &apos;%1&apos;</source>
         <translation>Datensicherung »%1« konfigurieren</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="609"/>
+        <location filename="../src/InveritaWindow.cpp" line="610"/>
         <source>Quit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="610"/>
+        <location filename="../src/InveritaWindow.cpp" line="611"/>
         <source>Quit application</source>
         <translation>Anwendung beenden</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="616"/>
+        <location filename="../src/InveritaWindow.cpp" line="617"/>
         <source>&amp;About INVERITA...</source>
         <translation>&amp;Info über INVERITA...</translation>
     </message>
@@ -524,77 +524,82 @@
         <translation>Wollen Sie die Datensicherungsversion&lt;br&gt;»%1« wirklich löschen?</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="439"/>
+        <location filename="../src/InveritaWindow.cpp" line="441"/>
         <source>Create a new backup</source>
         <translation>Erstelle neue Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="465"/>
+        <location filename="../src/InveritaWindow.cpp" line="466"/>
         <source>Open an existing backup</source>
         <translation>Öffne bestehende Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="492"/>
+        <location filename="../src/InveritaWindow.cpp" line="493"/>
         <source>Backup not supported</source>
         <translation>Datensicherung wird nicht unterstützt</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="493"/>
+        <location filename="../src/InveritaWindow.cpp" line="494"/>
         <source>The backup you want to open is not supported:&lt;br&gt;&apos;%1&apos;&lt;br&gt;Please choose another backup.</source>
         <translation>Die Datensicherung, die Sie öffnen wollen, wird nicht unterstützt: &lt;br&gt;»%1«&lt;br&gt;Bitte wählen Sie eine andere Datensicherung.</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="506"/>
+        <location filename="../src/InveritaWindow.cpp" line="507"/>
         <source>All closed backups will get removed from the list of recently used backups. Each backup can be re-opened again by using the menu and will then appear in the list again.</source>
         <translation>Alle geschlossenen Datensicherungen werden aus der Liste der kürzlich verwendeten Datensicherungen entfernt. Jede Datensicherung kann wieder über das Menü geöffnet werden und erscheint dann wieder in der Liste.</translation>
     </message>
     <message>
         <location filename="../src/InveritaWindow.cpp" line="511"/>
+        <source>Do you really want to empty the list?</source>
+        <translation>Soll die Liste wirklich geleert werden?</translation>
+    </message>
+    <message>
+        <location filename="../src/InveritaWindow.cpp" line="513"/>
         <source>Empty backup list</source>
         <translation>Liste der Datensicherungen leeren</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="589"/>
+        <location filename="../src/InveritaWindow.cpp" line="590"/>
         <source>Create new backup...</source>
         <translation>Erstelle neue Datensicherung...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="590"/>
+        <location filename="../src/InveritaWindow.cpp" line="591"/>
         <source>Create new backup configuration</source>
         <translation>Erstelle neue Datensicherungs-Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="596"/>
+        <location filename="../src/InveritaWindow.cpp" line="597"/>
         <source>Open existing backup...</source>
         <translation>Öffne bestehende Datensicherung...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="597"/>
+        <location filename="../src/InveritaWindow.cpp" line="598"/>
         <source>Open an existing backup configuration</source>
         <translation>Öffne bestehende Datensicherungs-Konfiguration</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="603"/>
+        <location filename="../src/InveritaWindow.cpp" line="604"/>
         <source>Empty recently used backup list...</source>
         <translation>Liste der kürzlich benutzten Datensicherungen leeren...</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="604"/>
+        <location filename="../src/InveritaWindow.cpp" line="605"/>
         <source>Remove closed backups from backup list</source>
         <translation>Entferne geschlossene Datensicherungen aus der Liste</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="617"/>
+        <location filename="../src/InveritaWindow.cpp" line="618"/>
         <source>Show the application&apos;s About box</source>
         <translation>Zeige Informationen über die Anwendung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="628"/>
+        <location filename="../src/InveritaWindow.cpp" line="629"/>
         <source>&amp;Backup</source>
         <translation>&amp;Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="636"/>
+        <location filename="../src/InveritaWindow.cpp" line="637"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
@@ -630,7 +635,7 @@
 <context>
     <name>ProgressDialog</name>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="224"/>
+        <location filename="../src/ProgressDialog.cpp" line="222"/>
         <source>About %n Hour(s)</source>
         <translation>
             <numerusform>Ungefähr %n Stunde</numerusform>
@@ -638,7 +643,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="226"/>
+        <location filename="../src/ProgressDialog.cpp" line="224"/>
         <source>%n Minute(s)</source>
         <translation>
             <numerusform>%n Minute</numerusform>
@@ -646,7 +651,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="228"/>
+        <location filename="../src/ProgressDialog.cpp" line="226"/>
         <source>%n Second(s)</source>
         <translation>
             <numerusform>%n Sekunde</numerusform>
@@ -654,22 +659,22 @@
         </translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="232"/>
+        <location filename="../src/ProgressDialog.cpp" line="230"/>
         <source>%1 estimated time remaining, processing %2/s</source>
         <translation>%1 geschätzte Restzeit, verarbeite %2/s</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="234"/>
+        <location filename="../src/ProgressDialog.cpp" line="232"/>
         <source>%1 estimated time remaining</source>
         <translation>%1 geschätzte Restzeit</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="237"/>
+        <location filename="../src/ProgressDialog.cpp" line="235"/>
         <source>Please be patient...</source>
         <translation>Bitte haben Sie Geduld...</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="241"/>
+        <location filename="../src/ProgressDialog.cpp" line="239"/>
         <source>Finished.</source>
         <translation>Fertig.</translation>
     </message>
@@ -799,7 +804,7 @@
         <translation>Überprüfe die aktuelle Datensicherungsversion</translation>
     </message>
     <message>
-        <location filename="../src/ValidateEngine.cpp" line="92"/>
+        <location filename="../src/ValidateEngine.cpp" line="95"/>
         <source>The content of the digests file are not trustable because it&apos;s checksum does not match the expected checksum!&lt;br&gt;A snapshot validation is not possible!&lt;br&gt;The backup snapshot status will be set to &apos;Unknown&apos;.</source>
         <translation>Dem Inhalt der Digest-Datei kann nicht vertraut werden, weil deren Prüfsumme nicht mit der erwarteten Prüfsumme überein stimmt!&lt;br&gt;Eine Überprüfung der Datensicherungsversion ist nicht möglich!&lt;br&gt;Der Status des Datensicherungsversion wird auf »Unbekannt« gesetzt.</translation>
     </message>
@@ -860,7 +865,7 @@
         <translation>Überprüfung der aktuellen Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/VerifyEngine.cpp" line="93"/>
+        <location filename="../src/VerifyEngine.cpp" line="96"/>
         <source>The content of the digests file are not trustable because it&apos;s checksum does not match the expected checksum!&lt;br&gt;A backup verification is not possible!&lt;br&gt;The latest backup snapshot status will be set to &apos;Unknown&apos;.</source>
         <translation>Dem Inhalt der Digest-Datei kann nicht vertraut werden, weil deren Prüfsumme nicht mit der erwarteten Prüfsumme überein stimmt!&lt;br&gt;Eine Überprüfung der Datensicherungsversion ist nicht möglich!&lt;br&gt;Der Status des Datensicherungsversion wird auf »Unbekannt« gesetzt.</translation>
     </message>

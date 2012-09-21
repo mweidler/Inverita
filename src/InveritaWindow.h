@@ -55,7 +55,7 @@ public:
     ~InveritaWindow();
 
 signals:
-    void deleteBackup();
+    void deleteBackupSnapshot();
     void validateBackup();
     void verifyBackup();
 
