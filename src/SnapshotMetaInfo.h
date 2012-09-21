@@ -42,24 +42,24 @@ public:
     SnapshotMetaInfo &operator= (const SnapshotMetaInfo &other);
 
     void reset();
-    bool load(QString filename);
-    void save(QString filename);
+    bool load(const QString &filename);
+    void save(const QString &filename);
 
     QByteArray checksum() const;
     void setChecksum(const QByteArray &checksum);
 
-    qint64 numberOfFiles() const;
-    void setNumberOfFiles(qint64 count);
+    qint64 fileCount() const;
+    void setFileCount(qint64 count);
 
-    qint64 sizeOfFiles() const;
-    void setSizeOfFiles(qint64 count);
+    qint64 dataSize() const;
+    void setDataSize(qint64 count);
 
     Quality quality() const;
     void setQuality(Quality status);
 
 protected:
-    qint64     m_files;
-    qint64     m_totalSize;
+    qint64     m_filecount;
+    qint64     m_dataSize;
     QByteArray m_checksum;
     Quality    m_quality;
 };

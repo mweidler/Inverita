@@ -170,11 +170,11 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
                 break;
 
             case 1:
-                return QVariant(snapshot.metaInfo().numberOfFiles());
+                return QVariant(snapshot.metaInfo().fileCount());
                 break;
 
             case 2:
-                return formatSize(snapshot.metaInfo().sizeOfFiles());
+                return formatSize(snapshot.metaInfo().dataSize());
                 break;
 
             case 3:

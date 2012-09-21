@@ -61,13 +61,13 @@ void ValidateTraverser::setBackupPath(const QString &path)
 
 void ValidateTraverser::evaluate(SnapshotMetaInfo &metaInfo)
 {
-    if (metaInfo.numberOfFiles() != files()) {
-        emit report(tr("%1 files expected, but %2 files found.").arg(metaInfo.numberOfFiles()).arg(files()) + "<br>");
+    if (metaInfo.fileCount() != files()) {
+        emit report(tr("%1 files expected, but %2 files found.").arg(metaInfo.fileCount()).arg(files()) + "<br>");
         countError();
     }
 
-    if (metaInfo.sizeOfFiles() != processed()) {
-        emit report(tr("%1 Bytes expected, but %2 Bytes found.").arg(metaInfo.sizeOfFiles()).arg(processed()) + "<br>");
+    if (metaInfo.dataSize() != processed()) {
+        emit report(tr("%1 Bytes expected, but %2 Bytes found.").arg(metaInfo.dataSize()).arg(processed()) + "<br>");
         countError();
     }
 

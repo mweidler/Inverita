@@ -36,16 +36,16 @@ SnapshotMetaInfo::SnapshotMetaInfo()
 
 SnapshotMetaInfo::SnapshotMetaInfo(const SnapshotMetaInfo &other) : QObject()
 {
-    m_files = other.m_files;
-    m_totalSize = other.m_totalSize;
+    m_filecount = other.m_filecount;
+    m_dataSize = other.m_dataSize;
     m_checksum = other.m_checksum;
     m_quality = other.m_quality;
 }
 
 SnapshotMetaInfo &SnapshotMetaInfo::operator= (const SnapshotMetaInfo &other)
 {
-    m_files = other.m_files;
-    m_totalSize = other.m_totalSize;
+    m_filecount = other.m_filecount;
+    m_dataSize = other.m_dataSize;
     m_checksum = other.m_checksum;
     m_quality = other.m_quality;
 
@@ -54,13 +54,13 @@ SnapshotMetaInfo &SnapshotMetaInfo::operator= (const SnapshotMetaInfo &other)
 
 void SnapshotMetaInfo::reset()
 {
-    m_files = 0;
-    m_totalSize = 0;
+    m_filecount = 0;
+    m_dataSize = 0;
     m_checksum.clear();
     m_quality = Unknown;
 }
 
-bool SnapshotMetaInfo::load(QString filename)
+bool SnapshotMetaInfo::load(const QString &filename)
 {
     reset();
 
@@ -76,10 +76,10 @@ bool SnapshotMetaInfo::load(QString filename)
         throw e;
     }
 
-    m_files = (qint64)settings.value("TotalFiles", 0).toLongLong();
-    m_totalSize = (qint64)settings.value("TotalSize", 0).toLongLong();
-    m_checksum = settings.value("Checksum").toString().toAscii();
-    QString quality = settings.value("Quality", "unknown").toString();
+    m_filecount = (qint64)settings.value("filecount", 0).toLongLong();
+    m_dataSize = (qint64)settings.value("datasize", 0).toLongLong();
+    m_checksum = settings.value("checksum").toString().toAscii();
+    QString quality = settings.value("quality", "unknown").toString();
     if (quality == "unknown") {
         m_quality = Unknown;
     }
@@ -97,7 +97,7 @@ bool SnapshotMetaInfo::load(QString filename)
 }
 
 
-void SnapshotMetaInfo::save(QString filename)
+void SnapshotMetaInfo::save(const QString &filename)
 {
     QSettings settings(filename,  QSettings::IniFormat);
     if (settings.status() != QSettings::NoError) {
@@ -107,21 +107,21 @@ void SnapshotMetaInfo::save(QString filename)
         throw e;
     }
 
-    settings.setValue("TotalFiles",  m_files);
-    settings.setValue("TotalSize",  m_totalSize);
-    settings.setValue("Checksum",  QString(m_checksum));
+    settings.setValue("filecount",  m_filecount);
+    settings.setValue("datasize",  m_dataSize);
+    settings.setValue("checksum",  QString(m_checksum));
     switch (m_quality) {
         case Unknown:
-            settings.setValue("Quality", QString("unknown"));
+            settings.setValue("quality", QString("unknown"));
             break;
         case Partial:
-            settings.setValue("Quality", QString("partial"));
+            settings.setValue("quality", QString("partial"));
             break;
         case Complete:
-            settings.setValue("Quality", QString("complete"));
+            settings.setValue("quality", QString("complete"));
             break;
         case Reliable:
-            settings.setValue("Quality", QString("reliable"));
+            settings.setValue("quality", QString("reliable"));
             break;
         default:
             break;
@@ -145,24 +145,24 @@ void SnapshotMetaInfo::setChecksum(const QByteArray &checksum)
     m_checksum = checksum;
 }
 
-qint64 SnapshotMetaInfo::numberOfFiles() const
+qint64 SnapshotMetaInfo::fileCount() const
 {
-    return m_files;
+    return m_filecount;
 }
 
-void SnapshotMetaInfo::setNumberOfFiles(qint64 count)
+void SnapshotMetaInfo::setFileCount(qint64 count)
 {
-    m_files = count;
+    m_filecount = count;
 }
 
-qint64 SnapshotMetaInfo::sizeOfFiles() const
+qint64 SnapshotMetaInfo::dataSize() const
 {
-    return m_totalSize;
+    return m_dataSize;
 }
 
-void SnapshotMetaInfo::setSizeOfFiles(qint64 count)
+void SnapshotMetaInfo::setDataSize(qint64 count)
 {
-    m_totalSize = count;
+    m_dataSize = count;
 }
 
 SnapshotMetaInfo::Quality SnapshotMetaInfo::quality() const

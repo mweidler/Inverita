@@ -48,7 +48,7 @@ EraseEngine::EraseEngine()
  */
 WorkerStatus EraseEngine::status()
 {
-    qint64 expectedFiles = qMax(m_metaInfo.numberOfFiles(), (qint64)1);
+    qint64 expectedFiles = qMax(m_metaInfo.fileCount(), (qint64)1);
 
     WorkerStatus st;
     st.timestamp  = QDateTime::currentDateTime();

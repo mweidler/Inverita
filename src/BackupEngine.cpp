@@ -252,8 +252,8 @@ void BackupEngine::executeBackup(QString &timestamp)
     QByteArray checksum = m_copyTraverser.currentDigests().save(currentBackup + "/digests");
 
     SnapshotMetaInfo metaInfo;
-    metaInfo.setNumberOfFiles(m_copyTraverser.files());
-    metaInfo.setSizeOfFiles(m_copyTraverser.processed());
+    metaInfo.setFileCount(m_copyTraverser.files());
+    metaInfo.setDataSize(m_copyTraverser.processed());
     metaInfo.setQuality(SnapshotMetaInfo::Partial);
 
     // set valid flag, if expected data/files could be copied, no errors
