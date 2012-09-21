@@ -171,6 +171,7 @@ void BackupListModel::save()
 void BackupListModel::saveAs(const QString &organization)
 {
     QSettings settings(organization);
+    QFile::remove(settings.fileName());
 
     settings.beginWriteArray("Backups");
     for (int i = 0; i < this->size(); ++i) {
