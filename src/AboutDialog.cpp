@@ -32,6 +32,16 @@
 #include <QApplication>
 #include <QIcon>
 
+#ifdef QT_ARCH_X86_64
+#define INVERITA_ARCH "amd64"
+#else
+#define INVERITA_ARCH "i386"
+#endif
+
+#ifndef QT_LARGEFILE_SUPPORT
+#error Will not compile without 'large file support'
+#endif
+
 
 /*! Constructs a new AboutDialog object with UI elements
  *
@@ -40,7 +50,7 @@
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
     static const QString text =
-        tr("<b>INVERITA Personal Backup</b> Version %1<br>"
+        tr("<b>INVERITA Personal Backup</b> Version %1 (%2)<br>"
            "Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)<br>"
            "All rights reserved.") + "<br><br>" +
         QLatin1String(
@@ -52,7 +62,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
             "but WITHOUT ANY WARRANTY; without even the implied warranty of "
             "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
             "GNU General Public License for more details: http://www.gnu.org/licenses/<br><br>"
-            "INVERITA uses Qt library %2<br>"
+            "INVERITA uses Qt library %3<br>"
             "Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).<br><br>"
             "INVERITA makes use of EncFS (http://www.arg0.net/encfs)<br>"
             "Copyright (C) 2003-2007, Valient Gough (vgough@pobox.com)<br><br>"
@@ -66,7 +76,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
             "that are licensed under 'CC Attribution-Noncommercial-No Derivate 3.0'.<br>"
         );
 
-    QLabel *labelAboutText = new QLabel(text.arg(INVERITA_COMMIT_VERSION).arg(qVersion()));
+    QLabel *labelAboutText = new QLabel(text.arg(INVERITA_COMMIT_VERSION).arg(INVERITA_ARCH).arg(qVersion()));
     labelAboutText->setWordWrap(true);
 
     QLabel *labelAppImage = new QLabel;

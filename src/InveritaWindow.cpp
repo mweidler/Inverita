@@ -601,7 +601,7 @@ void InveritaWindow::createActions()
     m_openBackupAction->setShortcut(QKeySequence::Open);
     connect(m_openBackupAction, SIGNAL(triggered()), this, SLOT(onMenuOpenBackup()));
 
-    m_emptyBackupListAction = new QAction(tr("Empty recently used backup list..."), this);
+    m_emptyBackupListAction = new QAction(tr("Empty backup list..."), this);
     m_emptyBackupListAction->setStatusTip(tr("Remove closed backups from backup list"));
     m_emptyBackupListAction->setIconVisibleInMenu(true);
     m_emptyBackupListAction->setIcon(QIcon::fromTheme("edit-clear"));

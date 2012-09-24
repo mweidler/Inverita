@@ -4,12 +4,12 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../src/AboutDialog.cpp" line="43"/>
-        <source>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;All rights reserved.</source>
-        <translation>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;Alle Rechte vorbehalten.</translation>
+        <location filename="../src/AboutDialog.cpp" line="53"/>
+        <source>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1 (%2)&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;All rights reserved.</source>
+        <translation>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1 (%2)&lt;br&gt;Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)&lt;br&gt;Alle Rechte vorbehalten.</translation>
     </message>
     <message>
-        <location filename="../src/AboutDialog.cpp" line="101"/>
+        <location filename="../src/AboutDialog.cpp" line="111"/>
         <source>About INVERITA Personal Backup</source>
         <translation>Info über INVERITA Personal Backup</translation>
     </message>
@@ -97,9 +97,13 @@
     <name>Configuration</name>
     <message>
         <location filename="../src/Configuration.cpp" line="86"/>
-        <location filename="../src/Configuration.cpp" line="121"/>
         <source>Can not be opened</source>
         <translation>Kann nicht geöffnet werden</translation>
+    </message>
+    <message>
+        <location filename="../src/Configuration.cpp" line="123"/>
+        <source>Can not be created</source>
+        <translation>Kann nicht erstellt werden</translation>
     </message>
     <message>
         <location filename="../src/Configuration.cpp" line="151"/>
@@ -284,47 +288,47 @@
 <context>
     <name>CopyTraverser</name>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="175"/>
+        <location filename="../src/CopyTraverser.cpp" line="182"/>
         <source>Create hard link from &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Erstelle Hard-Link von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="191"/>
+        <location filename="../src/CopyTraverser.cpp" line="198"/>
         <source>Copy file from &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Kopiere Datei von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="192"/>
+        <location filename="../src/CopyTraverser.cpp" line="199"/>
         <source>Copy error, disk full?</source>
         <translation>Fehler beim Kopieren; kein Speicherplatz mehr?</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="202"/>
+        <location filename="../src/CopyTraverser.cpp" line="209"/>
         <source>Set file meta data &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Setze Datei-Meta-Daten von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="243"/>
+        <location filename="../src/CopyTraverser.cpp" line="250"/>
         <source>Set folder meta data &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Setze Verzeichnis-Meta-Daten von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="224"/>
+        <location filename="../src/CopyTraverser.cpp" line="231"/>
         <source>Create directory &apos;%1&apos;</source>
         <translation>Erstelle Verzeichnis »%1«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="225"/>
+        <location filename="../src/CopyTraverser.cpp" line="232"/>
         <source>Could not create directory</source>
         <translation>Verzeichnis konnte nicht erstellt werden</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="274"/>
+        <location filename="../src/CopyTraverser.cpp" line="281"/>
         <source>Create symbolic link &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Erstelle symbolischen Link von %1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="285"/>
+        <location filename="../src/CopyTraverser.cpp" line="292"/>
         <source>Copy file meta data from &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Kopiere Datei-Meta-Daten von »%1« nach »%2«</translation>
     </message>
@@ -459,6 +463,11 @@
         <translation>Datensicherung »%1« konfigurieren</translation>
     </message>
     <message>
+        <location filename="../src/InveritaWindow.cpp" line="604"/>
+        <source>Empty backup list...</source>
+        <translation>Liste der Datensicherungen leeren...</translation>
+    </message>
+    <message>
         <location filename="../src/InveritaWindow.cpp" line="610"/>
         <source>Quit</source>
         <translation>Beenden</translation>
@@ -577,11 +586,6 @@
         <location filename="../src/InveritaWindow.cpp" line="598"/>
         <source>Open an existing backup configuration</source>
         <translation>Öffne bestehende Datensicherungs-Konfiguration</translation>
-    </message>
-    <message>
-        <location filename="../src/InveritaWindow.cpp" line="604"/>
-        <source>Empty recently used backup list...</source>
-        <translation>Liste der kürzlich benutzten Datensicherungen leeren...</translation>
     </message>
     <message>
         <location filename="../src/InveritaWindow.cpp" line="605"/>
