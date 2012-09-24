@@ -90,8 +90,8 @@ QWidget *ConfigurationDialog::constructStorageTab()
 {
     QLabel *storageText = new QLabel(
         tr("The backup storage specifies the location, where backup "
-           "data will be stored. You can choose every pathname which is "
-           "accessible from your computer, e.g. '/media/usbdrive' or '/data/backup'. "
+           "data will be stored. Each pathname, which is accessible from "
+           "your computer, can be used, e.g. '/media/usbdrive' or '/data/backup'. "
            "The location can not be changed any more after creation."));
     storageText->setWordWrap(true);
 
@@ -160,7 +160,7 @@ QWidget *ConfigurationDialog::constructStorageTab()
 QWidget *ConfigurationDialog::constructIncludesTab()
 {
     QString description = tr("The list below shows all directories that comprises your backup, "
-                             "e.g. '/data' or '/home/user'");
+                             "e.g. '/data' or '/home/user'.");
 
     return new ConfigurationListUI(m_config.includes(), ConfigurationListUI::DIRECTORY, description, this);
 }
@@ -172,7 +172,7 @@ QWidget *ConfigurationDialog::constructExcludesTab()
 {
     QString description = tr("The list below shows all file/directory-patterns that will be excluded "
                              "from the backup, e.g. '/data/temp' will exclude the whole directory, "
-                             "'test*' will exclude all items beginning with 'test'");
+                             "'test*' will exclude all items beginning with 'test'.");
 
     return new ConfigurationListUI(m_config.excludes(), ConfigurationListUI::PATTERN, description, this);
 }

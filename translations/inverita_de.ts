@@ -134,6 +134,11 @@
         <translation>Optionen</translation>
     </message>
     <message>
+        <location filename="../src/ConfigurationDialog.cpp" line="92"/>
+        <source>The backup storage specifies the location, where backup data will be stored. Each pathname, which is accessible from your computer, can be used, e.g. &apos;/media/usbdrive&apos; or &apos;/data/backup&apos;. The location can not be changed any more after creation.</source>
+        <translation>Der Speicherort bezeichnet den Platz, worauf die Daten der Datensicherung gespeichert werden. Jeder von Ihrem Computer erreichbare Pfad kann verwendet werden, z.B. »/media/usbdrive« oder »/data/backup«. Ein bestehender Speicherort kann nicht mehr verändert werden.</translation>
+    </message>
+    <message>
         <location filename="../src/ConfigurationDialog.cpp" line="106"/>
         <source>Change</source>
         <translation>Ändern</translation>
@@ -152,6 +157,16 @@
         <location filename="../src/ConfigurationDialog.cpp" line="134"/>
         <source>Backup label:</source>
         <translation>Bezeichnung:</translation>
+    </message>
+    <message>
+        <location filename="../src/ConfigurationDialog.cpp" line="162"/>
+        <source>The list below shows all directories that comprises your backup, e.g. &apos;/data&apos; or &apos;/home/user&apos;.</source>
+        <translation>Die folgende Auflistung zeigt alle Verzeichnisse, welche die Datensicherung umfasst, z.B. »/data« oder »/home/user«.</translation>
+    </message>
+    <message>
+        <location filename="../src/ConfigurationDialog.cpp" line="173"/>
+        <source>The list below shows all file/directory-patterns that will be excluded from the backup, e.g. &apos;/data/temp&apos; will exclude the whole directory, &apos;test*&apos; will exclude all items beginning with &apos;test&apos;.</source>
+        <translation>Die unten stehende Liste zeigt alle Datei-/Verzeichnis-Muster, die von der Datensicherung ausgenommen werden, z.B. »/data/temp« ignoriert das gesamte Verzeichnis, »test*« ignoriert alle Dateien und Verzeichnisse, die mit &quot;test&quot; beginnen.</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="192"/>
@@ -179,11 +194,6 @@
         <translation>Neuberechnung der Prüfsummen bei der Überprüfung (empfohlen)</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="92"/>
-        <source>The backup storage specifies the location, where backup data will be stored. You can choose every pathname which is accessible from your computer, e.g. &apos;/media/usbdrive&apos; or &apos;/data/backup&apos;. The location can not be changed any more after creation.</source>
-        <translation>Der Speicherort bezeichnet den Platz, worauf die Daten der Datensicherung gespeichert werden. Sie können jeden Pfad verwenden, der von Ihrem Computer erreicht werden kann, z.B. »/media/usbdrive« oder »/data/backup«. Ein bestehender Speicherort kann nicht mehr verändert werden.</translation>
-    </message>
-    <message>
         <location filename="../src/ConfigurationDialog.cpp" line="113"/>
         <source>Backup storage:</source>
         <translation>Speicherort:</translation>
@@ -192,16 +202,6 @@
         <location filename="../src/ConfigurationDialog.cpp" line="122"/>
         <source>For security reasons, the backup data can be encrypted. The encryption can only be changed if no backup snapshots are currently available.</source>
         <translation>Aus Sicherheitsgründen können die Daten der Datensicherung verschlüsselt werden. Die Verschlüsselung kann nur geändert werden, wenn keine Datensicherungsversionen vorhanden sind.</translation>
-    </message>
-    <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="162"/>
-        <source>The list below shows all directories that comprises your backup, e.g. &apos;/data&apos; or &apos;/home/user&apos;</source>
-        <translation>Die folgende Auflistung zeigt alle Verzeichnisse, welche die Datensicherung umfasst, z.B. »/data« oder »/home/user«</translation>
-    </message>
-    <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="173"/>
-        <source>The list below shows all file/directory-patterns that will be excluded from the backup, e.g. &apos;/data/temp&apos; will exclude the whole directory, &apos;test*&apos; will exclude all items beginning with &apos;test&apos;</source>
-        <translation>Die unten stehende Liste zeigt alle Datei-/Verzeichnis-Muster, die von der Datensicherung ausgenommen werden, z.B. »/data/temp« ignoriert das gesamte Verzeichnis, »test*« ignoriert alle Dateien und Verzeichnisse, die mit &quot;test&quot; beginnen</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="194"/>
