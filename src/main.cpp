@@ -29,6 +29,10 @@
 #include <QTranslator>
 #include <QLibraryInfo>
 
+#ifndef QT_LARGEFILE_SUPPORT
+#error Will not compile without 'large file support'
+#endif
+
 
 /*! The one and only main function and start point of the program
  *

@@ -32,16 +32,6 @@
 #include <QApplication>
 #include <QIcon>
 
-#ifdef QT_ARCH_X86_64
-#define INVERITA_ARCH "amd64"
-#else
-#define INVERITA_ARCH "i386"
-#endif
-
-#ifndef QT_LARGEFILE_SUPPORT
-#error Will not compile without 'large file support'
-#endif
-
 
 /*! Constructs a new AboutDialog object with UI elements
  *
@@ -50,7 +40,7 @@
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
     static const QString text =
-        tr("<b>INVERITA Personal Backup</b> Version %1 (%2)<br>"
+        tr("<b>INVERITA Personal Backup</b> Version %1 (%2bit)<br>"
            "Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)<br>"
            "All rights reserved.") + "<br><br>" +
         QLatin1String(
@@ -76,7 +66,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
             "that are licensed under 'CC Attribution-Noncommercial-No Derivate 3.0'.<br>"
         );
 
-    QLabel *labelAboutText = new QLabel(text.arg(INVERITA_COMMIT_VERSION).arg(INVERITA_ARCH).arg(qVersion()));
+    QLabel *labelAboutText = new QLabel(text.arg(INVERITA_COMMIT_VERSION).arg(QSysInfo::WordSize).arg(qVersion()));
     labelAboutText->setWordWrap(true);
 
     QLabel *labelAppImage = new QLabel;
