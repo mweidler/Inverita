@@ -40,15 +40,62 @@
 BackupEngine::BackupEngine()
 {
     reset();
-
-    m_descriptions << tr("1. Checking available drive space") <<
-                   tr("2. Analyzing backup content") <<
-                   tr("3. Creating new backup snapshot") <<
-                   tr("4. Verifying generated backup snapshot") <<
-                   tr("5. Removing obsolete backup snapshots");
+    m_currentTask = 0;
 
     // traverser and engine can emit report signals to the progress dialog
     connect(&m_validateTraverser, SIGNAL(report(QString)), this, SIGNAL(report(QString)));
+}
+
+
+/*! \return the number of tasks
+ */
+int BackupEngine::taskCount() const
+{
+    return 5;
+}
+
+
+/*! \return the index of the current task
+ */
+int BackupEngine::currentTask() const
+{
+    return m_currentTask;
+}
+
+
+/*! \return the data stored under the given role for the task referred to by the index
+ */
+QVariant BackupEngine::taskData(int task, int role) const
+{
+    if (role == Qt::DisplayRole) {
+        switch (task) {
+            case 0:
+                return QVariant(tr("1. Checking available drive space"));
+                break;
+            case 1:
+                return QVariant(tr("2. Analyzing backup content"));
+                break;
+            case 2:
+                return QVariant(tr("3. Creating new backup snapshot"));
+                break;
+            case 3:
+                return QVariant(tr("4. Verifying generated backup snapshot"));
+                break;
+            case 4:
+                return QVariant(tr("5. Removing obsolete backup snapshots"));
+                break;
+        }
+    }
+
+    if (role == Qt::CheckStateRole) {
+        if (task == 3 && Backup::instance().config().verifyAfterBackup() == false) {
+            return QVariant(false);
+        } else {
+            return QVariant(true);
+        }
+    }
+
+    return QVariant();
 }
 
 
@@ -60,7 +107,7 @@ BackupEngine::BackupEngine()
  *
  *  \return the current \em WorkerStatus
  */
-WorkerStatus BackupEngine::status()
+WorkerStatus BackupEngine::status() const
 {
     qint64 expected = qMax(m_scanTraverser.processed(), (qint64)1);
     qint64 current = m_copyTraverser.processed() + m_validateTraverser.processed();

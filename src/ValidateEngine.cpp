@@ -32,15 +32,54 @@
 ValidateEngine::ValidateEngine()
 {
     reset();
-
-    m_descriptions << tr("Validating the selected backup snapshot");
+    m_currentTask = 0;
 
     // traverser and engine can emit report signals to the progress dialog
     connect(&m_validateTraverser, SIGNAL(report(QString)), this, SIGNAL(report(QString)));
 }
 
 
-WorkerStatus ValidateEngine::status()
+/*! \return the number of tasks
+ */
+int ValidateEngine::taskCount() const
+{
+    return 1;
+}
+
+
+/*! \return the index of the current task
+ */
+int ValidateEngine::currentTask() const
+{
+    return m_currentTask;
+}
+
+
+/*! \return the data stored under the given role for the task referred to by the index
+ */
+QVariant ValidateEngine::taskData(int /*task*/, int role) const
+{
+    if (role == Qt::DisplayRole) {
+        return QVariant(tr("Validating the selected backup snapshot"));
+    }
+
+    if (role == Qt::CheckStateRole) {
+        return QVariant(true);
+    }
+
+    return QVariant();
+}
+
+
+/*! Returns the current \em WorkerStatus of this engine,
+ *  containing \em completion and \em processed bytes.
+ *
+ *  The worker status is requested by the progress dialog
+ *  to present the current job status to the user.
+ *
+ *  \return the current \em WorkerStatus
+ */
+WorkerStatus ValidateEngine::status() const
 {
     WorkerStatus st;
     st.timestamp  = QDateTime::currentDateTime();

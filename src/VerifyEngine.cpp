@@ -35,17 +35,54 @@
 VerifyEngine::VerifyEngine()
 {
     reset();
-
-    m_descriptions << tr("Verifying the current backup");
+    m_currentTask = 0;
 
     // traverser and engine can emit report signals to the progress dialog
     connect(&m_validateTraverser, SIGNAL(report(QString)), this, SIGNAL(report(QString)));
 }
 
 
-/*! \return the progress status of this engine
+/*! \return the number of tasks
  */
-WorkerStatus VerifyEngine::status()
+int VerifyEngine::taskCount() const
+{
+    return 1;
+}
+
+
+/*! \return the index of the current task
+ */
+int VerifyEngine::currentTask() const
+{
+    return m_currentTask;
+}
+
+
+/*! \return the data stored under the given role for the task referred to by the index
+ */
+QVariant VerifyEngine::taskData(int /*task*/, int role) const
+{
+    if (role == Qt::DisplayRole) {
+        return QVariant(tr("Verifying the current backup"));
+    }
+
+    if (role == Qt::CheckStateRole) {
+        return QVariant(true);
+    }
+
+    return QVariant();
+}
+
+
+/*! Returns the current \em WorkerStatus of this engine,
+ *  containing \em completion and \em processed bytes.
+ *
+ *  The worker status is requested by the progress dialog
+ *  to present the current job status to the user.
+ *
+ *  \return the current \em WorkerStatus
+ */
+WorkerStatus VerifyEngine::status() const
 {
     WorkerStatus st;
     st.timestamp  = QDateTime::currentDateTime();
@@ -54,8 +91,6 @@ WorkerStatus VerifyEngine::status()
 
     return st;
 }
-
-
 
 /*! Slot called each time, the "Verify Backup" button is pressed
  *

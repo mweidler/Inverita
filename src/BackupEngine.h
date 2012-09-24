@@ -44,7 +44,10 @@ class BackupEngine : public WorkerEngine
 public:
     BackupEngine();
 
-    WorkerStatus status();
+    int          taskCount() const;
+    int          currentTask() const;
+    QVariant     taskData(int task, int role) const;
+    WorkerStatus status() const;
 
 public slots:
     void start();
@@ -59,6 +62,7 @@ protected:
     void deleteSnapshot(const QString &snapshotName);
 
 protected:
+    int               m_currentTask;
     QString           m_latestBackup;
     QString           m_currentBackup;
     EraseTraverser    m_eraseTraverser;

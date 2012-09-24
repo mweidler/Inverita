@@ -47,6 +47,8 @@ BackupListModel::~BackupListModel()
 }
 
 
+/*! \return the data stored under the given role for the task referred to by the index
+ */
 QVariant BackupListModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {

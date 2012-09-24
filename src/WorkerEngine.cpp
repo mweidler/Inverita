@@ -43,30 +43,15 @@ WorkerEngine::~WorkerEngine()
  */
 void WorkerEngine::reset()
 {
-    m_currentTask = 0;
     m_abort = false;
 }
 
-
-int WorkerEngine::tasks()
-{
-    return m_descriptions.count();
-}
-
-QString WorkerEngine::task(int task)
-{
-    return m_descriptions[task];
-}
-
-int WorkerEngine::currentTask()
-{
-    return m_currentTask;
-}
 
 QString WorkerEngine::failureHint()
 {
     return m_failureHint;
 }
+
 
 void WorkerEngine::buildFailureHint(ApplicationException &e)
 {

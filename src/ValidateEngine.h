@@ -37,14 +37,19 @@ class ValidateEngine : public WorkerEngine
 public:
     ValidateEngine();
 
-    WorkerStatus status();
     void select(const QString &backupRootPath, const QString &snapshotName);
+
+    int          taskCount() const;
+    int          currentTask() const;
+    QVariant     taskData(int task, int role) const;
+    WorkerStatus status() const;
 
 public slots:
     void start();
     void abort();
 
 protected:
+    int               m_currentTask;
     QString           m_backupRootPath;
     QString           m_snapshotName;
     ValidateTraverser m_validateTraverser;

@@ -33,8 +33,39 @@
 EraseEngine::EraseEngine()
 {
     reset();
+    m_currentTask = 0;
+}
 
-    m_descriptions << tr("Deleting the selected backup snapshot");
+
+/*! \return the number of tasks
+ */
+int EraseEngine::taskCount() const
+{
+    return 1;
+}
+
+
+/*! \return the index of the current task
+ */
+int EraseEngine::currentTask() const
+{
+    return m_currentTask;
+}
+
+
+/*! \return the data stored under the given role for the task referred to by the index
+ */
+QVariant EraseEngine::taskData(int /*task*/, int role) const
+{
+    if (role == Qt::DisplayRole) {
+        return QVariant(tr("Deleting the selected backup snapshot"));
+    }
+
+    if (role == Qt::CheckStateRole) {
+        return QVariant(true);
+    }
+
+    return QVariant();
 }
 
 
@@ -46,7 +77,7 @@ EraseEngine::EraseEngine()
  *
  *  \return the current \em WorkerStatus
  */
-WorkerStatus EraseEngine::status()
+WorkerStatus EraseEngine::status() const
 {
     qint64 expectedFiles = qMax(m_metaInfo.fileCount(), (qint64)1);
 

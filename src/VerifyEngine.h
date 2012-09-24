@@ -37,13 +37,17 @@ class VerifyEngine : public WorkerEngine
 public:
     VerifyEngine();
 
-    WorkerStatus status();
+    int          taskCount() const;
+    int          currentTask() const;
+    QVariant     taskData(int task, int role) const;
+    WorkerStatus status() const;
 
 public slots:
     void start();
     void abort();
 
 protected:
+    int               m_currentTask;
     ValidateTraverser m_validateTraverser;
     SnapshotMetaInfo  m_metaInfo;
 };

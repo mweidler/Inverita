@@ -55,13 +55,13 @@ public:
     WorkerEngine();
     ~WorkerEngine();
 
-    void    reset();
-    int     tasks();
-    QString task(int task);
-    int     currentTask();
-    QString failureHint();
+    void     reset();
+    QString  failureHint();
 
-    virtual WorkerStatus status() = 0;
+    virtual int      taskCount() const = 0;
+    virtual int      currentTask() const = 0;
+    virtual QVariant taskData(int task, int role) const = 0;
+    virtual WorkerStatus status() const = 0;
 
 public slots:
     virtual void start() = 0;
@@ -78,10 +78,8 @@ protected:
     void buildFailureHint(ApplicationException &e);
 
 protected:
-    QStringList m_descriptions;
-    QString     m_failureHint;
-    int         m_currentTask;
-    bool        m_abort;
+    QString m_failureHint;
+    bool    m_abort;
 };
 
 #endif

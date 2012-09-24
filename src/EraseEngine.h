@@ -41,7 +41,11 @@ class EraseEngine : public WorkerEngine
 public:
     EraseEngine();
 
-    WorkerStatus status();
+    int          taskCount() const;
+    int          currentTask() const;
+    QVariant     taskData(int task, int role) const;
+    WorkerStatus status() const;
+
     void select(const QString &snapshotName);
 
 public slots:
@@ -49,6 +53,7 @@ public slots:
     void abort();
 
 protected:
+    int              m_currentTask;
     QString          m_snapshotName;
     EraseTraverser   m_eraseTraverser;
     SnapshotMetaInfo m_metaInfo;
