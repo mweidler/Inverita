@@ -17,7 +17,7 @@
 <context>
     <name>Backup</name>
     <message>
-        <location filename="../src/Backup.cpp" line="160"/>
+        <location filename="../src/Backup.cpp" line="161"/>
         <source>Directory does not exist or is not accessible.</source>
         <translation>Auf das Verzeichnis kann nicht zugegriffen werden oder es existiert nicht.</translation>
     </message>
@@ -116,7 +116,7 @@
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="43"/>
         <source>Storage</source>
-        <translation>Speicherort</translation>
+        <translation>Speicher</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="44"/>
@@ -134,14 +134,23 @@
         <translation>Optionen</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="92"/>
         <source>The backup storage specifies the location, where backup data will be stored. Each pathname, which is accessible from your computer, can be used, e.g. &apos;/media/usbdrive&apos; or &apos;/data/backup&apos;. The location can not be changed any more after creation.</source>
+        <translation type="obsolete">Der Speicherort bezeichnet den Platz, worauf die Daten der Datensicherung gespeichert werden. Jeder von Ihrem Computer erreichbare Pfad kann verwendet werden, z.B. »/media/usbdrive« oder »/data/backup«. Ein bestehender Speicherort kann nicht mehr verändert werden.</translation>
+    </message>
+    <message>
+        <location filename="../src/ConfigurationDialog.cpp" line="92"/>
+        <source>The storage location means the place where backup data will be stored on. Each path can be used that is accessible from your computer, e.g. &apos;/media/usbdrive&apos; or &apos;/data/backup&apos;. After creation, the backup storage can not be changed any more.</source>
         <translation>Der Speicherort bezeichnet den Platz, worauf die Daten der Datensicherung gespeichert werden. Jeder von Ihrem Computer erreichbare Pfad kann verwendet werden, z.B. »/media/usbdrive« oder »/data/backup«. Ein bestehender Speicherort kann nicht mehr verändert werden.</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="106"/>
         <source>Change</source>
         <translation>Ändern</translation>
+    </message>
+    <message>
+        <location filename="../src/ConfigurationDialog.cpp" line="113"/>
+        <source>Storage location:</source>
+        <translation>Speicherort:</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="126"/>
@@ -194,9 +203,8 @@
         <translation>Neuberechnung der Prüfsummen bei der Überprüfung (empfohlen)</translation>
     </message>
     <message>
-        <location filename="../src/ConfigurationDialog.cpp" line="113"/>
         <source>Backup storage:</source>
-        <translation>Speicherort:</translation>
+        <translation type="obsolete">Speicherort:</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="122"/>

@@ -89,10 +89,10 @@ ConfigurationDialog::~ConfigurationDialog()
 QWidget *ConfigurationDialog::constructStorageTab()
 {
     QLabel *storageText = new QLabel(
-        tr("The backup storage specifies the location, where backup "
-           "data will be stored. Each pathname, which is accessible from "
-           "your computer, can be used, e.g. '/media/usbdrive' or '/data/backup'. "
-           "The location can not be changed any more after creation."));
+        tr("The storage location means the place where backup data will be stored on. "
+           "Each path can be used that is accessible from your computer, "
+           "e.g. '/media/usbdrive' or '/data/backup'. "
+           "After creation, the backup storage can not be changed any more."));
     storageText->setWordWrap(true);
 
     QPixmap pixmap(":/images/drive-icon.png");
@@ -110,7 +110,7 @@ QWidget *ConfigurationDialog::constructStorageTab()
 
     QVBoxLayout *storageLayout = new QVBoxLayout;
     storageLayout->addWidget(storageText);
-    storageLayout->addWidget(new QLabel(tr("Backup storage:")));
+    storageLayout->addWidget(new QLabel(tr("Storage location:")));
     storageLayout->addLayout(locationLayout);
 
     QHBoxLayout *storage2Layout = new QHBoxLayout;
