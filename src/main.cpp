@@ -43,6 +43,7 @@
  */
 int main(int argc, char *argv[])
 {
+    bool translationEnabled = true;
     QApplication app(argc, argv);
 
     for (int i = 0; i < argc; i++) {
@@ -54,7 +55,12 @@ int main(int argc, char *argv[])
 
         if (option.toLower().startsWith("-menushaveicons=")) {
             QString haveIcons = option.mid(option.lastIndexOf("=") + 1);
-            QApplication::setAttribute(Qt::AA_DontShowIconsInMenus, haveIcons != "true");
+            QApplication::setAttribute(Qt::AA_DontShowIconsInMenus, haveIcons != "yes");
+        }
+
+        if (option.toLower().startsWith("-translation=")) {
+            QString translation = option.mid(option.lastIndexOf("=") + 1);
+            translationEnabled = (translation == "yes");
         }
     }
 
@@ -65,14 +71,17 @@ int main(int argc, char *argv[])
 
     QTranslator qtTranslator;
     qtTranslator.load(QLocale::system(), "qt", "_", QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-    app.installTranslator(&qtTranslator);
 
     QTranslator appTranslator;
     appTranslator.load(":translations/" + QApplication::applicationName() + "_" + QLocale::system().name());
-    app.installTranslator(&appTranslator);
 
     QLocale loc(QLocale::system().language());
-    QLocale::setDefault(loc);
+
+    if (translationEnabled) {
+      app.installTranslator(&qtTranslator);
+      app.installTranslator(&appTranslator);
+      QLocale::setDefault(loc);
+    }
 
     InveritaWindow w;
     w.show();
