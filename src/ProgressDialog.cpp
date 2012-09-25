@@ -68,7 +68,6 @@ ProgressDialog::ProgressDialog(WorkerEngine *model, DialogType type, DialogAbort
     layout->setContentsMargins(20, 20, 20, 20);
     for (int i = 0; i < m_model->taskCount(); i++) {
         QLabel *labelStep =  new QLabel(m_model->taskData(i, Qt::DisplayRole).toString());
-        labelStep->setEnabled(m_model->taskData(i, Qt::CheckStateRole).toBool());
         m_labelList.append(labelStep);
         layout->addWidget(labelStep);
     }
@@ -160,6 +159,7 @@ void ProgressDialog::showEvent(QShowEvent *event)
     m_progressBar->reset();
     m_labelRemaining->clear();
     m_finalized = false;
+    update();
 
     QDialog::showEvent(event);
     m_timer->start();

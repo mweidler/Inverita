@@ -211,9 +211,11 @@ void BackupEngine::checkDriveSpace()
     snapshotList.investigate(Backup::instance().location());
     qreal spare = Backup::instance().config().spareCapacity() / 100.0;
 
-    for (int i = 0; (i < snapshotList.count()) && (filesystem.capacity() < spare); i++) {
-        deleteSnapshot(Backup::instance().location() + "/" + snapshotList[i].name());
-        emit report(tr("Old backup snapshot '%1' has been deleted due to low drive space.").arg(snapshotList[i].name()));
+    while ((snapshotList.count() > 0) && (filesystem.capacity() < spare)) {
+        int idx = snapshotList.count() - 1;
+        deleteSnapshot(Backup::instance().location() + "/" + snapshotList[idx].name());
+        emit report(tr("Old backup snapshot '%1' has been deleted due to low drive space.").arg(snapshotList[idx].name()) + "<br>");
+        snapshotList.investigate(Backup::instance().location());
         filesystem.refresh();
     }
 }
@@ -228,10 +230,11 @@ void BackupEngine::checkOvercharge()
     SnapshotListModel snapshotList;
     snapshotList.investigate(Backup::instance().location());
     int overcharge = snapshotList.count() - Backup::instance().config().maximumSnapshots() ;
+    int idx = snapshotList.count() - 1;
 
-    for (int i = 0; i < overcharge && !m_abort; i++) {
-        deleteSnapshot(Backup::instance().location() + "/" + snapshotList[i].name());
-        emit report(tr("Old backup snapshot '%1' has been deleted due to overcharge.").arg(snapshotList[i].name()));
+    for (int i = 0; i < overcharge && !m_abort; i++, idx--) {
+        deleteSnapshot(Backup::instance().location() + "/" + snapshotList[idx].name());
+        emit report(tr("Old backup snapshot '%1' has been deleted due to overcharge.").arg(snapshotList[idx].name()) + "<br>");
     }
 }
 
