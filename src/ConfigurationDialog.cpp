@@ -203,7 +203,7 @@ QWidget *ConfigurationDialog::constructOptionsTab()
     QHBoxLayout *purgeLayout = new QHBoxLayout;
     m_purgeBackups = new QCheckBox(tr("Delete oldest backup snapshots until free capacity reaches"));
     m_spareCapacity = new QSpinBox;
-    m_spareCapacity->setMaximum(15);
+    m_spareCapacity->setMaximum(20);
     m_spareCapacity->setMinimum(5);
     QLabel *purgeTrailingText = new QLabel(tr("percent"));
     purgeLayout->setAlignment(Qt::AlignLeft);
