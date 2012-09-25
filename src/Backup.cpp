@@ -28,6 +28,7 @@
 #include <QDir>
 #include <QProcess>
 
+
 /*! Constructs a new backup.
  */
 Backup::Backup()
@@ -182,6 +183,9 @@ Backup::Status Backup::open()
 
             m_errorString = QString::fromLocal8Bit(process.readAllStandardOutput().append(process.readAllStandardError()));
             m_rc = process.exitCode();
+            if (process.exitStatus() != QProcess::NormalExit) {
+                m_rc = 1;
+            }
 
             if (m_rc != 0) {
                 dir.rmdir(m_location);
