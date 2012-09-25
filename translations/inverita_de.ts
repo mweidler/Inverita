@@ -25,52 +25,52 @@
 <context>
     <name>BackupEngine</name>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="44"/>
+        <location filename="../src/BackupEngine.cpp" line="73"/>
         <source>1. Checking available drive space</source>
         <translation>1. Überprüfe verfügbaren Speicherplatz</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="45"/>
+        <location filename="../src/BackupEngine.cpp" line="76"/>
         <source>2. Analyzing backup content</source>
         <translation>2. Analysiere Inhalt der Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="46"/>
+        <location filename="../src/BackupEngine.cpp" line="79"/>
         <source>3. Creating new backup snapshot</source>
         <translation>3. Erstelle neue Datensicherungsversion</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="47"/>
+        <location filename="../src/BackupEngine.cpp" line="82"/>
         <source>4. Verifying generated backup snapshot</source>
         <translation>4. Überprüfe die erstellte Datensicherungsversion</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="48"/>
+        <location filename="../src/BackupEngine.cpp" line="85"/>
         <source>5. Removing obsolete backup snapshots</source>
         <translation>5. Lösche nicht mehr benötigte Datensicherungsversionen</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="168"/>
+        <location filename="../src/BackupEngine.cpp" line="217"/>
         <source>Old backup snapshot &apos;%1&apos; has been deleted due to low drive space.</source>
         <translation>Alte Datensicherungsversion »%1« wurde aus Platzgründen gelöscht.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="186"/>
+        <location filename="../src/BackupEngine.cpp" line="237"/>
         <source>Old backup snapshot &apos;%1&apos; has been deleted due to overcharge.</source>
         <translation>Alte Datensicherungsversion »%1« wurde wegen Überzahl gelöscht.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="267"/>
+        <location filename="../src/BackupEngine.cpp" line="318"/>
         <source>Backup snapshot created successfully without errors.</source>
         <translation>Datensicherungsversion erfolgreich ohne Fehler erstellt.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="268"/>
+        <location filename="../src/BackupEngine.cpp" line="319"/>
         <source>Backup snapshot checksum is &apos;%1&apos;</source>
         <translation>Die Prüfsumme der Datensicherungsversion ist »%1«</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="218"/>
+        <location filename="../src/BackupEngine.cpp" line="269"/>
         <source>Backup snapshot comprises %1 in %2 files.</source>
         <translation>Die Datensicherungsversion umfasst %1 in %2 Dateien.</translation>
     </message>
@@ -354,7 +354,7 @@
 <context>
     <name>EraseEngine</name>
     <message>
-        <location filename="../src/EraseEngine.cpp" line="37"/>
+        <location filename="../src/EraseEngine.cpp" line="61"/>
         <source>Deleting the selected backup snapshot</source>
         <translation>Lösche die ausgewählte Datensicherungsversion</translation>
     </message>
@@ -639,7 +639,7 @@
 <context>
     <name>ProgressDialog</name>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="222"/>
+        <location filename="../src/ProgressDialog.cpp" line="224"/>
         <source>About %n Hour(s)</source>
         <translation>
             <numerusform>Ungefähr %n Stunde</numerusform>
@@ -647,7 +647,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="224"/>
+        <location filename="../src/ProgressDialog.cpp" line="226"/>
         <source>%n Minute(s)</source>
         <translation>
             <numerusform>%n Minute</numerusform>
@@ -655,7 +655,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="226"/>
+        <location filename="../src/ProgressDialog.cpp" line="228"/>
         <source>%n Second(s)</source>
         <translation>
             <numerusform>%n Sekunde</numerusform>
@@ -663,22 +663,22 @@
         </translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="230"/>
+        <location filename="../src/ProgressDialog.cpp" line="232"/>
         <source>%1 estimated time remaining, processing %2/s</source>
         <translation>%1 geschätzte Restzeit, verarbeite %2/s</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="232"/>
+        <location filename="../src/ProgressDialog.cpp" line="234"/>
         <source>%1 estimated time remaining</source>
         <translation>%1 geschätzte Restzeit</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="235"/>
+        <location filename="../src/ProgressDialog.cpp" line="237"/>
         <source>Please be patient...</source>
         <translation>Bitte haben Sie Geduld...</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="239"/>
+        <location filename="../src/ProgressDialog.cpp" line="241"/>
         <source>Finished.</source>
         <translation>Fertig.</translation>
     </message>
@@ -803,12 +803,12 @@
 <context>
     <name>ValidateEngine</name>
     <message>
-        <location filename="../src/ValidateEngine.cpp" line="36"/>
+        <location filename="../src/ValidateEngine.cpp" line="63"/>
         <source>Validating the selected backup snapshot</source>
         <translation>Überprüfe die aktuelle Datensicherungsversion</translation>
     </message>
     <message>
-        <location filename="../src/ValidateEngine.cpp" line="95"/>
+        <location filename="../src/ValidateEngine.cpp" line="136"/>
         <source>The content of the digests file are not trustable because it&apos;s checksum does not match the expected checksum!&lt;br&gt;A snapshot validation is not possible!&lt;br&gt;The backup snapshot status will be set to &apos;Unknown&apos;.</source>
         <translation>Dem Inhalt der Digest-Datei kann nicht vertraut werden, weil deren Prüfsumme nicht mit der erwarteten Prüfsumme überein stimmt!&lt;br&gt;Eine Überprüfung der Datensicherungsversion ist nicht möglich!&lt;br&gt;Der Status des Datensicherungsversion wird auf »Unbekannt« gesetzt.</translation>
     </message>
@@ -864,12 +864,12 @@
 <context>
     <name>VerifyEngine</name>
     <message>
-        <location filename="../src/VerifyEngine.cpp" line="39"/>
+        <location filename="../src/VerifyEngine.cpp" line="66"/>
         <source>Verifying the current backup</source>
         <translation>Überprüfung der aktuellen Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/VerifyEngine.cpp" line="96"/>
+        <location filename="../src/VerifyEngine.cpp" line="133"/>
         <source>The content of the digests file are not trustable because it&apos;s checksum does not match the expected checksum!&lt;br&gt;A backup verification is not possible!&lt;br&gt;The latest backup snapshot status will be set to &apos;Unknown&apos;.</source>
         <translation>Dem Inhalt der Digest-Datei kann nicht vertraut werden, weil deren Prüfsumme nicht mit der erwarteten Prüfsumme überein stimmt!&lt;br&gt;Eine Überprüfung der Datensicherungsversion ist nicht möglich!&lt;br&gt;Der Status des Datensicherungsversion wird auf »Unbekannt« gesetzt.</translation>
     </message>
@@ -877,12 +877,12 @@
 <context>
     <name>WorkerEngine</name>
     <message>
-        <location filename="../src/WorkerEngine.cpp" line="73"/>
+        <location filename="../src/WorkerEngine.cpp" line="58"/>
         <source>Causer: </source>
         <translation>Verursacher:</translation>
     </message>
     <message>
-        <location filename="../src/WorkerEngine.cpp" line="74"/>
+        <location filename="../src/WorkerEngine.cpp" line="59"/>
         <source>Error: </source>
         <translation>Fehler:</translation>
     </message>
