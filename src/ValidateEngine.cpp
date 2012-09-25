@@ -102,6 +102,8 @@ void ValidateEngine::select(const QString &backupRootPath, const QString &snapsh
 void ValidateEngine::start()
 {
     reset();
+    m_currentTask = 0;
+
     Configuration config;
     config.load(m_backupRootPath + "/inverita.conf");
     m_validateTraverser.reset();

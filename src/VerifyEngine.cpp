@@ -99,6 +99,8 @@ WorkerStatus VerifyEngine::status() const
 void VerifyEngine::start()
 {
     reset();
+    m_currentTask = 0;
+
     QString empty;
     Backup &backup = Backup::instance();
 

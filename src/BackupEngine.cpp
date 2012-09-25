@@ -134,6 +134,7 @@ WorkerStatus BackupEngine::status() const
 void BackupEngine::start()
 {
     reset();
+    m_currentTask = 0;
     m_scanTraverser.reset();
     m_copyTraverser.reset();
     m_validateTraverser.reset();

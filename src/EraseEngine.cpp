@@ -109,6 +109,7 @@ void EraseEngine::select(const QString &snapshotName)
 void EraseEngine::start()
 {
     reset();
+    m_currentTask = 0;
     m_eraseTraverser.reset();
     emit started();
 
