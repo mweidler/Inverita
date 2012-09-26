@@ -41,30 +41,36 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
     static const QString text =
         tr("<b>INVERITA Personal Backup</b> Version %1 (%2bit)<br>"
-           "Copyright (C) 2012 Marc Weidler (marc.weidler@web.de)<br>"
+           "Copyright &copy; 2012 Marc Weidler (marc.weidler@web.de)<br>"
            "All rights reserved.") + "<br><br>" +
         QLatin1String(
             "INVERITA is free software: you can redistribute it and/or modify "
             "it under the terms of the GNU General Public License as published by "
             "the Free Software Foundation, either version 3 of the License, or "
-            "(at your option) any later version.<br><br>"
+            "(at your option) any later version.") + "<br><br>" +
+        QLatin1String(
             "INVERITA is distributed in the hope that it will be useful, "
             "but WITHOUT ANY WARRANTY; without even the implied warranty of "
             "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
-            "GNU General Public License for more details: http://www.gnu.org/licenses/<br><br>"
+            "GNU General Public License for more details: http://www.gnu.org/licenses/") + "<br><br>" +
+        QLatin1String(
             "INVERITA uses Qt library %3<br>"
-            "Copyright (C) 2012 Nokia Corporation and/or its subsidiary(-ies).<br><br>"
+            "Copyright &copy; 2012 Nokia Corporation and/or its subsidiary(-ies).") + "<br><br>" +
+        QLatin1String(
             "INVERITA makes use of EncFS (http://www.arg0.net/encfs)<br>"
-            "Copyright (C) 2003-2007, Valient Gough (vgough@pobox.com)<br><br>"
+            "Copyright &copy; 2003-2007, Valient Gough (vgough@pobox.com)") + "<br><br>" +
+        QLatin1String(
             "INVERITA contains FIPS-180-1 compliant SHA-1 implementation from PolarSSL library (http://www.polarssl.org) "
-            "Copyright (C) 2006-2010, Brainspark B.V.<br><br>"
-            "INVERITA contains icons from Artua (http://www.artua.com)<br>"
-            "that are free for non-commercial use.<br><br>"
+            "Copyright &copy; 2006-2010, Brainspark B.V.") + "<br><br>" +
+        QLatin1String(
+            "INVERITA contains icons from 'Mac Icons' (http://www.iconarchive.com/show/mac-icons-by-artua.html)<br>"
+            "Copyright &copy; 2002-2011, Artua Visual Design Agency (http://www.artua.com)") + "<br><br>" +
+        QLatin1String(
             "INVERITA contains icons from 'Faenza Icons' (http://tiheum.deviantart.com)<br>"
-            "Copyright (C) 2010-2012, Matthieu James (~tiheum)<br><br>"
+            "Copyright &copy; 2010-2012, Matthieu James (~tiheum)") + "<br><br>" +
+        QLatin1String(
             "INVERITA contains icons from Joker Design (http://www.joker-design.com)<br>"
-            "that are licensed under 'CC Attribution-Noncommercial-No Derivate 3.0'.<br>"
-        );
+            "that are licensed under 'CC Attribution-Noncommercial-No Derivate 3.0'.") + "<br>";
 
     QLabel *labelAboutText = new QLabel(text.arg(INVERITA_COMMIT_VERSION).arg(QSysInfo::WordSize).arg(qVersion()));
     labelAboutText->setWordWrap(true);
@@ -99,8 +105,8 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 
     setWindowTitle(tr("About INVERITA Personal Backup"));
-    setMinimumSize(700, 500);
-    resize(700, 600);
+    setMinimumSize(700, 600);
+    resize(700, 620);
 }
 
 
