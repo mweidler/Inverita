@@ -13,4 +13,5 @@ packaging/usr/bin/inverita
 packaging/DEBIAN/control
 coverity/cov-int
 coverity/Inverita.tgz
+screenshots/
 
