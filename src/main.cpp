@@ -78,9 +78,9 @@ int main(int argc, char *argv[])
     QLocale loc(QLocale::system().language());
 
     if (translationEnabled) {
-      app.installTranslator(&qtTranslator);
-      app.installTranslator(&appTranslator);
-      QLocale::setDefault(loc);
+        app.installTranslator(&qtTranslator);
+        app.installTranslator(&appTranslator);
+        QLocale::setDefault(loc);
     }
 
     InveritaWindow w;
