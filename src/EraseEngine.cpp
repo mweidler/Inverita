@@ -93,7 +93,7 @@ WorkerStatus EraseEngine::status() const
 /*! Is called each time a new backup has selected (by the user)
  *  to inform the engine of a new backup root path.
  *
- * \param backupPath the new backup root path
+ * \param snapshotName the new backup root path
  */
 void EraseEngine::select(const QString &snapshotName)
 {

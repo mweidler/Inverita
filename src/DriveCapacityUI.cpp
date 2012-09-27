@@ -142,7 +142,7 @@ void DriveCapacityUI::drawElement(QPainter &painter, qreal from, qreal span, QCo
  *
  * \param painter the paint device
  * \param free    free space (in bytes) on the medium
- * \param span    used space (in bytes) on the medium
+ * \param used    used space (in bytes) on the medium
  */
 void DriveCapacityUI::drawLegend(QPainter &painter, qint64 free, qint64 used)
 {

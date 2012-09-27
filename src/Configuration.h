@@ -31,6 +31,8 @@
 #include <QStringList>
 
 
+/*! Container class that contains the backup configuration.
+ */
 class Configuration : public QObject
 {
     Q_OBJECT

@@ -30,6 +30,8 @@
 #include "SnapshotMetaInfo.h"
 
 
+/*! Implementation of a WorkerEngine that handels snapshot verification.
+ */
 class ValidateEngine : public WorkerEngine
 {
     Q_OBJECT

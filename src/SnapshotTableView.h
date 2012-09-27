@@ -27,6 +27,9 @@
 
 #include <QTableView>
 
+
+/*! Snapshot table visualization. Shows a list of snapshot.
+ */
 class SnapshotTableView : public QTableView
 {
     Q_OBJECT

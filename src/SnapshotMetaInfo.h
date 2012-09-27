@@ -26,10 +26,15 @@
 #define HEADER_SNAPSHOTMETAINFO_INC
 
 #include "ApplicationException.h"
+
 #include <QString>
 #include <QByteArray>
 #include <QObject>
 
+
+/*! Container class that contains meta information of the snapshot, e.g.
+ *  size, files, quality, etc.
+ */
 class SnapshotMetaInfo : public QObject
 {
     Q_OBJECT

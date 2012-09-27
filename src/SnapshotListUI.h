@@ -30,6 +30,9 @@
 #include <QStyledItemDelegate>
 
 
+/*! Displays the available backup snapshots and handles actions on them, like
+ *  delete, open, validate, reload
+ */
 class SnapshotListUI : public QFrame
 {
     Q_OBJECT
@@ -65,6 +68,9 @@ protected:
 };
 
 
+/*! Handles formatting and alignment of the snapshot visualization (bold,
+ * right/center/left aligned).
+ */
 class BackupHistoryUIDelegate : public QStyledItemDelegate
 {
     Q_OBJECT

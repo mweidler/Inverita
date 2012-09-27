@@ -30,6 +30,8 @@
 #include <QPushButton>
 
 
+/*! Configuration dialog for adding includes/excludes to a list
+ */
 class ConfigurationListUI : public QWidget
 {
     Q_OBJECT

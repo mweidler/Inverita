@@ -38,7 +38,7 @@ typedef QHashIterator<QString, QByteArray> DigestsMapIterator;
  *
  * The digest is compatible to a FIPS-180-1 compliant SHA-1 implementation.
  * This means, that the digests can be validated by common standard tools,
- * e.g. sha1sum -c <digestsfile>.
+ * e.g. sha1sum -c 'digestsfile'.
  */
 class DigestsMap : public Digests
 {

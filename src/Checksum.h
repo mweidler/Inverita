@@ -25,16 +25,17 @@
 #ifndef HEADER_CHECKSUM_INC
 #define HEADER_CHECKSUM_INC
 
+#include "sha1.h"
+
 #include <QString>
 #include <QByteArray>
-#include "sha1.h"
 
 
 /*! Checksum
  *
  * The checksum is compatible to a FIPS-180-1 compliant SHA-1 implementation.
  * This means, that the digests can be validated by common standard tools,
- * e.g. sha1sum -c <digestsfile>.
+ * e.g. sha1sum -c 'digestsfile'.
  */
 class Checksum
 {

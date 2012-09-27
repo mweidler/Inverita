@@ -93,7 +93,7 @@ int BackupListModel::rowCount(const QModelIndex & /*parent*/) const
 
 /*! Appends a new BackupEntry in the model list.
  *
- * \param the new BackupEntry to be inserted
+ * \param entry the new BackupEntry to be inserted
  */
 int BackupListModel::setEntry(const BackupEntry &entry)
 {

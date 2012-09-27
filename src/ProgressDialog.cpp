@@ -32,9 +32,10 @@
 
 /*! Constructs a new Progress Dialog object with UI elements
  *
- * \param model  the model engine interface providing status information
- * \param type   dialog type
- * \param parent the parent ui element
+ * \param model     the model engine interface providing status information
+ * \param type      dialog type
+ * \param abortable determines, if the progress is abortable or not
+ * \param parent    the parent ui element
  */
 ProgressDialog::ProgressDialog(WorkerEngine *model, DialogType type, DialogAbortable abortable, QWidget *parent) : QDialog(parent)
 {
