@@ -41,7 +41,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
     static const QString text =
         tr("<b>INVERITA Personal Backup</b> Version %1 (%2bit)<br>"
-           "Copyright &copy; 2012 Marc Weidler (marc.weidler@web.de)<br>"
+           "Copyright &copy; 2012 Marc Weidler (marc.weidler@web.de). "
            "All rights reserved.") + "<br><br>" +
         QLatin1String(
             "INVERITA is free software: you can redistribute it and/or modify "
@@ -63,14 +63,14 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
             "INVERITA contains FIPS-180-1 compliant SHA-1 implementation from PolarSSL library (http://www.polarssl.org) "
             "Copyright &copy; 2006-2010, Brainspark B.V.") + "<br><br>" +
         QLatin1String(
-            "INVERITA contains icons from 'Mac Icons' (http://www.iconarchive.com/show/mac-icons-by-artua.html)<br>"
+            "INVERITA contains icons from 'Mac Icons'<br>"
             "Copyright &copy; 2002-2011, Artua Visual Design Agency (http://www.artua.com)") + "<br><br>" +
         QLatin1String(
             "INVERITA contains icons from 'Faenza Icons' (http://tiheum.deviantart.com)<br>"
             "Copyright &copy; 2010-2012, Matthieu James (~tiheum)") + "<br><br>" +
         QLatin1String(
-            "INVERITA contains icons from Joker Design (http://www.joker-design.com)<br>"
-            "that are licensed under 'CC Attribution-Noncommercial-No Derivate 3.0'.") + "<br>";
+            "INVERITA contains icons from 'Android Icons'<br>"
+            "Copyright &copy; 2011, JOKER DESIGN (http://www.joker-design.com)") + "<br>";
 
     QLabel *labelAboutText = new QLabel(text.arg(INVERITA_COMMIT_VERSION).arg(QSysInfo::WordSize).arg(qVersion()));
     labelAboutText->setWordWrap(true);
@@ -105,8 +105,8 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 
     setWindowTitle(tr("About INVERITA Personal Backup"));
-    setMinimumSize(700, 600);
-    resize(700, 620);
+    setMinimumSize(760, 580);
+    //resize(760, 580);
 }
 
 
