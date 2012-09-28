@@ -109,7 +109,7 @@ QVariant BackupEngine::taskData(int task, int role) const
  */
 WorkerStatus BackupEngine::status() const
 {
-    qint64 expected = qMax(m_scanTraverser.processed(), (qint64)1);
+    qint64 expected = qMax(m_scanTraverser.processed(), Q_INT64_C(1));
     qint64 current = m_copyTraverser.processed() + m_validateTraverser.processed();
 
     // Completion assumption: copying takes the same time as validation.
@@ -200,6 +200,9 @@ void BackupEngine::abort()
 }
 
 
+/*! Checks the available drive space and deletes backup snapshots, if the
+ *  capacity goes below the configured minimum.
+ */
 void BackupEngine::checkDriveSpace()
 {
     if (!Backup::instance().config().autoDeleteSnapshots()) {
@@ -221,6 +224,9 @@ void BackupEngine::checkDriveSpace()
 }
 
 
+/*! Checks the number of backup snapshots and deletes the oldest ones, until the
+ *  maximum limit is reached.
+ */
 void BackupEngine::checkOvercharge()
 {
     if (!Backup::instance().config().limitSnapshots()) {
@@ -239,6 +245,10 @@ void BackupEngine::checkOvercharge()
 }
 
 
+/*! Delete a snapshot and all of it's files recursively.
+ *
+ * \param snapshotName the directory name of the snapshot to delete
+ */
 void BackupEngine::deleteSnapshot(const QString &snapshotName)
 {
     m_eraseTraverser.reset();
@@ -276,7 +286,7 @@ void BackupEngine::scanDirectories()
  *
  * \param timestamp of the new backup snapshot
  */
-void BackupEngine::executeBackup(QString &timestamp)
+void BackupEngine::executeBackup(const QString &timestamp)
 {
     if (m_abort) {
         return;
@@ -327,7 +337,7 @@ void BackupEngine::executeBackup(QString &timestamp)
  *
  * \param timestamp of the new backup snapshot
  */
-void BackupEngine::validateBackup(QString &timestamp)
+void BackupEngine::validateBackup(const QString &timestamp)
 {
     if (m_abort) {
         return;

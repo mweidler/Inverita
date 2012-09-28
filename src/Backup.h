@@ -51,27 +51,25 @@ public:
 
     static Backup &instance();
 
-    QString label() const;
+    const QString &origin() const;
+    const QString &location() const;
+    bool isOpen() const;
+
+    const QString &label() const;
     void setLabel(const QString &label);
 
-    QString origin() const;
-    void setOrigin(const QString &origin);
-
-    QString password() const;
+    const QString &password() const;
     void setPassword(const QString &password);
 
     Encryption encryption() const;
     void setEncryption(const Encryption encrypt);
 
-    QString location() const;
-
-    QString errorString() const;
+    const QString &errorString() const;
     int error() const;
 
     void use(const QString &origin);
     Status open();
     Status close();
-    bool isOpen() const;
 
     Configuration &config();
 

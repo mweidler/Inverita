@@ -25,9 +25,11 @@
 
 #include "BackupListModel.h"
 
-#include <QDebug>
 #include <QSettings>
 #include <QFile>
+#include <QIcon>
+#include <QDebug>
+
 
 /*! Constructs a new backup list model.
  *
@@ -85,6 +87,8 @@ QVariant BackupListModel::data(const QModelIndex &index, int role) const
 }
 
 
+/*! \return the number of items in the model
+ */
 int BackupListModel::rowCount(const QModelIndex & /*parent*/) const
 {
     return this->size();

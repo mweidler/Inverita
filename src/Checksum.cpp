@@ -33,26 +33,51 @@ Checksum::Checksum()
     reset();
 }
 
+
+/*! Destructor
+ */
 Checksum::~Checksum()
 {
     memset(&ctx, 0, sizeof(sha1_context));
 }
 
+
+/*! Reinitialize the checksum algorithm.
+ *
+ * This has to be called before calculating a new checksu.
+ */
 void Checksum::reset()
 {
     sha1_starts(&ctx);
 }
 
+
+/*! Updates the checksum with the whole data in the given buffer
+ *
+ * \param buffer the buffer with data to update the checksum
+ */
 void Checksum::update(const QByteArray &buffer)
 {
     sha1_update(&ctx, (const unsigned char *)buffer.data(), buffer.size());
 }
 
-void Checksum::update(const QByteArray &buffer, int size)
+
+/*! Updates the checksum with the first \em count bytes of the given data in the buffer
+ *
+ * \param buffer the buffer with data to update the checksum
+ * \param count the number of elements to be taken into account
+ */
+void Checksum::update(const QByteArray &buffer, int count)
 {
-    sha1_update(&ctx, (const unsigned char *)buffer.data(), size);
+    count = qMin(count, buffer.size());
+    sha1_update(&ctx, (const unsigned char *)buffer.data(), count);
 }
 
+
+/*! Filalizes the current checksum and returns it
+ *
+ * \return Filalized checksum
+ */
 QByteArray Checksum::finish()
 {
     QByteArray digestoutput(20, '\0');

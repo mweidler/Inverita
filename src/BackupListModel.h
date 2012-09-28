@@ -26,11 +26,7 @@
 #define HEADER_BACKUPLISTMODEL_INC
 
 #include "Backup.h"
-
-#include <QString>
-#include <QList>
-#include <QListIterator>
-#include <QStringListModel>
+#include <QAbstractListModel>
 
 
 /*! Container for meta information and digest value.

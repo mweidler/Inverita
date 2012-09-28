@@ -39,6 +39,10 @@ Backup::Backup()
 }
 
 
+/*! Constructs a new backup with an origin.
+ *
+ * \param origin filepath meaning the storage location of the backup
+ */
 Backup::Backup(const QString &origin)
 {
     m_origin = origin;
@@ -47,6 +51,7 @@ Backup::Backup(const QString &origin)
     m_rc = 0;
 }
 
+
 /*! Destructor
  */
 Backup::~Backup()
@@ -54,12 +59,44 @@ Backup::~Backup()
 
 }
 
+
+/*! \return Returns an instance of the current backup (singleton)
+ */
 Backup &Backup::instance()
 {
     static Backup backup;
     return backup;
 }
 
+
+/*! \return filepath meaning the storage location of the backup
+ */
+const QString &Backup::origin() const
+{
+    return m_origin;
+}
+
+
+/*! \return filepath where files could be read or written (filesystem for backup)
+ */
+const QString &Backup::location() const
+{
+    return m_location;
+}
+
+
+/*! \return true, if backup is open otherwise false
+ */
+bool Backup::isOpen() const
+{
+    return m_isOpen;
+}
+
+
+/*! Change/Set the location of the backup.
+ *
+ * \param origin filepath meaning the storage location of the backup
+ */
 void Backup::use(const QString &origin)
 {
     m_origin = origin;
@@ -68,72 +105,84 @@ void Backup::use(const QString &origin)
 }
 
 
+/*! \return the configuration object of the current backup
+ */
 Configuration &Backup::config()
 {
     return m_config;
 }
 
-QString Backup::label() const
+
+/*! \return the label of the current backup
+ */
+const QString &Backup::label() const
 {
     return m_label;
 }
 
+
+/*! Set the label of the current backup
+ *
+ * \param label the new label of the backup
+ */
 void Backup::setLabel(const QString &label)
 {
     m_label = label;
 }
 
-QString Backup::origin() const
-{
-    return m_origin;
-}
 
-void Backup::setOrigin(const QString &origin)
-{
-    m_origin = origin;
-}
-
-QString Backup::password() const
+/*! \return the password of the current backup or empty string, if not available
+ */
+const QString &Backup::password() const
 {
     return m_password;
 }
 
+
+/*! Set the password of the current backup
+ *
+ * \param password the new password for this backup (if encrypted)
+ */
 void Backup::setPassword(const QString &password)
 {
     m_password = password;
 }
 
+
+/*! \return the encryption type of the backup
+ */
 Backup::Encryption Backup::encryption() const
 {
     return m_encryption;
 }
 
+
+/*! Set the encryption password of the current backup
+ */
 void Backup::setEncryption(const Encryption encrypt)
 {
     m_encryption = encrypt;
 }
 
-QString Backup::location() const
-{
-    return m_location;
-}
 
-bool Backup::isOpen() const
-{
-    return m_isOpen;
-}
-
-QString Backup::errorString() const
+/*! \return the error description of the last error occured
+ */
+const QString &Backup::errorString() const
 {
     return m_errorString;
 }
 
+
+/*! \return the error code of the last error occured
+ */
 int Backup::error() const
 {
     return m_rc;
 }
 
 
+/*! \return a mountpoint, that can be used for mounting an encrypted file system
+ */
 QString Backup::findUsableMountPoint() const
 {
     QString basePath = QDir::homePath() + "/inverita-backup";
@@ -149,6 +198,10 @@ QString Backup::findUsableMountPoint() const
 }
 
 
+/*! Open a new backup (encrypted or unencrypted) and sets the location
+ *
+ * \return success, failed or what else
+ */
 Backup::Status Backup::open()
 {
     QProcess process;
@@ -203,6 +256,10 @@ Backup::Status Backup::open()
 }
 
 
+/*! Close the current backup (encrypted or unencrypted)
+ *
+ * \return success, failed or what else
+ */
 Backup::Status Backup::close()
 {
     QProcess process;
@@ -239,3 +296,4 @@ Backup::Status Backup::close()
     m_isOpen = false;
     return Backup::Success;
 }
+

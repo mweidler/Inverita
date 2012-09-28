@@ -25,9 +25,6 @@
 #ifndef HEADER_BACKUPENGINE_INC
 #define HEADER_BACKUPENGINE_INC
 
-#include <QString>
-#include <QStringList>
-
 #include "EraseTraverser.h"
 #include "ScanTraverser.h"
 #include "CopyTraverser.h"
@@ -57,9 +54,9 @@ protected:
     void checkDriveSpace();
     void checkOvercharge();
     void scanDirectories();
-    void executeBackup(QString &timestamp);
-    void validateBackup(QString &timestamp);
+    void executeBackup(const QString &timestamp);
     void deleteSnapshot(const QString &snapshotName);
+    void validateBackup(const QString &timestamp);
 
 protected:
     int               m_currentTask;
