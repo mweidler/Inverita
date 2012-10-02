@@ -112,6 +112,9 @@ FilesystemInfo::FilesystemType FilesystemInfo::filesystemType()
         case /*EXT4_SUPER_MAGIC*/ 0xEF53:
             return FilesystemInfo::Ext4;
             break;
+        case /* NFS_SUPER_MAGIC*/ 0x6969:
+            return FilesystemInfo::NFS;
+            break;
 
         default:
             break;

@@ -17,7 +17,7 @@
 <context>
     <name>Backup</name>
     <message>
-        <location filename="../src/Backup.cpp" line="161"/>
+        <location filename="../src/Backup.cpp" line="214"/>
         <source>Directory does not exist or is not accessible.</source>
         <translation>Auf das Verzeichnis kann nicht zugegriffen werden oder es existiert nicht.</translation>
     </message>
@@ -50,27 +50,27 @@
         <translation>5. Lösche nicht mehr benötigte Datensicherungsversionen</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="217"/>
+        <location filename="../src/BackupEngine.cpp" line="225"/>
         <source>Old backup snapshot &apos;%1&apos; has been deleted due to low drive space.</source>
         <translation>Alte Datensicherungsversion »%1« wurde aus Platzgründen gelöscht.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="237"/>
+        <location filename="../src/BackupEngine.cpp" line="248"/>
         <source>Old backup snapshot &apos;%1&apos; has been deleted due to overcharge.</source>
         <translation>Alte Datensicherungsversion »%1« wurde wegen Überzahl gelöscht.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="318"/>
+        <location filename="../src/BackupEngine.cpp" line="333"/>
         <source>Backup snapshot created successfully without errors.</source>
         <translation>Datensicherungsversion erfolgreich ohne Fehler erstellt.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="319"/>
+        <location filename="../src/BackupEngine.cpp" line="334"/>
         <source>Backup snapshot checksum is &apos;%1&apos;</source>
         <translation>Die Prüfsumme der Datensicherungsversion ist »%1«</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="269"/>
+        <location filename="../src/BackupEngine.cpp" line="284"/>
         <source>Backup snapshot comprises %1 in %2 files.</source>
         <translation>Die Datensicherungsversion umfasst %1 in %2 Dateien.</translation>
     </message>
@@ -288,47 +288,47 @@
 <context>
     <name>CopyTraverser</name>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="182"/>
+        <location filename="../src/CopyTraverser.cpp" line="189"/>
         <source>Create hard link from &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Erstelle Hard-Link von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="198"/>
+        <location filename="../src/CopyTraverser.cpp" line="205"/>
         <source>Copy file from &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Kopiere Datei von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="199"/>
+        <location filename="../src/CopyTraverser.cpp" line="206"/>
         <source>Copy error, disk full?</source>
         <translation>Fehler beim Kopieren; kein Speicherplatz mehr?</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="209"/>
+        <location filename="../src/CopyTraverser.cpp" line="216"/>
         <source>Set file meta data &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Setze Datei-Meta-Daten von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="250"/>
+        <location filename="../src/CopyTraverser.cpp" line="257"/>
         <source>Set folder meta data &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Setze Verzeichnis-Meta-Daten von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="231"/>
+        <location filename="../src/CopyTraverser.cpp" line="238"/>
         <source>Create directory &apos;%1&apos;</source>
         <translation>Erstelle Verzeichnis »%1«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="232"/>
+        <location filename="../src/CopyTraverser.cpp" line="239"/>
         <source>Could not create directory</source>
         <translation>Verzeichnis konnte nicht erstellt werden</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="281"/>
+        <location filename="../src/CopyTraverser.cpp" line="288"/>
         <source>Create symbolic link &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Erstelle symbolischen Link von %1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="292"/>
+        <location filename="../src/CopyTraverser.cpp" line="299"/>
         <source>Copy file meta data from &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Kopiere Datei-Meta-Daten von »%1« nach »%2«</translation>
     </message>
@@ -431,12 +431,6 @@
         <translation>Fehler bei der Überprüfung der Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/InveritaWindow.cpp" line="247"/>
-        <source>Your backup medium has an unsupported filesystem. Only &apos;ext4&apos; filesystems are supported.&lt;br&gt;&lt;br&gt;&lt;b&gt;You can continue at your own risk!&lt;/b&gt;</source>
-        <translation>Ihr Speicherort hat ein nicht unterstütztes Dateisystem. Derzeit wird nur das »ext4« Dateisystem unterstützt.&lt;br&gt;&lt;br&gt;
-&lt;b&gt;Sie können auf eigenes Risiko fortfahren!&lt;/b&gt;</translation>
-    </message>
-    <message>
         <location filename="../src/InveritaWindow.cpp" line="250"/>
         <source>Unsupported filesystem</source>
         <translation>Nicht unterstütztes Dateisystem</translation>
@@ -506,6 +500,12 @@
         <location filename="../src/InveritaWindow.cpp" line="221"/>
         <source>A critical error during verification has occured:</source>
         <translation>Ein schwerer Fehler währen der Überprüfung der Datensicherung ist aufgetreten:</translation>
+    </message>
+    <message>
+        <location filename="../src/InveritaWindow.cpp" line="247"/>
+        <source>Your backup medium has an unsupported filesystem. Only &apos;ext4&apos; and &apos;NFS&apos; filesystems are supported.&lt;br&gt;&lt;br&gt;&lt;b&gt;You can continue at your own risk!&lt;/b&gt;</source>
+        <translation>Ihr Speicherort hat ein nicht unterstütztes Dateisystem. Es werden nur »ext4« und »NFS« Dateisysteme unterstützt.&lt;br&gt;&lt;br&gt;
+&lt;b&gt;Sie können auf eigenes Risiko fortfahren!&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../src/InveritaWindow.cpp" line="317"/>
@@ -639,7 +639,7 @@
 <context>
     <name>ProgressDialog</name>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="224"/>
+        <location filename="../src/ProgressDialog.cpp" line="225"/>
         <source>About %n Hour(s)</source>
         <translation>
             <numerusform>Ungefähr %n Stunde</numerusform>
@@ -647,7 +647,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="226"/>
+        <location filename="../src/ProgressDialog.cpp" line="227"/>
         <source>%n Minute(s)</source>
         <translation>
             <numerusform>%n Minute</numerusform>
@@ -655,7 +655,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/ProgressDialog.cpp" line="228"/>
+        <location filename="../src/ProgressDialog.cpp" line="229"/>
         <source>%n Second(s)</source>
         <translation>
             <numerusform>%n Sekunde</numerusform>
@@ -663,22 +663,22 @@
         </translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="232"/>
+        <location filename="../src/ProgressDialog.cpp" line="233"/>
         <source>%1 estimated time remaining, processing %2/s</source>
         <translation>%1 geschätzte Restzeit, verarbeite %2/s</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="234"/>
+        <location filename="../src/ProgressDialog.cpp" line="235"/>
         <source>%1 estimated time remaining</source>
         <translation>%1 geschätzte Restzeit</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="237"/>
+        <location filename="../src/ProgressDialog.cpp" line="238"/>
         <source>Please be patient...</source>
         <translation>Bitte haben Sie Geduld...</translation>
     </message>
     <message>
-        <location filename="../src/ProgressDialog.cpp" line="241"/>
+        <location filename="../src/ProgressDialog.cpp" line="242"/>
         <source>Finished.</source>
         <translation>Fertig.</translation>
     </message>
@@ -816,47 +816,47 @@
 <context>
     <name>ValidateTraverser</name>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="65"/>
+        <location filename="../src/ValidateTraverser.cpp" line="63"/>
         <source>%1 files expected, but %2 files found.</source>
         <translation>Es wurden %1 Dateien erwartet, aber %2 Dateien gefunden.</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="70"/>
+        <location filename="../src/ValidateTraverser.cpp" line="68"/>
         <source>%1 Bytes expected, but %2 Bytes found.</source>
         <translation>Es wurden %1 Bytes erwartet, aber %2 Bytes gefunden.</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="76"/>
+        <location filename="../src/ValidateTraverser.cpp" line="74"/>
         <source>The following files are missing in the backup snapshot:</source>
         <translation>Die folgenden Dateien fehlen in der Datensicherung:</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="81"/>
+        <location filename="../src/ValidateTraverser.cpp" line="79"/>
         <source>More files are missing...</source>
         <translation>Es fehlen noch weitere Dateien...</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="90"/>
+        <location filename="../src/ValidateTraverser.cpp" line="88"/>
         <source>WARNING: Content digests not verified (disabled).</source>
         <translation>WARNUNG: Prüfsummen der Dateien wurden nicht geprüft (Option ausgeschaltet).</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="95"/>
+        <location filename="../src/ValidateTraverser.cpp" line="93"/>
         <source>Backup snapshot status set to &apos;Unknown&apos;.</source>
         <translation>Der Status der Datensicherungsversion wird auf »Unbekannt« gesetzt.</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="98"/>
+        <location filename="../src/ValidateTraverser.cpp" line="96"/>
         <source>All files validated, Backup snapshot is reliable.</source>
         <translation>Alle Dateien geprüft, Datensicherungsversion ist verlässlich.</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="150"/>
+        <location filename="../src/ValidateTraverser.cpp" line="153"/>
         <source>File &apos;%1&apos; has beed modified.</source>
         <translation>Datei »%1« wurde verändert.</translation>
     </message>
     <message>
-        <location filename="../src/ValidateTraverser.cpp" line="152"/>
+        <location filename="../src/ValidateTraverser.cpp" line="155"/>
         <source>More files have been modified...</source>
         <translation>Es wurden noch weitere Dateien modifiziert...</translation>
     </message>

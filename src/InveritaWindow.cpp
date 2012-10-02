@@ -243,9 +243,9 @@ void InveritaWindow::refreshContent()
            from an eventually virtual file system, like encfs. Otherwise, the
            file system type can not be determined correctly. */
         m_filesystemInfo.setFile(Backup::instance().origin());
-        if (m_filesystemInfo.filesystemType() != FilesystemInfo::Ext4) {
+        if (m_filesystemInfo.filesystemType() == FilesystemInfo::Unknown) {
             QString msg = tr("Your backup medium has an unsupported filesystem. "
-                             "Only 'ext4' filesystems are supported.<br><br>"
+                             "Only 'ext4' and 'NFS' filesystems are supported.<br><br>"
                              "<b>You can continue at your own risk!</b>");
             QMessageBox::warning(this, tr("Unsupported filesystem"), msg);
         }

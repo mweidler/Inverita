@@ -36,7 +36,7 @@ class FilesystemInfo : public AbstractDriveCapacityModel
     Q_OBJECT
 
 public:
-    enum FilesystemType { Unknown, Ext4 };
+    enum FilesystemType { Unknown, Ext4, NFS };
 
     FilesystemInfo();
     FilesystemInfo(const QString &file);
