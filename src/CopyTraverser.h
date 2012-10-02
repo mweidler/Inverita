@@ -56,7 +56,6 @@ protected:
 
     QString    m_currentBackupPath;  //!< absolute path to the current backup
     QString    m_previousBackupPath; //!< absolute path to the previous backup
-    QByteArray m_copyBuffer;         //!< buffer for file copying
     DigestsMap m_currentDigests;     //!< digests of all files in current backup
     DigestsMap m_previousDigests;    //!< digests of all files in previous backup
 };

@@ -81,7 +81,8 @@ SOURCES += \
     Checksum.cpp \
     InveritaWindow.cpp \
     SnapshotTableView.cpp \
-    DigestsMap.cpp
+    DigestsMap.cpp \
+    IOBuffer.cpp
 
 HEADERS += \
     BackupSelectorUI.h \
@@ -117,5 +118,6 @@ HEADERS += \
     Checksum.h \
     InveritaWindow.h \
     SnapshotTableView.h \
-    DigestsMap.h
+    DigestsMap.h \
+    IOBuffer.h
 

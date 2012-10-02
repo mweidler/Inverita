@@ -26,9 +26,11 @@
 #include "CopyTraverser.h"
 #include "Utilities.h"
 #include "Checksum.h"
+#include "IOBuffer.h"
 
 #include <QDateTime>
 #include <QDir>
+#include <QDebug>
 
 #ifdef Q_OS_UNIX
 #include <errno.h>
@@ -39,7 +41,7 @@
  */
 CopyTraverser::CopyTraverser()
 {
-    m_copyBuffer.resize(16 * 1024);
+
 }
 
 /*! Destructor
@@ -136,14 +138,19 @@ bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, Q
         return false;
     }
 
+    IOBuffer &iobuffer = IOBuffer::instance();
+
     QFile target(targetfilename);
     success = target.open(QIODevice::WriteOnly);
     if (success) {
         do {
-            bytesRead = source.read(m_copyBuffer.data(), m_copyBuffer.size());
-            bytesWritten = target.write(m_copyBuffer.data(), bytesRead);
+            iobuffer.begin();
+            bytesRead = source.read(iobuffer.buffer().data(), iobuffer.chunkSize());
+            bytesWritten = target.write(iobuffer.buffer().data(), bytesRead);
 
-            checksum.update(m_copyBuffer, bytesRead);
+            checksum.update(iobuffer.buffer(), bytesRead);
+            iobuffer.finished();
+
             countProcessed(bytesWritten);
             countTransferred(bytesWritten);
 
@@ -153,7 +160,7 @@ bool CopyTraverser::copyFile(QString &sourcefilename, QString &targetfilename, Q
                 QFile::remove(targetfilename);
                 return false;
             }
-        } while (bytesRead == m_copyBuffer.size() && !shouldAbort());
+        } while (bytesRead == iobuffer.chunkSize() && !shouldAbort());
     }
 
     digest = checksum.finish();

@@ -26,8 +26,7 @@
 #include "ValidateTraverser.h"
 #include "Checksum.h"
 #include "Backup.h"
-
-#include <QDebug>
+#include "IOBuffer.h"
 
 
 /*! Default constructor
@@ -35,7 +34,6 @@
 ValidateTraverser::ValidateTraverser()
 {
     m_sizeOfBackupPath = 0;
-    m_fileBuffer.resize(16 * 1024);
 }
 
 
@@ -120,14 +118,19 @@ QByteArray ValidateTraverser::computeDigestOfFile(const QString &sourcefilename)
         return QByteArray();
     }
 
-    do {
-        bytesRead = source.read(m_fileBuffer.data(), m_fileBuffer.size());
+    IOBuffer &iobuffer = IOBuffer::instance();
 
-        checksum.update(m_fileBuffer, bytesRead);
+    do {
+        iobuffer.begin();
+        bytesRead = source.read(iobuffer.buffer().data(), iobuffer.chunkSize());
+
+        checksum.update(iobuffer.buffer(), bytesRead);
+        iobuffer.finished();
+
         countProcessed(bytesRead);
         countTransferred(bytesRead);
 
-    } while (bytesRead == m_fileBuffer.size() && !shouldAbort());
+    } while (bytesRead == iobuffer.chunkSize() && !shouldAbort());
 
     return checksum.finish();
 }

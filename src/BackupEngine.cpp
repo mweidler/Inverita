@@ -143,6 +143,9 @@ void BackupEngine::start()
 
     QString timestamp = QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss");
 
+    QTime time;
+    time.start();
+
     try {
         m_currentTask = 0;
         checkDriveSpace();
@@ -171,6 +174,8 @@ void BackupEngine::start()
         buildFailureHint(e);
         emit failed();
     }
+
+    qDebug() << "Backup took" << time.elapsed() << "ms";
 
     // This is only to reduce memory consumption
     m_copyTraverser.currentDigests().clear();
