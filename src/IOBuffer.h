@@ -31,14 +31,37 @@
 
 static const qint64 FileIoKiloByte    = 1024;
 static const qint64 FileIoMegaByte    = 1024 * FileIoKiloByte;
-static const qint64 FileIoBufferSize  = 64 * FileIoMegaByte;  //  64 MB
-static const qint64 FileIoMinimumSize = 32 * FileIoKiloByte;  //  32 kB
-static const qint64 FileIoMaximumSize = FileIoBufferSize;
+static const qint64 FileIoBufferSize  = 1 * FileIoMegaByte;
 
 
 /*! Buffer with io chunk optimization to perform maximum copy performance.
  *
  * IOBuffer is implemented as Singleton.
+ *
+ * Performance measurement on different systems and different media have shown
+ * that small chunk sizes will result in poor IO performance with 'fuse-based' file
+ * systems. Huge chunk size result in poor IO performance on native and 'fuse-based'
+ * file systems. Thus, a medium chunk size of 1 MB is a good trade-off in both
+ * environments.
+ *
+ * \code
+ *  Performance measurement
+ *
+ *  Buffer size       |   8K  |  16K  |  32K  |  64K  |  128K |  256K |  1MB  |  4MB  |  16MB |  32MB |  64MB | 128MB |
+ *  ------------------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+ *  Laptop native     | 29.49 | 28.85 | 28.05 | 27.76 | 27.87 | 27.25 |*27.19 | 27.76 | 33.41 | 35.51 | 35.09 | 35.66 |
+ *  Laptop encfs      | 99.31 |103.12 | 98.01 |102.63 |100.02 |104.51 |*85.94 | 87.04 | 91.12 | 90.12 | 88.52 | 82.70 |
+ *  Laptop usb native |       |       |       |       |       |       |       |       |       |       |       |       |
+ *  Laptop usb encfs  |       |       |       |       |       |       |       |       |       |       |       |       |
+ *  Laptop usb truec. |       |       |       |       |       |       |       |       |       |       |       |       |
+ *  Laptop NFS        |       |       |       |       |       |       |       |       |       |       |       |       |
+ *  PC     native     |124.64 |118.47 |118.13 |120.21 |119.32 |120.73 |*117.88|125.01 |130.99 |135.22 |140.63 |133.41 |
+ *  PC     encfs      |112.52 |112.86 |109.06 |106.66 |*105.13|110.72 |121.81 |118.67 |111.51 |108.80 |105.64 |102.93 |
+ *  PC     usb native |       |       |       |       |       |       |       |       |       |       |       |       |
+ *  PC     usb encfs  |       |       |       |       |       |       |       |       |       |       |       |       |
+ *  PC     usb truec. |       |       |       |183.41 |       |       |107.46 |       | 90.42 |       | 89.44 |       |
+ *  ------------------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+ * \endcode
  */
 class IOBuffer : public QObject
 {
@@ -51,20 +74,16 @@ private:
 public:
     static IOBuffer &instance();
 
-    void       reset();
-    qint64     chunkSize();
-    int        elapsed();
     QByteArray &buffer();
+    qint64     chunkSize() const;
+
     void       begin();
     void       finished();
-
-protected:
-    void       determineOptimumChunkSize();
+    int        elapsed() const;
 
 private:
     QByteArray m_buffer;
     QTime      m_time;
-    qint64     m_chunksize;
     int        m_elapsed;
 };
 

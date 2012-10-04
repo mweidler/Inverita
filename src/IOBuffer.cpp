@@ -24,7 +24,6 @@
 
 
 #include "IOBuffer.h"
-#include "Utilities.h"
 #include <QDebug>
 
 
@@ -32,7 +31,7 @@
  */
 IOBuffer::IOBuffer()
 {
-    reset();
+    m_elapsed = -1;
     m_buffer.resize(FileIoBufferSize);
 }
 
@@ -42,15 +41,6 @@ IOBuffer::IOBuffer()
 IOBuffer::~IOBuffer()
 {
 
-}
-
-
-/*! Reset chunk size to minimum size
- */
-void IOBuffer::reset()
-{
-    m_chunksize = FileIoMinimumSize;
-    m_elapsed = -1;
 }
 
 
@@ -73,9 +63,9 @@ QByteArray &IOBuffer::buffer()
 
 /*! \return the optimal chunk size for reading/writing
  */
-qint64 IOBuffer::chunkSize()
+qint64 IOBuffer::chunkSize() const
 {
-    return m_chunksize;
+    return FileIoBufferSize;
 }
 
 
@@ -83,7 +73,6 @@ qint64 IOBuffer::chunkSize()
  */
 void IOBuffer::begin()
 {
-    determineOptimumChunkSize();
     m_time.start();
 }
 
@@ -93,42 +82,13 @@ void IOBuffer::begin()
 void IOBuffer::finished()
 {
     m_elapsed = m_time.elapsed(); // in milliseconds
-    qDebug() << "Chunksize:" << formatSize(m_chunksize) << "Elapsed:" << m_elapsed;
+    //qDebug() << "Elapsed:" << m_elapsed;
 }
 
 
 /*! \return the duration of the logical IO cycle
  */
-int IOBuffer::elapsed()
+int IOBuffer::elapsed() const
 {
     return m_elapsed;
-}
-
-
-/*! Determine the optimal buffer size for read/write cycle.
- *  One read/write (copy) cycle should take around 500 ms to
- *  give a good progress indicator of the user interface.
- */
-void IOBuffer::determineOptimumChunkSize()
-{
-    if (m_elapsed == 0) {
-        m_chunksize *= 2;
-    } else if (m_elapsed > 0) {
-        qreal bps = m_chunksize / (m_elapsed / 1000.0);
-
-        if (m_elapsed < 300 || m_elapsed > 700) {
-            m_chunksize = qRound(bps * 0.5); // IO should take half a second
-        }
-    }
-
-    if (m_chunksize > FileIoMegaByte) {
-        m_chunksize /= FileIoMegaByte;
-        m_chunksize *= FileIoMegaByte; // floor to MB chunk
-    } else {
-        m_chunksize /= FileIoKiloByte;
-        m_chunksize *= FileIoKiloByte; // floor to kB chunk
-    }
-
-    m_chunksize = FileIoMinimumSize;
-    m_chunksize = qBound(FileIoMinimumSize, m_chunksize, FileIoMaximumSize);
 }
