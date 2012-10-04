@@ -32,7 +32,6 @@
 #include "Backup.h"
 
 #include <QDir>
-#include <QDebug>
 
 
 /*! Constructs a new backup engine object.
@@ -143,9 +142,6 @@ void BackupEngine::start()
 
     QString timestamp = QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss");
 
-    QTime time;
-    time.start();
-
     try {
         m_currentTask = 0;
         checkDriveSpace();
@@ -175,8 +171,6 @@ void BackupEngine::start()
         emit failed();
     }
 
-    qDebug() << "Backup took" << time.elapsed() << "ms";
-
     // This is only to reduce memory consumption
     m_copyTraverser.currentDigests().clear();
     m_copyTraverser.previousDigests().clear();
@@ -196,7 +190,6 @@ void BackupEngine::start()
  */
 void BackupEngine::abort()
 {
-    qDebug() << "BackupEngine: abort requested";
     m_abort = true;
     m_eraseTraverser.abort();
     m_scanTraverser.abort();
