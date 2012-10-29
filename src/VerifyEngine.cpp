@@ -111,8 +111,8 @@ void VerifyEngine::start()
     m_metaInfo.load(currentBackup + "/metainfo") ;
     m_validateTraverser.addIncludes(backup.config().includes());
     m_validateTraverser.addExcludes(backup.config().excludes());
-    m_validateTraverser.addExcludes("metainfo");
-    m_validateTraverser.addExcludes("digests");
+    m_validateTraverser.addExcludes(currentBackup + "/metainfo");
+    m_validateTraverser.addExcludes(currentBackup + "/digests");
     m_validateTraverser.setBackupPath(empty);
     QByteArray checksum = m_validateTraverser.digests().load(currentBackup + "/digests");
     if (checksum == m_metaInfo.checksum()) {

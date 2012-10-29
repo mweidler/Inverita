@@ -112,8 +112,8 @@ void ValidateEngine::start()
 
     m_metaInfo.load(snapshotName + "/metainfo") ;
     m_validateTraverser.addIncludes(snapshotName);
-    m_validateTraverser.addExcludes("metainfo");
-    m_validateTraverser.addExcludes("digests");
+    m_validateTraverser.addExcludes(snapshotName + "/metainfo");
+    m_validateTraverser.addExcludes(snapshotName + "/digests");
     m_validateTraverser.setBackupPath(snapshotName);
 
     QByteArray checksum = m_validateTraverser.digests().load(snapshotName + "/digests");

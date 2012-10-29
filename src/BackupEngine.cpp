@@ -32,6 +32,7 @@
 #include "Backup.h"
 
 #include <QDir>
+#include <unistd.h>
 
 
 /*! Constructs a new backup engine object.
@@ -151,6 +152,7 @@ void BackupEngine::start()
         executeBackup(timestamp);
 
         if (Backup::instance().config().verifyAfterBackup()) {
+            sync();
             m_currentTask = 3;
             validateBackup(timestamp);
         }
@@ -344,8 +346,8 @@ void BackupEngine::validateBackup(const QString &timestamp)
     QString snapshotName = Backup::instance().location() + "/@" + timestamp;
 
     m_validateTraverser.addIncludes(snapshotName);
-    m_validateTraverser.addExcludes("metainfo");
-    m_validateTraverser.addExcludes("digests");
+    m_validateTraverser.addExcludes(snapshotName + "/metainfo");
+    m_validateTraverser.addExcludes(snapshotName + "/digests");
     m_validateTraverser.setBackupPath(snapshotName);
     m_validateTraverser.digests().load(snapshotName + "/digests");
     m_validateTraverser.traverse();
