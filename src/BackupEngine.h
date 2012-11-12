@@ -39,6 +39,8 @@ class BackupEngine : public WorkerEngine
     Q_OBJECT
 
 public:
+    enum ExecutionStatus { Failed = 0, Success, Aborted };
+
     BackupEngine();
 
     int          taskCount() const;
@@ -54,7 +56,7 @@ protected:
     void checkDriveSpace();
     void checkOvercharge();
     void scanDirectories();
-    void executeBackup(const QString &timestamp);
+    ExecutionStatus executeBackup(const QString &timestamp);
     void deleteSnapshot(const QString &snapshotName);
     void validateBackup(const QString &timestamp);
 

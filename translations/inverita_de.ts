@@ -50,27 +50,45 @@
         <translation>5. Lösche nicht mehr benötigte Datensicherungsversionen</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="225"/>
+        <location filename="../src/BackupEngine.cpp" line="220"/>
         <source>Old backup snapshot &apos;%1&apos; has been deleted due to low drive space.</source>
         <translation>Alte Datensicherungsversion »%1« wurde aus Platzgründen gelöscht.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="248"/>
+        <location filename="../src/BackupEngine.cpp" line="243"/>
         <source>Old backup snapshot &apos;%1&apos; has been deleted due to overcharge.</source>
         <translation>Alte Datensicherungsversion »%1« wurde wegen Überzahl gelöscht.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="333"/>
+        <location filename="../src/BackupEngine.cpp" line="322"/>
+        <source>%1 Files expected, but %2 Files copied.</source>
+        <translation>%1 Dateien wurden erwartet, aber %2 Dateien kopiert.</translation>
+    </message>
+    <message>
+        <location filename="../src/BackupEngine.cpp" line="327"/>
+        <source>%1 Bytes expected, but %2 Bytes processed.</source>
+        <translation>%1 Bytes wurden erwartet, aber nur %2 Bytes verarbeitet.</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/BackupEngine.cpp" line="332"/>
+        <source>%n error(s) occured during processing.</source>
+        <translation>
+            <numerusform>%n Fehler ist während der Verarbeitung aufgetreten.</numerusform>
+            <numerusform>%n Fehler sind während der Verarbeitung aufgetreten.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../src/BackupEngine.cpp" line="339"/>
         <source>Backup snapshot created successfully without errors.</source>
         <translation>Datensicherungsversion erfolgreich ohne Fehler erstellt.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="334"/>
+        <location filename="../src/BackupEngine.cpp" line="340"/>
         <source>Backup snapshot checksum is &apos;%1&apos;</source>
         <translation>Die Prüfsumme der Datensicherungsversion ist »%1«</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="284"/>
+        <location filename="../src/BackupEngine.cpp" line="279"/>
         <source>Backup snapshot comprises %1 in %2 files.</source>
         <translation>Die Datensicherungsversion umfasst %1 in %2 Dateien.</translation>
     </message>

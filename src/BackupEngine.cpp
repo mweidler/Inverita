@@ -149,9 +149,9 @@ void BackupEngine::start()
         m_currentTask = 1;
         scanDirectories();
         m_currentTask = 2;
-        executeBackup(timestamp);
+        ExecutionStatus status = executeBackup(timestamp);
 
-        if (Backup::instance().config().verifyAfterBackup()) {
+        if (status == BackupEngine::Success && Backup::instance().config().verifyAfterBackup()) {
             sync();
             m_currentTask = 3;
             validateBackup(timestamp);
@@ -286,10 +286,10 @@ void BackupEngine::scanDirectories()
  *
  * \param timestamp of the new backup snapshot
  */
-void BackupEngine::executeBackup(const QString &timestamp)
+BackupEngine::ExecutionStatus BackupEngine::executeBackup(const QString &timestamp)
 {
     if (m_abort) {
-        return;
+        return BackupEngine::Aborted;
     }
 
     QString previousBackup = SearchLatestBackupDir(Backup::instance().location());
@@ -316,19 +316,30 @@ void BackupEngine::executeBackup(const QString &timestamp)
     metaInfo.setFileCount(m_copyTraverser.files());
     metaInfo.setDataSize(m_copyTraverser.processed());
     metaInfo.setQuality(SnapshotMetaInfo::Partial);
-
-    // set valid flag, if expected data/files could be copied, no errors
-    // occured and the backup was not aborted.
-    if (m_copyTraverser.files() == m_scanTraverser.files() &&
-        m_copyTraverser.processed() == m_scanTraverser.processed() &&
-        m_copyTraverser.errors() == 0 &&
-        m_abort == false) {
-        metaInfo.setQuality(SnapshotMetaInfo::Complete);
-        metaInfo.setChecksum(checksum);
-        emit report(tr("Backup snapshot created successfully without errors.") + "<br>");
-        emit report(tr("Backup snapshot checksum is '%1'").arg(QString(checksum)) + "<br>");
-    }
     metaInfo.save(currentBackup + "/metainfo");
+
+    if (m_scanTraverser.files() != m_copyTraverser.files()) {
+        emit report(tr("%1 Files expected, but %2 Files copied.").arg(m_scanTraverser.files()).arg(m_copyTraverser.files()) + "<br>");
+        return BackupEngine::Failed;
+    }
+
+    if (m_scanTraverser.processed() != m_copyTraverser.processed()) {
+        emit report(tr("%1 Bytes expected, but %2 Bytes processed.").arg(m_scanTraverser.processed()).arg(m_copyTraverser.processed()) + "<br>");
+        return BackupEngine::Failed;
+    }
+
+    if (m_copyTraverser.errors() > 0) {
+        emit report(tr("%n error(s) occured during processing.", "", m_copyTraverser.errors()) + "<br>");
+        return BackupEngine::Failed;
+    }
+
+    metaInfo.setChecksum(checksum);
+    metaInfo.setQuality(SnapshotMetaInfo::Complete);
+    metaInfo.save(currentBackup + "/metainfo");
+    emit report(tr("Backup snapshot created successfully without errors.") + "<br>");
+    emit report(tr("Backup snapshot checksum is '%1'").arg(QString(checksum)) + "<br>");
+
+    return BackupEngine::Success;
 }
 
 
