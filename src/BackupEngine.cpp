@@ -320,12 +320,10 @@ BackupEngine::ExecutionStatus BackupEngine::executeBackup(const QString &timesta
 
     if (m_scanTraverser.files() != m_copyTraverser.files()) {
         emit report(tr("%1 Files expected, but %2 Files copied.").arg(m_scanTraverser.files()).arg(m_copyTraverser.files()) + "<br>");
-        return BackupEngine::Failed;
     }
 
     if (m_scanTraverser.processed() != m_copyTraverser.processed()) {
         emit report(tr("%1 Bytes expected, but %2 Bytes processed.").arg(m_scanTraverser.processed()).arg(m_copyTraverser.processed()) + "<br>");
-        return BackupEngine::Failed;
     }
 
     if (m_copyTraverser.errors() > 0) {
