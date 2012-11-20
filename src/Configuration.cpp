@@ -81,10 +81,7 @@ bool Configuration::load(const QString &filename)
 
     QSettings settings(filename,  QSettings::IniFormat);
     if (settings.status() != QSettings::NoError) {
-        ApplicationException e;
-        e.setCauser("load settings '" + filename + "'");
-        e.setErrorMessage(tr("Can not be opened"));
-        throw e;
+        return false;
     }
 
     int size = settings.beginReadArray("INCLUDEPATHS");
@@ -112,16 +109,14 @@ bool Configuration::load(const QString &filename)
 }
 
 
-void Configuration::save(const QString &filename) const
+bool Configuration::save(const QString &filename) const
 {
     QFile::remove(filename);
 
     QSettings settings(filename, QSettings::IniFormat);
-    if (settings.status() != QSettings::NoError) {
-        ApplicationException e;
-        e.setCauser("save settings '" + filename + "'");
-        e.setErrorMessage(tr("Can not be created"));
-        throw e;
+    if ((settings.status() != QSettings::NoError) ||
+        settings.isWritable() == false) {
+        return false;
     }
 
     settings.beginWriteArray("INCLUDEPATHS");
@@ -146,12 +141,12 @@ void Configuration::save(const QString &filename) const
     settings.setValue("OPTIONS/maximumsnapshots",    m_maximumSnapshots);
 
     if (settings.status() != QSettings::NoError) {
-        ApplicationException e;
-        e.setCauser("save settings '" + filename + "'");
-        e.setErrorMessage(tr("Error during writing"));
-        throw e;
+        return false;
     }
+
+    return true;
 }
+
 
 bool Configuration::verifyAfterBackup() const
 {

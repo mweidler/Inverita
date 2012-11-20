@@ -451,12 +451,18 @@ void InveritaWindow::onMenuNewBackup()
 
     closeCurrentBackup();
     if (openCurrentBackup(entry) == Backup::Success) {
-        config.save(Backup::instance().location() + "/inverita.conf");
-        int index = m_backupListModel->setEntry(entry);
-        m_backupSelectorUI->select(index); // causes a currentIndexChanged event
-    } else {
-        m_backupSelectorUI->select(-1);
+        if (config.save(Backup::instance().location() + "/inverita.conf")) {
+            int index = m_backupListModel->setEntry(entry);
+            m_backupSelectorUI->select(index); // causes a currentIndexChanged event
+            return;
+        }
+
+        QString msg = tr("Configuration can not be saved on '%1'.<br><br>"
+                         "Make sure you have proper write privileges.").arg(Backup::instance().location());
+        QMessageBox::critical(this, tr("Error on saving"), msg);
     }
+
+    m_backupSelectorUI->select(-1);
 }
 
 

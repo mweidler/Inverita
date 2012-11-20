@@ -68,7 +68,7 @@ public:
     void setMaximumSnapshots(int count);
 
     bool load(const QString &filename);
-    void save(const QString &filename) const;
+    bool save(const QString &filename) const;
 
 protected:
     QStringList m_includePaths;
