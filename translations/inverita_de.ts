@@ -59,18 +59,8 @@
         <source>Old backup snapshot &apos;%1&apos; has been deleted due to overcharge.</source>
         <translation>Alte Datensicherungsversion »%1« wurde wegen Überzahl gelöscht.</translation>
     </message>
-    <message>
-        <location filename="../src/BackupEngine.cpp" line="322"/>
-        <source>%1 Files expected, but %2 Files copied.</source>
-        <translation>%1 Dateien wurden erwartet, aber %2 Dateien kopiert.</translation>
-    </message>
-    <message>
-        <location filename="../src/BackupEngine.cpp" line="326"/>
-        <source>%1 Bytes expected, but %2 Bytes processed.</source>
-        <translation>%1 Bytes wurden erwartet, aber nur %2 Bytes verarbeitet.</translation>
-    </message>
     <message numerus="yes">
-        <location filename="../src/BackupEngine.cpp" line="330"/>
+        <location filename="../src/BackupEngine.cpp" line="322"/>
         <source>%n error(s) occured during processing.</source>
         <translation>
             <numerusform>%n Fehler ist während der Verarbeitung aufgetreten.</numerusform>
@@ -78,12 +68,12 @@
         </translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="337"/>
+        <location filename="../src/BackupEngine.cpp" line="329"/>
         <source>Backup snapshot created successfully without errors.</source>
         <translation>Datensicherungsversion erfolgreich ohne Fehler erstellt.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="338"/>
+        <location filename="../src/BackupEngine.cpp" line="330"/>
         <source>Backup snapshot checksum is &apos;%1&apos;</source>
         <translation>Die Prüfsumme der Datensicherungsversion ist »%1«</translation>
     </message>

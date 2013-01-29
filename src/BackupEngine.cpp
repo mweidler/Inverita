@@ -318,14 +318,6 @@ BackupEngine::ExecutionStatus BackupEngine::executeBackup(const QString &timesta
     metaInfo.setQuality(SnapshotMetaInfo::Partial);
     metaInfo.save(currentBackup + "/metainfo");
 
-    if (m_scanTraverser.files() != m_copyTraverser.files()) {
-        emit report(tr("%1 Files expected, but %2 Files copied.").arg(m_scanTraverser.files()).arg(m_copyTraverser.files()) + "<br>");
-    }
-
-    if (m_scanTraverser.processed() != m_copyTraverser.processed()) {
-        emit report(tr("%1 Bytes expected, but %2 Bytes processed.").arg(m_scanTraverser.processed()).arg(m_copyTraverser.processed()) + "<br>");
-    }
-
     if (m_copyTraverser.errors() > 0) {
         emit report(tr("%n error(s) occured during processing.", "", m_copyTraverser.errors()) + "<br>");
         return BackupEngine::Failed;

@@ -145,6 +145,6 @@ void PasswordDialog::adjustEchoMode()
     if (m_showPassword->isChecked()) {
         m_passwordEdit->setEchoMode(QLineEdit::Normal);
     } else {
-        m_passwordEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
+        m_passwordEdit->setEchoMode(QLineEdit::Password);
     }
 }
