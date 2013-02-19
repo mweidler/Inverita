@@ -4,12 +4,12 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../src/AboutDialog.cpp" line="43"/>
-        <source>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1 (%2bit)&lt;br&gt;Copyright &amp;copy; 2012 Marc Weidler (marc.weidler@web.de). All rights reserved.</source>
-        <translation>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1 (%2bit)&lt;br&gt;Copyright &amp;copy; 2012 Marc Weidler (marc.weidler@web.de). Alle Rechte vorbehalten.</translation>
+        <location filename="../src/AboutDialog.cpp" line="46"/>
+        <source>All rights reserved.</source>
+        <translation>Alle Rechte vorbehalten.</translation>
     </message>
     <message>
-        <location filename="../src/AboutDialog.cpp" line="107"/>
+        <location filename="../src/AboutDialog.cpp" line="108"/>
         <source>About INVERITA Personal Backup</source>
         <translation>Info über INVERITA Personal Backup</translation>
     </message>
