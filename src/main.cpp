@@ -44,23 +44,29 @@
 int main(int argc, char *argv[])
 {
     bool translationEnabled = true;
+    QString translationLocale = QLocale::system().name();
+
     QApplication app(argc, argv);
 
     for (int i = 0; i < argc; i++) {
         QString option(argv[i]);
         if (option.toLower().startsWith("-icontheme=")) {
             QString themeName = option.mid(option.lastIndexOf("=") + 1);
+            themeName = themeName.replace("\"", "");
             QIcon::setThemeName(themeName);
         }
 
         if (option.toLower().startsWith("-menushaveicons=")) {
             QString haveIcons = option.mid(option.lastIndexOf("=") + 1);
-            QApplication::setAttribute(Qt::AA_DontShowIconsInMenus, haveIcons != "yes");
+            QApplication::setAttribute(Qt::AA_DontShowIconsInMenus, haveIcons.toLower() != "yes");
         }
 
         if (option.toLower().startsWith("-translation=")) {
             QString translation = option.mid(option.lastIndexOf("=") + 1);
-            translationEnabled = (translation == "yes");
+            if (translation.toLower() != "yes") {
+                translationLocale = translation;
+            }
+            translationEnabled = (translationLocale.toLower() != "no");
         }
     }
 
@@ -73,9 +79,8 @@ int main(int argc, char *argv[])
     qtTranslator.load(QLocale::system(), "qt", "_", QLibraryInfo::location(QLibraryInfo::TranslationsPath));
 
     QTranslator appTranslator;
-    appTranslator.load(":translations/" + QApplication::applicationName() + "_" + QLocale::system().name());
-
-    QLocale loc(QLocale::system().language());
+    appTranslator.load(":translations/" + QApplication::applicationName() + "_" + translationLocale);
+    QLocale loc(translationLocale);
 
     if (translationEnabled) {
         app.installTranslator(&qtTranslator);
