@@ -1,6 +1,5 @@
-Inverita
+inverita
 Inverita.pro.user
-inverita*.deb
 mocs/
 objs/
 doc/
@@ -9,9 +8,9 @@ qrc_resources.cpp
 src/version.h
 staging/
 translations/*.qm
-packaging/usr/bin/inverita
-packaging/DEBIAN/control
+debian/changelog
 coverity/cov-int
 coverity/Inverita.tgz
 screenshots/
+temp
 

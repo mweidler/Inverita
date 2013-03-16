@@ -6,7 +6,7 @@
 
 QT += core gui
 
-TARGET = ../Inverita
+TARGET = ../inverita
 TEMPLATE = app
 MOC_DIR = ../mocs
 OBJECTS_DIR = ../objs

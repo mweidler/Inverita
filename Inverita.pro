@@ -6,6 +6,7 @@
 
 TEMPLATE = subdirs
 SUBDIRS = src
+TARGET = inverita
 
 OTHER_FILES += \
     .gitignore \
