@@ -24,6 +24,7 @@
 
 #include "version.h"
 #include "InveritaWindow.h"
+#include "Desktop.h"
 
 #include <QApplication>
 #include <QTranslator>
@@ -47,12 +48,22 @@ int main(int argc, char *argv[])
     QString translationLocale = QLocale::system().name();
 
     QApplication app(argc, argv);
+    QIcon::setThemeName(Desktop::determineIconTheme());
 
+    // process command line parameters
     for (int i = 0; i < argc; i++) {
         QString option(argv[i]);
         if (option.toLower().startsWith("-icontheme=")) {
             QString themeName = option.mid(option.lastIndexOf("=") + 1);
             themeName = themeName.replace("\"", "");
+            QIcon::setThemeName(themeName);
+        }
+
+        if (option.toLower().startsWith("-determineicontheme=")) {
+            QString executable = option.mid(option.lastIndexOf("=") + 1);
+            executable = executable.replace("\"", "");
+            QString themeName = Desktop::executeCommand(executable);
+            themeName = themeName.replace("\n", "");
             QIcon::setThemeName(themeName);
         }
 

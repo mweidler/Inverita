@@ -34,6 +34,7 @@
 
 #ifdef Q_OS_UNIX
 #include <errno.h>
+#include <unistd.h>
 #endif
 
 

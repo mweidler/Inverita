@@ -4,12 +4,17 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../src/AboutDialog.cpp" line="46"/>
+        <location filename="../src/AboutDialog.cpp" line="43"/>
+        <source>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1 (%2-bit)</source>
+        <translation>&lt;b&gt;INVERITA Personal Backup&lt;/b&gt; Version %1 (%2-Bit)</translation>
+    </message>
+    <message>
+        <location filename="../src/AboutDialog.cpp" line="45"/>
         <source>All rights reserved.</source>
         <translation>Alle Rechte vorbehalten.</translation>
     </message>
     <message>
-        <location filename="../src/AboutDialog.cpp" line="108"/>
+        <location filename="../src/AboutDialog.cpp" line="107"/>
         <source>About INVERITA Personal Backup</source>
         <translation>Info über INVERITA Personal Backup</translation>
     </message>
@@ -278,47 +283,47 @@
 <context>
     <name>CopyTraverser</name>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="189"/>
+        <location filename="../src/CopyTraverser.cpp" line="190"/>
         <source>Create hard link from &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Erstelle Hard-Link von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="205"/>
+        <location filename="../src/CopyTraverser.cpp" line="206"/>
         <source>Copy file from &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Kopiere Datei von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="206"/>
+        <location filename="../src/CopyTraverser.cpp" line="207"/>
         <source>Copy error, disk full?</source>
         <translation>Fehler beim Kopieren; kein Speicherplatz mehr?</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="216"/>
+        <location filename="../src/CopyTraverser.cpp" line="217"/>
         <source>Set file meta data &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Setze Datei-Meta-Daten von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="257"/>
+        <location filename="../src/CopyTraverser.cpp" line="258"/>
         <source>Set folder meta data &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Setze Verzeichnis-Meta-Daten von »%1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="238"/>
+        <location filename="../src/CopyTraverser.cpp" line="239"/>
         <source>Create directory &apos;%1&apos;</source>
         <translation>Erstelle Verzeichnis »%1«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="239"/>
+        <location filename="../src/CopyTraverser.cpp" line="240"/>
         <source>Could not create directory</source>
         <translation>Verzeichnis konnte nicht erstellt werden</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="288"/>
+        <location filename="../src/CopyTraverser.cpp" line="289"/>
         <source>Create symbolic link &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Erstelle symbolischen Link von %1« nach »%2«</translation>
     </message>
     <message>
-        <location filename="../src/CopyTraverser.cpp" line="299"/>
+        <location filename="../src/CopyTraverser.cpp" line="300"/>
         <source>Copy file meta data from &apos;%1&apos; to &apos;%2&apos;</source>
         <translation>Kopiere Datei-Meta-Daten von »%1« nach »%2«</translation>
     </message>

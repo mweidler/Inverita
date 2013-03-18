@@ -82,7 +82,8 @@ SOURCES += \
     InveritaWindow.cpp \
     SnapshotTableView.cpp \
     DigestsMap.cpp \
-    IOBuffer.cpp
+    IOBuffer.cpp \
+    Desktop.cpp
 
 HEADERS += \
     BackupSelectorUI.h \
@@ -119,5 +120,6 @@ HEADERS += \
     InveritaWindow.h \
     SnapshotTableView.h \
     DigestsMap.h \
-    IOBuffer.h
+    IOBuffer.h \
+    Desktop.h
 
