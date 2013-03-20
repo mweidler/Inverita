@@ -27,7 +27,6 @@
 
 #include <QProcessEnvironment>
 #include <QIcon>
-#include <QDebug>
 
 
 /*! Constructs a new Desktop object
@@ -56,21 +55,16 @@ Desktop::~Desktop()
    KDE (Kubuntu 12.04)
    -------------------
 
-    QString environment = QProcessEnvironment::systemEnvironment().value("DESKTOP_SESSION");
-    QString theme = QIcon::themeName();
+   QString environment = QProcessEnvironment::systemEnvironment().value("DESKTOP_SESSION");
+   QString theme = QIcon::themeName();
 
-    out << "Mate desktop: " << mateDetection.contains("mateconfd") << "\n";
-    out << "KDE  desktop: " << mateDetection.contains("xsettings-kde") << "\n";
+   out << "Mate desktop: " << mateDetection.contains("mateconfd") << "\n";
+   out << "KDE  desktop: " << mateDetection.contains("xsettings-kde") << "\n";
 
-    QFile file("/tmp/inveritainfo");
-    file.open(QIODevice::WriteOnly | QIODevice::Text);
-    QTextStream out(&file);
-    out << "DESKTOP_SESSION is '" << environment << "'\n";
+   Gnome3
+   ------
 
-    out << "Theme-Name is '" << theme << "'\n";
-     // optional, as QFile destructor will already do it:
-    file.close();
-
+   gsettings get org.gnome.desktop.interface icon-theme
 */
 
 
@@ -117,45 +111,59 @@ QString Desktop::executeCommand(QString executable)
  */
 Desktop::DesktopType Desktop::determineDesktopType()
 {
+#ifdef Q_OS_UNIX
     QString processlist = executeCommand("ps -ef");
 
     if (processlist.contains("mateconfd")) {
-        qDebug("Mate detected");
         return Desktop::Mate;
     }
 
+    if (processlist.contains("gnome-session")) {
+        return Desktop::Gnome;
+    }
+
     if (processlist.contains("xsettings-kde")) {
-        qDebug("KDE detected");
         return Desktop::KDE;
     }
+#endif
 
     return Desktop::Unknown;
 }
 
 
 /*! Tries to determine the configured icon theme of the current
- *  dektop enviromnent. Qt 4.8 does not handle this correctly
+ *  desktop enviromnent. Qt 4.8 does not handle this correctly
  *  for modern DEs like Mate and Gnome3.
  *
  * \return the configured icon theme to be used
  */
 QString Desktop::determineIconTheme()
 {
-    QString iconTheme;
+    QString iconTheme = QIcon::themeName();
+    QString tempTheme;
 
     switch (determineDesktopType()) {
         case Desktop::Mate:
-            iconTheme = executeCommand("mateconftool-2 --get /desktop/mate/interface/icon_theme");
-            iconTheme = iconTheme.replace("\n", "");
+            tempTheme = executeCommand("mateconftool-2 --get /desktop/mate/interface/icon_theme");
+            tempTheme = tempTheme.remove('\n');
+            break;
+
+        case Desktop::Gnome:
+            // no special handling, use standard icon theme
             break;
 
         case Desktop::KDE:
+            // no special handling, use standard icon theme
+            break;
+
         default:
-            iconTheme = QIcon::themeName();
             break;
     }
 
-    qDebug("Icon Theme: '%s'", iconTheme.toStdString().c_str());
+    if (!tempTheme.isEmpty()) {
+        iconTheme = tempTheme;
+    }
+
     return iconTheme;
 }
 

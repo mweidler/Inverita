@@ -28,7 +28,8 @@
 #include <QString>
 
 
-/*! AboutDialog showing copyright and legal information.
+/*! Detects type of desktop and ways to identify environment topics,
+ *  e.g. icon theme, etc.
  */
 class Desktop
 {
@@ -36,11 +37,8 @@ private:
     Desktop();
     ~Desktop();
 
-
 public:
-    enum DesktopType { Unknown, Mate, Gnome2, Gnome3,
-                       KDE, Unity, Cinnamon, Xfce, Ldme
-                     };
+    enum DesktopType { Unknown, Mate, Gnome, KDE, Unity, Cinnamon, Xfce, Ldme };
 
     static QString executeCommand(QString executable);
     static DesktopType determineDesktopType();

@@ -316,7 +316,7 @@ void ConfigurationDialog::onChangeButton()
         return;
     }
 
-    QString dirname = filedialog.selectedFiles()[0];
+    QString dirname = QDir::cleanPath(filedialog.selectedFiles()[0]);
     m_storageLocation->setText(dirname);
 }
 
