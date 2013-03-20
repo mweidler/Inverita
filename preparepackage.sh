@@ -38,9 +38,8 @@ fi
 
 DIST_RELEASE=$1
 
-rm -rf $TARGETROOT
-mkdir $TARGETROOT
-mkdir $TARGETDIR
+rm -rf $TARGETDIR
+mkdir -p $TARGETDIR
 
 ./versioning.sh
 ./createchangelog.sh $DIST_RELEASE
