@@ -101,7 +101,7 @@ void ConfigurationListUI::onAddDirectory()
     int count = m_listModel->rowCount();
     m_listModel->insertRow(count);
     QModelIndex index = m_listModel->index(count);
-    m_listModel->setData(index, fileNames.at(0));
+    m_listModel->setData(index, QDir::cleanPath(fileNames.at(0)));
     m_list = m_listModel->stringList();
 }
 

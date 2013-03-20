@@ -480,7 +480,7 @@ void InveritaWindow::onMenuOpenBackup()
     bool validStorage = false;
 
     BackupEntry entry;
-    entry.origin = filedialog.selectedFiles()[0];
+    entry.origin = QDir::cleanPath(filedialog.selectedFiles()[0]);
     entry.encryption = Backup::NotEncrypted;
     entry.password.clear();
 

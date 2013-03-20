@@ -97,8 +97,12 @@ void ValidateEngine::select(const QString &backupRootPath, const QString &snapsh
 }
 
 
-// slot called each time, the "Start Backup" button is pressed
-// Attention: this will run in a different thread scope
+/*! Slot called each time, the "Validate" button is pressed
+ *
+ * Validates a specific backup snapshot.
+ *
+ * Attention: this will run in a different thread scope
+ */
 void ValidateEngine::start()
 {
     reset();
