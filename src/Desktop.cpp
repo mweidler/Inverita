@@ -65,6 +65,13 @@ Desktop::~Desktop()
    ------
 
    gsettings get org.gnome.desktop.interface icon-theme
+
+
+   Xfce4
+   -----
+
+   xfconf-query -c xsettings -p /Net/IconThemeName
+
 */
 
 
@@ -125,6 +132,10 @@ Desktop::DesktopType Desktop::determineDesktopType()
     if (processlist.contains("xsettings-kde")) {
         return Desktop::KDE;
     }
+
+    if (processlist.contains("xfce4-session")) {
+        return Desktop::Xfce4;
+    }
 #endif
 
     return Desktop::Unknown;
@@ -145,7 +156,12 @@ QString Desktop::determineIconTheme()
     switch (determineDesktopType()) {
         case Desktop::Mate:
             tempTheme = executeCommand("mateconftool-2 --get /desktop/mate/interface/icon_theme");
-            tempTheme = tempTheme.remove('\n');
+            iconTheme = tempTheme.remove('\n');
+            break;
+
+        case Desktop::Xfce4:
+            tempTheme = executeCommand("xfconf-query -c xsettings -p /Net/IconThemeName");
+            iconTheme = tempTheme.remove('\n');
             break;
 
         case Desktop::Gnome:
@@ -158,10 +174,6 @@ QString Desktop::determineIconTheme()
 
         default:
             break;
-    }
-
-    if (!tempTheme.isEmpty()) {
-        iconTheme = tempTheme;
     }
 
     return iconTheme;
