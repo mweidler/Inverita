@@ -142,6 +142,7 @@ QString SearchLatestBackupDir(QString absolutePath)
 QString formatSize(qint64 size)
 {
     int     unitIdx = 0;
+    int     decimals = 0;
     qreal   value = size;
     QString stringValue;
 
@@ -153,16 +154,18 @@ QString formatSize(qint64 size)
     }
 
     if (value >= 100) {
-        stringValue = QLocale().toString(value, 'f', 0);
+        decimals = 0;
     } else if (value >= 10) {
-        stringValue = QLocale().toString(value, 'f', 1);
+        if (unitIdx > 0) {
+            decimals = 1;
+        }
     } else {
-        if (unitIdx == 0) {
-            stringValue = QLocale().toString(value, 'f', 0);
-        } else {
-            stringValue = QLocale().toString(value, 'f', 2);
+        if (unitIdx > 0) {
+            decimals = 2;
         }
     }
+
+    stringValue = QLocale().toString(value, 'f', decimals);
 
     return stringValue + " " + units[unitIdx];
 }
