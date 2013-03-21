@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
         QString option(argv[i]);
         if (option.toLower().startsWith("-icontheme=")) {
             QString themeName = option.mid(option.lastIndexOf("=") + 1);
-            themeName = themeName.replace("\"", "");
+            themeName = themeName.remove('"');
             QIcon::setThemeName(themeName);
         }
 
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
             QString executable = option.mid(option.lastIndexOf("=") + 1);
             executable = executable.replace("\"", "");
             QString themeName = Desktop::executeCommand(executable);
-            themeName = themeName.replace("\n", "");
+            themeName = themeName.remove('\n');
             QIcon::setThemeName(themeName);
         }
 
