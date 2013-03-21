@@ -47,5 +47,5 @@ cd ..
 
 ls -rtl
 
-echo "Now 'dput ppa:mweidler/inverita' *.changes"
+echo "Now 'dput ppa:mweidler/inverita *.changes'"
 
