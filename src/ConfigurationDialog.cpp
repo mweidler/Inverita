@@ -334,6 +334,15 @@ void ConfigurationDialog::onSave()
         return;
     }
 
+    if (m_config.includes().size() == 0) {
+        QMessageBox::critical(this,
+                              tr("Directory not specified"),
+                              tr("You have to specify at least one directory that comprises your backup.<br>"
+                                 "Please specify this directory on the 'Includes' tab.")
+                             );
+        return;
+    }
+
     m_config.setVerifyAfterBackup(m_verifyAfterBackup->isChecked());
     m_config.setVerifyDigest(m_verifyDigest->isChecked());
     m_config.setAutoDeleteSnapshots(m_purgeBackups->isChecked());

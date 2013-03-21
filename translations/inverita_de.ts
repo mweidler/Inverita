@@ -189,6 +189,16 @@
         <translation>Der angegebene Speicherort für die Datensicherung existiert nicht. &lt;br&gt;Bitte wählen Sie einen anderen Speicherort.</translation>
     </message>
     <message>
+        <location filename="../src/ConfigurationDialog.cpp" line="339"/>
+        <source>Directory not specified</source>
+        <translation>Verzeichnis nicht angegeben</translation>
+    </message>
+    <message>
+        <location filename="../src/ConfigurationDialog.cpp" line="340"/>
+        <source>You have to specify at least one directory that comprises your backup.&lt;br&gt;Please specify this directory on the &apos;Includes&apos; tab.</source>
+        <translation type="unfinished">Sie müssen mindestens ein Verzeichnis angeben, welches die Datensicherung umfasst.&lt;br&gt;Bitte geben Sie dieses Verzeichnis auf dem Register »Verzeichnisse« an.</translation>
+    </message>
+    <message>
         <location filename="../src/ConfigurationDialog.cpp" line="199"/>
         <source>Recompute digests on verification (recommended)</source>
         <translation>Neuberechnung der Prüfsummen bei der Überprüfung (empfohlen)</translation>
@@ -813,7 +823,7 @@
         <translation>Überprüfe die aktuelle Datensicherungsversion</translation>
     </message>
     <message>
-        <location filename="../src/ValidateEngine.cpp" line="136"/>
+        <location filename="../src/ValidateEngine.cpp" line="140"/>
         <source>The content of the digests file are not trustable because it&apos;s checksum does not match the expected checksum!&lt;br&gt;A snapshot validation is not possible!&lt;br&gt;The backup snapshot status will be set to &apos;Unknown&apos;.</source>
         <translation>Dem Inhalt der Digest-Datei kann nicht vertraut werden, weil deren Prüfsumme nicht mit der erwarteten Prüfsumme überein stimmt!&lt;br&gt;Eine Überprüfung der Datensicherungsversion ist nicht möglich!&lt;br&gt;Der Status des Datensicherungsversion wird auf »Unbekannt« gesetzt.</translation>
     </message>
