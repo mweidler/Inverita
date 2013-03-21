@@ -196,7 +196,7 @@
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="340"/>
         <source>You have to specify at least one directory that comprises your backup.&lt;br&gt;Please specify this directory on the &apos;Includes&apos; tab.</source>
-        <translation type="unfinished">Sie müssen mindestens ein Verzeichnis angeben, welches die Datensicherung umfasst.&lt;br&gt;Bitte geben Sie dieses Verzeichnis auf dem Register »Verzeichnisse« an.</translation>
+        <translation>Sie müssen mindestens ein Verzeichnis angeben, welches die Datensicherung umfasst.&lt;br&gt;Bitte geben Sie dieses Verzeichnis auf dem Register »Verzeichnisse« an.</translation>
     </message>
     <message>
         <location filename="../src/ConfigurationDialog.cpp" line="199"/>
