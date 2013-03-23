@@ -14,7 +14,7 @@
         <translation>Alle Rechte vorbehalten.</translation>
     </message>
     <message>
-        <location filename="../src/AboutDialog.cpp" line="107"/>
+        <location filename="../src/AboutDialog.cpp" line="116"/>
         <source>About INVERITA Personal Backup</source>
         <translation>Info über INVERITA Personal Backup</translation>
     </message>
