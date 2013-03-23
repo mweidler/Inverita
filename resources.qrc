@@ -7,6 +7,8 @@
         <file>images/gplv3.png</file>
         <file>images/ok.png</file>
         <file>images/encrypted.png</file>
+        <file>images/reload.png</file>
+        <file>images/starred.png</file>
         <file>translations/inverita_de.qm</file>
     </qresource>
 </RCC>

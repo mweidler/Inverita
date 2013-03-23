@@ -616,7 +616,7 @@ void InveritaWindow::createActions()
     m_quitAction = new QAction(tr("Quit"), this);
     m_quitAction->setStatusTip(tr("Quit application"));
     m_quitAction->setIconVisibleInMenu(true);
-    m_quitAction->setIcon(QIcon::fromTheme("exit"));
+    m_quitAction->setIcon(QIcon::fromTheme("application-exit"));
     m_quitAction->setShortcut(QKeySequence::Quit);
     connect(m_quitAction, SIGNAL(triggered()), this, SLOT(close()));
 

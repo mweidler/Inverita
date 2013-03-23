@@ -62,7 +62,7 @@ PasswordDialog::PasswordDialog(QWidget *parent) : QDialog(parent)
     buttonBox->addButton(QDialogButtonBox::Ok);
     buttonBox->addButton(QDialogButtonBox::Cancel);
     buttonBox->button(QDialogButtonBox::Ok)->setIcon(QIcon::fromTheme("ok", QIcon(":/images/ok.png")));
-    buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QIcon::fromTheme("stop"));
+    buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QIcon::fromTheme("process-stop"));
 
     QVBoxLayout *masterLayout = new QVBoxLayout;
     masterLayout->setAlignment(Qt::AlignTop);

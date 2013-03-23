@@ -62,7 +62,7 @@ ProgressDialog::ProgressDialog(WorkerEngine *model, DialogType type, DialogAbort
     m_buttonBox = new QDialogButtonBox();
     m_buttonBox->addButton(QDialogButtonBox::Abort);
     m_buttonBox->addButton(QDialogButtonBox::Ok);
-    m_buttonBox->button(QDialogButtonBox::Abort)->setIcon(QIcon::fromTheme("stop"));
+    m_buttonBox->button(QDialogButtonBox::Abort)->setIcon(QIcon::fromTheme("process-stop"));
     m_buttonBox->button(QDialogButtonBox::Ok)->setIcon(QIcon::fromTheme("ok", QIcon(":/images/ok.png")));
 
     QVBoxLayout *layout = new QVBoxLayout;

@@ -55,13 +55,13 @@ SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QF
     m_buttonOpen->setIcon(QIcon::fromTheme("folder-open"));
     m_buttonOpen->setEnabled(false);
     m_buttonValidate = new QPushButton(tr("Validate"));
-    m_buttonValidate->setIcon(QIcon::fromTheme("search"));
+    m_buttonValidate->setIcon(QIcon::fromTheme("edit-find"));
     m_buttonValidate->setEnabled(false);
     m_buttonDelete = new QPushButton(tr("Delete"));
     m_buttonDelete->setIcon(QIcon::fromTheme("edit-delete"));
     m_buttonDelete->setEnabled(false);
     m_buttonReload = new QPushButton(tr("Reload"));
-    m_buttonReload->setIcon(QIcon::fromTheme("reload"));
+    m_buttonReload->setIcon(QIcon::fromTheme("reload", QIcon(":/images/reload.png")));
     m_buttonReload->setEnabled(false);
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;

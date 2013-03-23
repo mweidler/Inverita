@@ -48,8 +48,8 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     QDialogButtonBox *buttonBox = new QDialogButtonBox();
     buttonBox->addButton(QDialogButtonBox::Save);
     buttonBox->addButton(QDialogButtonBox::Cancel);
-    buttonBox->button(QDialogButtonBox::Save)->setIcon(QIcon::fromTheme("filesave"));
-    buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QIcon::fromTheme("stop"));
+    buttonBox->button(QDialogButtonBox::Save)->setIcon(QIcon::fromTheme("document-save"));
+    buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QIcon::fromTheme("process-stop"));
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setContentsMargins(20, 20, 20, 20);
@@ -104,7 +104,7 @@ QWidget *ConfigurationDialog::constructStorageTab()
     m_storageLocation->setFrameStyle(QFrame::Panel);
     m_storageLocation->setFrameShadow(QFrame::Sunken);
     m_buttonChange = new QPushButton(tr("Change"));
-    m_buttonChange->setIcon(QIcon::fromTheme("fileopen"));
+    m_buttonChange->setIcon(QIcon::fromTheme("folder-open"));
     locationLayout->addWidget(m_storageLocation, 1);
     locationLayout->addWidget(m_buttonChange);
 
