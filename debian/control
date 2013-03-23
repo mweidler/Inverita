@@ -7,8 +7,8 @@ Standards-Version: 3.9.2
 
 Package: inverita
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libc6 (>= 2.15), libqtcore4 (>=4:4.8.0), libqtgui4 (>=4:4.8.0), encfs (>= 1.7.4)
-Description: INVERITA Personal Backup is a software for data backup on various media.
+Depends: libc6 (>= 2.15), libqtcore4 (>=4:4.8.0), libqtgui4 (>=4:4.8.0), encfs (>= 1.7.4)
+Description: Personal Backup tool for data backup on various media.
  .
  The main features are:
    * Backup data in snapshots
