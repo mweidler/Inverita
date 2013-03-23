@@ -119,7 +119,7 @@ QString Desktop::executeCommand(QString executable)
 Desktop::DesktopType Desktop::determineDesktopType()
 {
 #ifdef Q_OS_UNIX
-    QString processlist = executeCommand("ps -ef");
+    QString processlist = executeCommand("ps -e");
 
     if (processlist.contains("mateconfd")) {
         return Desktop::Mate;
@@ -178,4 +178,3 @@ QString Desktop::determineIconTheme()
 
     return iconTheme;
 }
-
