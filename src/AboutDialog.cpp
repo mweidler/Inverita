@@ -98,16 +98,16 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 
     QVBoxLayout *masterLayout = new QVBoxLayout;
     masterLayout->setContentsMargins(20, 20, 20, 20);
-    masterLayout->addLayout(contentLayout);
+    masterLayout->addLayout(contentLayout, 1);
     masterLayout->addWidget(buttonBox);
     this->setLayout(masterLayout);
 
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 
     setWindowTitle(tr("About INVERITA Personal Backup"));
-    adjustSize();
-    setFixedSize(size());
-    //setMinimumSize(700, 500);
+    //adjustSize();
+    //setFixedSize(size());
+    setMinimumSize(600, 500);
 }
 
 

@@ -642,8 +642,8 @@
     </message>
     <message>
         <location filename="../src/PasswordDialog.cpp" line="58"/>
-        <source>Backup password:</source>
-        <translation>Backup Passwort:</translation>
+        <source>Password:</source>
+        <translation>Passwort:</translation>
     </message>
     <message>
         <location filename="../src/PasswordDialog.cpp" line="89"/>
