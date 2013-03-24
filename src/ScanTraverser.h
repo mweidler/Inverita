@@ -42,7 +42,8 @@ public:
     TRAVERSER_IGNORE_ONENTERDIR
     TRAVERSER_IGNORE_ONLEAVEDIR
     TRAVERSER_IGNORE_ONLINK
-    TRAVERSER_IGNORE_ONOTHER
+
+    virtual void onOther(const QString &absoluteFilePath);
 };
 
 #endif

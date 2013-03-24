@@ -49,6 +49,7 @@ public:
     virtual void onLeaveDir(const QString &absoluteFilePath);
     virtual void onLink(const QString &absoluteFilePath, const QString &linkName);
 
+    TRAVERSER_IGNORE_ONOTHER
 
 protected:
     bool compareFiles(QString &newfile, QString &reference);

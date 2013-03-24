@@ -26,7 +26,6 @@
 #include "Traverser.h"
 #include "Utilities.h"
 
-#include <QDebug>
 #include <QDir>
 
 
@@ -158,7 +157,6 @@ void Traverser::countError()
  */
 void Traverser::abort()
 {
-    qDebug() << "DirectoryTraverser: abort requested";
     m_abort = true;
 }
 
@@ -241,66 +239,4 @@ void Traverser::recurseDirectory(const QString &dirname)
             onOther(filepath);
         }
     }
-}
-
-
-/*! Is called during directory traversal if a file was found.
- *
- *  \param absoluteFilePath the absolute path to the found file
- */
-void Traverser::onFile(const QString &absoluteFilePath)
-{
-    // do nothing
-    qDebug() << "DirectoryTraverser: file:" << absoluteFilePath;
-}
-
-
-/*! Is called during directory traversal if a new directory is entered.
- *
- *  \param absoluteFilePath the absolute path to the new directory
- */
-void Traverser::onEnterDir(const QString &absoluteFilePath)
-{
-    // do nothing
-    qDebug() << "DirectoryTraverser: dir enter:" << absoluteFilePath;
-}
-
-
-/*! Is called during directory traversal if a directory is left.
- *
- *  \param absoluteFilePath the absolute path to the left directory
- */
-void Traverser::onLeaveDir(const QString &absoluteFilePath)
-{
-    // do nothing
-    qDebug() << "DirectoryTraverser: dir leave:" << absoluteFilePath;
-}
-
-
-/*! Is called during directory traversal if a symbolic link was found.
- *
- *  \code
- *  Example:
- *  lrwxrwxrwx 2 user users    4 May 10 14:13 linktodir1 -> dir1
- *           'linktodir1' is the absoluteFilePath, 'dir1' is the linkname
- *  \endcode
- *
- *  \param absoluteFilePath the absolute path to the link
- *  \param linkName         the name of the link
- */
-void Traverser::onLink(const QString &absoluteFilePath, const QString &linkName)
-{
-    // do nothing
-    qDebug() << "DirectoryTraverser: link:" << absoluteFilePath << linkName;
-}
-
-
-/*! Is called during directory traversal if a other item (no link, no file, no directory) was found.
- *
- *  \param absoluteFilePath the absolute path to the file system item
- */
-void Traverser::onOther(const QString &absoluteFilePath)
-{
-    // do nothing
-    qDebug() << "DirectoryTraverser: other:" << absoluteFilePath;
 }

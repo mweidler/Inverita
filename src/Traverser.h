@@ -79,11 +79,11 @@ protected:
     void countTransferred(qint64 size);
     void countError();
 
-    virtual void onFile(const QString &absoluteFilePath);
-    virtual void onEnterDir(const QString &absoluteFilePath);
-    virtual void onLeaveDir(const QString &absoluteFilePath);
-    virtual void onLink(const QString &absoluteFilePath, const QString &linkName);
-    virtual void onOther(const QString &absoluteFilePath);
+    virtual void onFile(const QString &absoluteFilePath) = 0;
+    virtual void onEnterDir(const QString &absoluteFilePath) = 0;
+    virtual void onLeaveDir(const QString &absoluteFilePath) = 0;
+    virtual void onLink(const QString &absoluteFilePath, const QString &linkName) = 0;
+    virtual void onOther(const QString &absoluteFilePath) = 0;
 
 
 private:

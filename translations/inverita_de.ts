@@ -14,7 +14,7 @@
         <translation>Alle Rechte vorbehalten.</translation>
     </message>
     <message>
-        <location filename="../src/AboutDialog.cpp" line="116"/>
+        <location filename="../src/AboutDialog.cpp" line="117"/>
         <source>About INVERITA Personal Backup</source>
         <translation>Info über INVERITA Personal Backup</translation>
     </message>
@@ -30,42 +30,42 @@
 <context>
     <name>BackupEngine</name>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="73"/>
+        <location filename="../src/BackupEngine.cpp" line="76"/>
         <source>1. Checking available drive space</source>
         <translation>1. Überprüfe verfügbaren Speicherplatz</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="76"/>
+        <location filename="../src/BackupEngine.cpp" line="79"/>
         <source>2. Analyzing backup content</source>
         <translation>2. Analysiere Inhalt der Datensicherung</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="79"/>
+        <location filename="../src/BackupEngine.cpp" line="82"/>
         <source>3. Creating new backup snapshot</source>
         <translation>3. Erstelle neue Datensicherungsversion</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="82"/>
+        <location filename="../src/BackupEngine.cpp" line="85"/>
         <source>4. Verifying generated backup snapshot</source>
         <translation>4. Überprüfe die erstellte Datensicherungsversion</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="85"/>
+        <location filename="../src/BackupEngine.cpp" line="88"/>
         <source>5. Removing obsolete backup snapshots</source>
         <translation>5. Lösche nicht mehr benötigte Datensicherungsversionen</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="220"/>
+        <location filename="../src/BackupEngine.cpp" line="223"/>
         <source>Old backup snapshot &apos;%1&apos; has been deleted due to low drive space.</source>
         <translation>Alte Datensicherungsversion »%1« wurde aus Platzgründen gelöscht.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="243"/>
+        <location filename="../src/BackupEngine.cpp" line="246"/>
         <source>Old backup snapshot &apos;%1&apos; has been deleted due to overcharge.</source>
         <translation>Alte Datensicherungsversion »%1« wurde wegen Überzahl gelöscht.</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/BackupEngine.cpp" line="322"/>
+        <location filename="../src/BackupEngine.cpp" line="325"/>
         <source>%n error(s) occured during processing.</source>
         <translation>
             <numerusform>%n Fehler ist während der Verarbeitung aufgetreten.</numerusform>
@@ -73,17 +73,17 @@
         </translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="329"/>
+        <location filename="../src/BackupEngine.cpp" line="332"/>
         <source>Backup snapshot created successfully without errors.</source>
         <translation>Datensicherungsversion erfolgreich ohne Fehler erstellt.</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="330"/>
+        <location filename="../src/BackupEngine.cpp" line="333"/>
         <source>Backup snapshot checksum is &apos;%1&apos;</source>
         <translation>Die Prüfsumme der Datensicherungsversion ist »%1«</translation>
     </message>
     <message>
-        <location filename="../src/BackupEngine.cpp" line="279"/>
+        <location filename="../src/BackupEngine.cpp" line="282"/>
         <source>Backup snapshot comprises %1 in %2 files.</source>
         <translation>Die Datensicherungsversion umfasst %1 in %2 Dateien.</translation>
     </message>
@@ -699,6 +699,14 @@
     </message>
 </context>
 <context>
+    <name>ScanTraverser</name>
+    <message>
+        <location filename="../src/ScanTraverser.cpp" line="53"/>
+        <source>WARNING: Ingoring &apos;%1&apos;</source>
+        <translation>WARNUNG: Ignoriere »%1«</translation>
+    </message>
+</context>
+<context>
     <name>SnapshotListModel</name>
     <message>
         <location filename="../src/SnapshotListModel.cpp" line="43"/>
@@ -805,12 +813,12 @@
 <context>
     <name>Traverser</name>
     <message>
-        <location filename="../src/Traverser.cpp" line="213"/>
+        <location filename="../src/Traverser.cpp" line="211"/>
         <source>Access to directory &apos;%1&apos; failed.</source>
         <translation>Auf Verzeichnis »%1« kann nicht zugegriffen werden.</translation>
     </message>
     <message>
-        <location filename="../src/Traverser.cpp" line="214"/>
+        <location filename="../src/Traverser.cpp" line="212"/>
         <source>Directory not found.</source>
         <translation>Verzeichnis nicht gefunden.</translation>
     </message>

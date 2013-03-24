@@ -42,3 +42,13 @@ void ScanTraverser::onFile(const QString &absoluteFilePath)
     countFile();
     countProcessed(fileinfo.size());
 }
+
+
+/*! Is called during directory traversal if a other item (no link, no file, no directory) was found.
+ *
+ *  \param absoluteFilePath the absolute path to the file system item
+ */
+void ScanTraverser::onOther(const QString &absoluteFilePath)
+{
+    emit report(tr("WARNING: Ingoring '%1'").arg(absoluteFilePath) + "<br>");
+}

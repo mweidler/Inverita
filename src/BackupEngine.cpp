@@ -43,6 +43,9 @@ BackupEngine::BackupEngine()
     m_currentTask = 0;
 
     // traverser and engine can emit report signals to the progress dialog
+    connect(&m_eraseTraverser,    SIGNAL(report(QString)), this, SIGNAL(report(QString)));
+    connect(&m_scanTraverser,     SIGNAL(report(QString)), this, SIGNAL(report(QString)));
+    connect(&m_copyTraverser,     SIGNAL(report(QString)), this, SIGNAL(report(QString)));
     connect(&m_validateTraverser, SIGNAL(report(QString)), this, SIGNAL(report(QString)));
 }
 
