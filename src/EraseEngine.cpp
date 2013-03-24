@@ -25,7 +25,8 @@
 
 #include "EraseEngine.h"
 #include "Utilities.h"
-#include <QDebug>
+
+#include <QVariant>
 
 
 /*! Constructs a new erase engine object.
@@ -34,6 +35,9 @@ EraseEngine::EraseEngine()
 {
     reset();
     m_currentTask = 0;
+
+    // traverser and engine can emit report signals to the progress dialog
+    connect(&m_eraseTraverser, SIGNAL(report(QString)), this, SIGNAL(report(QString)));
 }
 
 
@@ -150,5 +154,5 @@ void EraseEngine::start()
  */
 void EraseEngine::abort()
 {
-    qDebug() << "EraseEngine: abort requested but erase is not allowed to abort";
+    // do nothing
 }
