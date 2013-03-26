@@ -28,7 +28,7 @@
 #include <QHeaderView>
 #include <QBoxLayout>
 #include <QDateTime>
-#include <QDebug>
+
 
 SnapshotListUI::SnapshotListUI(QAbstractTableModel *model, QWidget *parent) : QFrame(parent)
 {

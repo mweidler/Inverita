@@ -28,7 +28,6 @@
 #include <QSettings>
 #include <QFile>
 #include <QIcon>
-#include <QDebug>
 
 
 /*! Constructs a new backup list model.

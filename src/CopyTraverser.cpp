@@ -30,7 +30,6 @@
 
 #include <QDateTime>
 #include <QDir>
-#include <QDebug>
 
 #ifdef Q_OS_UNIX
 #include <errno.h>
