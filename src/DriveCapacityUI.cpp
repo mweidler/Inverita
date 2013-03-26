@@ -28,7 +28,6 @@
 #include <QPainter>
 #include <QRadialGradient>
 #include <qmath.h>
-#include <QDebug>
 
 
 /*! Constructs a new capacity visualizing widget which is a child of \em parent.
@@ -54,7 +53,7 @@ DriveCapacityUI::~DriveCapacityUI()
  */
 QSize DriveCapacityUI::minimumSizeHint() const
 {
-    return QSize(270, 100);
+    return QSize(270, 140);
 }
 
 
