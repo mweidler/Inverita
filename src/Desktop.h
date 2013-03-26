@@ -38,7 +38,7 @@ private:
     ~Desktop();
 
 public:
-    enum DesktopType { Unknown, Mate, Gnome, KDE, Cinnamon, Xfce4, Ldme };
+    enum DesktopType { Unknown, Mate, Gnome, KDE, Cinnamon, Xfce4, Lxde };
 
     static QString executeCommand(QString executable);
     static DesktopType determineDesktopType();

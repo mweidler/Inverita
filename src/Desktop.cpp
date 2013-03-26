@@ -136,6 +136,10 @@ Desktop::DesktopType Desktop::determineDesktopType()
     if (processlist.contains("xfce4-session")) {
         return Desktop::Xfce4;
     }
+
+    if (processlist.contains("lxsession")) {
+        return Desktop::Lxde;
+    }
 #endif
 
     return Desktop::Unknown;
@@ -162,6 +166,10 @@ QString Desktop::determineIconTheme()
         case Desktop::Xfce4:
             tempTheme = executeCommand("xfconf-query -c xsettings -p /Net/IconThemeName");
             iconTheme = tempTheme.remove('\n');
+            break;
+
+        case Desktop::Lxde:
+            iconTheme = "gnome";
             break;
 
         case Desktop::Gnome:
