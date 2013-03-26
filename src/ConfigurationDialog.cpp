@@ -100,9 +100,9 @@ QWidget *ConfigurationDialog::constructStorageTab()
     labelImage->setPixmap(pixmap);
 
     QHBoxLayout *locationLayout = new QHBoxLayout;
-    m_storageLocation = new QLabel();
-    m_storageLocation->setFrameStyle(QFrame::Panel);
-    m_storageLocation->setFrameShadow(QFrame::Sunken);
+    m_storageLocation = new QLineEdit();
+    //m_storageLocation->setFrameStyle(QFrame::Panel);
+    //m_storageLocation->setFrameShadow(QFrame::Sunken);
     m_buttonChange = new QPushButton(tr("Change"));
     m_buttonChange->setIcon(QIcon::fromTheme("folder-open"));
     locationLayout->addWidget(m_storageLocation, 1);
@@ -247,7 +247,7 @@ QWidget *ConfigurationDialog::constructOptionsTab()
  */
 QString ConfigurationDialog::location() const
 {
-    return m_storageLocation->text();
+    return QDir::cleanPath(m_storageLocation->text());
 }
 
 
@@ -287,6 +287,7 @@ bool ConfigurationDialog::encrypt() const
 
 void ConfigurationDialog::setEnableLocationChange(bool enable)
 {
+    m_storageLocation->setReadOnly(!enable);
     m_buttonChange->setEnabled(enable);
 }
 

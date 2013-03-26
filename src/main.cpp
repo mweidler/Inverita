@@ -59,14 +59,6 @@ int main(int argc, char *argv[])
             QIcon::setThemeName(themeName);
         }
 
-        if (option.toLower().startsWith("-determineicontheme=")) {
-            QString executable = option.mid(option.lastIndexOf("=") + 1);
-            executable = executable.replace("\"", "");
-            QString themeName = Desktop::executeCommand(executable);
-            themeName = themeName.remove('\n');
-            QIcon::setThemeName(themeName);
-        }
-
         if (option.toLower().startsWith("-menushaveicons=")) {
             QString haveIcons = option.mid(option.lastIndexOf("=") + 1);
             QApplication::setAttribute(Qt::AA_DontShowIconsInMenus, haveIcons.toLower() != "yes");
