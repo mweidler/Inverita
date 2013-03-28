@@ -158,7 +158,7 @@ QVariant SnapshotListModel::data(const QModelIndex &index, int role) const
                 return QIcon::fromTheme("ok", QIcon(":/images/ok.png"));
                 break;
             case SnapshotMetaInfo::Reliable:
-                return QIcon::fromTheme("starred", QIcon(":/images/starred.png"));
+                return QIcon(":/images/starred.png");
                 break;
         }
     }
