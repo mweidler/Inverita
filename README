@@ -26,30 +26,34 @@ fonts, etc.
 3. PARAMETERS
 -------------
 
-INVERITA can be started with parameters, e.g. inverita -<option>=<value>, -<option2>=<value2>, ...
-where <option> can be one of the following:
--iconTheme=ThemeName
+INVERITA can be started with parameters, e.g.
+        inverita <option>=<value> <option2>=<value2> ...
+where <option> and <value> can be one of the following:
+ -iconTheme=ThemeName
     If for whatever reason the current desktop theme is not used, one can force the
     use of a specific theme by setting the theme name with this parameter.
 
--menusHaveIcons=true
+ -menusHaveIcons=true
     If for whatever reason the menu icons are not shown, one can force this by using
     this parameter.
 
--translation=[yes|no|<locale>]
+ -translation=[yes|no|<locale>]
     If for whatever reason the translation of the text displayed by Inverita is not
-    working properly, one can control the behaviour by setting the translation parameter.
-    yes: use translation and use the system default language (default)
-    no: disable translation. English language texts will be used.
-    <locale>: use translation and use this locate identifier, e.g. de_DE
+    working properly, one can control the behaviour by setting the translation
+    parameter:
+       yes: use translation and use the system default language (default)
+       no: disable translation. English language texts will be used.
+       <locale>: use translation and use this locate identifier, e.g. de_DE
 
 
 4. REQUIREMENTS
 ---------------
 
 INVERITA is developed and optimized for Unix/Linux operating systems.
-It needs a file system on backup medium, that supports hard-links and meta information (user, permissions, dates).
-Currently, only the 'ext4' file system is supported. It will not work with FAT/VFAT file systems!
+It needs a file system on backup medium, that supports hard-links and
+meta information (user, permissions, dates).
+Currently, only the 'ext4' and 'nfs' file systems are supported.
+It will not work with FAT/VFAT file systems!
 
 
 5. LICENSE
@@ -71,4 +75,3 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
