@@ -117,7 +117,6 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     setWindowTitle(tr("About INVERITA Personal Backup"));
     setMinimumWidth(720);
     adjustSize();
-    //setMinimumSize(720, 540);
     setMinimumSize(size());
 }
 

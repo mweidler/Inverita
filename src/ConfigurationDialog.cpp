@@ -72,7 +72,6 @@ ConfigurationDialog::ConfigurationDialog(Configuration &model, QWidget *parent) 
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
     setMinimumSize(650, 475);
-    //resize(650, 500);
 }
 
 

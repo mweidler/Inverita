@@ -87,7 +87,6 @@ PasswordDialog::PasswordDialog(QWidget *parent) : QDialog(parent)
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
     setWindowTitle(tr("Password required"));
-    //setMinimumSize(600, 250);
 }
 
 

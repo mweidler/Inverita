@@ -138,9 +138,8 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
     m_timer.setInterval(5000);  // for filesystem capacity update
     m_timer.start();
 
+    setWindowFlags((windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowMaximizeButtonHint);
     setWindowTitle(tr("INVERITA Personal Backup"));
-    //setMinimumSize(750, 575);
-    //resize(750, 600);
     setMinimumWidth(750);
     adjustSize();
     setMinimumSize(size());
