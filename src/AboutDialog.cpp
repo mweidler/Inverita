@@ -47,12 +47,12 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
             "INVERITA is free software: you can redistribute it and/or modify "
             "it under the terms of the GNU General Public License as published by "
             "the Free Software Foundation, either version 3 of the License, or "
-            "(at your option) any later version.") + "<br><br>" +
+            "(at your option) any later version.") + "<br>" +
         QLatin1String(
             "INVERITA is distributed in the hope that it will be useful, "
             "but WITHOUT ANY WARRANTY; without even the implied warranty of "
             "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
-            "GNU General Public License for more details: http://www.gnu.org/licenses/") + "<br><br>" +
+            "GNU General Public License for more details: http://www.gnu.org/licenses") + "<br><br>" +
         QLatin1String(
             "INVERITA uses Qt library %3<br>"
             "Copyright &copy; 2012 Nokia Corporation and/or its subsidiary(-ies)."),
