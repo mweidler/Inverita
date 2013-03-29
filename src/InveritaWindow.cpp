@@ -141,8 +141,6 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowMaximizeButtonHint);
     setWindowTitle(tr("INVERITA Personal Backup"));
     setMinimumWidth(750);
-    //adjustSize();
-    //setMinimumSize(size());
 }
 
 
@@ -160,7 +158,6 @@ InveritaWindow::~InveritaWindow()
 void InveritaWindow::showEvent(QShowEvent * /*event*/)
 {
     setMinimumSize(size());
-    setMaximumSize(size());
 
     // Center application window on the current screen
     QRect desktopRect = QApplication::desktop()->availableGeometry(this);

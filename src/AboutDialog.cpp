@@ -130,6 +130,7 @@ AboutDialog::~AboutDialog()
 void AboutDialog::showEvent(QShowEvent * /*event*/)
 {
     setMinimumSize(size());
-    setMaximumSize(size());
+    //setMaximumSize(size());
+    resize(sizeHint());
 }
 
