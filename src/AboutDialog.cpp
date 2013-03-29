@@ -92,6 +92,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     QLabel *labelText = new QLabel(text.arg(INVERITA_COMMIT_VERSION).arg(QSysInfo::WordSize).arg(qVersion()));
     labelText->setTextFormat(Qt::RichText);
     labelText->setWordWrap(true);
+    textLayout->setAlignment(Qt::AlignTop);
     textLayout->addWidget(labelText);
 
     QHBoxLayout *contentLayout = new QHBoxLayout;
@@ -109,9 +110,9 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 
     setWindowTitle(tr("About INVERITA Personal Backup"));
     setMinimumWidth(800);
-    adjustSize();
-    setMinimumSize(size());
-    setMaximumSize(size());
+    //adjustSize();
+    //setMinimumSize(size());
+    //setMaximumSize(size());
 }
 
 
@@ -119,5 +120,16 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
  */
 AboutDialog::~AboutDialog()
 {
+}
+
+
+/*! Set the minimum and maximum sizes of this dialog
+ *
+ * \param event the event that causes this call (not used)
+ */
+void AboutDialog::showEvent(QShowEvent * /*event*/)
+{
+    setMinimumSize(size());
+    setMaximumSize(size());
 }
 

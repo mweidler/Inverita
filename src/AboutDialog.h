@@ -37,6 +37,8 @@ class AboutDialog : public QDialog
 public:
     AboutDialog(QWidget *parent = 0);
     ~AboutDialog();
+
+    void showEvent(QShowEvent *event);
 };
 
 #endif
