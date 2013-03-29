@@ -2,6 +2,12 @@
 #
 # createppas.sh
 #
+# The following packages must be installed on your system:
+#   sudo apt-get install dh-make
+#   sudo apt-get install devscripts
+#   sudo apt-get install dput
+#
+#
 # This file is part of INVERITA.
 #
 # INVERITA Personal Backup Software
