@@ -39,7 +39,7 @@
  */
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
-    static const QString text[] = {
+    static const QString text =
         tr("<b>INVERITA Personal Backup</b> Version %1 (%2-bit)") + "<br>" +
         QLatin1String("Copyright &copy; 2012-2013 Marc Weidler (marc.weidler@web.de). ") +
         tr("All rights reserved.") + "<br><br>" +
@@ -47,31 +47,31 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
             "INVERITA is free software: you can redistribute it and/or modify "
             "it under the terms of the GNU General Public License as published by "
             "the Free Software Foundation, either version 3 of the License, or "
-            "(at your option) any later version.") + "<br>" +
+            "(at your option) any later version.") + "<br><br>" +
         QLatin1String(
             "INVERITA is distributed in the hope that it will be useful, "
             "but WITHOUT ANY WARRANTY; without even the implied warranty of "
             "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
             "GNU General Public License for more details: http://www.gnu.org/licenses") + "<br><br>" +
         QLatin1String(
-            "INVERITA uses Qt library %3<br>"
-            "Copyright &copy; 2012 Nokia Corporation and/or its subsidiary(-ies)."),
+            "INVERITA uses Qt library %3 by Digia (http://www.qt-project.org/legal)<br>"
+            "Copyright &copy; 2013 Digia Plc and/or its subsidiary(-ies).")  + "<br><br>" +
         QLatin1String(
             "INVERITA makes use of EncFS (http://www.arg0.net/encfs)<br>"
-            "Copyright &copy; 2003-2007, Valient Gough (vgough@pobox.com)"),
+            "Copyright &copy; 2003-2007, Valient Gough (vgough@pobox.com)")  + "<br><br>" +
         QLatin1String(
             "INVERITA contains FIPS-180-1 compliant SHA-1 implementation from PolarSSL library (http://www.polarssl.org) "
-            "Copyright &copy; 2006-2010, Brainspark B.V."),
+            "Copyright &copy; 2006-2010, Brainspark B.V.")  + "<br><br>" +
         QLatin1String(
             "INVERITA contains icons from 'Mac Icons'<br>"
-            "Copyright &copy; 2002-2011, Artua Visual Design Agency (http://www.artua.com)"),
+            "Copyright &copy; 2002-2011, Artua Visual Design Agency (http://www.artua.com)")  + "<br><br>" +
         QLatin1String(
             "INVERITA contains icons from 'Faenza Icons' (http://tiheum.deviantart.com)<br>"
-            "Copyright &copy; 2010-2012, Matthieu James (~tiheum)"),
+            "Copyright &copy; 2010-2012, Matthieu James (~tiheum)")  + "<br><br>" +
         QLatin1String(
             "INVERITA contains icons from 'Android Icons'<br>"
-            "Copyright &copy; 2011, JOKER DESIGN (http://www.joker-design.com)")
-    };
+            "Copyright &copy; 2011, JOKER DESIGN (http://www.joker-design.com)");
+
 
     QLabel *labelAppImage = new QLabel;
     labelAppImage->setPixmap(QApplication::windowIcon().pixmap(96, 96));
@@ -89,17 +89,10 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     imagesLayout->addWidget(labelGPLImage);
 
     QVBoxLayout *textLayout = new QVBoxLayout;
-    QLabel *labelText;
-    for (int i = 0; i < 6; i++) {
-        if (i == 0) {
-            labelText = new QLabel(text[i].arg(INVERITA_COMMIT_VERSION).arg(QSysInfo::WordSize).arg(qVersion()));
-        } else {
-            labelText = new QLabel(text[i]);
-        }
-        labelText->setTextFormat(Qt::RichText);
-        labelText->setWordWrap(true);
-        textLayout->addWidget(labelText);
-    }
+    QLabel *labelText = new QLabel(text.arg(INVERITA_COMMIT_VERSION).arg(QSysInfo::WordSize).arg(qVersion()));
+    labelText->setTextFormat(Qt::RichText);
+    labelText->setWordWrap(true);
+    textLayout->addWidget(labelText);
 
     QHBoxLayout *contentLayout = new QHBoxLayout;
     contentLayout->addLayout(imagesLayout);
@@ -115,9 +108,10 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 
     setWindowTitle(tr("About INVERITA Personal Backup"));
-    setMinimumWidth(720);
+    setMinimumWidth(800);
     adjustSize();
     setMinimumSize(size());
+    setMaximumSize(size());
 }
 
 
