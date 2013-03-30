@@ -42,13 +42,13 @@ DIST_RELEASE=$1
 echo "Creating '$TARGETFILENAME' for release '$DIST_RELEASE' ..."
 
 # log the head
-git --no-pager log --first-parent HEAD~1..HEAD --format="@@@@ %H%n%n  * %s%d%n"  >$TEMPFILENAME
+git --no-pager log --first-parent HEAD~1..HEAD --format="@@@@ %H%n%n  * %s%d"  >$TEMPFILENAME
 
 # log all others
-git --no-pager log --first-parent HEAD~1 --format="  * %s%d%n" >>$TEMPFILENAME
+git --no-pager log --first-parent HEAD~1 --format="  * %s%d" >>$TEMPFILENAME
 
 # log the head again for the footer
-git --no-pager log --first-parent HEAD~1..HEAD --format=" -- %aN <%aE>  %aD%n"  >>$TEMPFILENAME
+git --no-pager log --first-parent HEAD~1..HEAD --format="%n -- %aN <%aE>  %aD%n"  >>$TEMPFILENAME
 
 #git --no-pager log --format="@@@@ %H%n%n  * %s%d%n%n -- %aN <%aE>  %aD%n%n" >$TEMPFILENAME
 rm -f $TARGETFILENAME
