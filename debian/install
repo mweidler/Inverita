@@ -1,5 +1,6 @@
 inverita usr/bin
 packaging/usr/share/applications/inverita.desktop usr/share/applications
+packaging/usr/share/icons/hicolor/24x24/apps/inverita.png usr/share/icons/hicolor/24x24/apps
 packaging/usr/share/icons/hicolor/32x32/apps/inverita.png usr/share/icons/hicolor/32x32/apps
 packaging/usr/share/icons/hicolor/48x48/apps/inverita.png usr/share/icons/hicolor/48x48/apps
 packaging/usr/share/icons/hicolor/72x72/apps/inverita.png usr/share/icons/hicolor/72x72/apps
