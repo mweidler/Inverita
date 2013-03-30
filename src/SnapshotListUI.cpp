@@ -97,6 +97,23 @@ SnapshotListUI::~SnapshotListUI()
 
 }
 
+
+/*! \copydoc QWidget::minimumSizeHint()
+ */
+QSize SnapshotListUI::minimumSizeHint() const
+{
+    return QSize(200, 250);
+}
+
+
+/*! \copydoc QWidget::sizeHint()
+ */
+QSize SnapshotListUI::sizeHint() const
+{
+    return minimumSizeHint();
+}
+
+
 void SnapshotListUI::setEnableModifiers(bool enable)
 {
     m_buttonOpen->setEnabled(enable);

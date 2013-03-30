@@ -41,6 +41,9 @@ public:
     SnapshotListUI(QAbstractTableModel *model, QWidget *parent = 0);
     ~SnapshotListUI();
 
+    QSize minimumSizeHint() const;
+    QSize sizeHint() const;
+
     void setEnableModifiers(bool enable);
     void setEnableReload(bool enable);
     int currentSelection();
