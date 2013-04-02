@@ -62,6 +62,7 @@ signals:
 public slots:
     void about();
     void refreshContent();
+    void autoOpen();
     void onBackupSelected(int selection);
     void onOpenSnapshot();
     void onValidateSnapshot();
@@ -112,6 +113,7 @@ private:
     BackupListModel   *m_backupListModel;
     SnapshotListModel *m_snapshotListModel;
 
+    QStringList       m_accessibleBackupOrigins;
     QTimer            m_timer;
     FilesystemInfo    m_filesystemInfo;
     BackupEngine      m_backupEngine;

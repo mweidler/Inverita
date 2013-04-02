@@ -60,6 +60,7 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
 
     m_driveCapacityUI = new DriveCapacityUI(&m_filesystemInfo, this);
     m_controlUI = new ControlUI(this);
+    m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
 
     QHBoxLayout *hlayout = new QHBoxLayout;
     hlayout->addWidget(m_driveCapacityUI);
@@ -133,14 +134,24 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
     connect(&m_verifyEngine, SIGNAL(report(QString)), m_progressVerifyDialog, SLOT(display(QString)));
 
     connect(&m_timer, SIGNAL(timeout()), &m_filesystemInfo, SLOT(refresh()));
+    connect(&m_timer, SIGNAL(timeout()), this, SLOT(autoOpen()));
 
-    m_controlUI->setEnabledButtons(ControlUI::AllButtons, false);
-    m_timer.setInterval(5000);  // for filesystem capacity update
-    m_timer.start();
+    // remember all accessible backups at startup time
+    for (int i = 0; i < m_backupListModel->size(); i++) {
+        QString origin = m_backupListModel->at(i).origin;
+        QDir origindir(origin);
+        if (origindir.exists()) {
+            m_accessibleBackupOrigins.append(origin);
+        }
+    }
+    autoOpen();
 
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowMaximizeButtonHint);
     setWindowTitle(tr("INVERITA Personal Backup"));
     setMinimumWidth(750);
+
+    m_timer.setInterval(2000);  // for filesystem capacity update and auto-open
+    m_timer.start();
 }
 
 
@@ -345,6 +356,43 @@ Backup::Status InveritaWindow::openCurrentBackup(BackupEntry &entry)
     }
 
     return status;
+}
+
+
+void InveritaWindow::autoOpen()
+{
+    Backup &backup = Backup::instance();
+
+    // if a backup is already opened, do not do something automatically!
+    if (backup.isOpen()) {
+        return;
+    }
+
+    if (m_backupListModel->size() == 1) {
+        // if only one backup is in the list and this is not encrypted,
+        // open it immediately.
+        BackupEntry entry = m_backupListModel->at(0);
+        if (entry.encryption == Backup::NotEncrypted) {
+            QDir origindir(entry.origin);
+            if (origindir.exists()) {
+                m_backupSelectorUI->select(0);
+            }
+        }
+    } else {
+        // if there are multiple backup possibilities, do not open one of
+        // them directly. But if a new backup is possible, e.g. a usb-drive
+        // has been connected, then open this backup.
+        for (int i = 0; i < m_backupListModel->size(); i++) {
+            QString origin = m_backupListModel->at(i).origin;
+            QDir origindir(origin);
+            if (origindir.exists()) {
+                if (!m_accessibleBackupOrigins.contains(origin)) {
+                    m_accessibleBackupOrigins.append(origin);
+                    m_backupSelectorUI->select(i);
+                }
+            }
+        }
+    }
 }
 
 
