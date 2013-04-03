@@ -136,6 +136,8 @@ InveritaWindow::InveritaWindow(QWidget *parent) : QMainWindow(parent)
     connect(&m_timer, SIGNAL(timeout()), &m_filesystemInfo, SLOT(refresh()));
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(autoOpen()));
 
+    m_manuallyClosed = false;
+
     // remember all accessible backups at startup time
     for (int i = 0; i < m_backupListModel->size(); i++) {
         QString origin = m_backupListModel->at(i).origin;
@@ -295,6 +297,10 @@ void InveritaWindow::closeCurrentBackup()
             break;
         }
     }
+
+    if (!backup.isOpen()) {
+        m_closeBackupAction->setEnabled(false);
+    }
 }
 
 
@@ -355,6 +361,10 @@ Backup::Status InveritaWindow::openCurrentBackup(BackupEntry &entry)
         }
     }
 
+    if (status == Backup::Success) {
+        m_closeBackupAction->setEnabled(true);
+    }
+
     return status;
 }
 
@@ -364,7 +374,7 @@ void InveritaWindow::autoOpen()
     Backup &backup = Backup::instance();
 
     // if a backup is already opened, do not do something automatically!
-    if (backup.isOpen()) {
+    if (backup.isOpen() || m_manuallyClosed) {
         return;
     }
 
@@ -566,6 +576,15 @@ void InveritaWindow::onMenuOpenBackup()
 }
 
 
+void InveritaWindow::onMenuCloseBackup()
+{
+    m_manuallyClosed = true;
+    m_backupSelectorUI->select(-1);
+    closeCurrentBackup();
+    refreshContent();
+}
+
+
 void InveritaWindow::onMenuEmptyBackupList()
 {
     QString msg = tr("All closed backups will get removed from the list "
@@ -665,6 +684,14 @@ void InveritaWindow::createActions()
     m_openBackupAction->setShortcut(QKeySequence::Open);
     connect(m_openBackupAction, SIGNAL(triggered()), this, SLOT(onMenuOpenBackup()));
 
+    m_closeBackupAction = new QAction(tr("Close current backup"), this);
+    m_closeBackupAction->setStatusTip(tr("Close the current backup in use"));
+    m_closeBackupAction->setIconVisibleInMenu(true);
+    m_closeBackupAction->setIcon(QIcon::fromTheme("window-close"));
+    m_closeBackupAction->setShortcut(QKeySequence::Close);
+    m_closeBackupAction->setEnabled(false);
+    connect(m_closeBackupAction, SIGNAL(triggered()), this, SLOT(onMenuCloseBackup()));
+
     m_emptyBackupListAction = new QAction(tr("Empty backup list..."), this);
     m_emptyBackupListAction->setStatusTip(tr("Remove closed backups from backup list"));
     m_emptyBackupListAction->setIconVisibleInMenu(true);
@@ -693,6 +720,7 @@ void InveritaWindow::createMenus()
     m_backupMenu = menuBar()->addMenu(tr("&Backup"));
     m_backupMenu->addAction(m_createBackupAction);
     m_backupMenu->addAction(m_openBackupAction);
+    m_backupMenu->addAction(m_closeBackupAction);
     m_backupMenu->addSeparator();
     m_backupMenu->addAction(m_emptyBackupListAction);
     m_backupMenu->addSeparator();

@@ -73,6 +73,7 @@ public slots:
 
     void onMenuNewBackup();
     void onMenuOpenBackup();
+    void onMenuCloseBackup();
     void onMenuEmptyBackupList();
     void onConfigure();
 
@@ -91,11 +92,13 @@ private:
     void createMenus();
     void updateLatestLink(QString absolutePath);
 
+    bool    m_manuallyClosed;
     QMenu   *m_backupMenu;
     QMenu   *m_helpMenu;
 
     QAction *m_createBackupAction;
     QAction *m_openBackupAction;
+    QAction *m_closeBackupAction;
     QAction *m_emptyBackupListAction;
     QAction *m_quitAction;
     QAction *m_aboutAction;
