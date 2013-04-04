@@ -736,7 +736,7 @@
     <message>
         <location filename="../src/SnapshotListModel.cpp" line="44"/>
         <source>Last modified</source>
-        <translation>Geändert am</translation>
+        <translation>Letzte Änderung</translation>
     </message>
     <message>
         <location filename="../src/SnapshotListModel.cpp" line="44"/>
