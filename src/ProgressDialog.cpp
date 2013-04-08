@@ -210,7 +210,7 @@ void ProgressDialog::update()
         m_progressBar->setMaximum(1000);
     }
 
-    if (m_statusHistory.size() >= 20) {
+    if (completion > 0 && m_statusHistory.size() >= 20) {
         qint64 deltaTransferred = m_statusHistory.last().transferred - m_statusHistory.first().transferred;
         qint64 deltaTimeMs = m_statusHistory.first().timestamp.msecsTo(m_statusHistory.last().timestamp);
         qint64 transferRate = (deltaTransferred * 1000) / deltaTimeMs;
