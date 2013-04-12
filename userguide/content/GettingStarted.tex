@@ -1,0 +1,35 @@
+\chapter{Getting started}
+
+\section{Basic functionality}
+
+INVERITA is a Software
+
+
+\section{Terminology}
+
+This section explains important terms which is needed to understand
+the functionality of Inverita.
+
+\subsection{Backup}
+   Inverita can manage several Backups. Each Backup has
+         a storage location where the configuration and the
+         Backup snapshots are stored.
+         Inverita stores the list of Backup in the user's
+         configuration directory \monospace{\$HOME/.config/inverita.conf}.
+
+\subsection{Configuration}
+         The Backup Configuration specifies the name of the Backup,
+         if the data should be encrypted or not, included
+         directories, exclude patterns and many more options.
+         The configuration file is stored in the backup storage
+         location and has the name 'inverita.conf'.
+
+\subsection{Backup snapshot}
+         The Backup snapshot is a directory inside the
+         backup storage and contains meta data (number of files, sizes, etc.),
+         cryptographic digests of all backed up files and the backed up files itself.
+         Identical files are linked in all backup snapshots and thus do not
+         require additional storage space.
+         The directory names of backup snapshots start with a @-sign followed by
+         the time stamp when the backup snapshot has been created, e.g. \monospace{@2013-03-02-10-15-31}
+

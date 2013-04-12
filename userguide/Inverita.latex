@@ -1,0 +1,90 @@
+% This file is part of INVERITA.
+%
+% INVERITA Personal Backup Software
+% Copyright (C) 2012-2013  Marc Weidler <marc.weidler@web.de>,
+%                          Ulrichstr. 12/1, 71672 Marbach, Germany.
+%                          All rights reserved.
+%
+% INVERITA is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% INVERITA is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+\documentclass[10pt,a4paper,halfparskip,twoside]{scrbook}
+%\usepackage[latin1]{inputenc}
+
+\usepackage[T1]{fontenc} % Use standard postscript fonts
+\usepackage{pslatex}
+\usepackage{palatino}
+
+\usepackage[pdftex]{graphicx}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{enumerate}
+\usepackage{upgreek}
+\usepackage{fancyvrb}
+\usepackage{placeins}
+\usepackage{ifthen}
+\usepackage{import}
+\usepackage{color}
+\usepackage{calc}
+\usepackage{amssymb}
+\usepackage{vmargin}
+\usepackage{fancyhdr}
+\usepackage{multirow}
+\usepackage{titlesec}
+\usepackage{Inverita}  % style
+
+
+
+%*****************************************************************************
+% Header/Footer, version
+%*****************************************************************************
+\newcommand{\version}{Version 1.0 -- April 2013}
+\newcommand{\project}{INVERITA}
+
+%\input{versioninfo}
+\renewcommand{\headerinfo}{\project\ Personal Backup}
+\renewcommand{\leftfooterinfo}{\textit{\version}}
+\renewcommand{\rightfooterinfo}{\textit{\project\ User's Guide}}
+
+\title{\headerinfo}
+\subtitle{User's Guide}
+\author{Written by Marc Weidler \\
+                \href{mailto:marc.weidler@web.de}{\texttt{marc.weidler@web.de}}}
+\date{\version}
+
+%*****************************************************************************
+%* Document environment
+%*****************************************************************************
+\begin{document}
+%\import{INTRO/}{TitlePage}
+%\import{INTRO/}{Legal}
+\maketitle
+\tableofcontents
+
+
+%*****************************************************************************
+%* Content
+%*****************************************************************************
+\input{content/GettingStarted.tex}
+\input{content/Introduction.tex}
+
+
+%*****************************************************************************
+%* Appendix
+%*****************************************************************************
+\listoffigures
+
+\end{document}
+

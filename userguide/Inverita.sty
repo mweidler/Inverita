@@ -1,0 +1,259 @@
+% This file is part of INVERITA.
+%
+% INVERITA Personal Backup Software
+% Copyright (C) 2012-2013  Marc Weidler <marc.weidler@web.de>,
+%                          Ulrichstr. 12/1, 71672 Marbach, Germany.
+%                          All rights reserved.
+%
+% INVERITA is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% INVERITA is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+%---------------------------------------
+% Header/Footer text
+%---------------------------------------
+\newcommand{\headerinfo}{Please specify!}
+\newcommand{\leftfooterinfo}{Please specify!}
+\newcommand{\rightfooterinfo}{Please specify!}
+
+
+%---------------------------------------
+% Heading format
+%---------------------------------------
+\definecolor{SectionBlue}{RGB}{0, 139, 221}
+
+\titleformat{\chapter}[display]
+{\bfseries\Large}
+{\filleft\MakeUppercase{\chaptertitlename}\hspace{1ex}\Huge\thechapter}
+{4ex}
+{\titlerule
+\vspace{2ex}%
+\filright\Huge}
+[\vspace{0.75ex}%
+\titlerule]
+
+\titleformat{\section}
+{\color{SectionBlue}\normalfont\Large\bfseries}
+{\color{SectionBlue}\thesection}{1em}{}
+
+\titleformat{\subsection}
+{\color{SectionBlue}\normalfont\large}
+{\color{SectionBlue}\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+{\color{SectionBlue}\normalfont}
+{\color{SectionBlue}\thesubsubsection}{1em}{}
+
+%---------------------------------------
+% Font selection
+%---------------------------------------
+%\renewcommand*\familydefault{\sfdefault}
+
+
+%---------------------------------------
+% Change figure numbering to 1,2,3,...
+%---------------------------------------
+\newcounter{myfigure}
+\renewcommand{\thefigure}{\arabic{myfigure}}
+\newcommand{\figurecaption}[1]{\stepcounter{myfigure}\caption{#1}}
+
+\newcounter{myequation}
+\renewcommand{\theequation}{\arabic{myequation}}
+
+
+%---------------------------------------
+% ledge
+%---------------------------------------
+\newenvironment{ledge}
+               {\list{}{%
+                    \setlength{\labelsep}{0.5em}
+                    \labelwidth\leftmarginwidth
+                    \setlength{\leftmargin}{0cm}
+                    \let\makelabel\ledgelabel}}
+               {\endlist\padding}
+\newcommand*\ledgelabel[1]{%
+            \hfil
+            \normalfont\textbf{#1}
+            }
+
+%---------------------------------------
+% context
+%---------------------------------------
+\newenvironment{context}
+               {\begin{ledge}}
+               {\end{ledge}}
+
+%---------------------------------------
+% hardware
+%---------------------------------------
+\newenvironment{hardware}[1][All hardware]
+               {\begin{ledge}\item[\fbox{#1}]}
+               {\end{ledge}}
+
+
+%---------------------------------------
+% attributes, aligneddescription
+%---------------------------------------
+\newlength{\Myentrydefaultwidth}
+\setlength{\Myentrydefaultwidth}{40pt}
+\newenvironment{entry}
+               {\list{}{%
+                    \setlength{\labelsep}{0cm}
+                    \setlength{\labelwidth}{\Myentrydefaultwidth}%
+                    \setlength{\leftmargin}{\labelwidth}
+                    \let\makelabel\entrylabel}}
+               {\endlist}
+\newcommand{\entrylabel}[1]{\mbox{\textbf{#1}}\hfil}
+
+\newlength{\Myattributelen}
+\newcommand{\attributelabel}[1]{%
+  \settowidth{\Myattributelen}{\texttt{#1}X}%
+  \ifthenelse{\lengthtest{\Myattributelen > \labelwidth}}%
+      {\parbox[b]{\labelwidth}%
+        {\makebox[0pt][l]{\texttt{#1}}\\}}%
+      {\texttt{#1}}%
+  \hfil\relax}
+\newenvironment{attributes}[1][40pt]
+  {\renewcommand{\entrylabel}{\attributelabel}\setlength{\Myentrydefaultwidth}{#1}
+    \begin{entry}}
+    {\end{entry}}
+
+\newlength{\Mydescriptionlen}
+\newcommand{\aligneddescriptionlabel}[1]{%
+  \settowidth{\Mydescriptionlen}{\textrm{#1}X}%
+  \ifthenelse{\lengthtest{\Mydescriptionlen > \labelwidth}}%
+      {\parbox[b]{\labelwidth}%
+        {\makebox[0pt][l]{\textrm{#1}}\\}}%
+      {\textrm{#1}}%
+  \hfil\relax}
+\newenvironment{aligneddescription}[1][40pt]
+  {\renewcommand{\entrylabel}{\aligneddescriptionlabel}\setlength{\Myentrydefaultwidth}{#1}
+    \begin{entry}}
+    {\end{entry}}
+
+
+%---------------------------------------
+% includegraphic
+%---------------------------------------
+\def\gfxwidth{\ifdim0.75\Gin@nat@width>\linewidth\linewidth\else0.75\Gin@nat@width\fi}
+\newcommand*{\includegraphic}[4][1]{%
+          \begin{figure}[htb]
+          \begin{center}
+          \includegraphics[width=\gfxwidth*\real{#1},keepaspectratio]{#2}
+          \figurecaption{#3}
+          \label{fig:#4}
+          \end{center}
+          \end{figure}
+          \FloatBarrier
+	  }
+
+
+%---------------------------------------
+% formula
+%---------------------------------------
+\newenvironment{formula}[1]
+  {\stepcounter{myequation}\begin{equation}\label{eq:#1}}
+  {\end{equation}\ignorespacesafterend}
+
+
+%---------------------------------------
+% reference, eqreference
+%---------------------------------------
+\newcommand{\reference}[1]{Figure \ref{fig:#1}}
+\newcommand{\eqreference}[1]{Formula (\ref{eq:#1})}
+
+
+%---------------------------------------
+% choices
+%---------------------------------------
+\newenvironment{choices}
+               {\begin{enumerate}[a)]}
+               {\end{enumerate}}
+
+
+%---------------------------------------
+% enum
+%---------------------------------------
+\newenvironment{enum}
+               {\begin{enumerate}[1.]}
+               {\end{enumerate}}
+
+
+%---------------------------------------
+% Eye catchers
+%---------------------------------------
+\newlength{\MyAttentionLen}
+\newenvironment{note}
+               {
+                \vspace{2ex}
+                \raisebox{\dimexpr\ht\strutbox-1.05\height}{\includegraphics[width=30pt]{images/info-icon.pdf}\hspace{0.75em}}
+                \begin{minipage}[t]{\linewidth-40pt}\begin{itshape}
+               }
+               {
+                \end{itshape}\end{minipage}\vspace{2ex}
+               }
+
+\newenvironment{warning}
+               {
+                \vspace{2ex}
+                \raisebox{\dimexpr\ht\strutbox-1.05\height}{\includegraphics[width=30pt]{images/warning-icon.pdf}\hspace{0.75em}}
+                \begin{minipage}[t]{\linewidth-40pt}\begin{bfseries}
+               }
+               {
+                \end{bfseries}\end{minipage}\vspace{2ex}
+               }
+
+%\newenvironment{warning}
+%               {\settowidth{\MyAttentionLen}{\includegraphics[width=40pt]{images/warning-icon.pdf}\hspace{1.0em}}
+%                \vspace{2ex}
+%                \raisebox{\dimexpr\ht\strutbox-1.05\height}{\includegraphics[width=40pt]{images/warning-icon.pdf}\hspace{0.75em}}
+%                \begin{minipage}[t]{\dimexpr \linewidth-\MyAttentionLen\relax}\begin{bfseries}
+%               }
+%               {\end{bfseries}\end{minipage}\vspace{2ex}}
+
+
+%---------------------------------------
+% console
+%--------------------------------------
+\definecolor{consolecolor}{rgb}{0.95,0.95,0.95}
+\newcommand{\consolecmd}{\renewcommand{\FancyVerbFormatLine}[1]{\colorbox{consolecolor}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{##1}}}}
+\DefineVerbatimEnvironment{console}{Verbatim}
+{showspaces=false, framesep=0mm, fontsize=\small, fontfamily=courier, fontseries=b, formatcom=\consolecmd}
+
+
+%---------------------------------------
+% monospace
+%--------------------------------------
+\newcommand{\monospace}[1]{\texttt{#1}}
+
+
+%---------------------------------------
+% Set heading and footers
+%---------------------------------------
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+\lhead[\headerinfo]{\bfseries\leftmark}
+\chead[]{}
+\rhead[\bfseries\leftmark]{\headerinfo}
+\lfoot[\bfseries\thepage]{\leftfooterinfo}
+\cfoot[]{}
+\rfoot[\rightfooterinfo]{\bfseries\thepage}
+
+
+%---------------------------------------
+% Let the fancy heading/footing be on EVERY page
+%---------------------------------------
+\makeatletter
+\let\ps@plain\ps@fancy
+\makeatother
+
