@@ -28,6 +28,21 @@
 
 
 %---------------------------------------
+% Set page margins
+%---------------------------------------
+%\newlength\papermarginwidth
+%\setlength\papermarginwidth{-5cm}
+
+%\newdimen\fullwidth
+%\setlength\fullwidth{\paperwidth}
+%\addtolength\fullwidth{-2\papermarginwidth}
+
+%\newdimen\leftmarginwidth
+%\setlength\leftmarginwidth{\fullwidth}
+%\addtolength\leftmarginwidth{-\textwidth}
+
+
+%---------------------------------------
 % Heading format
 %---------------------------------------
 \definecolor{SectionBlue}{RGB}{0, 139, 221}
@@ -59,6 +74,8 @@
 %---------------------------------------
 %\renewcommand*\familydefault{\sfdefault}
 
+\newcommand{\padding}{\vspace{1em}}
+\newcommand{\topic}[1]{\normalfont{\bfseries\color{SectionBlue}#1}\newline}
 
 %---------------------------------------
 % Change figure numbering to 1,2,3,...
@@ -74,35 +91,35 @@
 %---------------------------------------
 % ledge
 %---------------------------------------
-\newenvironment{ledge}
-               {\list{}{%
-                    \setlength{\labelsep}{0.5em}
-                    \labelwidth\leftmarginwidth
-                    \setlength{\leftmargin}{0cm}
-                    \let\makelabel\ledgelabel}}
-               {\endlist\padding}
-\newcommand*\ledgelabel[1]{%
-            \hfil
-            \normalfont\textbf{#1}
-            }
+%\newenvironment{ledge}
+%               {\list{}{%
+%                    \setlength{\labelsep}{0.5em}
+%                    \labelwidth\leftmarginwidth
+%                    \setlength{\leftmargin}{0cm}
+%                    \let\makelabel\ledgelabel}}
+%               {\endlist\padding}
+%\newcommand*\ledgelabel[1]{%
+%            \hfil
+%            \normalfont\textbf{#1}
+%            }
 
 %---------------------------------------
 % context
 %---------------------------------------
-\newenvironment{context}
-               {\begin{ledge}}
-               {\end{ledge}}
+%\newenvironment{context}
+%               {\begin{ledge}}
+%               {\end{ledge}}
 
 %---------------------------------------
 % hardware
 %---------------------------------------
-\newenvironment{hardware}[1][All hardware]
-               {\begin{ledge}\item[\fbox{#1}]}
-               {\end{ledge}}
+%\newenvironment{hardware}[1][All hardware]
+%              {\begin{ledge}\item[\fbox{#1}]}
+%               {\end{ledge}}
 
 
 %---------------------------------------
-% attributes, aligneddescription
+% attributes
 %---------------------------------------
 \newlength{\Myentrydefaultwidth}
 \setlength{\Myentrydefaultwidth}{40pt}
@@ -128,18 +145,18 @@
     \begin{entry}}
     {\end{entry}}
 
-\newlength{\Mydescriptionlen}
-\newcommand{\aligneddescriptionlabel}[1]{%
-  \settowidth{\Mydescriptionlen}{\textrm{#1}X}%
-  \ifthenelse{\lengthtest{\Mydescriptionlen > \labelwidth}}%
-      {\parbox[b]{\labelwidth}%
-        {\makebox[0pt][l]{\textrm{#1}}\\}}%
-      {\textrm{#1}}%
-  \hfil\relax}
-\newenvironment{aligneddescription}[1][40pt]
-  {\renewcommand{\entrylabel}{\aligneddescriptionlabel}\setlength{\Myentrydefaultwidth}{#1}
-    \begin{entry}}
-    {\end{entry}}
+%\newlength{\Mydescriptionlen}
+%\newcommand{\aligneddescriptionlabel}[1]{%
+%  \settowidth{\Mydescriptionlen}{\textrm{#1}X}%
+%  \ifthenelse{\lengthtest{\Mydescriptionlen > \labelwidth}}%
+%      {\parbox[b]{\labelwidth}%
+%        {\makebox[0pt][l]{\textrm{#1}}\\}}%
+%      {\textrm{#1}}%
+%  \hfil\relax}
+%\newenvironment{aligneddescription}[1][40pt]
+%  {\renewcommand{\entrylabel}{\aligneddescriptionlabel}\setlength{\Myentrydefaultwidth}{#1}
+%    \begin{entry}}
+%    {\end{entry}}
 
 
 %---------------------------------------
@@ -176,9 +193,9 @@
 %---------------------------------------
 % choices
 %---------------------------------------
-\newenvironment{choices}
-               {\begin{enumerate}[a)]}
-               {\end{enumerate}}
+%\newenvironment{choices}
+%               {\begin{enumerate}[a)]}
+%               {\end{enumerate}}
 
 
 %---------------------------------------
@@ -193,10 +210,10 @@
 % Eye catchers
 %---------------------------------------
 \newlength{\MyAttentionLen}
-\newenvironment{note}
+\newenvironment{info}
                {
                 \vspace{2ex}
-                \raisebox{\dimexpr\ht\strutbox-1.05\height}{\includegraphics[width=30pt]{images/info-icon.pdf}\hspace{0.75em}}
+                \raisebox{\dimexpr\ht\strutbox-1.05\height}{\includegraphics[width=30pt]{info-icon.pdf}\hspace{0.75em}}
                 \begin{minipage}[t]{\linewidth-40pt}\begin{itshape}
                }
                {
@@ -206,7 +223,7 @@
 \newenvironment{warning}
                {
                 \vspace{2ex}
-                \raisebox{\dimexpr\ht\strutbox-1.05\height}{\includegraphics[width=30pt]{images/warning-icon.pdf}\hspace{0.75em}}
+                \raisebox{\dimexpr\ht\strutbox-1.05\height}{\includegraphics[width=30pt]{warning-icon.pdf}\hspace{0.75em}}
                 \begin{minipage}[t]{\linewidth-40pt}\begin{bfseries}
                }
                {

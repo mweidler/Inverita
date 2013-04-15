@@ -29,9 +29,13 @@ echo "Creating man page..."
 #pandoc inverita.md -t man --standalone | grep -v "\[IMAGE:" >inverita.man
 
 echo "Creating pdf document..."
+convert images/info-icon.svg info-icon.pdf
+convert images/warning-icon.svg warning-icon.pdf
 pdflatex Inverita.latex
 pdflatex Inverita.latex
 rm Inverita.aux Inverita.lof Inverita.log Inverita.out Inverita.toc
+rm info-icon.pdf warning-icon.pdf
+
 
 #echo "Creating html version..."
 #rm -f inverita.html

@@ -19,7 +19,7 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-\documentclass[10pt,a4paper,halfparskip,twoside]{scrbook}
+\documentclass[10pt,a4paper,parskip=half,twoside]{scrbook}
 %\usepackage[latin1]{inputenc}
 
 \usepackage[T1]{fontenc} % Use standard postscript fonts
@@ -27,7 +27,13 @@
 \usepackage{palatino}
 
 \usepackage[pdftex]{graphicx}
-\usepackage{hyperref}
+\usepackage[pdftex,
+            pdfauthor={Marc Weidler},
+            pdftitle={INVERITA User Guide},
+            pdfsubject={INVERITA User Guide},
+            pdfkeywords={Backup},
+            pdfproducer={Latex with hyperref, or other system},
+            pdfcreator={pdflatex, or other tool}]{hyperref}
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{enumerate}
@@ -46,7 +52,6 @@
 \usepackage{Inverita}  % style
 
 
-
 %*****************************************************************************
 % Header/Footer, version
 %*****************************************************************************
@@ -56,21 +61,19 @@
 %\input{versioninfo}
 \renewcommand{\headerinfo}{\project\ Personal Backup}
 \renewcommand{\leftfooterinfo}{\textit{\version}}
-\renewcommand{\rightfooterinfo}{\textit{\project\ User's Guide}}
+\renewcommand{\rightfooterinfo}{\textit{\project\ User Guide}}
 
-\title{\headerinfo}
-\subtitle{User's Guide}
-\author{Written by Marc Weidler \\
-                \href{mailto:marc.weidler@web.de}{\texttt{marc.weidler@web.de}}}
+\title{\headerinfo\\ \Huge{User Guide}}
 \date{\version}
 
 %*****************************************************************************
 %* Document environment
 %*****************************************************************************
 \begin{document}
-%\import{INTRO/}{TitlePage}
-%\import{INTRO/}{Legal}
-\maketitle
+\input{content/TitlePage}
+\cleardoublepage
+\input{content/Legal}
+\cleardoublepage
 \tableofcontents
 
 
