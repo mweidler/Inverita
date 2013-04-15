@@ -31,10 +31,14 @@ echo "Creating man page..."
 echo "Creating pdf document..."
 convert images/info-icon.svg info-icon.pdf
 convert images/warning-icon.svg warning-icon.pdf
+convert images/scenario-usbdrive.svg scenario-usbdrive.pdf
+convert images/scenario-clouddrive.svg scenario-clouddrive.pdf
+convert images/scenario-nasdrive.svg scenario-nasdrive.pdf
 pdflatex Inverita.latex
 pdflatex Inverita.latex
 rm Inverita.aux Inverita.lof Inverita.log Inverita.out Inverita.toc
 rm info-icon.pdf warning-icon.pdf
+rm scenario-usbdrive.pdf scenario-clouddrive.pdf scenario-nasdrive.pdf
 
 
 #echo "Creating html version..."
