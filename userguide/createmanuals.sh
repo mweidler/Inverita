@@ -34,11 +34,12 @@ convert images/warning-icon.svg warning-icon.pdf
 convert images/scenario-usbdrive.svg scenario-usbdrive.pdf
 convert images/scenario-clouddrive.svg scenario-clouddrive.pdf
 convert images/scenario-nasdrive.svg scenario-nasdrive.pdf
+convert images/scenario-clouddrive-detailed.svg scenario-clouddrive-detailed.pdf
 pdflatex Inverita.latex
 pdflatex Inverita.latex
 rm Inverita.aux Inverita.lof Inverita.log Inverita.out Inverita.toc
 rm info-icon.pdf warning-icon.pdf
-rm scenario-usbdrive.pdf scenario-clouddrive.pdf scenario-nasdrive.pdf
+rm scenario-usbdrive.pdf scenario-clouddrive.pdf scenario-clouddrive-detailed.pdf scenario-nasdrive.pdf
 
 
 #echo "Creating html version..."

@@ -28,25 +28,14 @@
 
 
 %---------------------------------------
-% Set page margins
+% Colors
 %---------------------------------------
-%\newlength\papermarginwidth
-%\setlength\papermarginwidth{-5cm}
-
-%\newdimen\fullwidth
-%\setlength\fullwidth{\paperwidth}
-%\addtolength\fullwidth{-2\papermarginwidth}
-
-%\newdimen\leftmarginwidth
-%\setlength\leftmarginwidth{\fullwidth}
-%\addtolength\leftmarginwidth{-\textwidth}
+\definecolor{SectionBlue}{RGB}{0, 139, 221}
 
 
 %---------------------------------------
 % Heading format
 %---------------------------------------
-\definecolor{SectionBlue}{RGB}{0, 139, 221}
-
 \titleformat{\chapter}[display]
 {\bfseries\Large}
 {\filleft\MakeUppercase{\chaptertitlename}\hspace{1ex}\Huge\thechapter}
@@ -69,13 +58,13 @@
 {\color{SectionBlue}\normalfont}
 {\color{SectionBlue}\thesubsubsection}{1em}{}
 
-%---------------------------------------
-% Font selection
-%---------------------------------------
-%\renewcommand*\familydefault{\sfdefault}
 
-\newcommand{\padding}{\vspace{1em}}
+%---------------------------------------
+% Format commands
+%---------------------------------------
 \newcommand{\topic}[1]{\normalfont{\bfseries\color{SectionBlue}#1}\newline}
+\newcommand{\monospace}[1]{\texttt{#1}}
+
 
 %---------------------------------------
 % Change figure numbering to 1,2,3,...
@@ -86,36 +75,6 @@
 
 \newcounter{myequation}
 \renewcommand{\theequation}{\arabic{myequation}}
-
-
-%---------------------------------------
-% ledge
-%---------------------------------------
-%\newenvironment{ledge}
-%               {\list{}{%
-%                    \setlength{\labelsep}{0.5em}
-%                    \labelwidth\leftmarginwidth
-%                    \setlength{\leftmargin}{0cm}
-%                    \let\makelabel\ledgelabel}}
-%               {\endlist\padding}
-%\newcommand*\ledgelabel[1]{%
-%            \hfil
-%            \normalfont\textbf{#1}
-%            }
-
-%---------------------------------------
-% context
-%---------------------------------------
-%\newenvironment{context}
-%               {\begin{ledge}}
-%               {\end{ledge}}
-
-%---------------------------------------
-% hardware
-%---------------------------------------
-%\newenvironment{hardware}[1][All hardware]
-%              {\begin{ledge}\item[\fbox{#1}]}
-%               {\end{ledge}}
 
 
 %---------------------------------------
@@ -145,19 +104,6 @@
     \begin{entry}}
     {\end{entry}}
 
-%\newlength{\Mydescriptionlen}
-%\newcommand{\aligneddescriptionlabel}[1]{%
-%  \settowidth{\Mydescriptionlen}{\textrm{#1}X}%
-%  \ifthenelse{\lengthtest{\Mydescriptionlen > \labelwidth}}%
-%      {\parbox[b]{\labelwidth}%
-%        {\makebox[0pt][l]{\textrm{#1}}\\}}%
-%      {\textrm{#1}}%
-%  \hfil\relax}
-%\newenvironment{aligneddescription}[1][40pt]
-%  {\renewcommand{\entrylabel}{\aligneddescriptionlabel}\setlength{\Myentrydefaultwidth}{#1}
-%    \begin{entry}}
-%    {\end{entry}}
-
 
 %---------------------------------------
 % includegraphic
@@ -178,24 +124,16 @@
 %---------------------------------------
 % formula
 %---------------------------------------
-\newenvironment{formula}[1]
-  {\stepcounter{myequation}\begin{equation}\label{eq:#1}}
-  {\end{equation}\ignorespacesafterend}
+%\newenvironment{formula}[1]
+%  {\stepcounter{myequation}\begin{equation}\label{eq:#1}}
+%  {\end{equation}\ignorespacesafterend}
 
 
 %---------------------------------------
 % reference, eqreference
 %---------------------------------------
 \newcommand{\reference}[1]{Figure \ref{fig:#1}}
-\newcommand{\eqreference}[1]{Formula (\ref{eq:#1})}
-
-
-%---------------------------------------
-% choices
-%---------------------------------------
-%\newenvironment{choices}
-%               {\begin{enumerate}[a)]}
-%               {\end{enumerate}}
+%\newcommand{\eqreference}[1]{Formula (\ref{eq:#1})}
 
 
 %---------------------------------------
@@ -230,14 +168,6 @@
                 \end{bfseries}\end{minipage}\vspace{2ex}
                }
 
-%\newenvironment{warning}
-%               {\settowidth{\MyAttentionLen}{\includegraphics[width=40pt]{images/warning-icon.pdf}\hspace{1.0em}}
-%                \vspace{2ex}
-%                \raisebox{\dimexpr\ht\strutbox-1.05\height}{\includegraphics[width=40pt]{images/warning-icon.pdf}\hspace{0.75em}}
-%                \begin{minipage}[t]{\dimexpr \linewidth-\MyAttentionLen\relax}\begin{bfseries}
-%               }
-%               {\end{bfseries}\end{minipage}\vspace{2ex}}
-
 
 %---------------------------------------
 % console
@@ -246,12 +176,6 @@
 \newcommand{\consolecmd}{\renewcommand{\FancyVerbFormatLine}[1]{\colorbox{consolecolor}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{##1}}}}
 \DefineVerbatimEnvironment{console}{Verbatim}
 {showspaces=false, framesep=0mm, fontsize=\small, fontfamily=courier, fontseries=b, formatcom=\consolecmd}
-
-
-%---------------------------------------
-% monospace
-%--------------------------------------
-\newcommand{\monospace}[1]{\texttt{#1}}
 
 
 %---------------------------------------
