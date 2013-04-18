@@ -34,6 +34,76 @@
 
 
 %---------------------------------------
+% Listing
+%---------------------------------------
+\definecolor{cmtcolor}{rgb}{0,0.5,0}
+\definecolor{nbrcolor}{rgb}{0.5,0.5,0.5}
+\definecolor{keywordcolor}{rgb}{0.5,0,0.5}
+\definecolor{consolebk}{RGB}{250,250,250}
+
+\lstset{belowskip=-18pt}
+\lstdefinestyle{script}
+{ language=bash,
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\ttfamily\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{cmtcolor},   % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=none,                      % adds a frame around the code
+  keywordstyle=\color{keywordcolor},       % keyword style
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{nbrcolor},% the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{blue},        % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+%alsoletter={~$},
+  literate={§}{{\bfseries{\$}}}1
+%         {~}{{\bfseries{}}}1,
+}
+
+\lstdefinestyle{console}
+{ language=bash,
+  backgroundcolor=\color{consolebk},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\ttfamily\bfseries\small,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{cmtcolor},   % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=none,                      % adds a frame around the code
+  keywordstyle=\color{keywordcolor},       % keyword style
+  morekeywords={inverita},            % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{nbrcolor},% the style that is used for the line-numbers
+  rulecolor=\color{SectionBlue},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{blue},        % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+%alsoletter={~$},
+  literate={§}{{\bfseries{\$}}}1
+%         {~}{{\bfseries{}}}1,
+}
+
+
+%---------------------------------------
 % Heading format
 %---------------------------------------
 \titleformat{\chapter}[display]
@@ -130,6 +200,14 @@
 
 
 %---------------------------------------
+% listing
+%--------------------------------------
+%\newcommand{\listingcmd}{\renewcommand{\FancyVerbFormatLine}[1]{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{##1}}}
+%\DefineVerbatimEnvironment{listing}{Verbatim}
+%{frame=single, numbers=left, fontsize=\footnotesize, formatcom=\listingcmd}
+
+
+%---------------------------------------
 % reference, eqreference
 %---------------------------------------
 \newcommand{\reference}[1]{Figure \ref{fig:#1}}
@@ -151,7 +229,7 @@
 \newenvironment{info}
                {
                 \vspace{2ex}
-                \raisebox{\dimexpr\ht\strutbox-1.05\height}{\includegraphics[width=30pt]{info-icon.pdf}\hspace{0.75em}}
+                \raisebox{\dimexpr\ht\strutbox-1.05\height}{\includegraphics[width=30pt]{images/info-icon.pdf}\hspace{0.75em}}
                 \begin{minipage}[t]{\linewidth-40pt}\begin{itshape}
                }
                {
@@ -161,7 +239,7 @@
 \newenvironment{warning}
                {
                 \vspace{2ex}
-                \raisebox{\dimexpr\ht\strutbox-1.05\height}{\includegraphics[width=30pt]{warning-icon.pdf}\hspace{0.75em}}
+                \raisebox{\dimexpr\ht\strutbox-1.05\height}{\includegraphics[width=30pt]{images/warning-icon.pdf}\hspace{0.75em}}
                 \begin{minipage}[t]{\linewidth-40pt}\begin{bfseries}
                }
                {

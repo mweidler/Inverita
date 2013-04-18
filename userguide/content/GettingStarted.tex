@@ -21,9 +21,62 @@
 
 \chapter{Getting started}
 
-\section{Basic functionality}
+\section{Purpose of INVERITA}
+INVERITA Personal Backup tool for Unix/Linux (in the following called INVERITA)
+is a software for data backup on various media. It's intention is not to be
+used for a complete system backup -- use a partition imaging software instead.
+INVERITA should be used for backup your home or data directory/partition
+and keep several historical snapshots to go back to previous file versions.
 
-INVERITA is a Software
+\section{Requirements}
+INVERITA is developed and optimized for Unix/Linux operating systems. It needs a file
+system on backup medium, that supports hard-links and meta information (user, permissions, dates).
+
+\begin{warning}
+Currently, only the 'ext4' and 'nfs' file systems are supported for backup mediums.
+It will not work with FAT/VFAT file systems!
+Make sure, that your file-system for backup data on your NFS server is 'ext4'.
+The data to be backed up can be reside on every files system that are supported
+by your Unix/Linux system.
+\end{warning}
+
+\section{Installation, desktop integration and theming}
+INVERITA can be installed by downloading the deb-package or, even better,
+including the Inverita PPA to your system. See details on <http://www.launchpad.net/~mweidler/inverita>.
+
+After package installation, there should appear a new menu entry \textbf{Inverita} in the
+\textit{Utility} section. Inverita uses automatically the current desktop theme, icons,
+fonts, etc.
+
+\section{Parameters}
+INVERITA can be started with parameters, e.g.
+
+\begin{lstlisting}[style=console]
+§ inverita <option>=<value> <option2>=<value2> ...
+\end{lstlisting}
+
+where \monospace{<option>} and \monospace{<value>} can be one of the following:
+\begin{attributes}
+ \item[-iconTheme=<ThemeName>]
+    If for whatever reason the current desktop theme is not used, one can force the
+    use of a specific theme by setting the theme name with this parameter, e.g.
+    \monospace{-iconTheme=Faenza}.
+
+  \item[-menusHaveIcons=true|false]
+    If for whatever reason the menu icons are not shown, one can force this by using
+    this parameter, e.g. \monospace{-menusHaveIcons=true}.
+
+  \item[-translation=yes|no|<locale>]
+    If for whatever reason the translation of the text displayed by Inverita is not
+    working properly, one can control the behaviour by setting the translation
+    parameter:
+    \begin{attributes}[50pt]
+       \item[yes]    use translation and use the system default language (default)
+       \item[no]     disable translation. English language texts will be used.
+       \item[<locale>] use translation and use this locate identifier, e.g. de\_DE
+    \end{attributes}
+    Example: \monospace{-translation=de\_DE}
+\end{attributes}
 
 
 \section{Terminology}
@@ -38,12 +91,16 @@ the functionality of Inverita.
          Inverita stores the list of Backup in the user's
          configuration directory \monospace{\$HOME/.config/inverita.conf}.
 
+\label{test1}
+
 \subsection{Configuration}
          The Backup Configuration specifies the name of the Backup,
          if the data should be encrypted or not, included
          directories, exclude patterns and many more options.
          The configuration file is stored in the backup storage
          location and has the name 'inverita.conf'.
+
+\label{test2}
 
 \subsection{Backup snapshot}
          The Backup snapshot is a directory inside the

@@ -25,29 +25,6 @@
 INVERITA Personal Backup tool for Unix/Linux (in the following called INVERITA)
 is a software for data backup on various media.
 
-\begin{info}
-This is a test This is a test This is a test This is a test This is a test This is a test
-This is a test This is a test This is a test This is a test This is a test This is a test
-This is a test This is a test This is a test This is a test This is a test This is a test
-This is a test This is a test This is a test This is a test This is a test This is a test
-This is a test This is a test This is a test This is a test This is a test This is a test
-This is a test This is a test This is a test This is a test This is a test This is a test
-\end{info}
-
-NormaL Test and is the test a test or is it not a test, i dont know, but i think this is a test
- Test and is the test a test or is it not a test, i dont know, but i think this is a test
-
-\begin{warning}
-This is a test This is a test This is a test This is a test This is a test This is a test
-This is a test This is a test This is a test This is a test This is a test This is a test
-This is a test This is a test This is a test This is a test This is a test This is a test
-This is a test This is a test This is a test This is a test This is a test This is a test
-This is a test This is a test This is a test This is a test This is a test This is a test
-This is a test This is a test This is a test This is a test This is a test This is a test
-\end{warning}
-
-And this is a text
-
 The main features are:
 \begin{enumerate}
   \item Backup data in snapshots
@@ -57,88 +34,7 @@ The main features are:
 \end{enumerate}
 
 
-\section{Requirements}
-INVERITA is developed and optimized for Unix/Linux operating systems.
-It needs a file system on backup medium, that supports hard-links and
-meta information (user, permissions, dates).
-Currently, only the 'ext4' and 'nfs' file systems are supported.
-It will not work with FAT/VFAT file systems!
-
-
-\section{Installation, desktop integration and theming}
-After package installation, there should appear a new menu entry "Inverita" in the
-"Utility" section. Inverita uses automatically the current desktop theme, icons,
-fonts, etc.
-
-
-\section{Parameters}
-INVERITA can be started with parameters, e.g.
-\begin{console}
-$ inverita <option>=<value> <option2>=<value2> ...
-\end{console}
-where \monospace{<option>} and \monospace{<value>} can be one of the following:
-\begin{attributes}
- \item[-iconTheme=<ThemeName>]
-    If for whatever reason the current desktop theme is not used, one can force the
-    use of a specific theme by setting the theme name with this parameter, e.g.
-    \monospace{-iconTheme=Faenza}.
-
-  \item[-menusHaveIcons=true|false]
-    If for whatever reason the menu icons are not shown, one can force this by using
-    this parameter, e.g. \monospace{-menusHaveIcons=true}.
-
-  \item[-translation=yes|no|<locale>]
-    If for whatever reason the translation of the text displayed by Inverita is not
-    working properly, one can control the behaviour by setting the translation
-    parameter:
-    \begin{attributes}[50pt]
-       \item[yes]    use translation and use the system default language (default)
-       \item[no]     disable translation. English language texts will be used.
-       \item[<locale>] use translation and use this locate identifier, e.g. de\_DE
-    \end{attributes}
-    Example: \monospace{-translation=de\_DE}
-\end{attributes}
-
-
-\section{License}
-Copyright (C) 2012-2013\\
-Marc Weidler <marc.weidler@web.de>\\
-Ulrichstr. 12/1, 71672 Marbach am Neckar, Germany.\\
-All rights reserved.
-
-INVERITA is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-INVERITA is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-
-
 \chapter{Configuration}
-
-\section{Introduction}
-INVERITA is a text-to-HTML conversion tool for web writers. Markdown
-allows you to write using an easy-to-read, easy-to-write plain text
-format, then convert it to structurally valid XHTML (or HTML).
-
-Thus, "Markdown" is two things: a plain text markup syntax, and a
-software tool, written in Perl, that converts the plain text markup 
-to HTML.
-
-Markdown works both as a Movable Type plug-in and as a standalone Perl
-script -- which means it can also be used as a text filter in BBEdit
-(or any other application that supporst filters written in Perl).
-
-Full documentation of Markdown's syntax and configuration options is
-available on the web: "http://daringfireball.net/projects/markdown/".
-(Note: this readme file is formatted in Markdown.)
 
 \includegraphic[0.8]{images/MainScreen.png}{Main dialog}{Label}
 \includegraphic[0.8]{images/MainScreen.png}{Main dialog}{Label2}
@@ -146,96 +42,74 @@ available on the web: "http://daringfireball.net/projects/markdown/".
 
 \section{Installation and Requirements}
 
-Markdown requires Perl 5.6.0 or later. Welcome to the 21st Century.
-Markdown also requires the standard Perl library module `Digest::MD5`. 
-
-
 \section{Typical usage scenarios}
 
 \subsection{Backup on external USB drive}
-\includegraphic[0.75]{scenario-usbdrive.pdf}{Scenario USB drive}{ScenarioUSB}
+\includegraphic{images/scenario-usbdrive.pdf}{Scenario USB drive}{ScenarioUSB}
 
 \subsection{Backup on internet cloud drive}
-\includegraphic[0.75]{scenario-clouddrive.pdf}{Scenario Cloud drive}{ScenarioCloud}
+\includegraphic{images/scenario-clouddrive.pdf}{Scenario Cloud drive}{ScenarioCloud}
 
 \subsection{Backup on network attached storage (NAS)}
-\includegraphic[0.75]{scenario-nasdrive.pdf}{Scenario NAS drive}{ScenarioNAS}
+\includegraphic{images/scenario-nasdrive.pdf}{Scenario NAS drive}{ScenarioNAS}
 
-\includegraphic{scenario-clouddrive-detailed.pdf}{Scenario Cloud drive detailed}{ScenarioCloudD}
+\includegraphic{images/scenario-clouddrive-detailed.pdf}{Scenario Cloud drive detailed}{ScenarioCloudD}
 
 \section{misc}
 
-Backup
+\topic{Backup}
 A backup is a configuration of what data to back up, storage location,
 encryption, includes, excludes and many more.
 
-Backup snapshot
+\topic{Backup snapshot}
 A backup snapshot represents the copy of the data on the backup media
 for a specific backup execution and contains the data themself, meta data
 and a list of cryptographic representation of each contained file.
 
-Backup snapshot validation
+\topic{Backup snapshot validation}
 A backup snapshot on the backup media can be validated at every time
 without accessing having access to the original data. A regererated SHA-1
 checksum of each file is compared to the SHA-1 checksum generated from the
 original file at time of backup.
 
-Manual snapshot validation
+\topic{Manual snapshot validation}
 This can even be done without INVERITA. The SHA-1 checksums are stored
 in the file 'digests' which is compatible with the Linux/Unix command 'sha1sum'.
 Change to the snapshot directory to be validated and start sha1sum
 
-\begin{console}
-$ cd /media/BackupUSBDrive/@243423-42323
-$ sha1sum -c digests
-\end{console}
+\begin{lstlisting}[style=console]
+§ cd /media/BackupUSBDrive/@243423-42323
+§ sha1sum -c digests
+\end{lstlisting}
 
-NOTE: You can simply access the latest snapshot of a backup by using the
-      symbolic link 'latest' that points to the latest snapshot directory.
+\topic{Automated snapshot validation}
+If your backup media is a PC or NAS, you are even able to automate a periodic
+backup snapshot validation with the help of a cron job. In case of a fail,
+you can send an eMail to all interested people.
 
-      $ cd /media/BackupUSBDrive/latest
-      $ sha1sum -c digests
+Make sure, that the package 'sendmail' is configured properly on you PC or NAS
+where the script should run on!
 
-NOTE: If your backup media is a PC or NAS, you are even able to automate a periodic
-      backup snapshot validation with the help of a cron job. In case of a fail,
-      you can send an eMail to all interested people.
+\begin{info}
+You can simply access the latest snapshot of a backup by using the
+symbolic link 'latest' that points to the latest snapshot directory.
+\end{info}
 
-      Make sure, that the package 'sendmail' is configured properly on you PC or NAS
-      where the script should run on!
+\begin{lstlisting}[style=console]
+# change to the latest backup snapshot directory
+§ cd path_to_backup_location/latest   
+# check the file's integrity with sha1sum
+§ sha1sum -c digest
+\end{lstlisting}
 
-
-\section{Movable Type}
-
-Markdown works with Movable Type version 2.6 or later (including 
-MT 3.0 or later).
-
-\begin{enumerate}
-\item  Copy the "Markdown.pl" file into your Movable Type "plugins"
-    directory. The "plugins" directory should be in the same directory
-    as "mt.cgi"; if the "plugins" directory doesn't already exist, use
-    your FTP program to create it. Your installation should look like
-    this:
-
-        (mt home)/plugins/Markdown.pl
-
-\item Once installed, Markdown will appear as an option in Movable Type's
-    Text Formatting pop-up menu. This is selectable on a per-post basis.
-    Markdown translates your posts to HTML when you publish; the posts
-    themselves are stored in your MT database in Markdown format.
-
-\item If you also install SmartyPants 1.5 (or later), Markdown will offer
-    a second text formatting option: "Markdown with SmartyPants". This
-    option is the same as the regular "Markdown" formatter, except that
-    automatically uses SmartyPants to create typographically correct
-    curly quotes, em-dashes, and ellipses. See the SmartyPants web page
-    for more information: <http://daringfireball.net/projects/smartypants/>
-
-\item To make Markdown (or "Markdown with SmartyPants") your default
-    text formatting option for new posts, go to Weblog Config ->
-    Preferences.
-\end{enumerate}
-
-Note that by default, Markdown produces XHTML output. To configure
-Markdown to produce HTML 4 output, see "Configuration", below.
+See appendix \ref{app:valscript} on page \pageref{app:fdl} for an example script for automated
+snapshot validation.
 
 
+\begin{info}
+This is a test info
+\end{info}
+
+\begin{warning}
+This is a test warning
+\end{warning}
