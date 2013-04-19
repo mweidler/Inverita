@@ -22,15 +22,104 @@
 \chapter{Getting started}
 
 \section{Purpose of INVERITA}
-INVERITA Personal Backup tool for Unix/Linux (in the following called INVERITA)
-is a software for data backup on various media. It's intention is not to be
+INVERITA Personal Backup for Unix/Linux (in the following called INVERITA)
+is a software designed to backup your personal data. It's intention is not to be
 used for a complete system backup -- use a partition imaging software instead.
-INVERITA should be used for backup your home or data directory/partition
-and keep several historical snapshots to go back to previous file versions.
+INVERITA should be used for backup your home and data folders and keep several
+historical snapshots to go back to previous file versions.
+
+\section{Backup vs. safety copy}
+A backup is more than copying your data into a different folder. A backup shall
+protect you from data loss through manual failure (e.g. delete or overwrite a file),
+system crash corrupting your file system, hardware defects (e.g. system or
+hard drive), external impacts and vandalism. You shall be able to restore an old
+version of a single file even if you have overwritten or deleted it a long time ago.
+And you shall be able to validate the consistency of your backed-up data and even
+compare them against your current origin data to make sure you are really
+protected -- and not only think you are protected.
+
+Backup is not simply a copy of your data. Backup is a concept. It costs time
+and money. But if you have important data (e.g. family fotos, documents, project file, etc.)
+you don't want to loose, then you should make a real professional backup.
+INVERITA can help you doing this!
+
+\section{Developing a backup concept}
+First of all you shall work out a practical concept that matches your life and
+computer use. You shall be able to do your backup continuously in the future.
+The following topics shall be planned:
+\begin{enumerate}
+\item Which data shall I include in my backup?
+\item Where do I want to store my backup data on?
+\item Shall I use different backup media?
+\item How often shall I make a new backup?
+\item How often do I have to validate the integrity of the backup?
+\end{enumerate}
+This sounds complicated, but you will see, that it really makes sense to think about
+these topics. I will try to help you.
+
+\topic{Which data shall I include in my backup?}
+This is an important question, because your backup media should be chosen to this
+decision. Divide your entire data on your computer's hard drive in three categories:
+Unique (data con not be recreated or this is a huge amount of work), Important (data
+you need, but can be recreated if needed), and other data.
+Unique data are your home directory with all the configurations for software, scripts
+and much more, your data partition with your family fotos, documents and projects you
+have created. You don't want to loose them!
+Important data are your movie and music files.
+Other data is your operating system and applications. You need them, but they can easily
+be reinstalled. This will take some time, but it's not a disaster.
+Decide yourself which data shall be included in the backup, calculate twice the
+size of your data for your backup media. E.g. if your Unique and Important data has the
+size of 500 Megabyte, then your backup media should have a minimum capacity of 1 Terabyte.
+
+\topic{Where do I want to store my backup data on?}
+To protect yourself from hardware defects, external impacts and vandalism, you should
+choose an external media for backup storage. Connect this media only to your computer
+if needed and keep it at a save place otherwise. Use this drive only for backups,
+do not use it for other things or daily usage. I recommend to use an external USB
+drive. Choose a USB 3.0 class drive if possible to reach the maximum data transfer rates.
+
+\topic{Shall I use different backup media?}
+You shall even consider using a second external drive you use alternating. Choose a
+different drive on each time you make a new backup snapshot. This strategy even protects
+you from defects of the backup media. Yes, this costs money, but think yourself if this
+is worth it.
+
+\topic{How often shall I make a new backup?}
+This is a difficult question. But the answer is easy: Each time, you make changes to your data
+that is worth to keep. If you only check some eMails on your Computer, I would not
+recommend to make a new backup snapshot afterwards. But if you have done some nice work
+and want to keep it or you have created important files or copied some pictures from your
+camera, schedule a backup. In the next section you will understand why a new backup snapshot
+will not occupy much hard drive space. So every time you are in doubt, make a backup.
+
+\topic{How often do I have to validate the integrity of the backup?}
+Even more important than making a backup is to be able to rely on your data  on the
+backup media. If you do not copy and compare the files with your origin, you can
+not be sure your backup data are still readable.
+INVERITA supports you with validating your backup snapshot by storing cryptographic
+hashes (checksums) of each file in your backup along with the backup. INVERITA can
+validate the entire integrity of your backup snapshot with a single click.
+You should verify your backup snapshot after creation (INVERITA can do that automatically).
+Check historical backup snapshots from time to time to ensure they are still readable.
+
+\begin{info}
+The cryptograpic hashes created by INVERITA are compatible with \emph{sha1sum}.
+Thus you are able to check the backup snapshot integrity even without INVERITA
+with the help of the program \emph{sha1sum}. See page XXX for details.
+\end{info}
+
+If you develop a good backup concept and act as with the concept, you shall be able
+to sleep very well at night.
+
 
 \section{Requirements}
-INVERITA is developed and optimized for Unix/Linux operating systems. It needs a file
-system on backup medium, that supports hard-links and meta information (user, permissions, dates).
+INVERITA is developed and optimized for Unix/Linux operating systems. It has a
+graphical user interface (GUI) based on Qt and shall be runnable on all major
+desktop environments. It has been tested on KDE4, Gnome3, Mate, Xfce and Lmde.
+
+Backup medias must be rewritable and formatted with a file system that supports
+hard-links and meta information (user, permissions, dates).
 
 \begin{warning}
 Currently, only the 'ext4' and 'nfs' file systems are supported for backup mediums.
@@ -40,13 +129,24 @@ The data to be backed up can be reside on every files system that are supported
 by your Unix/Linux system.
 \end{warning}
 
+The backup media should be as fast as possible to avoid frustration about the
+long time a backup snapshot creation will take. Please use an external hard drive
+with USB 3.0 interface for best experiences. If you use a NAS (Network attached storage,
+see page XXX) drive as backup media, please make sure you access the NAS with Gigabit
+Ethernet. With a small amount of backup data, you should also be fine with a backup
+over WLAN.
+
+
 \section{Installation, desktop integration and theming}
 INVERITA can be installed by downloading the deb-package or, even better,
-including the Inverita PPA to your system. See details on <http://www.launchpad.net/~mweidler/inverita>.
+including the Inverita PPA to your Debian or Ubuntu system. See details on <http://www.launchpad.net/~mweidler/inverita>.
+
+RPM packages are currently not available.
 
 After package installation, there should appear a new menu entry \textbf{Inverita} in the
 \textit{Utility} section. Inverita uses automatically the current desktop theme, icons,
 fonts, etc.
+
 
 \section{Parameters}
 INVERITA can be started with parameters, e.g.
@@ -85,29 +185,29 @@ This section explains important terms which is needed to understand
 the functionality of Inverita.
 
 \subsection{Backup}
-   Inverita can manage several Backups. Each Backup has
-         a storage location where the configuration and the
-         Backup snapshots are stored.
-         Inverita stores the list of Backup in the user's
-         configuration directory \monospace{\$HOME/.config/inverita.conf}.
+Inverita can manage several Backups. Each Backup has
+a storage location where the configuration and the
+Backup snapshots are stored.
+Inverita stores the list of Backup in the user's
+configuration directory \monospace{\$HOME/.config/inverita.conf}.
 
 \label{test1}
 
 \subsection{Configuration}
-         The Backup Configuration specifies the name of the Backup,
-         if the data should be encrypted or not, included
-         directories, exclude patterns and many more options.
-         The configuration file is stored in the backup storage
-         location and has the name 'inverita.conf'.
+The Backup Configuration specifies the name of the Backup,
+if the data should be encrypted or not, included
+directories, exclude patterns and many more options.
+The configuration file is stored in the backup storage
+location and has the name 'inverita.conf'.
 
 \label{test2}
 
 \subsection{Backup snapshot}
-         The Backup snapshot is a directory inside the
-         backup storage and contains meta data (number of files, sizes, etc.),
-         cryptographic digests of all backed up files and the backed up files itself.
-         Identical files are linked in all backup snapshots and thus do not
-         require additional storage space.
-         The directory names of backup snapshots start with a @-sign followed by
-         the time stamp when the backup snapshot has been created, e.g. \monospace{@2013-03-02-10-15-31}
+The Backup snapshot is a directory inside the
+backup storage and contains meta data (number of files, sizes, etc.),
+cryptographic digests of all backed up files and the backed up files itself.
+Identical files are linked in all backup snapshots and thus do not
+require additional storage space.
+The directory names of backup snapshots start with a @-sign followed by
+the time stamp when the backup snapshot has been created, e.g. \monospace{@2013-03-02-10-15-31}
 
