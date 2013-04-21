@@ -56,7 +56,20 @@ Currently, only the 'ext4' and 'nfs' file systems are supported.
 It will not work with FAT/VFAT file systems!
 
 
-5. LICENSE
+5. PACKAGE-BUILD REQUIREMENTS
+-----------------------------
+
+The following packages are needed for building INVERITA components:
+
+Software:
+   to be defined
+
+User Guide:
+   sudo apt-get install texlive texlive-latex-extra
+   sudo apt-get install texlive-fonts-extra texlive-fonts-recommended
+
+
+6. LICENSE
 -----------
 
 Copyright (C) 2012-2013  Marc Weidler <marc.weidler@web.de>,
