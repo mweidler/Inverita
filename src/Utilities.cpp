@@ -146,7 +146,7 @@ QString formatSize(qint64 size)
     qreal   value = size;
     QString stringValue;
 
-    static QStringList units = (QStringList() << "Byte" << "kByte" << "MByte" << "GByte" << "TByte" << "PByte");
+    static QStringList units = (QStringList() << "Byte" << "kB" << "MB" << "GB" << "TB" << "PB");
 
     while (value >= 1000 && unitIdx < units.size()) {
         unitIdx++;
