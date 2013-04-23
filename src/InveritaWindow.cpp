@@ -505,6 +505,10 @@ void InveritaWindow::updateLatestLink(QString absolutePath)
 void InveritaWindow::onMenuNewBackup()
 {
     Configuration config;
+    // add default excludes
+    config.addExclude("lost+found");
+    config.addExclude("Dropbox");
+
     ConfigurationDialog configDialog(config, this);
     configDialog.setWindowTitle(tr("Create a new backup"));
     if (configDialog.exec() != QDialog::Accepted) {
