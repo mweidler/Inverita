@@ -19,7 +19,7 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-\documentclass[10pt,a4paper,parskip=half,twoside]{scrbook}
+\documentclass[11pt,a4paper,parskip=half,twoside]{scrbook}
 \usepackage[T1]{fontenc} % Use standard postscript fonts
 \usepackage{pslatex}
 \usepackage{palatino}
@@ -50,14 +50,13 @@
 %*****************************************************************************
 % Header/Footer, version
 %*****************************************************************************
-\newcommand{\project}{INVERITA}
-\newcommand{\titletext}{\project Personal Backup}
+\newcommand{\titletext}{INVERITA Personal Backup}
 \newcommand{\version}{Version 1.0 -- April 2013}
 
 %\input{versioninfo}
 \renewcommand{\headerinfo}{\titletext}
 \renewcommand{\leftfooterinfo}{\textit{\version}}
-\renewcommand{\rightfooterinfo}{\textit{\project\ User Guide}}
+\renewcommand{\rightfooterinfo}{\textit{INVERITA User Guide}}
 
 \title{\titletext\\
        \Huge{User Guide}
