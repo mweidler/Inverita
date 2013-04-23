@@ -56,8 +56,7 @@ QByteArray DigestsMap::load(const QString &filename)
     this->clear();
 
     QFile file(filename);
-    int success = file.open(QIODevice::ReadOnly);
-    if (!success) {
+    if (!file.open(QIODevice::ReadOnly)) {
         return QByteArray();
     }
 
@@ -90,7 +89,7 @@ QByteArray DigestsMap::load(const QString &filename)
 }
 
 
-/*! Saved the contents of this digests map to a digest file.
+/*! Save the contents of this digests map to a digest file.
  *
  * \param filename the filename of the digest file to save
  *
@@ -99,23 +98,24 @@ QByteArray DigestsMap::load(const QString &filename)
 QByteArray DigestsMap::save(const QString &filename)
 {
     QFile target(filename);
-    Checksum checksum;
-
-    int success = target.open(QIODevice::WriteOnly);
-    if (success) {
-        DigestsMapIterator iter(*this);
-        while (iter.hasNext()) {
-            iter.next();
-            QByteArray line;
-            line.append(iter.value());
-            line.append(" *");   // binary flag
-            line.append(iter.key().toUtf8());
-            line.append("\n");
-            checksum.update(line);
-            target.write(line);
-        }
+    if (!target.open(QIODevice::WriteOnly)) {
+        return QByteArray();
     }
 
-    return success ? checksum.finish() : QByteArray();
+    Checksum checksum;
+    QList<QString> paths = this->keys();
+    qSort(paths);
+
+    foreach(const QString & path, paths) {
+        QByteArray line;
+        line.append(this->value(path));
+        line.append(" *"); // binary flag
+        line.append(path.toUtf8());
+        line.append("\n");
+        checksum.update(line);
+        target.write(line);
+    }
+
+    return checksum.finish();
 }
 
