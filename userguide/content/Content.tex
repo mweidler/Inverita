@@ -229,8 +229,51 @@ the time stamp when the backup snapshot has been created, e.g. \monospace{@2013-
        Backup on external USB drive
        Backup on internet clou drive
        Backup on network attached storage (NAS)
-\section{Data encryption}
 
+\section{Data encryption}
+INVERITA can encrypt the data of a backup snapshot with the help of EncFS (http://www.arg0.net/encfs).
+EncFS provides a virtual directory above an underlying physical directory. Every data written
+to the virtual directory will be transparently and automatically encrypted and written to the
+physical directory. Data read from the virtual directory will be read from the physical
+directory and decrypted on the fly.
+By opening an encrypted Backup (see Configuration on page XX), INVERITA mounts a virtual
+directory though EncFS and writes/reads all data though this virtual directory. This results
+in having all data encrypted on the physical data storage directory.
+INVERITA uses the standard mode of EncFS with \textit{AES 192-bit} encryption. See the EncFS
+home page for more details.
+
+\begin{info}
+To ensure data privacy, you shall use data encryption in all cases, you store your backup
+data in an untrusted environment, e.g. online storage like DropBox or external USB drives
+you give out of your control.
+\end{info} 
+
+Using data encryption for backups will slow down the backup snapshot creation. It depends
+on your machines CPU how much the snapshot creation will be slower. You can approximately
+expect the double time for your backup execution.
+
+After opening an encrypted backup, you will see a newly mounted drive on your desktop. This
+new drive is the virtual EncFS drive. It is located in your home directory and has the name
+\texttt{inverita-backup}. You can use this virtual drive to access your encrypted data.
+By accessing files, all data will be transparently decrypted on the fly.
+It can be used to access your backup snapshot data and copy/restore files from it.
+On exiting INVERITA, the virtual drive will be unmounted and disappears from your desktop.
+
+You can also mount a virtual EncFS drive without INVERITA by mounting the drive manually:
+\begin{console}
+# Lets assume, that you have a encrypted backup directory 'Backup' in your DropBox
+# Create mount point
+$ mkdir ~/mybackup
+# Open encfs and create a virtual decrypted drive
+$ encfs ~/DropBox/Backup ~/mytest
+\end{console}
+
+\begin{warning}
+EncFS is not included in INVERITA. The EncFS packages must be installed separately.
+Normally the package shall be installed automatically during INVERITA installation
+with the help of the package manager. Without EncFS package, data encryption within
+INVERITA is not available.
+\end{warning}
 
 \section{Typical usage scenarios}
 
