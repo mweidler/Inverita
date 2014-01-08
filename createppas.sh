@@ -54,6 +54,11 @@ cd ../..
 ./preparepackage.sh saucy
 cd $TARGETDIR
 dpkg-buildpackage -S
+cd ../..
+
+./preparepackage.sh trusty
+cd $TARGETDIR
+dpkg-buildpackage -S
 cd ..
 
 ls -rtl
