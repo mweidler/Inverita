@@ -38,7 +38,7 @@ And you shall be able to validate the consistency of your backed-up data and eve
 compare them against your current origin data to make sure you are really
 protected -- and not only think you are protected.
 
-Backup is not simply a copy of your data. Backup is a concept. It costs time
+A Backup is not simply a copy of your data. A Backup is a concept. It costs time
 and money. But if you have important data (e.g. family fotos, documents, project file, etc.)
 you don't want to loose, then you should make a real professional backup.
 INVERITA can help you doing this!
@@ -46,6 +46,7 @@ INVERITA can help you doing this!
 \section{Developing a backup concept}
 First of all you shall work out a practical concept that matches your life and
 computer use. You shall be able to do your backup continuously in the future.
+
 The following topics shall be planned:
 \begin{enumerate}
 \item Which data shall I include in my backup?
@@ -54,8 +55,9 @@ The following topics shall be planned:
 \item How often shall I make a new backup?
 \item How often do I have to validate the integrity of the backup?
 \end{enumerate}
+
 This sounds complicated, but you will see, that it really makes sense to think about
-these topics. I will try to help you.
+these topics. You can find some hints in the following section.
 
 \topic{Which data shall I include in my backup?}
 This is an important question, because your backup media should be chosen to this
@@ -179,6 +181,20 @@ where \monospace{<option>} and \monospace{<value>} can be one of the following:
 \end{attributes}
 
 
+\chapter{Introduction}
+
+\section{Summary}
+INVERITA Personal Backup tool for Unix/Linux (in the following called INVERITA)
+is a software for data backup on various media.
+
+The main features are:
+\begin{enumerate}
+  \item Backup data in snapshots
+  \item Nice and user-friendly user interface
+  \item Hard-link technology for each backup snapshot to minimize needed media space
+  \item Integrity validation of backups
+\end{enumerate}
+
 \section{Terminology}
 
 This section explains important terms which is needed to understand
@@ -200,8 +216,6 @@ directories, exclude patterns and many more options.
 The configuration file is stored in the backup storage
 location and has the name 'inverita.conf'.
 
-\label{test2}
-
 \subsection{Backup snapshot}
 The Backup snapshot is a directory inside the
 backup storage and contains meta data (number of files, sizes, etc.),
@@ -211,3 +225,156 @@ require additional storage space.
 The directory names of backup snapshots start with a @-sign followed by
 the time stamp when the backup snapshot has been created, e.g. \monospace{@2013-03-02-10-15-31}
 
+\section{Typical usage scenarios}
+       Backup on external USB drive
+       Backup on internet clou drive
+       Backup on network attached storage (NAS)
+
+\section{Data encryption}
+INVERITA can encrypt the data of a backup snapshot with the help of EncFS (http://www.arg0.net/encfs).
+EncFS provides a virtual directory above an underlying physical directory. Every data written
+to the virtual directory will be transparently and automatically encrypted and written to the
+physical directory. Data read from the virtual directory will be read from the physical
+directory and decrypted on the fly.
+By opening an encrypted Backup (see Configuration on page XX), INVERITA mounts a virtual
+directory though EncFS and writes/reads all data though this virtual directory. This results
+in having all data encrypted on the physical data storage directory.
+INVERITA uses the standard mode of EncFS with \textit{AES 192-bit} encryption. See the EncFS
+home page for more details.
+
+\begin{info}
+To ensure data privacy, you shall use data encryption in all cases, you store your backup
+data in an untrusted environment, e.g. online storage like DropBox or external USB drives
+you give out of your control.
+\end{info} 
+
+Using data encryption for backups will slow down the backup snapshot creation. It depends
+on your machines CPU how much the snapshot creation will be slower. You can approximately
+expect the double time for your backup execution.
+
+After opening an encrypted backup, you will see a newly mounted drive on your desktop. This
+new drive is the virtual EncFS drive. It is located in your home directory and has the name
+\texttt{inverita-backup}. You can use this virtual drive to access your encrypted data.
+By accessing files, all data will be transparently decrypted on the fly.
+It can be used to access your backup snapshot data and copy/restore files from it.
+On exiting INVERITA, the virtual drive will be unmounted and disappears from your desktop.
+
+You can also mount a virtual EncFS drive without INVERITA by mounting the drive manually:
+\begin{console}
+# Lets assume, that you have a encrypted backup directory 'Backup' in your DropBox
+# Create mount point
+$ mkdir ~/mybackup
+# Open encfs and create a virtual decrypted drive
+$ encfs ~/DropBox/Backup ~/mytest
+\end{console}
+
+\begin{warning}
+EncFS is not included in INVERITA. The EncFS packages must be installed separately.
+Normally the package shall be installed automatically during INVERITA installation
+with the help of the package manager. Without EncFS package, data encryption within
+INVERITA is not available.
+\end{warning}
+
+\section{Typical usage scenarios}
+
+\subsection{Backup on external USB drive}
+\includegraphic{images/scenario-usbdrive.pdf}{Scenario USB drive}{ScenarioUSB}
+
+\subsection{Backup on internet cloud drive}
+\includegraphic{images/scenario-clouddrive.pdf}{Scenario Cloud drive}{ScenarioCloud}
+
+\subsection{Backup on network attached storage (NAS)}
+\includegraphic{images/scenario-nasdrive.pdf}{Scenario NAS drive}{ScenarioNAS}
+
+\includegraphic{images/scenario-clouddrive-detailed.pdf}{Scenario Cloud drive detailed}{ScenarioCloudD}
+
+\section{misc}
+
+\topic{Backup}
+A backup is a configuration of what data to back up, storage location,
+encryption, includes, excludes and many more.
+
+\topic{Backup snapshot}
+A backup snapshot represents the copy of the data on the backup media
+for a specific backup execution and contains the data themself, meta data
+and a list of cryptographic representation of each contained file.
+
+\topic{Backup snapshot validation}
+A backup snapshot on the backup media can be validated at every time
+without accessing having access to the original data. A regererated SHA-1
+checksum of each file is compared to the SHA-1 checksum generated from the
+original file at time of backup.
+
+\topic{Manual snapshot validation}
+This can even be done without INVERITA. The SHA-1 checksums are stored
+in the file 'digests' which is compatible with the Linux/Unix command 'sha1sum'.
+Change to the snapshot directory to be validated and start sha1sum
+
+\begin{lstlisting}[style=console]
+§ cd /media/BackupUSBDrive/@243423-42323
+§ sha1sum -c digests
+\end{lstlisting}
+
+\topic{Automated snapshot validation}
+If your backup media is a PC or NAS, you are even able to automate a periodic
+backup snapshot validation with the help of a cron job. In case of a fail,
+you can send an eMail to all interested people.
+
+Make sure, that the package 'sendmail' is configured properly on you PC or NAS
+where the script should run on!
+
+\begin{info}
+You can simply access the latest snapshot of a backup by using the
+symbolic link 'latest' that points to the latest snapshot directory.
+\end{info}
+
+\begin{lstlisting}[style=console]
+# change to the latest backup snapshot directory
+§ cd path_to_backup_location/latest   
+# check the file's integrity with sha1sum
+§ sha1sum -c digest
+\end{lstlisting}
+
+See appendix \ref{app:valscript} on page \pageref{app:fdl} for an example script for automated
+snapshot validation.
+
+
+\begin{info}
+This is a test info
+\end{info}
+
+\begin{warning}
+This is a test warning
+\end{warning}
+
+\chapter{Using INVERITA}
+
+\section{Starting INVERITA}
+\includegraphic[0.8]{images/MainScreen.png}{Main dialog}{Label}
+\includegraphic[0.8]{images/MainScreen.png}{Main dialog}{Label2}
+
+\section{Backup preparation}
+\subsection{USB storage preparation}
+\subsection{Internet cloud preparation}
+\subsection{NAS storage preparation}
+\section{Create a new Backup}
+\section{Backup configuration}
+\subsection{Storage location}
+\subsection{Encryption}
+\subsection{Backup label}
+\section{Included data}
+\section{Exclude patterns}
+\section{Options}
+\section{Create a backup snapshot}
+\subsection{Creation progress}
+\subsection{Error dialogs}
+\subsection{Execution report}
+\subsection{List of backup snapshots}
+\section{Verify a backup snapshot}
+\section{Verify historical backup snapshots}
+\section{Delete historical backup snapshots}
+\section{Open a backup snapshot}
+
+\chapter{Troubleshooting}
+\topic{How to get support}
+\topic{Can not create a Backup on external USB drive}
