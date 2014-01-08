@@ -122,7 +122,11 @@ Desktop::DesktopType Desktop::determineDesktopType()
     QString processlist = executeCommand("ps -e");
 
     if (processlist.contains("mateconfd")) {
-        return Desktop::Mate;
+        return Desktop::Mate14;
+    }
+
+    if (processlist.contains("mate-settings")) {
+        return Desktop::Mate16;
     }
 
     if (processlist.contains("gnome-session")) {
@@ -158,9 +162,14 @@ QString Desktop::determineIconTheme()
     QString tempTheme;
 
     switch (determineDesktopType()) {
-        case Desktop::Mate:
+        case Desktop::Mate14:
             tempTheme = executeCommand("mateconftool-2 --get /desktop/mate/interface/icon_theme");
             iconTheme = tempTheme.remove('\n');
+            break;
+
+        case Desktop::Mate16:
+            tempTheme = executeCommand("gsettings get org.mate.interface icon-theme");
+            iconTheme = tempTheme.remove('\n').remove('\'');
             break;
 
         case Desktop::Xfce4:
