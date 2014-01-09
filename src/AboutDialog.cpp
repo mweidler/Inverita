@@ -4,7 +4,7 @@
  * This file is part of INVERITA.
  *
  * INVERITA Personal Backup Software
- * Copyright (C) 2012-2013  Marc Weidler <marc.weidler@web.de>,
+ * Copyright (C) 2012-2014  Marc Weidler <marc.weidler@web.de>,
  *                          Ulrichstr. 12/1, 71672 Marbach, Germany.
  *                          All rights reserved.
  *
@@ -41,7 +41,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
     static const QString text =
         tr("<b>INVERITA Personal Backup</b> Version %1 (%2-bit)") + "<br>" +
-        QLatin1String("Copyright &copy; 2012-2013 Marc Weidler (marc.weidler@web.de). ") +
+        QLatin1String("Copyright &copy; 2012-2014 Marc Weidler (marc.weidler@web.de). ") +
         tr("All rights reserved.") + "<br><br>" +
         QLatin1String(
             "INVERITA is free software: you can redistribute it and/or modify "
@@ -55,7 +55,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
             "GNU General Public License for more details: http://www.gnu.org/licenses") + "<br><br>" +
         QLatin1String(
             "INVERITA uses Qt library %3 by Digia (http://www.qt-project.org/legal)<br>"
-            "Copyright &copy; 2013 Digia Plc and/or its subsidiary(-ies).")  + "<br><br>" +
+            "Copyright &copy; 2013-2014 Digia Plc and/or its subsidiary(-ies).")  + "<br><br>" +
         QLatin1String(
             "INVERITA makes use of EncFS (http://www.arg0.net/encfs)<br>"
             "Copyright &copy; 2003-2007, Valient Gough (vgough@pobox.com)")  + "<br><br>" +
