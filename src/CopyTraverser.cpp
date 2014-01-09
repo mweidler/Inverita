@@ -4,7 +4,7 @@
  * This file is part of INVERITA.
  *
  * INVERITA Personal Backup Software
- * Copyright (C) 2012-2013  Marc Weidler <marc.weidler@web.de>,
+ * Copyright (C) 2012-2014  Marc Weidler <marc.weidler@web.de>,
  *                          Ulrichstr. 12/1, 71672 Marbach, Germany.
  *                          All rights reserved.
  *
