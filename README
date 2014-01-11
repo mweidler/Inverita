@@ -18,9 +18,9 @@ The main features are:
 2. DESKTOP INTEGRATION and THEMING
 -----------------------------------
 
-After package installation, there should appear a new menu entry "Inverita" in the
-"Utility" section. Inverita uses automatically the current desktop theme, icons,
-fonts, etc.
+After package installation, there should appear a new menu entry "Inverita" in
+the "Utility" section. Inverita uses automatically the current desktop theme,
+icons, fonts, etc.
 
 
 3. PARAMETERS
@@ -30,17 +30,17 @@ INVERITA can be started with parameters, e.g.
         inverita <option>=<value> <option2>=<value2> ...
 where <option> and <value> can be one of the following:
  -iconTheme=ThemeName
-    If for whatever reason the current desktop theme is not used, one can force the
-    use of a specific theme by setting the theme name with this parameter.
+    If for whatever reason the current desktop theme is not used, one can force
+    the use of a specific theme by setting the theme name with this parameter.
 
  -menusHaveIcons=true
-    If for whatever reason the menu icons are not shown, one can force this by using
-    this parameter.
+    If for whatever reason the menu icons are not shown, one can force this by
+    using this parameter.
 
  -translation=[yes|no|<locale>]
-    If for whatever reason the translation of the text displayed by Inverita is not
-    working properly, one can control the behaviour by setting the translation
-    parameter:
+    If for whatever reason the translation of the text displayed by Inverita is
+    not working properly, one can control the behaviour by setting the
+    translation parameter:
        yes: use translation and use the system default language (default)
        no: disable translation. English language texts will be used.
        <locale>: use translation and use this locate identifier, e.g. de_DE
@@ -72,7 +72,7 @@ User Guide:
 6. LICENSE
 -----------
 
-Copyright (C) 2012-2013  Marc Weidler <marc.weidler@web.de>,
+Copyright (C) 2012-2014  Marc Weidler <marc.weidler@web.de>,
                          Ulrichstr. 12/1, 71672 Marbach, Germany.
                          All rights reserved.
 
@@ -88,3 +88,4 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
